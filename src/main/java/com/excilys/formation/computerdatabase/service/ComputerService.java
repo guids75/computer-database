@@ -18,8 +18,8 @@ public class ComputerService implements ComputerServiceInterface<Computer> {
     return computerService;
   }
 
-  public Computer create(Computer computer) {
-    return computerDao.create(computer);
+  public Computer insert(Computer computer) {
+    return computerDao.insert(computer);
   }
 
   public Computer update(Computer computer) {
@@ -30,12 +30,17 @@ public class ComputerService implements ComputerServiceInterface<Computer> {
     computerDao.delete(computer);
   }
 
-  public List<Computer> list(int nbElements, int offset, boolean write) {
-    return computerDao.list(nbElements, offset, write);
+  public List<Computer> list(int nbElements, int offset) {
+    return computerDao.list(nbElements, offset);
   }
 
   public void showComputerDetails(int computer) {
     computerDao.showComputerDetails(computer);
   }
+
+@Override
+public int getNumber() {
+	return computerDao.getNumber();
+}
     
 }

@@ -34,21 +34,16 @@ public class CompanyDao implements CompanyDaoInterface<Company> {
    * @param nbCompanies : number of companies to display
    * @param offset : the offset used to display
    */
-  public List<Company> list(int nbCompanies, int offset, boolean write) {
+  public List<Company> list(int nbCompanies, int offset) {
     jdbcConnection.openConnection();
-    request = "SELECT * FROM company";
-    if (nbCompanies == -1) {
-      request +=" LIMIT ? OFFSET ?";
-    }
+    request = "SELECT * FROM company LIMIT ? OFFSET ?";
     List<Company> listCompanies = new ArrayList<>();
     try {
       preparedStatement = jdbcConnection.getConnection().prepareStatement(request);
-      if (nbCompanies == -1) {
-        preparedStatement.setInt(1, nbCompanies);
-        preparedStatement.setInt(1, offset);
-      }
+      preparedStatement.setInt(1, nbCompanies);
+      preparedStatement.setInt(2, offset);
       results = preparedStatement.executeQuery(request);
-      listCompanies =  resultToObjectMapper.convertToCompanies(preparedStatement.executeQuery(), write);
+      listCompanies =  resultToObjectMapper.convertToCompanies(preparedStatement.executeQuery());
       preparedStatement.close();
     } catch (SQLException exception) {
       exception.printStackTrace();
@@ -57,5 +52,32 @@ public class CompanyDao implements CompanyDaoInterface<Company> {
     }
     return listCompanies;
   }
+  
+  public int getNumber(){
+	  int numberCompanies = -1; 
+	  request = "SELECT COUNT(*) as number FROM company";
+	  try { 
+	    Statement statement = jdbcConnection.getConnection().createStatement();
+	    results = statement.executeQuery(request); 
+	    results.next();
+	    numberCompanies = results.getInt("number");
+	  } catch (SQLException e) { 
+	    e.printStackTrace(); 
+	  } 
+	  return numberCompanies; 
+  } 
 
+  public Company getCompany(int id){
+    request = "SELECT * FROM company where id=?";
+    try (Connection connection = jdbcConnection.openConnection(); 
+        PreparedStatement preparedStatement = connection.prepareStatement(request)) {
+      preparedStatement.setInt(1,id);
+      results = preparedStatement.executeQuery();
+      results.next();
+    } catch (SQLException exception) {
+      exception.printStackTrace();
+    }
+    return resultToObjectMapper.convertToCompany(results);
+  }
+  
 }

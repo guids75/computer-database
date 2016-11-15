@@ -18,6 +18,6 @@ public interface ServiceInterface<T> {
     System.out.println("Default implementation of delete");
   }
   
-  public List<T> list(int nbElements, int offset, boolean write); 
+  public List<T> list(int nbElements, int offset); 
   
 }

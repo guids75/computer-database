@@ -1,22 +1,26 @@
 package com.excilys.formation.computerdatabase.ui;
 
-import com.excilys.formation.computerdatabase.model.Company;
-import com.excilys.formation.computerdatabase.model.Computer;
-import com.excilys.formation.computerdatabase.model.Page;
-
 import java.util.Scanner;
 
+import org.slf4j.LoggerFactory;
 
+import org.slf4j.Logger;
 
 public class Cli {
 
   public static void main(String[] args) {
 
-    ComputerUi cpUI = new ComputerUi();
-    CompanyUi cnUI = new CompanyUi();
-    Page<Computer> pagesComputer = new Page<>();
-    Page<Company> pagesCompany = new Page<>();
+    ComputerUi computerUi = new ComputerUi();
+    CompanyUi companyUi = new CompanyUi();
 
+    Logger slf4jLogger = LoggerFactory.getLogger(Cli.class);
+    
+    String name = "Abhijit";
+    slf4jLogger.debug("Hi, {}", name);
+    slf4jLogger.info("Welcome to the HelloWorld example of Logback.");
+    slf4jLogger.warn("Dummy warning message.");
+    slf4jLogger.error("Dummy error message.");
+    
     while (true){
 
       System.out.println("Options available :\n"
@@ -33,22 +37,22 @@ public class Cli {
 
       switch (action) {
       case "list computers":
-        cpUI.list(pagesComputer);
+        computerUi.list();
         break;
       case "list companies":
-        cnUI.list(pagesCompany);
+        companyUi.list();
         break;
       case "computer details":
-        cpUI.showComputerDetails();
+        computerUi.showComputerDetails();
         break;
       case "insert computer":
-        cpUI.insert(pagesComputer);
+        computerUi.insert();
         break;
       case "update computer":
-        cpUI.update(pagesComputer);
+        computerUi.update();
         break;
       case "delete computer":
-        cpUI.delete(pagesComputer);
+        computerUi.delete();
         break;
       }
     }

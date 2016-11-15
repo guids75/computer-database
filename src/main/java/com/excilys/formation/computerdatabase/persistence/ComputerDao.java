@@ -33,7 +33,7 @@ public class ComputerDao implements ComputerDaoInterface<Computer> {
   /** 
    * 
    */
-  public Computer create(Computer computer) {
+  public Computer insert(Computer computer) {
     request = "INSERT INTO computer VALUES (?, ?, ?, ?, ?)";
     try (Connection connection = jdbcConnection.openConnection(); 
         PreparedStatement preparedStatement = connection.prepareStatement(request)) {
@@ -87,12 +87,13 @@ public class ComputerDao implements ComputerDaoInterface<Computer> {
   /**
    * 
    */
-  public List<Computer> list(int nbElements, int offset, boolean write) {
-    request = "SELECT * FROM computer as comput, company as compan WHERE comput.company_id=compan.id"
-        ;
+  public List<Computer> list(int nbComputers, int offset) {
+    request = "SELECT * FROM computer as comput, company as compan WHERE comput.company_id=compan.id LIMIT ? OFFSET ?";
     try (Connection connection = jdbcConnection.openConnection(); 
         PreparedStatement preparedStatement = connection.prepareStatement(request)) {
-      return resultToObjectMapper.convertToComputers(preparedStatement.executeQuery(), write);
+        preparedStatement.setInt(1, nbComputers);
+        preparedStatement.setInt(2, offset);
+      return resultToObjectMapper.convertToComputers(preparedStatement.executeQuery());
     } catch (SQLException exception) {
       exception.printStackTrace();
     }
@@ -107,12 +108,27 @@ public class ComputerDao implements ComputerDaoInterface<Computer> {
     try (Connection connection = jdbcConnection.openConnection(); 
         PreparedStatement preparedStatement = connection.prepareStatement(request)) {
       preparedStatement.setInt(1, computerId);
-      Computer computer = resultToObjectMapper.convertToComputer(preparedStatement.executeQuery(), true);
+      Computer computer = resultToObjectMapper.convertToComputer(preparedStatement.executeQuery());
+      System.out.println(computer);
       return computer;
     } catch (SQLException exception) {
       exception.printStackTrace();
     }
     return null;
   }
+  
+  public int getNumber(){
+	  int numberComputers = -1; 
+	  request = "SELECT COUNT(*) as number FROM computer";
+	  try { 
+	    Statement statement = jdbcConnection.openConnection().createStatement();
+	    results = statement.executeQuery(request); 
+	    results.next();
+	    numberComputers = results.getInt("number");
+	  } catch (SQLException e) { 
+	    e.printStackTrace(); 
+	  } 
+	  return numberComputers; 
+  } 
 
 }

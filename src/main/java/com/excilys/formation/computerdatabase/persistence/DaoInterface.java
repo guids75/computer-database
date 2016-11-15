@@ -38,6 +38,6 @@ public interface DaoInterface<T> {
    * @param offset : the offset to display
    * @return : the list of all the T objects in the database
    */
-  public List<T> list(int nbElements, int offset, boolean write); 
+  public List<T> list(int nbElements, int offset); 
   
 }

@@ -6,10 +6,10 @@ public interface ComputerUiInterface extends UiInterface {
 
   public void showComputerDetails();
 
-  public void insert(Page p);
+  public void insert();
 
-  public void update(Page p);
+  public void update();
 
-  public void delete(Page p);
+  public void delete();
   
 }

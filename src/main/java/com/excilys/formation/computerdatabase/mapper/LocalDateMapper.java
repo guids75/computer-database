@@ -49,7 +49,7 @@ public class LocalDateMapper {
     if (date != null){
       return LocalDate.parse(simpleDateFormat.format(date));
     } else {
-      return LocalDate.now();
+      return null;
     }
   }
 

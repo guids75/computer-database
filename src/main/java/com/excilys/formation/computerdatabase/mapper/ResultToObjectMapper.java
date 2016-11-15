@@ -26,11 +26,11 @@ public class ResultToObjectMapper {
    * @param results
    * @return
    */
-  public List<Computer> convertToComputers(ResultSet results, boolean write) {
+  public List<Computer> convertToComputers(ResultSet results) {
     List<Computer> computers = new ArrayList<>();
     try {
       while (!results.isLast()) {
-        computers.add(convertToComputer(results, write));
+        computers.add(convertToComputer(results));
       }
     } catch (SQLException exception) {
       exception.printStackTrace();
@@ -43,17 +43,14 @@ public class ResultToObjectMapper {
    * @param results
    * @return
    */
-  public Computer convertToComputer(ResultSet results, boolean write) {
+  public Computer convertToComputer(ResultSet results) {
     try {
       results.next();
-      Computer computer = new Computer.ComputerBuilder(1, 
+      Computer computer = new Computer.ComputerBuilder(results.getInt("comput.Id"), 
           results.getString("comput.Name"), new Company(results.getInt("compan.Id"), results.getString("compan.Name")))
           .introduced(localMapper.convertToLocalDate(results.getDate("comput.Introduced")))
           .discontinued(localMapper.convertToLocalDate(results.getDate("comput.Discontinued")))
           .build();
-      if (write) {
-        System.out.println("Computer " + computer.getName() + " : " + computer.getId());
-      }
       return computer;
     } catch (SQLException exception) {
       exception.printStackTrace();
@@ -66,11 +63,11 @@ public class ResultToObjectMapper {
    * @param results
    * @return
    */
-  public List<Company> convertToCompanies(ResultSet results, boolean write) {
+  public List<Company> convertToCompanies(ResultSet results) {
     List<Company> companies = new ArrayList<>();
     try {
       while (!results.isLast()) {
-        companies.add(convertToCompany(results, write));
+        companies.add(convertToCompany(results));
       }
     } catch (SQLException exception) {
       exception.printStackTrace();
@@ -83,15 +80,12 @@ public class ResultToObjectMapper {
    * @param results
    * @return
    */
-  public Company convertToCompany(ResultSet results, boolean write) {
+  public Company convertToCompany(ResultSet results) {
     Company company = new Company();
     try {
       results.next();
       company.setId(results.getInt("Id"));
       company.setName(results.getString("Name"));
-      if (write) {
-        System.out.println("Company " + company.getName() + " : " + company.getId());
-      }
     } catch (SQLException exception) {
       exception.printStackTrace();
     }

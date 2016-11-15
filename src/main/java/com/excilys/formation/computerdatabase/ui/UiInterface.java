@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public interface UiInterface {
 
-  Scanner sc = new Scanner(System.in);
+  Scanner scanner = new Scanner(System.in);
 
   public void list();
   

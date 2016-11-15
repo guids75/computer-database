@@ -19,8 +19,17 @@ public class CompanyService implements CompanyServiceInterface<Company> {
   }
 
   @Override
-  public List<Company> list(int nbElements, int offset, boolean write) {
-    return companyDao.list(nbElements, offset, write);
+  public List<Company> list(int nbElements, int offset) {
+    return companyDao.list(nbElements, offset);
+  }
+
+  @Override
+  public int getNumber() {
+	return companyDao.getNumber();
+  }
+  
+  public Company getCompany(int id) {
+    return companyDao.getCompany(id);
   }
   
 }
