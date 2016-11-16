@@ -8,28 +8,37 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+/**
+ * @author GUIDS
+ *
+ */
 public class JdbcConnection {  
-  
-  private static Connection connection = null;
-  private static JdbcConnection jdbcConnection = new JdbcConnection();
-  private static final String propFileName = "connection.properties";
 
+  private static Connection connection = null; //connection
+  private static JdbcConnection jdbcConnection = new JdbcConnection(); //singleton of this class
+  private static final String PROP_FILE_NAME = "connection.properties"; //file to manage connection properties
+
+  /**
+   * Private constructor for singleton.
+   */
   private JdbcConnection() {
   }
 
-
+  /**
+   * @return the singleton corresponding to this class
+   */
   public static JdbcConnection getInstance() {
     return jdbcConnection;
   }
 
-  /**
+  /** Open a jdbc connection.
    * 
-   * @return
+   * @return the connection opened
    */
   public Connection openConnection() {
     try {
       Class.forName("com.mysql.jdbc.Driver");
-      Properties properties = PropertiesReader.getInstance().getPropValues(propFileName);
+      Properties properties = PropertiesReader.getInstance().getPropValues(PROP_FILE_NAME);
       connection = DriverManager.getConnection(properties.getProperty("url"),
           properties.getProperty("login"), properties.getProperty("password"));
       return connection;
@@ -41,7 +50,7 @@ public class JdbcConnection {
   }
 
   /**
-   * 
+   * Close a jdbc connection.
    */
   public void closeConnection() {
     try {
@@ -50,9 +59,12 @@ public class JdbcConnection {
       exception.printStackTrace();
     }
   }
-  
+
+  /**
+   * @return the current connection
+   */
   public Connection getConnection(){
-	  return connection;
+    return connection;
   }
 
 }

@@ -1,9 +1,13 @@
 package com.excilys.formation.computerdatabase.model;
 
+/**
+ * @author GUIDS
+ *
+ */
 public class Company {
 
-  private int id;
-  private String name;
+  private int id; // the id of the company
+  private String name; //the name of the company
 
   public Company() {}
 
@@ -12,18 +16,30 @@ public class Company {
     this.name = name;
   }
 
+  /**
+   * @return the current id of the company
+   */
   public int getId() {
     return id;
   }
 
+  /**
+   * @param id : the id to set
+   */
   public void setId(int id) {
     this.id = id;
   }
 
+  /**
+   * @return the current name of the company
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * @param name : the name to set
+   */
   public void setName(String name) {
     this.name = name;
   }
@@ -66,32 +82,6 @@ public class Company {
     }
     return true;
   }
-
-
-  /*@Override
-  public boolean equals(Object obj) {
-    if (obj == null) {
-      return false;
-    }
-    if (getClass() != obj.getClass()) {
-      return false;
-    }
-
-    final Company company = (Company) obj;
-    if (this.id != company.id) {
-      return false;
-    }
-    if (this.name != company.name) {
-      return false;
-    }
-    return true;
-  }
-
-
-  @Override
-  public int hashCode() {
-    return id * name.hashCode();
-  }*/
 
 
 

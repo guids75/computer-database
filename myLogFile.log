@@ -6,3 +6,15 @@
 2016-11-15 16:02:56,871 [main] INFO   c.e.f.computerdatabase.ui.Cli - Welcome to the HelloWorld example of Logback.
 2016-11-15 16:02:56,872 [main] WARN   c.e.f.computerdatabase.ui.Cli - Dummy warning message.
 2016-11-15 16:02:56,872 [main] ERROR  c.e.f.computerdatabase.ui.Cli - Dummy error message.
+2016-11-16 09:48:47,412 [main] DEBUG  c.e.f.computerdatabase.ui.Cli - Hi, Abhijit
+2016-11-16 09:48:47,414 [main] INFO   c.e.f.computerdatabase.ui.Cli - Welcome to the HelloWorld example of Logback.
+2016-11-16 09:48:47,414 [main] WARN   c.e.f.computerdatabase.ui.Cli - Dummy warning message.
+2016-11-16 09:48:47,414 [main] ERROR  c.e.f.computerdatabase.ui.Cli - Dummy error message.
+2016-11-16 09:49:02,805 [main] DEBUG  c.e.f.computerdatabase.ui.Cli - Hi, Abhijit
+2016-11-16 09:49:02,807 [main] INFO   c.e.f.computerdatabase.ui.Cli - Welcome to the HelloWorld example of Logback.
+2016-11-16 09:49:02,807 [main] WARN   c.e.f.computerdatabase.ui.Cli - Dummy warning message.
+2016-11-16 09:49:02,807 [main] ERROR  c.e.f.computerdatabase.ui.Cli - Dummy error message.
+2016-11-16 09:49:14,417 [main] DEBUG  c.e.f.computerdatabase.ui.Cli - Hi, Abhijit
+2016-11-16 09:49:14,420 [main] INFO   c.e.f.computerdatabase.ui.Cli - Welcome to the HelloWorld example of Logback.
+2016-11-16 09:49:14,420 [main] WARN   c.e.f.computerdatabase.ui.Cli - Dummy warning message.
+2016-11-16 09:49:14,420 [main] ERROR  c.e.f.computerdatabase.ui.Cli - Dummy error message.

@@ -13,14 +13,14 @@ public class Cli {
     ComputerUi computerUi = new ComputerUi();
     CompanyUi companyUi = new CompanyUi();
 
-    Logger slf4jLogger = LoggerFactory.getLogger(Cli.class);
-    
+    /*Logger slf4jLogger = LoggerFactory.getLogger(Cli.class);
+
     String name = "Abhijit";
     slf4jLogger.debug("Hi, {}", name);
     slf4jLogger.info("Welcome to the HelloWorld example of Logback.");
     slf4jLogger.warn("Dummy warning message.");
-    slf4jLogger.error("Dummy error message.");
-    
+    slf4jLogger.error("Dummy error message.");*/
+
     while (true){
 
       System.out.println("Options available :\n"
@@ -30,30 +30,32 @@ public class Cli {
           + "- insert computer\n"
           + "- update computer\n"
           + "- delete computer\n"
-          );
+      );
 
       Scanner in = new Scanner(System.in);
       String action = in.nextLine();
 
       switch (action) {
-      case "list computers":
-        computerUi.list();
-        break;
-      case "list companies":
-        companyUi.list();
-        break;
-      case "computer details":
-        computerUi.showComputerDetails();
-        break;
-      case "insert computer":
-        computerUi.insert();
-        break;
-      case "update computer":
-        computerUi.update();
-        break;
-      case "delete computer":
-        computerUi.delete();
-        break;
+        case "list computers":
+          computerUi.list();
+          break;
+        case "list companies":
+          companyUi.list();
+          break;
+        case "computer details":
+          computerUi.showComputerDetails();
+          break;
+        case "insert computer":
+          computerUi.insert();
+          break;
+        case "update computer":
+          computerUi.update();
+          break;
+        case "delete computer":
+          computerUi.delete();
+          break;
+        default :
+          break;
       }
     }
 

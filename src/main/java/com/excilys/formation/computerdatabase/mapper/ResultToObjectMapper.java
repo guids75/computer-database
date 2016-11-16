@@ -8,23 +8,32 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author GUIDS
+ *
+ */
 public class ResultToObjectMapper {
 
-  private static LocalDateMapper localMapper = LocalDateMapper.getInstance();
+  private static LocalDateMapper localMapper = LocalDateMapper.getInstance(); //utility to process dates
+  private static ResultToObjectMapper resultToObjectMapper = new ResultToObjectMapper(); //singleton of this class
 
-  private static ResultToObjectMapper resultToObjectMapper = new ResultToObjectMapper();
-
+  /**
+   * Private constructor for a singleton.
+   */
   private ResultToObjectMapper() {
   }
 
+  /**
+   * @return the singleton corresponding to this class
+   */
   public static ResultToObjectMapper getInstance() {
     return resultToObjectMapper;
   }
 
-  /**
+  /** Convert a resultSet to the list of computers inside.
    * 
-   * @param results
-   * @return
+   * @param results : the result of a query
+   * @return the list of computers corresponding
    */
   public List<Computer> convertToComputers(ResultSet results) {
     List<Computer> computers = new ArrayList<>();
@@ -38,10 +47,10 @@ public class ResultToObjectMapper {
     return computers;
   }
 
-  /**
+  /** Convert the first element of a resultSet to the computer inside.
    * 
-   * @param results
-   * @return
+   * @param results : the result of a query
+   * @return the computer corresponding
    */
   public Computer convertToComputer(ResultSet results) {
     try {
@@ -58,10 +67,10 @@ public class ResultToObjectMapper {
     return null;
   }
 
-  /**
+  /** Convert a resultSet to the list of companies inside.
    * 
-   * @param results
-   * @return
+   * @param results : the result of a query
+   * @return the list of computers corresponding
    */
   public List<Company> convertToCompanies(ResultSet results) {
     List<Company> companies = new ArrayList<>();
@@ -75,10 +84,10 @@ public class ResultToObjectMapper {
     return companies;
   }
 
-  /**
+  /** Convert the first element of a resultSet to the company inside.
    * 
-   * @param results
-   * @return
+   * @param results : the result of a query
+   * @return the company corresponding
    */
   public Company convertToCompany(ResultSet results) {
     Company company = new Company();

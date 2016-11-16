@@ -12,13 +12,13 @@ public class PropertiesReader {
 
   private PropertiesReader() {
   }
-  
+
   private static PropertiesReader propertiesReader = new PropertiesReader();
-  
+
   public static PropertiesReader getInstance() {
     return propertiesReader;
   }
-  
+
   /**
    * 
    * @return
@@ -36,8 +36,8 @@ public class PropertiesReader {
         throw new FileNotFoundException("property file '" + propFileName 
             + "' not found in the classpath");
       }
-    } catch (Exception e) {
-      System.out.println("Exception: " + e);
+    } catch (Exception exception) {
+      System.out.println("Exception: " + exception);
     } finally {
       inputStream.close();
     }

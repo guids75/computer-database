@@ -5,31 +5,38 @@ import com.excilys.formation.computerdatabase.persistence.CompanyDao;
 
 import java.util.List;
 
-public class CompanyService implements CompanyServiceInterface<Company> {
+/**
+ * @author GUIDS
+ *
+ */
+public class CompanyService implements CompanyServiceInterface {
 
-  private static final CompanyDao companyDao = CompanyDao.getInstance();
-  
+  private static final CompanyDao companyDao = CompanyDao.getInstance(); //dao of Company to manage the companies
+  private static CompanyService companyService = new CompanyService(); //singleton of this class
+
+  /**
+   * Private constructor for singleton
+   */
   private CompanyService() {
   }
-  
-  private static CompanyService companyService = new CompanyService();
-  
+
+  /**
+   * @return the singleton corresponding to this class
+   */
   public static CompanyService getInstance() {
     return companyService;
   }
 
-  @Override
   public List<Company> list(int nbElements, int offset) {
     return companyDao.list(nbElements, offset);
   }
 
-  @Override
   public int getNumber() {
-	return companyDao.getNumber();
+    return companyDao.getNumber();
   }
-  
+
   public Company getCompany(int id) {
     return companyDao.getCompany(id);
   }
-  
+
 }

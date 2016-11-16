@@ -1,9 +1,23 @@
 package com.excilys.formation.computerdatabase.service;
 
-public interface ComputerServiceInterface<T> extends ServiceInterface<T> {
+import com.excilys.formation.computerdatabase.model.Computer;
 
+/**
+ * @author GUIDS
+ *
+ * @param <T> : Computer
+ */
+public interface ComputerServiceInterface extends ServiceInterface<Computer> {
+
+  /** Show all the attributes of the specified computer.
+   * 
+   * @param computerId : the id of the computer
+   */
   public void showComputerDetails(int computerId);
-  
-	public int getNumber();
+
+  /**
+   * @return the number of computers
+   */
+  public int getNumber();
 
 }

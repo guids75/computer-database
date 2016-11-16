@@ -4,14 +4,22 @@ import com.excilys.formation.computerdatabase.model.Company;
 
 import java.time.LocalDate;
 
+/**
+ * @author GUIDS
+ *
+ */
 public class Computer {
 
-  private final int id; //required
-  private final String name; //required
-  private final LocalDate introduced; //optional
-  private final LocalDate discontinued; //optional
-  private final Company company; //required
+  private final int id; //id of the computer, required
+  private final String name; //name of the computer, required
+  private final LocalDate introduced; //date when the computer was introduced, optional
+  private final LocalDate discontinued; //date when the computer was discontinued, optional
+  private final Company company; //company which produces the computer, required
 
+  /** Private constructor to use a builder.
+   * 
+   * @param builder : the builder of Computer.
+   */
   private Computer(ComputerBuilder builder) {
     this.id = builder.id;
     this.name = builder.name;
@@ -20,22 +28,37 @@ public class Computer {
     this.company = builder.company;
   }
 
+  /**
+   * @return the current id of the computer
+   */
   public int getId() {
     return id;
   }
 
+  /**
+   * @return the current name of the computer
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * @return the current date when the computer was introduced
+   */
   public LocalDate getIntroduced() {
     return introduced;
   }
 
+  /**
+   * @return the current date when the computer was discontinued
+   */
   public LocalDate getDiscontinued() {
     return discontinued;
   }
 
+  /**
+   * @return the current company which produces the computer
+   */
   public Company getCompany() {
     return company;
   }
@@ -105,6 +128,11 @@ public class Computer {
     return true;
   }
 
+
+  /** The class of the Computer builder.
+   * 
+   * @author GUIDS
+   */
   public static class ComputerBuilder {
     private final int id;
     private final String name;
@@ -112,7 +140,7 @@ public class Computer {
     private LocalDate discontinued;
     private final Company company;
 
-    /** The builder of Company.
+    /** The builder of Computer.
      * 
      * @param id : the id of the computer
      * @param name : the name of the computer
@@ -124,16 +152,30 @@ public class Computer {
       this.company = company;
     }
 
+    /** Setter for the introduced attribute.
+     * 
+     * @param introduced : the date to set
+     * @return the ComputerBuilder with his introduced date updated
+     */
     public ComputerBuilder introduced(LocalDate introduced) {
       this.introduced = introduced;
       return this;
     }
 
+    /** Setter for the discontinued attribute.
+     * 
+     * @param discontinued : the date to set
+     * @return the ComputerBuilder with his discontinued date updated
+     */
     public ComputerBuilder discontinued(LocalDate discontinued) {
       this.discontinued = discontinued;
       return this;
     }
 
+    /** Create the Computer according to the ComputerBuilder values.
+     * 
+     * @return the Computer based on its builder
+     */
     public Computer build() {
       return new Computer(this);
     }

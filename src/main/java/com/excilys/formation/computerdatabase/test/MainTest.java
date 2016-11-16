@@ -5,14 +5,14 @@ import com.excilys.formation.computerdatabase.persistence.JdbcConnection;;
 public class MainTest {
 
   private static final JdbcConnection jdbcConnection = JdbcConnection.getInstance();
-  
+
   /**
    * 
    * @param args
    */
   public static void main(String[] args) {
 
-    
+
     jdbcConnection.openConnection();
     jdbcConnection.closeConnection();
     /*GestionCompany gcn = new GestionCompany();

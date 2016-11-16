@@ -1,22 +1,38 @@
 package com.excilys.formation.computerdatabase.dto;
 
+/**
+ * @author GUIDS
+ *
+ */
 public class CompanyDto {
   
-  private int id;
-  private String name;
+  private int id; //id of the company
+  private String name; //name of the company
 
+  /**
+   * @return the current id of the company
+   */
   public int getId() {
     return id;
   }
 
+  /**
+   * @param id : the id to set
+   */
   public void setId(int id) {
     this.id = id;
   }
 
+  /**
+   * @return the current name of the company
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * @param name : the name to set
+   */
   public void setName(String name) {
     this.name = name;
   }

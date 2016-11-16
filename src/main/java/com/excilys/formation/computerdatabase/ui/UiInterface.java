@@ -7,5 +7,5 @@ public interface UiInterface {
   Scanner scanner = new Scanner(System.in);
 
   public void list();
-  
+
 }

@@ -24,27 +24,28 @@ public class ComputerUi implements ComputerUiInterface {
   private String intro = "";
   private String disco = "";
   private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-dd"); 
-  private int company_id;
+  private int companyId;
   private int nbComputers;
 
   private int offset = 0;
   private Page<Computer> pages;
-  
-  public ComputerUi(){
+
+  public ComputerUi() {
     nbComputers = computerService.getNumber();
-	  pages = new Page<>(nbComputers);
+    pages = new Page<>(nbComputers);
   }
-  
+
+  @Override
   public void list() {
     print(computerService.list(Page.getNbElementsByPage(), offset));
     System.out.println("Type b to see before, a to see after, q to quit");
     String line = scanner.nextLine();
-    while (!line.equals("q")){
-      if (line.equals("a")){
+    while (!line.equals("q")) {
+      if (line.equals("a")) {
         if (pages.hasNext()) {
           offset += Page.getNbElementsByPage();
         }
-        pages.setActualPage(pages.getActualPage()+1);
+        pages.setActualPage(pages.getActualPage() + 1);
         print(computerService.list(Page.getNbElementsByPage(), offset));
         line = scanner.nextLine();
       }
@@ -52,20 +53,20 @@ public class ComputerUi implements ComputerUiInterface {
         if (pages.hasPrev()) {
           offset -= Page.getNbElementsByPage();
         }
-        pages.setActualPage(pages.getActualPage()-1);
+        pages.setActualPage(pages.getActualPage() - 1);
         print(computerService.list(Page.getNbElementsByPage(), offset));
         line = scanner.nextLine();
       }
     }
   }
-  
-  public void print(List<Computer> computers){
-	  for (Computer computer : computers){
-		  System.out.println(computer);
-	  }
+
+  public void print(List<Computer> computers) {
+    for (Computer computer : computers) {
+      System.out.println(computer);
+    }
   }
 
-  public void showComputerDetails(){
+  public void showComputerDetails() {
     System.out.println("which id?");
     while (!scanner.hasNextInt()) {
       System.out.println("You must use an integer");
@@ -75,7 +76,7 @@ public class ComputerUi implements ComputerUiInterface {
     scanner.nextLine();
   }
 
-  public void insert(){
+  public void insert() {
     System.out.println("which name?");
     String name = scanner.nextLine();
     System.out.println("which introducing date? (yyyy-M-dd)");
@@ -85,22 +86,22 @@ public class ComputerUi implements ComputerUiInterface {
     disco = scanner.nextLine();
 
     System.out.println("which company id?");
-    company_id = scanner.nextInt();
+    companyId = scanner.nextInt();
     scanner.nextLine();
     try {
       computer = new Computer.ComputerBuilder(++nbComputers, 
-          name, companyService.getCompany(company_id))
+          name, companyService.getCompany(companyId))
           .introduced(localDateMapper.convertToLocalDate(sdf.parse(intro)))
           .discontinued(localDateMapper.convertToLocalDate(sdf.parse(disco)))
           .build();
-    } catch (ParseException e) {
-      e.printStackTrace();
+    } catch (ParseException exception) {
+      exception.printStackTrace();
     }
     computerService.insert(computer);
-    pages.setNbPages(pages.getNbPages()+1);
+    pages.setNbPages(pages.getNbPages() + 1);
   }
 
-  public void update(){
+  public void update() {
     System.out.println("which computer id?");
     int id = scanner.nextInt();
     scanner.nextLine();
@@ -113,26 +114,26 @@ public class ComputerUi implements ComputerUiInterface {
     disco = scanner.nextLine();
 
     System.out.println("which company id?");
-    company_id = scanner.nextInt();
+    companyId = scanner.nextInt();
     scanner.nextLine();
-    
+
     try {
       computer = new Computer.ComputerBuilder(++nbComputers, 
-          name, companyService.getCompany(company_id))
+          name, companyService.getCompany(companyId))
           .introduced(localDateMapper.convertToLocalDate(sdf.parse(intro)))
           .discontinued(localDateMapper.convertToLocalDate(sdf.parse(disco)))
           .build();
-    } catch (ParseException e) {
-      e.printStackTrace();
+    } catch (ParseException exception) {
+      exception.printStackTrace();
     }
     computerService.update(computer);
   }
 
-  public void delete(){
+  public void delete() {
     System.out.println("which computer id?");
     computerService.delete(scanner.nextInt());
     scanner.nextLine();
-    pages.setNbPages(pages.getNbPages()-1);
+    pages.setNbPages(pages.getNbPages() - 1);
   }
 
 }

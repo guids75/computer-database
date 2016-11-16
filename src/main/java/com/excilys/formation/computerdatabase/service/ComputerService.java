@@ -5,15 +5,24 @@ import com.excilys.formation.computerdatabase.persistence.ComputerDao;
 
 import java.util.List;
 
-public class ComputerService implements ComputerServiceInterface<Computer> {
+/**
+ * @author GUIDS
+ *
+ */
+public class ComputerService implements ComputerServiceInterface {
 
-  private static final ComputerDao computerDao = ComputerDao.getInstance();
-  
+  private static final ComputerDao computerDao = ComputerDao.getInstance(); //dao for Computer to manage the computers
+  private static ComputerService computerService = new ComputerService(); //singleton of this class
+
+  /**
+   * Private constructor for singleton.
+   */
   private ComputerService() {
   }
-  
-  private static ComputerService computerService = new ComputerService();
-  
+
+  /**
+   * @return the singleton corresponding to this class
+   */
   public static ComputerService getInstance() {
     return computerService;
   }
@@ -38,9 +47,8 @@ public class ComputerService implements ComputerServiceInterface<Computer> {
     computerDao.showComputerDetails(computer);
   }
 
-@Override
-public int getNumber() {
-	return computerDao.getNumber();
-}
-    
+  public int getNumber() {
+    return computerDao.getNumber();
+  }
+
 }

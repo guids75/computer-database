@@ -2,9 +2,21 @@ package com.excilys.formation.computerdatabase.service;
 
 import com.excilys.formation.computerdatabase.model.Company;
 
-public interface CompanyServiceInterface<T> extends ServiceInterface<T> {
+/**
+ * @author GUIDS
+ *
+ * @param <T> : Company
+ */
+public interface CompanyServiceInterface extends ServiceInterface<Company> {
 
-	public int getNumber();
-	
-	public Company getCompany(int id);
+  /**
+   * @return the number of companies
+   */
+  public int getNumber();
+
+  /**
+   * @param id : the id of the company
+   * @return the company specified
+   */
+  public Company getCompany(int id);
 }

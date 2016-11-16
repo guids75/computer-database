@@ -2,18 +2,23 @@ package com.excilys.formation.computerdatabase.persistence;
 
 import java.util.List;
 
+/**
+ * @author GUIDS
+ *
+ * @param <T> : the object of the Dao
+ */
 public interface DaoInterface<T> {
-  
+
   /** Create a T object in the database. 
    * 
    * @param object : the object to create
    * @return : the T object created
    */
-  public default T create(T object) {
+  public default T insert(T object) {
     System.out.println("Default implementation of create");
     return null;
   }
-  
+
   /** Update a T object in the database.
    * 
    * @param object : the object to update
@@ -23,15 +28,15 @@ public interface DaoInterface<T> {
     System.out.println("Default implementation of update");
     return null;
   }
-  
+
   /** Delete a T object in the database.
    * 
-   * @param object : the T object to delete
+   * @param idObject : the id of the T object to delete
    */
-  public default void delete(T object) {
+  public default void delete(int idObject) {
     System.out.println("Default implementation of delete");
   }
-  
+
   /** Get the list of all the T objects in the database.
    * 
    * @param nbElements : the number of T objects in the database
@@ -39,5 +44,5 @@ public interface DaoInterface<T> {
    * @return : the list of all the T objects in the database
    */
   public List<T> list(int nbElements, int offset); 
-  
+
 }
