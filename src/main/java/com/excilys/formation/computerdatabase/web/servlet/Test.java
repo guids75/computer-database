@@ -1,4 +1,4 @@
-package com.excilys.formation.computerdatabase.servlet;
+package com.excilys.formation.computerdatabase.web.servlet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,11 +36,14 @@ public class Test extends HttpServlet {
   }*/
 
   @Override
-  public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
+  public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException{
 
-    String message = "Transmission de variables : OK !";
+    String paramAuteur = request.getParameter( "auteur" );
+
+    String message = "Transmission de variables : OK ! " + paramAuteur;
 
     request.setAttribute( "test", message );
+
 
     this.getServletContext().getRequestDispatcher( "/WEB-INF/test.jsp" ).forward( request, response );
 
