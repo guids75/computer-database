@@ -9,32 +9,76 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.excilys.formation.computerdatabase.exception.ConnectionException;
+import com.excilys.formation.computerdatabase.model.Company;
+import com.excilys.formation.computerdatabase.model.Page;
 import com.excilys.formation.computerdatabase.service.CompanyService;
 
+/**
+ * @author GUIDS
+ *
+ */
 public class CompaniesMenuSubmit extends HttpServlet {
 
-  private static CompanyService companyService = CompanyService.getInstance();
+  private static CompanyService companyService = CompanyService.getInstance(); //service of Company to manage them
   private static final Logger logger = LoggerFactory.getLogger(Test.class);
+  private Page<Company> pages; //pages' attributes to manage them
 
+  public CompaniesMenuSubmit() throws ConnectionException {
+    pages = new Page<>(companyService.getNumber());
+    pages.setActualPage(1);
+    pages.setNbElementsByPage(10);
+  }
+  
   @Override
-  public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException{
+  public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
 
-    String actionChosen = request.getParameter("companiesAction");
+    if (request.getParameter("companiesAction") != null) {  
+      String actionChosen = request.getParameter("companiesAction");
 
-    request.setAttribute( "actionChosen", actionChosen );
-
-    switch (actionChosen){
-    case ("listCompanies"):
-      int numberCompanies = companyService.getNumber();
-      request.setAttribute( "numberCompanies", numberCompanies );
-      request.setAttribute( "listCompanies", companyService.list(numberCompanies, 0));
-      System.out.println(companyService.list(numberCompanies, 0));
+      switch (actionChosen) {
+      case ("listCompanies"):
+        try {
+          request.setAttribute( "numberCompanies", pages.getNbElements() );
+          request.setAttribute( "listCompanies", companyService.list(pages.getNbElementsByPage(), 0));
+          request.setAttribute("numberPages", pages.getNbPages());
+        } catch (ConnectionException exception) {
+          exception.printStackTrace();
+        }
       this.getServletContext().getRequestDispatcher( "/WEB-INF/jsp/listCompanies.jsp" ).forward( request, response );
-    break;
-    default:
       break;
+      default:
+        break;
+      }
     }
-    
+
+  }
+
+  public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
+
+    if (request.getParameter("page") != null) {  
+      pages.setActualPage(Integer.parseInt(request.getParameter("page")));
+      if (request.getParameter("nbElements") != null) {
+        pages.setNbElementsByPage(Integer.parseInt(request.getParameter("nbElements")));
+        pages.calculateNbPages(pages.getNbElements());
+      }
+
+      try {
+        request.setAttribute( "numberCompanies", pages.getNbElements() );
+        request.setAttribute("actualPage", pages.getActualPage());
+        if (pages.getActualPage()-1 * pages.getNbElementsByPage() < pages.getNbElements()){
+            request.setAttribute( "listCompanies", companyService.list(pages.getNbElementsByPage(), (pages.getActualPage()-1) * pages.getNbElementsByPage()));
+        } else {
+          pages.setActualPage(pages.getActualPage()-1);
+          request.setAttribute( "listCompanies", companyService.list(pages.getNbElementsByPage(), (pages.getActualPage()-1) * pages.getNbElementsByPage()));
+        }
+        
+        request.setAttribute("numberPages", pages.getNbPages());
+      } catch (ConnectionException exception) {
+        exception.printStackTrace();
+      }
+      this.getServletContext().getRequestDispatcher( "/WEB-INF/jsp/listCompanies.jsp" ).forward( request, response );
+    }
 
   }
 

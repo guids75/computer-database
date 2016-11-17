@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <%@ page import="com.excilys.formation.computerdatabase.model.Company" %>
 <%@ page import="java.util.List" %>
 
@@ -23,11 +24,9 @@
     <section id="main">
         <div class="container">
             <h1 id="homeTitle">
-            <% 
-            Integer numberCompanies = (Integer) request.getAttribute("numberCompanies");
-            out.println( numberCompanies + " Companies found" );
-            %>
+            ${numberCompanies} Companies found
             </h1>
+            <tag:pageTag nbElementsByPage="10" actualPage="1" nbPages="5" />
             <div id="actions" class="form-horizontal">
                 <div class="pull-left">
                     <form id="searchForm" action="#" method="GET" class="form-inline">
@@ -37,8 +36,7 @@
                         class="btn btn-primary" />
                     </form>
                 </div>
-        </form>
-
+			</div>
         <div class="container" style="margin-top: 10px;">
             <table class="table table-striped table-bordered">
                 <thead>
@@ -48,10 +46,6 @@
                         <th>
                             Company name
                         </th>
-
-            <% 
-            List<Company> listCompanies = (List<Company>) request.getAttribute("listCompanies");
-            %>
  
 				<c:forEach var="company" items="${listCompanies}" >
                 <!-- Browse attribute computers -->
@@ -65,6 +59,7 @@
                 </c:forEach>
                 </tbody>
             </table>
+            </div>
         </div>
     </section>
 
@@ -72,28 +67,26 @@
         <div class="container text-center">
             <ul class="pagination">
                 <li>
-                    <a href="#" aria-label="Previous">
+                    <a href=<tag:linkTag target="companiesMenuSubmit" page="${actualPage-1}" nbElements="10"/> aria-label="Previous">
                       <span aria-hidden="true">&laquo;</span>
                   </a>
               </li>
-              <li><a href="#">1</a></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li><a href="#">4</a></li>
-              <li><a href="#">5</a></li>
+              <c:forEach var="page" begin="1" end="${numberPages}" >
+	              <li><a href=<tag:linkTag target="companiesMenuSubmit" page="${page}"/>>${page}</a></li>
+	          </c:forEach>
               <li>
-                <a href="#" aria-label="Next">
+                 <a href=<tag:linkTag target="companiesMenuSubmit" page="${actualPage+1}" nbElements="10"/> aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
         </ul>
-
+		
         <div class="btn-group btn-group-sm pull-right" role="group" >
-            <button type="button" class="btn btn-default">10</button>
-            <button type="button" class="btn btn-default">50</button>
-            <button type="button" class="btn btn-default">100</button>
+            <button type="button" class="btn btn-default" name="nbElements" onclick="window.location.href=<tag:linkTag target="companiesMenuSubmit" page="1" nbElements="10"/>;">10</button>
+            <button type="button" class="btn btn-default" name="nbElements" onclick="window.location.href=<tag:linkTag target="companiesMenuSubmit" page="1" nbElements="50"/>;">50</button>
+            <button type="button" class="btn btn-default" name="nbElements" onclick="window.location.href=<tag:linkTag target="companiesMenuSubmit" page="1" nbElements="100"/>;">100</button>
         </div>
-
+</div>
     </footer>
 <script src="../js/jquery.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>

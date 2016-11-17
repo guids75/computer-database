@@ -1,5 +1,6 @@
 package com.excilys.formation.computerdatabase.service;
 
+import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import com.excilys.formation.computerdatabase.model.Company;
 import com.excilys.formation.computerdatabase.persistence.CompanyDao;
 
@@ -27,15 +28,18 @@ public class CompanyService implements CompanyServiceInterface {
     return companyService;
   }
 
-  public List<Company> list(int nbElements, int offset) {
+  @Override
+  public List<Company> list(int nbElements, int offset) throws ConnectionException {
     return companyDao.list(nbElements, offset);
   }
 
-  public int getNumber() {
+  @Override
+  public int getNumber() throws ConnectionException {
     return companyDao.getNumber();
   }
 
-  public Company getCompany(int id) {
+  @Override
+  public Company getCompany(int id) throws ConnectionException {
     return companyDao.getCompany(id);
   }
 

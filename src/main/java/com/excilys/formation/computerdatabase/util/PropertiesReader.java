@@ -6,25 +6,35 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * @author GUIDS
+ *
+ */
 public class PropertiesReader {
 
   private static InputStream inputStream;
+  private static PropertiesReader propertiesReader = new PropertiesReader(); //singleton of this class
 
-  private PropertiesReader() {
-  }
-
-  private static PropertiesReader propertiesReader = new PropertiesReader();
-
-  public static PropertiesReader getInstance() {
-    return propertiesReader;
+  /**
+ * Private constructor for singleton.
+ */
+private PropertiesReader() {
   }
 
   /**
+ * @return the singleton corresponding to this class.
+ */
+public static PropertiesReader getInstance() {
+    return propertiesReader;
+  }
+
+  /** Read a properties file and return its properties.
    * 
-   * @return
-   * @throws IOException
-   */
-  public Properties getPropValues(String propFileName) throws IOException {
+ * @param propFileName : the name of the properties file
+ * @return Properties : return the properties read
+ * @throws IOException
+ */
+public Properties getPropValues(String propFileName) throws IOException {
 
     Properties prop = new Properties();
     try {

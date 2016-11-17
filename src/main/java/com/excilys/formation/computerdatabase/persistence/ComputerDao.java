@@ -1,5 +1,6 @@
 package com.excilys.formation.computerdatabase.persistence;
 
+import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import com.excilys.formation.computerdatabase.mapper.LocalDateMapper;
 import com.excilys.formation.computerdatabase.mapper.ResultToObjectMapper;
 import com.excilys.formation.computerdatabase.model.Computer;
@@ -47,7 +48,7 @@ public class ComputerDao implements ComputerDaoInterface {
   }
 
   @Override
-  public Computer insert(Computer computer) {
+  public Computer insert(Computer computer) throws ConnectionException {
     try (Connection connection = jdbcConnection.openConnection(); 
         PreparedStatement preparedStatement = connection.prepareStatement(INSERT_REQUEST)) {
       preparedStatement.setInt(1,computer.getId());
@@ -57,13 +58,13 @@ public class ComputerDao implements ComputerDaoInterface {
       preparedStatement.setInt(5,computer.getCompany().getId());
       preparedStatement.executeUpdate();
     } catch (SQLException exception) {
-      exception.printStackTrace();
+        throw new ConnectionException("computer failed to be inserted");
     }
     return computer;
   }
 
   @Override
-  public Computer update(Computer computer) {
+  public Computer update(Computer computer) throws ConnectionException {
     try (Connection connection = jdbcConnection.openConnection(); 
         PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_REQUEST)) {
       preparedStatement.setString(1, computer.getName());
@@ -74,37 +75,36 @@ public class ComputerDao implements ComputerDaoInterface {
       preparedStatement.executeUpdate();
       preparedStatement.close();
     } catch (SQLException exception) {
-      exception.printStackTrace();
+        throw new ConnectionException("computer failed to be updated");
     }
     return computer;
   }
 
   @Override
-  public void delete(int computerId) {
+  public void delete(int computerId) throws ConnectionException {
     try (Connection connection = jdbcConnection.openConnection(); 
         PreparedStatement preparedStatement = connection.prepareStatement(DELETE_REQUEST)) {
       preparedStatement.setInt(1, computerId);
       preparedStatement.executeUpdate();
     } catch (SQLException exception) {
-      exception.printStackTrace();
+        throw new ConnectionException("computer failed to be deleted");
     }
   }
 
   @Override
-  public List<Computer> list(int nbComputers, int offset) {
+  public List<Computer> list(int nbComputers, int offset) throws ConnectionException {
     try (Connection connection = jdbcConnection.openConnection(); 
         PreparedStatement preparedStatement = connection.prepareStatement(LIST_REQUEST)) {
       preparedStatement.setInt(1, nbComputers);
       preparedStatement.setInt(2, offset);
       return resultToObjectMapper.convertToComputers(preparedStatement.executeQuery());
     } catch (SQLException exception) {
-      exception.printStackTrace();
+        throw new ConnectionException("computers failed to be listed");
     }
-    return null;
   }
 
   @Override
-  public Computer showComputerDetails(int computerId) {
+  public Computer showComputerDetails(int computerId) throws ConnectionException {
     try (Connection connection = jdbcConnection.openConnection(); 
         PreparedStatement preparedStatement = connection.prepareStatement(DETAILS_REQUEST)) {
       preparedStatement.setInt(1, computerId);
@@ -112,13 +112,12 @@ public class ComputerDao implements ComputerDaoInterface {
       System.out.println(computer);
       return computer;
     } catch (SQLException exception) {
-      exception.printStackTrace();
+        throw new ConnectionException("computer failed to be detailed");
     }
-    return null;
   }
 
   @Override
-  public int getNumber() {
+  public int getNumber() throws ConnectionException {
     int numberComputers = -1; 
     try { 
       Statement statement = jdbcConnection.openConnection().createStatement();
@@ -126,7 +125,7 @@ public class ComputerDao implements ComputerDaoInterface {
       results.next();
       numberComputers = results.getInt("number");
     } catch (SQLException exception) { 
-      exception.printStackTrace(); 
+      throw new ConnectionException("computers failed to be counted");
     } 
     return numberComputers; 
   } 

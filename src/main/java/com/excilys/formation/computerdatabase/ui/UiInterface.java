@@ -2,10 +2,19 @@ package com.excilys.formation.computerdatabase.ui;
 
 import java.util.Scanner;
 
+import com.excilys.formation.computerdatabase.exception.ConnectionException;
+
+/**
+ * @author GUIDS
+ *
+ */
 public interface UiInterface {
 
   Scanner scanner = new Scanner(System.in);
 
-  public void list();
+  /** List of objects.
+   * 
+   */
+  public void list() throws ConnectionException;
 
 }

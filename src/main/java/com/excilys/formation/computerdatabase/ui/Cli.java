@@ -4,11 +4,17 @@ import java.util.Scanner;
 
 import org.slf4j.LoggerFactory;
 
+import com.excilys.formation.computerdatabase.exception.ConnectionException;
+
 import org.slf4j.Logger;
 
+/**
+ * @author GUIDS
+ *
+ */
 public class Cli {
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws ConnectionException {
 
     ComputerUi computerUi = new ComputerUi();
     CompanyUi companyUi = new CompanyUi();
@@ -21,8 +27,9 @@ public class Cli {
     slf4jLogger.warn("Dummy warning message.");
     slf4jLogger.error("Dummy error message.");*/
 
-    while (true){
+    while (true) {
 
+      //main menu
       System.out.println("Options available :\n"
           + "- list computers\n"
           + "- list companies\n"

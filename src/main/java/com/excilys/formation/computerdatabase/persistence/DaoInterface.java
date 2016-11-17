@@ -2,6 +2,8 @@ package com.excilys.formation.computerdatabase.persistence;
 
 import java.util.List;
 
+import com.excilys.formation.computerdatabase.exception.ConnectionException;
+
 /**
  * @author GUIDS
  *
@@ -14,7 +16,7 @@ public interface DaoInterface<T> {
    * @param object : the object to create
    * @return : the T object created
    */
-  public default T insert(T object) {
+  public default T insert(T object) throws ConnectionException {
     System.out.println("Default implementation of create");
     return null;
   }
@@ -24,7 +26,7 @@ public interface DaoInterface<T> {
    * @param object : the object to update
    * @return : the T object updated
    */
-  public default T update(T object) {
+  public default T update(T object) throws ConnectionException {
     System.out.println("Default implementation of update");
     return null;
   }
@@ -33,7 +35,7 @@ public interface DaoInterface<T> {
    * 
    * @param idObject : the id of the T object to delete
    */
-  public default void delete(int idObject) {
+  public default void delete(int idObject) throws ConnectionException {
     System.out.println("Default implementation of delete");
   }
 
@@ -43,6 +45,6 @@ public interface DaoInterface<T> {
    * @param offset : the offset to display
    * @return : the list of all the T objects in the database
    */
-  public List<T> list(int nbElements, int offset); 
+  public List<T> list(int nbElements, int offset) throws ConnectionException; 
 
 }

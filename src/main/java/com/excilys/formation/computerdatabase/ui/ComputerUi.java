@@ -1,5 +1,6 @@
 package com.excilys.formation.computerdatabase.ui;
 
+import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import com.excilys.formation.computerdatabase.mapper.LocalDateMapper;
 import com.excilys.formation.computerdatabase.model.Company;
 import com.excilys.formation.computerdatabase.model.Computer;
@@ -13,13 +14,16 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-
+/**
+ * @author GUIDS
+ *
+ */
 public class ComputerUi implements ComputerUiInterface {
 
   private Computer computer;
-  private static final ComputerService computerService = ComputerService.getInstance();
-  private static final CompanyService companyService = CompanyService.getInstance();
-  private static final LocalDateMapper localDateMapper = LocalDateMapper.getInstance();
+  private static final ComputerService computerService = ComputerService.getInstance(); //service of Computer to manage them
+  private static final CompanyService companyService = CompanyService.getInstance(); //service of COmpany to manage them
+  private static final LocalDateMapper localDateMapper = LocalDateMapper.getInstance(); //utility to manage the dates
 
   private String intro = "";
   private String disco = "";
@@ -28,45 +32,53 @@ public class ComputerUi implements ComputerUiInterface {
   private int nbComputers;
 
   private int offset = 0;
-  private Page<Computer> pages;
+  private Page<Computer> pages; //pages' attributes to manage them
 
-  public ComputerUi() {
+  /** Create a new instance of Page and set their number according to the number of computers.
+ * 
+ */
+public ComputerUi() throws ConnectionException {
     nbComputers = computerService.getNumber();
     pages = new Page<>(nbComputers);
   }
 
   @Override
-  public void list() {
-    print(computerService.list(Page.getNbElementsByPage(), offset));
+  public void list() throws ConnectionException {
+    print(computerService.list(pages.getNbElementsByPage(), offset));
     System.out.println("Type b to see before, a to see after, q to quit");
     String line = scanner.nextLine();
     while (!line.equals("q")) {
       if (line.equals("a")) {
         if (pages.hasNext()) {
-          offset += Page.getNbElementsByPage();
+          offset += pages.getNbElementsByPage();
         }
         pages.setActualPage(pages.getActualPage() + 1);
-        print(computerService.list(Page.getNbElementsByPage(), offset));
+        print(computerService.list(pages.getNbElementsByPage(), offset));
         line = scanner.nextLine();
       }
       if (line.equals("b")){
         if (pages.hasPrev()) {
-          offset -= Page.getNbElementsByPage();
+          offset -= pages.getNbElementsByPage();
         }
         pages.setActualPage(pages.getActualPage() - 1);
-        print(computerService.list(Page.getNbElementsByPage(), offset));
+        print(computerService.list(pages.getNbElementsByPage(), offset));
         line = scanner.nextLine();
       }
     }
   }
 
-  public void print(List<Computer> computers) {
+  /** Print a list of computers.
+   * 
+ * @param computers : list of computers to print.
+ */
+public void print(List<Computer> computers) {
     for (Computer computer : computers) {
       System.out.println(computer);
     }
   }
 
-  public void showComputerDetails() {
+@Override
+  public void showComputerDetails() throws ConnectionException {
     System.out.println("which id?");
     while (!scanner.hasNextInt()) {
       System.out.println("You must use an integer");
@@ -76,7 +88,8 @@ public class ComputerUi implements ComputerUiInterface {
     scanner.nextLine();
   }
 
-  public void insert() {
+@Override
+  public void insert() throws ConnectionException {
     System.out.println("which name?");
     String name = scanner.nextLine();
     System.out.println("which introducing date? (yyyy-M-dd)");
@@ -101,7 +114,8 @@ public class ComputerUi implements ComputerUiInterface {
     pages.setNbPages(pages.getNbPages() + 1);
   }
 
-  public void update() {
+@Override
+  public void update() throws ConnectionException {
     System.out.println("which computer id?");
     int id = scanner.nextInt();
     scanner.nextLine();
@@ -129,7 +143,8 @@ public class ComputerUi implements ComputerUiInterface {
     computerService.update(computer);
   }
 
-  public void delete() {
+@Override
+  public void delete() throws ConnectionException {
     System.out.println("which computer id?");
     computerService.delete(scanner.nextInt());
     scanner.nextLine();

@@ -1,6 +1,7 @@
 package com.excilys.formation.computerdatabase.test;
 
-import com.excilys.formation.computerdatabase.persistence.JdbcConnection;;
+import com.excilys.formation.computerdatabase.exception.ConnectionException;
+import com.excilys.formation.computerdatabase.persistence.JdbcConnection;
 
 public class MainTest {
 
@@ -10,7 +11,7 @@ public class MainTest {
    * 
    * @param args
    */
-  public static void main(String[] args) {
+  public static void main(String[] args) throws ConnectionException {
 
 
     jdbcConnection.openConnection();

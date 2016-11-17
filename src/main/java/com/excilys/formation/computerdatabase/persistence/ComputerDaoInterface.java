@@ -1,5 +1,6 @@
 package com.excilys.formation.computerdatabase.persistence;
 
+import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import com.excilys.formation.computerdatabase.model.Computer;
 
 /**
@@ -14,10 +15,10 @@ public interface ComputerDaoInterface extends DaoInterface<Computer> {
    * @param computerId : the id of the computer
    * @return the computer specified
    */
-  public Computer showComputerDetails(int computerId);
+  public Computer showComputerDetails(int computerId) throws ConnectionException;
 
   /**
    * @return the number of computers
    */
-  public int getNumber();
+  public int getNumber() throws ConnectionException;
 }

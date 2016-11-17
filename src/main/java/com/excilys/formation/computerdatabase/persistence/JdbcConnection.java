@@ -1,5 +1,6 @@
 package com.excilys.formation.computerdatabase.persistence;
 
+import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import com.excilys.formation.computerdatabase.util.PropertiesReader;
 
 import java.io.IOException;
@@ -35,7 +36,7 @@ public class JdbcConnection {
    * 
    * @return the connection opened
    */
-  public Connection openConnection() {
+  public Connection openConnection() throws ConnectionException{
     try {
       Class.forName("com.mysql.jdbc.Driver");
       Properties properties = PropertiesReader.getInstance().getPropValues(PROP_FILE_NAME);
@@ -44,19 +45,18 @@ public class JdbcConnection {
       return connection;
 
     } catch (SQLException | ClassNotFoundException | IOException exception) {
-      exception.printStackTrace();
+      throw new ConnectionException("problem when opening a connection");
     }
-    return null;
   }
 
   /**
    * Close a jdbc connection.
    */
-  public void closeConnection() {
+  public void closeConnection() throws ConnectionException {
     try {
       connection.close();
     } catch (SQLException exception) {
-      exception.printStackTrace();
+      throw new ConnectionException("problem when closing a connection");
     }
   }
 

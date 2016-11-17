@@ -1,5 +1,6 @@
 package com.excilys.formation.computerdatabase.service;
 
+import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import com.excilys.formation.computerdatabase.model.Computer;
 import com.excilys.formation.computerdatabase.persistence.ComputerDao;
 
@@ -27,27 +28,32 @@ public class ComputerService implements ComputerServiceInterface {
     return computerService;
   }
 
-  public Computer insert(Computer computer) {
+  @Override
+  public Computer insert(Computer computer) throws ConnectionException {
     return computerDao.insert(computer);
   }
 
-  public Computer update(Computer computer) {
+  @Override
+  public Computer update(Computer computer) throws ConnectionException {
     return computerDao.update(computer);
   }
 
-  public void delete(int computer) {
+  @Override
+  public void delete(int computer) throws ConnectionException {
     computerDao.delete(computer);
   }
 
-  public List<Computer> list(int nbElements, int offset) {
+  @Override
+  public List<Computer> list(int nbElements, int offset) throws ConnectionException {
     return computerDao.list(nbElements, offset);
   }
 
-  public void showComputerDetails(int computer) {
-    computerDao.showComputerDetails(computer);
+  @Override
+  public void showComputerDetails(int computerId) throws ConnectionException {
+    computerDao.showComputerDetails(computerId);
   }
 
-  public int getNumber() {
+  public int getNumber() throws ConnectionException {
     return computerDao.getNumber();
   }
 

@@ -1,5 +1,6 @@
 package com.excilys.formation.computerdatabase.persistence;
 
+import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import com.excilys.formation.computerdatabase.mapper.ResultToObjectMapper;
 import com.excilys.formation.computerdatabase.model.Company;
 
@@ -43,7 +44,7 @@ public class CompanyDao implements CompanyDaoInterface {
   }
 
   @Override
-  public List<Company> list(int nbCompanies, int offset) {
+  public List<Company> list(int nbCompanies, int offset) throws ConnectionException {
     jdbcConnection.openConnection();
     List<Company> listCompanies = new ArrayList<>();
     try (Connection connection = jdbcConnection.openConnection(); 
@@ -53,13 +54,13 @@ public class CompanyDao implements CompanyDaoInterface {
       results = preparedStatement.executeQuery();
       listCompanies =  resultToObjectMapper.convertToCompanies(preparedStatement.executeQuery());
     } catch (SQLException exception) {
-      exception.printStackTrace();
+      throw new ConnectionException("companies failed to be listed");
     }
     return listCompanies;
   }
 
   @Override
-  public int getNumber() {
+  public int getNumber() throws ConnectionException {
     int numberCompanies = -1; 
     try (Connection connection = jdbcConnection.openConnection(); 
         Statement statement = jdbcConnection.getConnection().createStatement()) { 
@@ -67,20 +68,20 @@ public class CompanyDao implements CompanyDaoInterface {
       results.next();
       numberCompanies = results.getInt("number");
     } catch (SQLException exception) { 
-      exception.printStackTrace(); 
+        throw new ConnectionException("companies failed to be counted");
     } 
     return numberCompanies; 
   } 
 
   @Override
-  public Company getCompany(int id) {
+  public Company getCompany(int id) throws ConnectionException {
     try (Connection connection = jdbcConnection.openConnection(); 
         PreparedStatement preparedStatement = connection.prepareStatement(COMPANY_REQUEST)) {
       preparedStatement.setInt(1,id);
       results = preparedStatement.executeQuery();
       results.next();
     } catch (SQLException exception) {
-      exception.printStackTrace();
+        throw new ConnectionException("company failed to be get");
     }
     return resultToObjectMapper.convertToCompany(results);
   }

@@ -1,13 +1,27 @@
 package com.excilys.formation.computerdatabase.ui;
 
+import com.excilys.formation.computerdatabase.exception.ConnectionException;
+
 public interface ComputerUiInterface extends UiInterface {
 
-  public void showComputerDetails();
+  /** Show all the computer's attributes.
+   * 
+   */
+  public void showComputerDetails() throws ConnectionException;
 
-  public void insert();
+  /** Insert a computer in the database.
+   * 
+   */
+  public void insert() throws ConnectionException;
 
-  public void update();
+  /** Update a computer.
+   * 
+   */
+  public void update() throws ConnectionException;
 
-  public void delete();
+  /** Delete a computer from the database.
+   * 
+   */
+  public void delete() throws ConnectionException;
 
 }

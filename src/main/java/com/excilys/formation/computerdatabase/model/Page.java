@@ -17,45 +17,60 @@ import com.excilys.formation.computerdatabase.util.PropertiesReader;
 public class Page<T> {
 
   private static final String PROP_FILE_NAME = "page.properties"; ////the file to manage the properties of the pages
-  private static int nbElementsByPage; //number of elements in one page
+  private int nbElementsByPage; //number of elements in one page
   private int actualPage; //the page opened
   private int nbPages; //the total number of pages
+  private int nbElements; //the total bumber of elements
 
-  static {
-    int tmpNbElementsByPage = -1;
-    //add the number of elements per page in the class
+  public Page() {
     try {
-      tmpNbElementsByPage = Integer.valueOf(PropertiesReader.getInstance().getPropValues(PROP_FILE_NAME).getProperty("nbElementsByPage")); 
+      nbElementsByPage = Integer.valueOf(PropertiesReader.getInstance().getPropValues(PROP_FILE_NAME).getProperty("nbElementsByPage")); 
     } catch (IOException exception) {
       exception.printStackTrace();
     }
-    nbElementsByPage = tmpNbElementsByPage;
+
   }
 
-  public Page() { }
+  /** 
+   * 
+   * @param nbElements : the total number of elements to display
+   */
+  public Page(int nbElements) {
+    this();
+    this.nbElements = nbElements;
+    calculateNbPages(nbElements);
+    actualPage = 1;
+  }
+
+  public int getNbElements() {
+    return nbElements;
+  }
+
+  public void setNbElements(int nbElements) {
+    this.nbElements = nbElements;
+  }
 
   /** Calculate the number of pages needed to display nbElements elements,
    * according to the number of elements per page.
    * 
    * @param nbElements : the total number of elements to display
    */
-  public Page(int nbElements) {
-    actualPage = 1;
+  public void calculateNbPages(int nbElements) {
     nbPages = (int)Math.ceil(((float)nbElements) / nbElementsByPage);
   }
 
   /**
    * @return the number of elements per page
    */
-  public static int getNbElementsByPage() {
+  public int getNbElementsByPage() {
     return nbElementsByPage;
   }
 
   /**
    * @param nbElementsByPage : the number of elements per page to set
    */
-  public static void setNbElementsByPage(int nbElementsByPage) {
-    Page.nbElementsByPage = nbElementsByPage;
+  public void setNbElementsByPage(int nbElementsByPage) {
+    this.nbElementsByPage = nbElementsByPage;
   }
 
   /**

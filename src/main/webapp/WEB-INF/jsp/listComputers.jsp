@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
 <%@ page import="com.excilys.formation.computerdatabase.model.Computer" %>
 <%@ page import="java.util.List" %>
 
@@ -23,10 +24,7 @@
     <section id="main">
         <div class="container">
             <h1 id="homeTitle">
-            <% 
-            Integer numberComputers = (Integer) request.getAttribute("numberComputers");
-            out.println( numberComputers + " Computers found" );
-            %>
+            ${numberComputers} Companies found
             </h1>
             <div id="actions" class="form-horizontal">
                 <div class="pull-left">
@@ -77,10 +75,7 @@
                         <th>
                             Company
                         </th>
-
-            <% 
-            List<Computer> listComputers = (List<Computer>) request.getAttribute("listComputers");
-            %>
+                        
 				<c:forEach var="computer" items="${listComputers}" >
                 <!-- Browse attribute computers -->
                 <tbody id="results">
@@ -106,27 +101,26 @@
         <div class="container text-center">
             <ul class="pagination">
                 <li>
-                    <a href="#" aria-label="Previous">
+                    <a href=<tag:linkTag target="computersMenuSubmit" page="${actualPage-1}" nbElements="10"/> aria-label="Previous">
                       <span aria-hidden="true">&laquo;</span>
                   </a>
               </li>
-              <li><a href="#">1</a></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li><a href="#">4</a></li>
-              <li><a href="#">5</a></li>
+              <c:forEach var="page" begin="1" end="${numberPages}" >
+	              <li><a href=<tag:linkTag target="computersMenuSubmit" page="${page}"/>>${page}</a></li>
+	          </c:forEach>
               <li>
-                <a href="#" aria-label="Next">
+                 <a href=<tag:linkTag target="computersMenuSubmit" page="${actualPage+1}" nbElements="10"/> aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
         </ul>
-
+        
         <div class="btn-group btn-group-sm pull-right" role="group" >
             <button type="button" class="btn btn-default">10</button>
             <button type="button" class="btn btn-default">50</button>
             <button type="button" class="btn btn-default">100</button>
         </div>
+      </div>
 
     </footer>
 <script src="../js/jquery.min.js"></script>

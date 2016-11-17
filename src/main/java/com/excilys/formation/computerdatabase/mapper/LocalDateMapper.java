@@ -22,27 +22,18 @@ public class LocalDateMapper {
   private static DateTimeFormatter dateTimeFormatter; //to convert date to timestamp
   private static SimpleDateFormat simpleDateFormat; //to convert localdate to date
 
-  static {
-    SimpleDateFormat tmpSimpleDateFormat = null;
-    DateTimeFormatter tmpDateTimeFormatter = null;
-    //add the format in the 2 formatters
-    try {
-      tmpSimpleDateFormat = new SimpleDateFormat(PropertiesReader.getInstance()
-          .getPropValues(PROP_FILE_NAME).getProperty("format"));
-      tmpDateTimeFormatter = DateTimeFormatter.ofPattern(PropertiesReader.getInstance()
-          .getPropValues(PROP_FILE_NAME).getProperty("format"));
-    } catch (IOException exception) {
-      exception.printStackTrace();
-    }
-    simpleDateFormat = tmpSimpleDateFormat;
-    dateTimeFormatter = tmpDateTimeFormatter;
-  }
-
-
   /**
    * Private constructor for a singleton.
    */
   private LocalDateMapper() {
+    try {
+      simpleDateFormat = new SimpleDateFormat(PropertiesReader.getInstance()
+        .getPropValues(PROP_FILE_NAME).getProperty("format"));
+    dateTimeFormatter = DateTimeFormatter.ofPattern(PropertiesReader.getInstance()
+        .getPropValues(PROP_FILE_NAME).getProperty("format"));
+    } catch (IOException exception) {
+      exception.printStackTrace();
+    }
   }
 
   /**

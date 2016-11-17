@@ -9,22 +9,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * @author GUIDS
+ *
+ */
 public class MainMenu extends HttpServlet {
 
   private static final Logger logger = LoggerFactory.getLogger(Test.class);
 
   @Override
   public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException{
-
-    String paramAuteur = request.getParameter( "auteur" );
-
-    String message = "Transmission de variables : OK ! " + paramAuteur;
-
-    request.setAttribute( "test", message );
-
-
     this.getServletContext().getRequestDispatcher( "/WEB-INF/jsp/mainMenu.jsp" ).forward( request, response );
-
   }
 
 }
