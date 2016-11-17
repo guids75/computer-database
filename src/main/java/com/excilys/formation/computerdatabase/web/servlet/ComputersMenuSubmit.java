@@ -32,13 +32,13 @@ public class ComputersMenuSubmit extends HttpServlet {
   
   @Override
   public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
-
-    if (request.getParameter("computersAction") != null) {  
-      String actionChosen = request.getParameter("computersAction");
+System.out.println("11111111111");
+    /*if (request.getParameter("computersAction") != null) {  
+      String actionChosen = request.getParameter("computersAction");*/
       request.setAttribute("pages", pages);
 
-      switch (actionChosen) {
-      case ("listComputers"):
+      /*switch (actionChosen) {
+      case ("listComputers"):*/
         try {
           request.setAttribute( "numberComputers", pages.getNbElements() );
           request.setAttribute( "listComputers", computerService.list(pages.getNbElementsByPage(), 0));
@@ -47,16 +47,16 @@ public class ComputersMenuSubmit extends HttpServlet {
           exception.printStackTrace();
         }
       this.getServletContext().getRequestDispatcher( "/WEB-INF/jsp/listComputers.jsp" ).forward( request, response );
-      break;
+      /*break;
       default:
         break;
       }
-    }
+    }*/
 
   }
 
   public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
-
+System.out.println("222222222222");
     if (request.getParameter("page") != null) {  
       pages.setActualPage(Integer.parseInt(request.getParameter("page")));
       if (request.getParameter("nbElements") != null) {

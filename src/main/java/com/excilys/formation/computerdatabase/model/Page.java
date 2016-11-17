@@ -1,12 +1,7 @@
 package com.excilys.formation.computerdatabase.model;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 
-import com.excilys.formation.computerdatabase.persistence.CompanyDao;
-import com.excilys.formation.computerdatabase.persistence.ComputerDao;
-import com.excilys.formation.computerdatabase.persistence.DaoInterface;
 import com.excilys.formation.computerdatabase.util.PropertiesReader;
 
 /**
