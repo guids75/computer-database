@@ -18,13 +18,13 @@ import com.excilys.formation.computerdatabase.service.CompanyService;
  * @author GUIDS
  *
  */
-public class CompaniesMenuSubmit extends HttpServlet {
+public class CompaniesMenuSubmit2 extends HttpServlet {
 
   private static CompanyService companyService = CompanyService.getInstance(); //service of Company to manage them
   private static final Logger logger = LoggerFactory.getLogger(Test.class);
   private Page<Company> pages; //pages' attributes to manage them
 
-  public CompaniesMenuSubmit() throws ConnectionException {
+  public CompaniesMenuSubmit2() throws ConnectionException {
     pages = new Page<>(companyService.getNumber());
     pages.setActualPage(1);
     pages.setNbElementsByPage(10);

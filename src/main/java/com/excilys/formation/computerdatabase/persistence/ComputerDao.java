@@ -28,7 +28,7 @@ public class ComputerDao implements ComputerDaoInterface {
   private static final String INSERT_REQUEST = "INSERT INTO computer VALUES (?, ?, ?, ?, ?)";
   private static final String UPDATE_REQUEST = "UPDATE computer SET name=?, introduced=?, discontinued=?, company_id=? WHERE id=?";
   private static final String DELETE_REQUEST = "DELETE FROM computer WHERE id=?";
-  private static final String LIST_REQUEST= "SELECT * FROM computer as comput, company as compan WHERE comput.company_id=compan.id LIMIT ? OFFSET ?";
+  private static final String LIST_REQUEST= "SELECT * FROM computer as comput LEFT JOIN company as compan ON comput.company_id=compan.id LIMIT ? OFFSET ?";
   private static final String DETAILS_REQUEST = "SELECT * FROM computer as comput, company as compan WHERE comput.id=? and comput.id=compan.id";
   private static final String NUMBER_REQUEST = "SELECT COUNT(*) as number FROM computer";
 
@@ -58,7 +58,7 @@ public class ComputerDao implements ComputerDaoInterface {
       preparedStatement.setInt(5,computer.getCompany().getId());
       preparedStatement.executeUpdate();
     } catch (SQLException exception) {
-        throw new ConnectionException("computer failed to be inserted");
+      throw new ConnectionException("computer failed to be inserted");
     }
     return computer;
   }
@@ -75,7 +75,7 @@ public class ComputerDao implements ComputerDaoInterface {
       preparedStatement.executeUpdate();
       preparedStatement.close();
     } catch (SQLException exception) {
-        throw new ConnectionException("computer failed to be updated");
+      throw new ConnectionException("computer failed to be updated");
     }
     return computer;
   }
@@ -87,7 +87,7 @@ public class ComputerDao implements ComputerDaoInterface {
       preparedStatement.setInt(1, computerId);
       preparedStatement.executeUpdate();
     } catch (SQLException exception) {
-        throw new ConnectionException("computer failed to be deleted");
+      throw new ConnectionException("computer failed to be deleted");
     }
   }
 
@@ -99,7 +99,7 @@ public class ComputerDao implements ComputerDaoInterface {
       preparedStatement.setInt(2, offset);
       return resultToObjectMapper.convertToComputers(preparedStatement.executeQuery());
     } catch (SQLException exception) {
-        throw new ConnectionException("computers failed to be listed");
+      throw new ConnectionException("computers failed to be listed");
     }
   }
 
@@ -112,7 +112,7 @@ public class ComputerDao implements ComputerDaoInterface {
       System.out.println(computer);
       return computer;
     } catch (SQLException exception) {
-        throw new ConnectionException("computer failed to be detailed");
+      throw new ConnectionException("computer failed to be detailed");
     }
   }
 

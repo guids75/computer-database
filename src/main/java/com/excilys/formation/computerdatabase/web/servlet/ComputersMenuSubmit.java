@@ -27,15 +27,15 @@ public class ComputersMenuSubmit extends HttpServlet {
   public ComputersMenuSubmit() throws ConnectionException {
     pages = new Page<>(computerService.getNumber());
     pages.setActualPage(1);
-    pages.setNbElementsByPage(10);
+    pages.setNbElementsByPage(100);
   }
   
   @Override
   public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
 
     if (request.getParameter("computersAction") != null) {  
-      System.out.println("yoo ici");
       String actionChosen = request.getParameter("computersAction");
+      request.setAttribute("pages", pages);
 
       switch (actionChosen) {
       case ("listComputers"):
@@ -65,8 +65,7 @@ public class ComputersMenuSubmit extends HttpServlet {
       }
 
       try {
-        request.setAttribute( "numberComputers", pages.getNbElements() );
-        request.setAttribute("actualPage", pages.getActualPage());
+        request.setAttribute("pages", pages);
         if (pages.getActualPage()-1 * pages.getNbElementsByPage() < pages.getNbElements()){
             request.setAttribute( "listComputers", computerService.list(pages.getNbElementsByPage(), (pages.getActualPage()-1) * pages.getNbElementsByPage()));
         } else {

@@ -17,14 +17,14 @@
 <body>
     <header class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="dashboard.html"> Application - Computer Database </a>
+            <a class="navbar-brand" href="mainMenu"> Application - Computer Database </a>
         </div>
     </header>
 
     <section id="main">
         <div class="container">
             <h1 id="homeTitle">
-            ${numberComputers} Companies found
+            ${pages.nbElements} Computers found
             </h1>
             <div id="actions" class="form-horizontal">
                 <div class="pull-left">
@@ -36,7 +36,7 @@
                     </form>
                 </div>
                 <div class="pull-right">
-                    <a class="btn btn-success" id="addComputer" href="addComputer.html">Add Computer</a> 
+                    <a class="btn btn-success" id="addComputer" href="addComputer">Add Computer</a> 
                     <a class="btn btn-default" id="editComputer" href="#" onclick="$.fn.toggleEditMode();">Edit</a>
                 </div>
             </div>
@@ -96,29 +96,32 @@
             </table>
         </div>
     </section>
-
     <footer class="navbar-fixed-bottom">
         <div class="container text-center">
             <ul class="pagination">
+                <c:if test="${pages.hasPrev() == true}">
                 <li>
-                    <a href=<tag:linkTag target="computersMenuSubmit" page="${actualPage-1}" nbElements="10"/> aria-label="Previous">
+                    <a href=<tag:linkTag target="computersMenuSubmit" page="${pages.actualPage-1}" nbElements="${pages.nbElementsByPage}"/> aria-label="Previous">
                       <span aria-hidden="true">&laquo;</span>
                   </a>
               </li>
-              <c:forEach var="page" begin="1" end="${numberPages}" >
-	              <li><a href=<tag:linkTag target="computersMenuSubmit" page="${page}"/>>${page}</a></li>
+              </c:if>
+              <c:forEach var="page" begin="1" end="${pages.nbPages}" >
+	              <li><a href=<tag:linkTag target="computersMenuSubmit" page="${page}" nbElements="${pages.nbElementsByPage}"/>>${page}</a></li>
 	          </c:forEach>
+              <c:if test="${pages.hasNext() == true}">
               <li>
-                 <a href=<tag:linkTag target="computersMenuSubmit" page="${actualPage+1}" nbElements="10"/> aria-label="Next">
+                 <a href=<tag:linkTag target="computersMenuSubmit" page="${pages.actualPage+1}" nbElements="${pages.nbElementsByPage}"/> aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
-            </li>
+                </li>
+                </c:if>
         </ul>
         
         <div class="btn-group btn-group-sm pull-right" role="group" >
-            <button type="button" class="btn btn-default">10</button>
-            <button type="button" class="btn btn-default">50</button>
-            <button type="button" class="btn btn-default">100</button>
+			<button type="button" class="btn btn-default" name="nbElements" onclick='window.location.href=<tag:linkTag target="computersMenuSubmit" page="1" nbElements="100"/>;'>100</button>
+            <button type="button" class="btn btn-default" name="nbElements" onclick='window.location.href=<tag:linkTag target="computersMenuSubmit" page="1" nbElements="500"/>;'>500</button>
+            <button type="button" class="btn btn-default" name="nbElements" onclick='window.location.href=<tag:linkTag target="computersMenuSubmit" page="1" nbElements="1000"/>;'>1000</button>
         </div>
       </div>
 

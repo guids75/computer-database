@@ -3,11 +3,4 @@
 <%@ attribute name="page" required="true" type="java.lang.Integer" %>
 <%@ attribute name="nbElements" required="false" type="java.lang.Integer" %>
 
-<c:choose>
-  <c:when test="${not empty nbElements}">
-  'http://localhost:8084/computer-database/${target}?page=${page}&nbElements=${nbElements}'
-  </c:when>
-  <c:otherwise>
-  'http://localhost:8084/computer-database/${target}?page=${page}&nbElements=10'
-  </c:otherwise>
-</c:choose>
+"${target}?page=${page}&nbElements=${nbElements}"
