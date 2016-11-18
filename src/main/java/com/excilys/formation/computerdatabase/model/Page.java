@@ -18,11 +18,12 @@ public class Page<T> {
   private int nbElements; //the total bumber of elements
 
   public Page() {
-    try {
+    /*try {
       nbElementsByPage = Integer.valueOf(PropertiesReader.getInstance().getPropValues(PROP_FILE_NAME).getProperty("nbElementsByPage")); 
     } catch (IOException exception) {
       exception.printStackTrace();
-    }
+    }*/
+    //nbElementsByPage = 10;
 
   }
 
@@ -31,7 +32,7 @@ public class Page<T> {
    * @param nbElements : the total number of elements to display
    */
   public Page(int nbElements) {
-    this();
+    //this();
     this.nbElements = nbElements;
     calculateNbPages(nbElements);
     actualPage = 1;

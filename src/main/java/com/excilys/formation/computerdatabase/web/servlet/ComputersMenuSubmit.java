@@ -26,28 +26,24 @@ public class ComputersMenuSubmit extends HttpServlet {
 
   public ComputersMenuSubmit() throws ConnectionException {
     pages = new Page<>(computerService.getNumber());
-    pages.setActualPage(1);
-    pages.setNbElementsByPage(100);
+    pages.setNbElementsByPage(10);
   }
-  
+
   @Override
   public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
-System.out.println("11111111111");
     /*if (request.getParameter("computersAction") != null) {  
       String actionChosen = request.getParameter("computersAction");*/
-      request.setAttribute("pages", pages);
+    request.setAttribute("pages", pages);
 
-      /*switch (actionChosen) {
+    /*switch (actionChosen) {
       case ("listComputers"):*/
-        try {
-          request.setAttribute( "numberComputers", pages.getNbElements() );
-          request.setAttribute( "listComputers", computerService.list(pages.getNbElementsByPage(), 0));
-          request.setAttribute("numberPages", pages.getNbPages());
-        } catch (ConnectionException exception) {
-          exception.printStackTrace();
-        }
-      this.getServletContext().getRequestDispatcher( "/WEB-INF/jsp/listComputers.jsp" ).forward( request, response );
-      /*break;
+    try {
+      request.setAttribute( "listComputers", computerService.list(pages.getNbElementsByPage(), 0));
+    } catch (ConnectionException exception) {
+      exception.printStackTrace();
+    }
+    this.getServletContext().getRequestDispatcher( "/WEB-INF/jsp/listComputers.jsp" ).forward( request, response );
+    /*break;
       default:
         break;
       }
@@ -56,7 +52,7 @@ System.out.println("11111111111");
   }
 
   public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
-System.out.println("222222222222");
+    
     if (request.getParameter("page") != null) {  
       pages.setActualPage(Integer.parseInt(request.getParameter("page")));
       if (request.getParameter("nbElements") != null) {
@@ -67,17 +63,19 @@ System.out.println("222222222222");
       try {
         request.setAttribute("pages", pages);
         if (pages.getActualPage()-1 * pages.getNbElementsByPage() < pages.getNbElements()){
-            request.setAttribute( "listComputers", computerService.list(pages.getNbElementsByPage(), (pages.getActualPage()-1) * pages.getNbElementsByPage()));
+          request.setAttribute( "listComputers", computerService.list(pages.getNbElementsByPage(), (pages.getActualPage()-1) * pages.getNbElementsByPage()));
         } else {
           pages.setActualPage(pages.getActualPage()-1);
           request.setAttribute( "listComputers", computerService.list(pages.getNbElementsByPage(), (pages.getActualPage()-1) * pages.getNbElementsByPage()));
         }
-        
+
         request.setAttribute("numberPages", pages.getNbPages());
       } catch (ConnectionException exception) {
         exception.printStackTrace();
       }
       this.getServletContext().getRequestDispatcher( "/WEB-INF/jsp/listComputers.jsp" ).forward( request, response );
+    } else {
+      doPost(request, response);
     }
 
   }

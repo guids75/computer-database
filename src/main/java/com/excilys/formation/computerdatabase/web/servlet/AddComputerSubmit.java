@@ -23,12 +23,6 @@ public class AddComputerSubmit extends HttpServlet {
   private static CompanyService companyService = CompanyService.getInstance(); //service of Company to manage them
   private static final Logger logger = LoggerFactory.getLogger(Test.class);
   private Page<Company> pages; //pages' attributes to manage them
-
-  public AddComputerSubmit() throws ConnectionException {
-    pages = new Page<>(companyService.getNumber());
-    pages.setActualPage(1);
-    pages.setNbElementsByPage(10);
-  }
   
   @Override
   public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {

@@ -10,8 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
-import com.excilys.formation.computerdatabase.model.Company;
+import com.excilys.formation.computerdatabase.model.Computer;
 import com.excilys.formation.computerdatabase.model.Page;
+import com.excilys.formation.computerdatabase.service.ComputerService;
 import com.excilys.formation.computerdatabase.service.CompanyService;
 
 /**
@@ -20,13 +21,18 @@ import com.excilys.formation.computerdatabase.service.CompanyService;
  */
 public class AddComputer extends HttpServlet {
 
+  private static ComputerService computerService = ComputerService.getInstance(); //service of Company to manage them
   private static CompanyService companyService = CompanyService.getInstance(); //service of Company to manage them
   private static final Logger logger = LoggerFactory.getLogger(Test.class);
-  private Page<Company> pages; //pages' attributes to manage them
   
   @Override
   public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
 
+    try {
+      request.setAttribute( "listCompanies", companyService.list(companyService.getNumber(), 0));
+    } catch (ConnectionException exception) {
+      exception.printStackTrace();
+    }
       this.getServletContext().getRequestDispatcher( "/WEB-INF/jsp/addComputer.jsp" ).forward( request, response );
 
   }
