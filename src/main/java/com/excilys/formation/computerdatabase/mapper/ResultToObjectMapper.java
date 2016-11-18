@@ -39,6 +39,7 @@ public class ResultToObjectMapper {
     List<Computer> computers = new ArrayList<>();
     try {
       while (!results.isLast()) {
+        results.next();
         computers.add(convertToComputer(results));
       }
     } catch (SQLException exception) {
@@ -54,7 +55,6 @@ public class ResultToObjectMapper {
    */
   public Computer convertToComputer(ResultSet results) {
     try {
-      results.next();
       Computer computer = new Computer.ComputerBuilder(results.getInt("comput.Id"), 
           results.getString("comput.Name"), new Company(results.getInt("compan.Id"), results.getString("compan.Name")))
           .introduced(localMapper.convertToLocalDate(results.getDate("comput.Introduced")))
@@ -76,6 +76,7 @@ public class ResultToObjectMapper {
     List<Company> companies = new ArrayList<>();
     try {
       while (!results.isLast()) {
+        results.next();
         companies.add(convertToCompany(results));
       }
     } catch (SQLException exception) {
@@ -92,7 +93,6 @@ public class ResultToObjectMapper {
   public Company convertToCompany(ResultSet results) {
     Company company = new Company();
     try {
-      results.next();
       company.setId(results.getInt("Id"));
       company.setName(results.getString("Name"));
     } catch (SQLException exception) {

@@ -158,7 +158,9 @@ public class Computer {
      * @return the ComputerBuilder with his introduced date updated
      */
     public ComputerBuilder introduced(LocalDate introduced) {
-      this.introduced = introduced;
+      if (introduced != null) {
+        this.introduced = introduced;
+      }
       return this;
     }
 
@@ -168,7 +170,9 @@ public class Computer {
      * @return the ComputerBuilder with his discontinued date updated
      */
     public ComputerBuilder discontinued(LocalDate discontinued) {
-      this.discontinued = discontinued;
+      if (discontinued != null) {
+        this.discontinued = discontinued;
+      }
       return this;
     }
 

@@ -20,7 +20,7 @@ import com.excilys.formation.computerdatabase.service.ComputerService;
  */
 public class ComputersMenuSubmit extends HttpServlet {
 
-  private static ComputerService computerService = ComputerService.getInstance(); //service of Computer to manage them
+  private static final ComputerService computerService = ComputerService.getInstance(); //service of Computer to manage them
   private static final Logger logger = LoggerFactory.getLogger(Test.class);
   private Page<Computer> pages; //pages' attributes to manage them
 

@@ -49,12 +49,13 @@
     <url-pattern>/addComputer</url-pattern>
   </servlet-mapping>
   
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-  </welcome-file-list>
+  <servlet>
+    <servlet-name>Add Computer Submit</servlet-name>
+    <servlet-class>com.excilys.formation.computerdatabase.web.servlet.AddComputerSubmit</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Add Computer Submit</servlet-name>
+    <url-pattern>/addComputerSubmit</url-pattern>
+  </servlet-mapping>
+
 </web-app>

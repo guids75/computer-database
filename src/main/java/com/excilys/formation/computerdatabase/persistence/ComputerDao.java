@@ -109,7 +109,6 @@ public class ComputerDao implements ComputerDaoInterface {
         PreparedStatement preparedStatement = connection.prepareStatement(DETAILS_REQUEST)) {
       preparedStatement.setInt(1, computerId);
       Computer computer = resultToObjectMapper.convertToComputer(preparedStatement.executeQuery());
-      System.out.println(computer);
       return computer;
     } catch (SQLException exception) {
       throw new ConnectionException("computer failed to be detailed");

@@ -28,9 +28,9 @@ public class LocalDateMapper {
   private LocalDateMapper() {
     try {
       simpleDateFormat = new SimpleDateFormat(PropertiesReader.getInstance()
-        .getPropValues(PROP_FILE_NAME).getProperty("format"));
-    dateTimeFormatter = DateTimeFormatter.ofPattern(PropertiesReader.getInstance()
-        .getPropValues(PROP_FILE_NAME).getProperty("format"));
+          .getPropValues(PROP_FILE_NAME).getProperty("format"));
+      dateTimeFormatter = DateTimeFormatter.ofPattern(PropertiesReader.getInstance()
+          .getPropValues(PROP_FILE_NAME).getProperty("format"));
     } catch (IOException exception) {
       exception.printStackTrace();
     }
@@ -62,9 +62,12 @@ public class LocalDateMapper {
    * @return the converted timestamp
    */
   public Timestamp convertToTimeStamp(LocalDate date) {
-    String formattedDateTime = date.format(dateTimeFormatter);
-    LocalDate lds = LocalDate.parse(formattedDateTime, dateTimeFormatter);
-    return Timestamp.valueOf(lds.atStartOfDay());
+    if (date != null) {
+      String formattedDateTime = date.format(dateTimeFormatter);
+      LocalDate lds = LocalDate.parse(formattedDateTime, dateTimeFormatter);
+      return Timestamp.valueOf(lds.atStartOfDay());
+    }
+    return null;
   }
 
 }

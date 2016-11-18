@@ -56,7 +56,7 @@ public ComputerUi() throws ConnectionException {
         print(computerService.list(pages.getNbElementsByPage(), offset));
         line = scanner.nextLine();
       }
-      if (line.equals("b")){
+      if (line.equals("b")) {
         if (pages.hasPrev()) {
           offset -= pages.getNbElementsByPage();
         }
