@@ -11,20 +11,12 @@ import com.excilys.formation.computerdatabase.util.PropertiesReader;
  */
 public class Page<T> {
 
-  private static final String PROP_FILE_NAME = "page.properties"; ////the file to manage the properties of the pages
   private int nbElementsByPage; //number of elements in one page
   private int actualPage; //the page opened
   private int nbPages; //the total number of pages
-  private int nbElements; //the total bumber of elements
+  private int nbElements; //the total number of elements
 
   public Page() {
-    /*try {
-      nbElementsByPage = Integer.valueOf(PropertiesReader.getInstance().getPropValues(PROP_FILE_NAME).getProperty("nbElementsByPage")); 
-    } catch (IOException exception) {
-      exception.printStackTrace();
-    }*/
-    //nbElementsByPage = 10;
-
   }
 
   /** 
@@ -32,7 +24,7 @@ public class Page<T> {
    * @param nbElements : the total number of elements to display
    */
   public Page(int nbElements) {
-    //this();
+    this.nbElementsByPage = 10;
     this.nbElements = nbElements;
     calculateNbPages(nbElements);
     actualPage = 1;

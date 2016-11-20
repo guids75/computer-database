@@ -83,6 +83,7 @@ public class ResultToObjectMapper {
     List<Company> companies = new ArrayList<>();
     try {
       while (results.next()) {
+        System.out.println(1);
         companies.add(convertToCompany(results));
       }
     } catch (SQLException exception) {

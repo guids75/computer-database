@@ -19,7 +19,7 @@ public class PropertiesReader {
 
   private static InputStream inputStream;
   private static PropertiesReader propertiesReader = new PropertiesReader(); //singleton of this class
-  private static final Logger slf4jLogger = LoggerFactory.getLogger(Cli.class);
+  private static final Logger slf4jLogger = LoggerFactory.getLogger(PropertiesReader.class);
 
   /**
  * Private constructor for singleton.
