@@ -1,27 +1,27 @@
-package com.excilys.formation.computerdatabase.ui;
+package com.excilys.formation.computerdatabase.ui.company;
 
 import java.util.List;
 
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import com.excilys.formation.computerdatabase.model.Company;
 import com.excilys.formation.computerdatabase.model.Page;
-import com.excilys.formation.computerdatabase.persistence.CompanyDao;
-import com.excilys.formation.computerdatabase.service.CompanyService;
+import com.excilys.formation.computerdatabase.persistence.company.CompanyDaoImpl;
+import com.excilys.formation.computerdatabase.service.company.CompanyServiceImpl;
 
 /**
  * @author GUIDS
  *
  */
-public class CompanyUi implements CompanyUiInterface {
+public class CompanyUiImpl implements CompanyUi {
 
-  private CompanyService companyService = CompanyService.getInstance(); //service of Company to manage them
+  private CompanyServiceImpl companyService = CompanyServiceImpl.getInstance(); //service of Company to manage them
   private Page<Company> pages; //pages' attributes to manage them
   private int offset = 0;
 
   /** Create a new instance of Page and set their number according to the number of companies.
    * 
    */
-  public CompanyUi() {
+  public CompanyUiImpl() {
     pages = new Page<>(companyService.count());
   }
 

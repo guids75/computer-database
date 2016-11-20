@@ -1,8 +1,9 @@
-package com.excilys.formation.computerdatabase.persistence;
+package com.excilys.formation.computerdatabase.persistence.company;
 
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
-import com.excilys.formation.computerdatabase.mapper.ResultToObjectMapper;
+import com.excilys.formation.computerdatabase.mapper.ResultMapper;
 import com.excilys.formation.computerdatabase.model.Company;
+import com.excilys.formation.computerdatabase.persistence.JdbcConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,10 +16,10 @@ import java.util.List;
  * @author GUIDS
  *
  */
-public class CompanyDao implements CompanyDaoInterface {
+public class CompanyDaoImpl implements CompanyDao {
 
-  private static CompanyDao companyDAO = new CompanyDao(); ////singleton of this class
-  private static ResultToObjectMapper resultToObjectMapper = ResultToObjectMapper.getInstance(); //utility to process resultSets
+  private static CompanyDaoImpl companyDAO = new CompanyDaoImpl(); ////singleton of this class
+  private static ResultMapper resultToObjectMapper = ResultMapper.getInstance(); //utility to process resultSets
   private static JdbcConnection jdbcConnection = JdbcConnection.getInstance(); //get the connection
 
   //requests
@@ -31,13 +32,13 @@ public class CompanyDao implements CompanyDaoInterface {
   /**
    * Private constructor for a singleton.
    */
-  private CompanyDao() {
+  private CompanyDaoImpl() {
   }
 
   /**
    * @return the singleton corresponding to this class
    */
-  public static CompanyDao getInstance() {
+  public static CompanyDaoImpl getInstance() {
     return companyDAO;
   }
 

@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import com.excilys.formation.computerdatabase.model.Computer;
 import com.excilys.formation.computerdatabase.model.Page;
-import com.excilys.formation.computerdatabase.service.ComputerService;
-import com.excilys.formation.computerdatabase.service.CompanyService;
+import com.excilys.formation.computerdatabase.service.company.CompanyServiceImpl;
+import com.excilys.formation.computerdatabase.service.computer.ComputerServiceImpl;
 
 /**
  * @author GUIDS
@@ -21,8 +21,8 @@ import com.excilys.formation.computerdatabase.service.CompanyService;
  */
 public class AddComputer extends HttpServlet {
 
-  private static ComputerService computerService = ComputerService.getInstance(); //service of Company to manage them
-  private static CompanyService companyService = CompanyService.getInstance(); //service of Company to manage them
+  private static ComputerServiceImpl computerService = ComputerServiceImpl.getInstance(); //service of Company to manage them
+  private static CompanyServiceImpl companyService = CompanyServiceImpl.getInstance(); //service of Company to manage them
   private static final Logger logger = LoggerFactory.getLogger(Test.class);
   
   @Override

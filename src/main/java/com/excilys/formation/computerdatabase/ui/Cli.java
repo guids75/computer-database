@@ -5,6 +5,8 @@ import java.util.Scanner;
 import org.slf4j.LoggerFactory;
 
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
+import com.excilys.formation.computerdatabase.ui.company.CompanyUiImpl;
+import com.excilys.formation.computerdatabase.ui.computer.ComputerUiImpl;
 
 import org.slf4j.Logger;
 
@@ -16,8 +18,8 @@ public class Cli {
   
   public static void main(String[] args) {
 
-    ComputerUi computerUi = new ComputerUi();
-    CompanyUi companyUi = new CompanyUi();
+    ComputerUiImpl computerUi = new ComputerUiImpl();
+    CompanyUiImpl companyUi = new CompanyUiImpl();
 
     while (true) {
 

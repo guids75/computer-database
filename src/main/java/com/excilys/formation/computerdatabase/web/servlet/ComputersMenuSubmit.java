@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import com.excilys.formation.computerdatabase.model.Computer;
 import com.excilys.formation.computerdatabase.model.Page;
-import com.excilys.formation.computerdatabase.service.ComputerService;
+import com.excilys.formation.computerdatabase.service.computer.ComputerServiceImpl;
 
 /**
  * @author GUIDS
@@ -20,7 +20,7 @@ import com.excilys.formation.computerdatabase.service.ComputerService;
  */
 public class ComputersMenuSubmit extends HttpServlet {
 
-  private static final ComputerService computerService = ComputerService.getInstance(); //service of Computer to manage them
+  private static final ComputerServiceImpl computerService = ComputerServiceImpl.getInstance(); //service of Computer to manage them
   private static final Logger logger = LoggerFactory.getLogger(Test.class);
   private Page<Computer> pages; //pages' attributes to manage them
 

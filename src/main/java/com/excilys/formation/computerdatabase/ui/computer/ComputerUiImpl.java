@@ -1,11 +1,11 @@
-package com.excilys.formation.computerdatabase.ui;
+package com.excilys.formation.computerdatabase.ui.computer;
 
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import com.excilys.formation.computerdatabase.mapper.LocalDateMapper;
 import com.excilys.formation.computerdatabase.model.Computer;
 import com.excilys.formation.computerdatabase.model.Page;
-import com.excilys.formation.computerdatabase.service.CompanyService;
-import com.excilys.formation.computerdatabase.service.ComputerService;
+import com.excilys.formation.computerdatabase.service.company.CompanyServiceImpl;
+import com.excilys.formation.computerdatabase.service.computer.ComputerServiceImpl;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -15,11 +15,11 @@ import java.util.List;
  * @author GUIDS
  *
  */
-public class ComputerUi implements ComputerUiInterface {
+public class ComputerUiImpl implements ComputerUi {
 
   private Computer computer;
-  private static final ComputerService computerService = ComputerService.getInstance(); //service of Computer to manage them
-  private static final CompanyService companyService = CompanyService.getInstance(); //service of COmpany to manage them
+  private static final ComputerServiceImpl computerService = ComputerServiceImpl.getInstance(); //service of Computer to manage them
+  private static final CompanyServiceImpl companyService = CompanyServiceImpl.getInstance(); //service of COmpany to manage them
   private static final LocalDateMapper localDateMapper = LocalDateMapper.getInstance(); //utility to manage the dates
 
   private String intro = "";
@@ -34,7 +34,7 @@ public class ComputerUi implements ComputerUiInterface {
   /** Create a new instance of Page and set their number according to the number of computers.
  * 
  */
-public ComputerUi() {
+public ComputerUiImpl() {
     nbComputers = computerService.count();
     pages = new Page<>(nbComputers);
   }

@@ -8,7 +8,7 @@ import com.excilys.formation.computerdatabase.exception.ConnectionException;
  * @author GUIDS
  *
  */
-public interface UiInterface {
+public interface Ui {
 
   Scanner scanner = new Scanner(System.in);
 

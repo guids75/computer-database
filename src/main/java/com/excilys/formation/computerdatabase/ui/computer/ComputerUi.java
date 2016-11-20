@@ -1,8 +1,9 @@
-package com.excilys.formation.computerdatabase.ui;
+package com.excilys.formation.computerdatabase.ui.computer;
 
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
+import com.excilys.formation.computerdatabase.ui.Ui;
 
-public interface ComputerUiInterface extends UiInterface {
+public interface ComputerUi extends Ui {
 
   /** Show all the computer's attributes.
    * 

@@ -10,7 +10,7 @@ import com.excilys.formation.computerdatabase.exception.NotImplementedMethodExce
  *
  * @param <T> : the object of the service
  */
-public interface ServiceInterface<T> {
+public interface Service<T> {
 
   /** Create a T object in the database. 
    * 

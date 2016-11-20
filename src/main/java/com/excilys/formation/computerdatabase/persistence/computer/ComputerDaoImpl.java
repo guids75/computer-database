@@ -1,9 +1,10 @@
-package com.excilys.formation.computerdatabase.persistence;
+package com.excilys.formation.computerdatabase.persistence.computer;
 
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import com.excilys.formation.computerdatabase.mapper.LocalDateMapper;
-import com.excilys.formation.computerdatabase.mapper.ResultToObjectMapper;
+import com.excilys.formation.computerdatabase.mapper.ResultMapper;
 import com.excilys.formation.computerdatabase.model.Computer;
+import com.excilys.formation.computerdatabase.persistence.JdbcConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,10 +18,10 @@ import java.util.List;
  * @author GUIDS
  *
  */
-public class ComputerDao implements ComputerDaoInterface {
+public class ComputerDaoImpl implements ComputerDao {
 
-  private static ComputerDao computerDao = new ComputerDao(); //singleton of this class
-  private static ResultToObjectMapper resultToObjectMapper = ResultToObjectMapper.getInstance(); //utility to manage resultSets
+  private static ComputerDaoImpl computerDao = new ComputerDaoImpl(); //singleton of this class
+  private static ResultMapper resultToObjectMapper = ResultMapper.getInstance(); //utility to manage resultSets
   private static JdbcConnection jdbcConnection = JdbcConnection.getInstance(); //get the connection
   private static LocalDateMapper localDateMapper = LocalDateMapper.getInstance(); //utility to manage dates
 
@@ -37,13 +38,13 @@ public class ComputerDao implements ComputerDaoInterface {
   /**
    * Private constructor for singleton.
    */
-  private ComputerDao() {
+  private ComputerDaoImpl() {
   }
 
   /**
    * @return the singleton corresponding to this class
    */
-  public static ComputerDao getInstance() {
+  public static ComputerDaoImpl getInstance() {
     return computerDao;
   }
 

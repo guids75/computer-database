@@ -1,8 +1,8 @@
-package com.excilys.formation.computerdatabase.service;
+package com.excilys.formation.computerdatabase.service.computer;
 
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import com.excilys.formation.computerdatabase.model.Computer;
-import com.excilys.formation.computerdatabase.persistence.ComputerDao;
+import com.excilys.formation.computerdatabase.persistence.computer.ComputerDaoImpl;
 
 import java.util.List;
 
@@ -13,22 +13,22 @@ import org.slf4j.LoggerFactory;
  * @author GUIDS
  *
  */
-public class ComputerService implements ComputerServiceInterface {
+public class ComputerServiceImpl implements ComputerService {
 
-  private static final ComputerDao computerDao = ComputerDao.getInstance(); //dao for Computer to manage the computers
-  private static ComputerService computerService = new ComputerService(); //singleton of this class
-  private static final Logger slf4jLogger = LoggerFactory.getLogger(ComputerService.class);
+  private static final ComputerDaoImpl computerDao = ComputerDaoImpl.getInstance(); //dao for Computer to manage the computers
+  private static ComputerServiceImpl computerService = new ComputerServiceImpl(); //singleton of this class
+  private static final Logger slf4jLogger = LoggerFactory.getLogger(ComputerServiceImpl.class);
 
   /**
    * Private constructor for singleton.
    */
-  private ComputerService() {
+  private ComputerServiceImpl() {
   }
 
   /**
    * @return the singleton corresponding to this class
    */
-  public static ComputerService getInstance() {
+  public static ComputerServiceImpl getInstance() {
     return computerService;
   }
 

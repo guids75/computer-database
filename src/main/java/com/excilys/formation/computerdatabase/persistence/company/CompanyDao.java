@@ -1,14 +1,15 @@
-package com.excilys.formation.computerdatabase.persistence;
+package com.excilys.formation.computerdatabase.persistence.company;
 
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import com.excilys.formation.computerdatabase.model.Company;
+import com.excilys.formation.computerdatabase.persistence.Dao;
 
 /**
  * @author GUIDS
  *
  * @param Company : type managed by the interface
  */
-public interface CompanyDaoInterface extends DaoInterface<Company> {
+public interface CompanyDao extends Dao<Company> {
 
   /** Get the company with its id.
    * 

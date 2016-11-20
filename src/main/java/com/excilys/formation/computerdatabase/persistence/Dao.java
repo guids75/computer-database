@@ -9,7 +9,7 @@ import com.excilys.formation.computerdatabase.exception.ConnectionException;
  *
  * @param <T> : the object of the Dao
  */
-public interface DaoInterface<T> {
+public interface Dao<T> {
 
   /** Create a T object in the database. 
    * 

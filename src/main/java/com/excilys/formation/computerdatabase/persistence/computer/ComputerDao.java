@@ -1,14 +1,15 @@
-package com.excilys.formation.computerdatabase.persistence;
+package com.excilys.formation.computerdatabase.persistence.computer;
 
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import com.excilys.formation.computerdatabase.model.Computer;
+import com.excilys.formation.computerdatabase.persistence.Dao;
 
 /**
  * @author GUIDS
  *
  * @param Computer : type managed by the interface
  */
-public interface ComputerDaoInterface extends DaoInterface<Computer> {
+public interface ComputerDao extends Dao<Computer> {
 
   /** Show all the attributes of a specific computer.
    * 

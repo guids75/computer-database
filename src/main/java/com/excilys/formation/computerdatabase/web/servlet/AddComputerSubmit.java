@@ -17,8 +17,9 @@ import com.excilys.formation.computerdatabase.mapper.LocalDateMapper;
 import com.excilys.formation.computerdatabase.model.Company;
 import com.excilys.formation.computerdatabase.model.Computer;
 import com.excilys.formation.computerdatabase.model.Page;
-import com.excilys.formation.computerdatabase.service.CompanyService;
-import com.excilys.formation.computerdatabase.service.ComputerService;
+import com.excilys.formation.computerdatabase.service.company.CompanyServiceImpl;
+import com.excilys.formation.computerdatabase.service.computer.ComputerServiceImpl;
+
 import java.time.LocalDate;
 /**
  * @author GUIDS
@@ -26,8 +27,8 @@ import java.time.LocalDate;
  */
 public class AddComputerSubmit extends HttpServlet {
 
-  private static final ComputerService computerService = ComputerService.getInstance();
-  private static final CompanyService companyService = CompanyService.getInstance(); //service of Company to manage them
+  private static final ComputerServiceImpl computerService = ComputerServiceImpl.getInstance();
+  private static final CompanyServiceImpl companyService = CompanyServiceImpl.getInstance(); //service of Company to manage them
   private static final LocalDateMapper localDateMapper = LocalDateMapper.getInstance(); //utility to manage the dates
   private static final Logger logger = LoggerFactory.getLogger(Test.class);
   private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-M-dd"); 

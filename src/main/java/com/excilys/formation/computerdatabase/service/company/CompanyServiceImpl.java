@@ -1,8 +1,8 @@
-package com.excilys.formation.computerdatabase.service;
+package com.excilys.formation.computerdatabase.service.company;
 
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import com.excilys.formation.computerdatabase.model.Company;
-import com.excilys.formation.computerdatabase.persistence.CompanyDao;
+import com.excilys.formation.computerdatabase.persistence.company.CompanyDaoImpl;
 import com.excilys.formation.computerdatabase.ui.Cli;
 
 import java.util.List;
@@ -14,22 +14,22 @@ import org.slf4j.LoggerFactory;
  * @author GUIDS
  *
  */
-public class CompanyService implements CompanyServiceInterface {
+public class CompanyServiceImpl implements CompanyService {
 
-  private static final CompanyDao companyDao = CompanyDao.getInstance(); //dao of Company to manage the companies
-  private static CompanyService companyService = new CompanyService(); //singleton of this class
-  private static final Logger slf4jLogger = LoggerFactory.getLogger(CompanyService.class);
+  private static final CompanyDaoImpl companyDao = CompanyDaoImpl.getInstance(); //dao of Company to manage the companies
+  private static CompanyServiceImpl companyService = new CompanyServiceImpl(); //singleton of this class
+  private static final Logger slf4jLogger = LoggerFactory.getLogger(CompanyServiceImpl.class);
 
   /**
    * Private constructor for singleton
    */
-  private CompanyService() {
+  private CompanyServiceImpl() {
   }
 
   /**
    * @return the singleton corresponding to this class
    */
-  public static CompanyService getInstance() {
+  public static CompanyServiceImpl getInstance() {
     return companyService;
   }
 

@@ -16,23 +16,23 @@ import org.slf4j.LoggerFactory;
  * @author GUIDS
  *
  */
-public class ResultToObjectMapper {
+public class ResultMapper {
 
   private static LocalDateMapper localMapper = LocalDateMapper.getInstance(); //utility to process dates
-  private static ResultToObjectMapper resultToObjectMapper = new ResultToObjectMapper(); //singleton of this class
-  private static final Logger slf4jLogger = LoggerFactory.getLogger(ResultToObjectMapper.class);
+  private static ResultMapper resultToObjectMapper = new ResultMapper(); //singleton of this class
+  private static final Logger slf4jLogger = LoggerFactory.getLogger(ResultMapper.class);
 
 
   /**
    * Private constructor for a singleton.
    */
-  private ResultToObjectMapper() {
+  private ResultMapper() {
   }
 
   /**
    * @return the singleton corresponding to this class
    */
-  public static ResultToObjectMapper getInstance() {
+  public static ResultMapper getInstance() {
     return resultToObjectMapper;
   }
 
