@@ -25,7 +25,7 @@ public class CompaniesMenuSubmit extends HttpServlet {
   private Page<Company> pages; //pages' attributes to manage them
 
   public CompaniesMenuSubmit() throws ConnectionException {
-    pages = new Page<>(companyService.getNumber());
+    pages = new Page<>(companyService.count());
     pages.setActualPage(1);
     pages.setNbElementsByPage(10);
   }

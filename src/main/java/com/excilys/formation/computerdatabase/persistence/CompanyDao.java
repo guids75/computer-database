@@ -44,39 +44,41 @@ public class CompanyDao implements CompanyDaoInterface {
   @Override
   public List<Company> list(int nbCompanies, int offset) throws ConnectionException {
     jdbcConnection.openConnection();
-    try (Connection connection = jdbcConnection.openConnection(); 
-        PreparedStatement preparedStatement = jdbcConnection.getConnection().prepareStatement(LIST_REQUEST)) { 
+    try (Connection connection = jdbcConnection.getConnection(); 
+        PreparedStatement preparedStatement = jdbcConnection.getConnection().prepareStatement(LIST_REQUEST)) {
       preparedStatement.setInt(1, nbCompanies);
       preparedStatement.setInt(2, offset);
       results = preparedStatement.executeQuery();
       return resultToObjectMapper.convertToCompanies(preparedStatement.executeQuery());
     } catch (SQLException exception) {
-      throw new ConnectionException("companies failed to be listed");
+      throw new ConnectionException("companies failed to be listed", exception);
     }
   }
 
   @Override
-  public int getNumber() throws ConnectionException {
-    try (Connection connection = jdbcConnection.openConnection(); 
+  public int count() throws ConnectionException {
+    jdbcConnection.openConnection();
+    try (Connection connection = jdbcConnection.getConnection(); 
         Statement statement = jdbcConnection.getConnection().createStatement()) { 
       results = statement.executeQuery(NUMBER_REQUEST); 
       results.next();
       return results.getInt("number");
     } catch (SQLException exception) { 
-        throw new ConnectionException("companies failed to be counted");
+      throw new ConnectionException("companies failed to be counted", exception);
     } 
   } 
 
   @Override
   public Company getCompany(int id) throws ConnectionException {
-    try (Connection connection = jdbcConnection.openConnection(); 
+    jdbcConnection.openConnection();
+    try (Connection connection = jdbcConnection.getConnection(); 
         PreparedStatement preparedStatement = connection.prepareStatement(COMPANY_REQUEST)) {
       preparedStatement.setInt(1,id);
       results = preparedStatement.executeQuery();
       results.next();
       return resultToObjectMapper.convertToCompany(results);
     } catch (SQLException exception) {
-        throw new ConnectionException("company failed to be get");
+      throw new ConnectionException("company failed to be get", exception);
     }
   }
 

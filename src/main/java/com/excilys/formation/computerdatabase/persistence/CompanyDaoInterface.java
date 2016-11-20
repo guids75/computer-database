@@ -20,6 +20,6 @@ public interface CompanyDaoInterface extends DaoInterface<Company> {
   /**
    * @return the number of companies
    */
-  public int getNumber() throws ConnectionException;
+  public int count() throws ConnectionException;
 
 }

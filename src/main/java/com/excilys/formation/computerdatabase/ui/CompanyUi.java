@@ -21,12 +21,12 @@ public class CompanyUi implements CompanyUiInterface {
   /** Create a new instance of Page and set their number according to the number of companies.
    * 
    */
-  public CompanyUi() throws ConnectionException {
-    pages = new Page<>(companyService.getNumber());
+  public CompanyUi() {
+    pages = new Page<>(companyService.count());
   }
 
   @Override
-  public void list() throws ConnectionException {
+  public void list() {
     print(companyService.list(pages.getNbElementsByPage(), offset));
     System.out.println("Type b to see before, a to see after, q to quit");
     String line = scanner.nextLine();

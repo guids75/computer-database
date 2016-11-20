@@ -14,11 +14,11 @@ public interface ComputerServiceInterface extends ServiceInterface<Computer> {
    * 
    * @param computerId : the id of the computer
    */
-  public void showComputerDetails(int computerId) throws ConnectionException;
+  public void showComputerDetails(int computerId);
 
   /**
    * @return the number of computers
    */
-  public int getNumber() throws ConnectionException;
+  public int count();
 
 }

@@ -2,11 +2,8 @@ package com.excilys.formation.computerdatabase.ui;
 
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import com.excilys.formation.computerdatabase.mapper.LocalDateMapper;
-import com.excilys.formation.computerdatabase.model.Company;
 import com.excilys.formation.computerdatabase.model.Computer;
-import com.excilys.formation.computerdatabase.model.Computer.ComputerBuilder;
 import com.excilys.formation.computerdatabase.model.Page;
-import com.excilys.formation.computerdatabase.persistence.ComputerDao;
 import com.excilys.formation.computerdatabase.service.CompanyService;
 import com.excilys.formation.computerdatabase.service.ComputerService;
 
@@ -37,13 +34,13 @@ public class ComputerUi implements ComputerUiInterface {
   /** Create a new instance of Page and set their number according to the number of computers.
  * 
  */
-public ComputerUi() throws ConnectionException {
-    nbComputers = computerService.getNumber();
+public ComputerUi() {
+    nbComputers = computerService.count();
     pages = new Page<>(nbComputers);
   }
 
   @Override
-  public void list() throws ConnectionException {
+  public void list() {
     print(computerService.list(pages.getNbElementsByPage(), offset));
     System.out.println("Type b to see before, a to see after, q to quit");
     String line = scanner.nextLine();
@@ -78,7 +75,7 @@ public void print(List<Computer> computers) {
   }
 
 @Override
-  public void showComputerDetails() throws ConnectionException {
+  public void showComputerDetails() {
     System.out.println("which id?");
     while (!scanner.hasNextInt()) {
       System.out.println("You must use an integer");
@@ -89,7 +86,7 @@ public void print(List<Computer> computers) {
   }
 
 @Override
-  public void insert() throws ConnectionException {
+  public void insert() {
     System.out.println("which name?");
     String name = scanner.nextLine();
     System.out.println("which introducing date? (yyyy-M-dd)");
@@ -115,7 +112,7 @@ public void print(List<Computer> computers) {
   }
 
 @Override
-  public void update() throws ConnectionException {
+  public void update() {
     System.out.println("which computer id?");
     int id = scanner.nextInt();
     scanner.nextLine();
@@ -144,7 +141,7 @@ public void print(List<Computer> computers) {
   }
 
 @Override
-  public void delete() throws ConnectionException {
+  public void delete() {
     System.out.println("which computer id?");
     computerService.delete(scanner.nextInt());
     scanner.nextLine();

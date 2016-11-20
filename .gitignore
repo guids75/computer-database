@@ -1,0 +1,6 @@
+.settings/
+WebContent/
+target/
+.classpath
+.project
+myLogFile.log

@@ -29,7 +29,7 @@ public class AddComputer extends HttpServlet {
   public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
 
     try {
-      request.setAttribute( "listCompanies", companyService.list(companyService.getNumber(), 0));
+      request.setAttribute( "listCompanies", companyService.list(companyService.count(), 0));
     } catch (ConnectionException exception) {
       exception.printStackTrace();
     }

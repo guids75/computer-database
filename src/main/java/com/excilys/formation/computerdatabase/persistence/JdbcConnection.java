@@ -36,34 +36,34 @@ public class JdbcConnection {
    * 
    * @return the connection opened
    */
-  public Connection openConnection() throws ConnectionException{
+  public void openConnection() {
     try {
-      Class.forName("com.mysql.jdbc.Driver");
+      Class.forName("com.mysql.cj.jdbc.Driver");
       Properties properties = PropertiesReader.getInstance().getPropValues(PROP_FILE_NAME);
       connection = DriverManager.getConnection(properties.getProperty("url"),
           properties.getProperty("login"), properties.getProperty("password"));
-      return connection;
-
     } catch (SQLException | ClassNotFoundException | IOException exception) {
-      throw new ConnectionException("problem when opening a connection");
+      exception.printStackTrace();
     }
   }
 
   /**
    * Close a jdbc connection.
    */
-  public void closeConnection() throws ConnectionException {
-    try {
-      connection.close();
-    } catch (SQLException exception) {
-      throw new ConnectionException("problem when closing a connection");
+  public void closeConnection() {
+    if (connection != null) {
+      try {
+        connection.close();
+      } catch (SQLException exception) {
+        exception.printStackTrace();
+      }
     }
   }
 
   /**
    * @return the current connection
    */
-  public Connection getConnection(){
+  public Connection getConnection() {
     return connection;
   }
 

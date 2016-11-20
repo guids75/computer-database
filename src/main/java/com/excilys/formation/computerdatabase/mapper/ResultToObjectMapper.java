@@ -2,11 +2,15 @@ package com.excilys.formation.computerdatabase.mapper;
 
 import com.excilys.formation.computerdatabase.model.Company;
 import com.excilys.formation.computerdatabase.model.Computer;
+import com.excilys.formation.computerdatabase.ui.Cli;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author GUIDS
@@ -16,6 +20,8 @@ public class ResultToObjectMapper {
 
   private static LocalDateMapper localMapper = LocalDateMapper.getInstance(); //utility to process dates
   private static ResultToObjectMapper resultToObjectMapper = new ResultToObjectMapper(); //singleton of this class
+  private static final Logger slf4jLogger = LoggerFactory.getLogger(ResultToObjectMapper.class);
+
 
   /**
    * Private constructor for a singleton.
@@ -38,12 +44,12 @@ public class ResultToObjectMapper {
   public List<Computer> convertToComputers(ResultSet results) {
     List<Computer> computers = new ArrayList<>();
     try {
-      while (!results.isLast()) {
-        results.next();
+      while (results.next()) {
         computers.add(convertToComputer(results));
       }
     } catch (SQLException exception) {
-      exception.printStackTrace();
+      slf4jLogger.error("Error in ResultToObject in convertToComputers");
+      slf4jLogger.error(exception.getMessage());
     }
     return computers;
   }
@@ -62,7 +68,8 @@ public class ResultToObjectMapper {
           .build();
       return computer;
     } catch (SQLException exception) {
-      exception.printStackTrace();
+      slf4jLogger.error("Error in ResultToObject in convertToComputer");
+      slf4jLogger.error(exception.getMessage());
     }
     return null;
   }
@@ -75,12 +82,12 @@ public class ResultToObjectMapper {
   public List<Company> convertToCompanies(ResultSet results) {
     List<Company> companies = new ArrayList<>();
     try {
-      while (!results.isLast()) {
-        results.next();
+      while (results.next()) {
         companies.add(convertToCompany(results));
       }
     } catch (SQLException exception) {
-      exception.printStackTrace();
+      slf4jLogger.error("Error in ResultToObject in convertToCompanies");
+      slf4jLogger.error(exception.getMessage());
     }
     return companies;
   }
@@ -91,14 +98,15 @@ public class ResultToObjectMapper {
    * @return the company corresponding
    */
   public Company convertToCompany(ResultSet results) {
-    Company company = new Company();
     try {
+      Company company = new Company();
       company.setId(results.getInt("Id"));
       company.setName(results.getString("Name"));
     } catch (SQLException exception) {
-      exception.printStackTrace();
+      slf4jLogger.error("Error in ResultToObject in convertToCompany");
+      slf4jLogger.error(exception.getMessage());
     }
-    return company;
+    return null;
   }
 
 }

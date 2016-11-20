@@ -10,11 +10,11 @@ import java.time.LocalDate;
  */
 public class Computer {
 
-  private final int id; //id of the computer, required
-  private final String name; //name of the computer, required
-  private final LocalDate introduced; //date when the computer was introduced, optional
-  private final LocalDate discontinued; //date when the computer was discontinued, optional
-  private final Company company; //company which produces the computer, required
+  private int id; //id of the computer, required
+  private String name; //name of the computer, required
+  private LocalDate introduced; //date when the computer was introduced, optional
+  private LocalDate discontinued; //date when the computer was discontinued, optional
+  private Company company; //company which produces the computer, required
 
   /** Private constructor to use a builder.
    * 
@@ -158,9 +158,7 @@ public class Computer {
      * @return the ComputerBuilder with his introduced date updated
      */
     public ComputerBuilder introduced(LocalDate introduced) {
-      if (introduced != null) {
-        this.introduced = introduced;
-      }
+      this.introduced = introduced;
       return this;
     }
 
@@ -170,9 +168,7 @@ public class Computer {
      * @return the ComputerBuilder with his discontinued date updated
      */
     public ComputerBuilder discontinued(LocalDate discontinued) {
-      if (discontinued != null) {
-        this.discontinued = discontinued;
-      }
+      this.discontinued = discontinued;
       return this;
     }
 

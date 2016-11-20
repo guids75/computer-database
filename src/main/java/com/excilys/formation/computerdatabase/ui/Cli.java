@@ -13,19 +13,11 @@ import org.slf4j.Logger;
  *
  */
 public class Cli {
-
-  public static void main(String[] args) throws ConnectionException {
+  
+  public static void main(String[] args) {
 
     ComputerUi computerUi = new ComputerUi();
     CompanyUi companyUi = new CompanyUi();
-
-    /*Logger slf4jLogger = LoggerFactory.getLogger(Cli.class);
-
-    String name = "Abhijit";
-    slf4jLogger.debug("Hi, {}", name);
-    slf4jLogger.info("Welcome to the HelloWorld example of Logback.");
-    slf4jLogger.warn("Dummy warning message.");
-    slf4jLogger.error("Dummy error message.");*/
 
     while (true) {
 

@@ -49,7 +49,8 @@ public class ComputerDao implements ComputerDaoInterface {
 
   @Override
   public Computer insert(Computer computer) throws ConnectionException {
-    try (Connection connection = jdbcConnection.openConnection(); 
+    jdbcConnection.openConnection();
+    try (Connection connection = jdbcConnection.getConnection(); 
         PreparedStatement preparedStatement = connection.prepareStatement(INSERT_REQUEST)) {
       preparedStatement.setInt(1,computer.getId());
       preparedStatement.setString(2,computer.getName());
@@ -58,14 +59,15 @@ public class ComputerDao implements ComputerDaoInterface {
       preparedStatement.setInt(5,computer.getCompany().getId());
       preparedStatement.executeUpdate();
     } catch (SQLException exception) {
-      throw new ConnectionException("computer failed to be inserted");
+      throw new ConnectionException("computer failed to be inserted", exception);
     }
     return computer;
   }
 
   @Override
   public Computer update(Computer computer) throws ConnectionException {
-    try (Connection connection = jdbcConnection.openConnection(); 
+    jdbcConnection.openConnection();
+    try (Connection connection = jdbcConnection.getConnection(); 
         PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_REQUEST)) {
       preparedStatement.setString(1, computer.getName());
       preparedStatement.setObject(2, localDateMapper.convertToTimeStamp(computer.getIntroduced()));
@@ -75,56 +77,60 @@ public class ComputerDao implements ComputerDaoInterface {
       preparedStatement.executeUpdate();
       preparedStatement.close();
     } catch (SQLException exception) {
-      throw new ConnectionException("computer failed to be updated");
+      throw new ConnectionException("computer failed to be updated", exception);
     }
     return computer;
   }
 
   @Override
   public void delete(int computerId) throws ConnectionException {
-    try (Connection connection = jdbcConnection.openConnection(); 
+    jdbcConnection.openConnection();
+    try (Connection connection = jdbcConnection.getConnection(); 
         PreparedStatement preparedStatement = connection.prepareStatement(DELETE_REQUEST)) {
       preparedStatement.setInt(1, computerId);
       preparedStatement.executeUpdate();
     } catch (SQLException exception) {
-      throw new ConnectionException("computer failed to be deleted");
+      throw new ConnectionException("computer failed to be deleted", exception);
     }
   }
 
   @Override
   public List<Computer> list(int nbComputers, int offset) throws ConnectionException {
-    try (Connection connection = jdbcConnection.openConnection(); 
+    jdbcConnection.openConnection();
+    try (Connection connection = jdbcConnection.getConnection(); 
         PreparedStatement preparedStatement = connection.prepareStatement(LIST_REQUEST)) {
       preparedStatement.setInt(1, nbComputers);
       preparedStatement.setInt(2, offset);
       return resultToObjectMapper.convertToComputers(preparedStatement.executeQuery());
     } catch (SQLException exception) {
-      throw new ConnectionException("computers failed to be listed");
+      throw new ConnectionException("computers failed to be listed", exception);
     }
   }
 
   @Override
   public Computer showComputerDetails(int computerId) throws ConnectionException {
-    try (Connection connection = jdbcConnection.openConnection(); 
+    jdbcConnection.openConnection();
+    try (Connection connection = jdbcConnection.getConnection(); 
         PreparedStatement preparedStatement = connection.prepareStatement(DETAILS_REQUEST)) {
       preparedStatement.setInt(1, computerId);
       Computer computer = resultToObjectMapper.convertToComputer(preparedStatement.executeQuery());
       return computer;
     } catch (SQLException exception) {
-      throw new ConnectionException("computer failed to be detailed");
+      throw new ConnectionException("computer failed to be detailed", exception);
     }
   }
 
   @Override
-  public int getNumber() throws ConnectionException {
+  public int count() throws ConnectionException {
     int numberComputers = -1; 
-    try { 
-      Statement statement = jdbcConnection.openConnection().createStatement();
+    jdbcConnection.openConnection();
+    try (Connection connection = jdbcConnection.getConnection(); 
+        Statement statement = connection.createStatement()) {
       results = statement.executeQuery(NUMBER_REQUEST); 
       results.next();
       numberComputers = results.getInt("number");
     } catch (SQLException exception) { 
-      throw new ConnectionException("computers failed to be counted");
+      throw new ConnectionException("computers failed to be counted", exception);
     } 
     return numberComputers; 
   } 

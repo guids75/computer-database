@@ -25,7 +25,7 @@ public class ComputersMenuSubmit extends HttpServlet {
   private Page<Computer> pages; //pages' attributes to manage them
 
   public ComputersMenuSubmit() throws ConnectionException {
-    pages = new Page<>(computerService.getNumber());
+    pages = new Page<>(computerService.count());
     pages.setNbElementsByPage(10);
   }
 

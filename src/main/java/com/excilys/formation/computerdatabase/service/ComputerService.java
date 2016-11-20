@@ -6,6 +6,9 @@ import com.excilys.formation.computerdatabase.persistence.ComputerDao;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * @author GUIDS
  *
@@ -14,6 +17,7 @@ public class ComputerService implements ComputerServiceInterface {
 
   private static final ComputerDao computerDao = ComputerDao.getInstance(); //dao for Computer to manage the computers
   private static ComputerService computerService = new ComputerService(); //singleton of this class
+  private static final Logger slf4jLogger = LoggerFactory.getLogger(ComputerService.class);
 
   /**
    * Private constructor for singleton.
@@ -29,32 +33,67 @@ public class ComputerService implements ComputerServiceInterface {
   }
 
   @Override
-  public Computer insert(Computer computer) throws ConnectionException {
-    return computerDao.insert(computer);
+  public Computer insert(Computer computer) {
+    try {
+      return computerDao.insert(computer);
+    } catch (ConnectionException exception) {
+      slf4jLogger.error("Error in ComputerService in inserty");
+      slf4jLogger.error(exception.getMessage());    
+    }
+    return null;
   }
 
   @Override
-  public Computer update(Computer computer) throws ConnectionException {
-    return computerDao.update(computer);
+  public Computer update(Computer computer) {
+    try {
+      return computerDao.update(computer);
+    } catch (ConnectionException exception) {
+      slf4jLogger.error("Error in ComputerService in update");
+      slf4jLogger.error(exception.getMessage());
+    }
+    return null;
   }
 
   @Override
-  public void delete(int computer) throws ConnectionException {
-    computerDao.delete(computer);
+  public void delete(int computer) {
+    try {
+      computerDao.delete(computer);
+    } catch (ConnectionException exception) {
+      slf4jLogger.error("Error in ComputerService in delete");
+      slf4jLogger.error(exception.getMessage());
+    }
   }
 
   @Override
-  public List<Computer> list(int nbElements, int offset) throws ConnectionException {
-    return computerDao.list(nbElements, offset);
+  public List<Computer> list(int nbElements, int offset) {
+    try {
+      return computerDao.list(nbElements, offset);
+    } catch (ConnectionException exception) {
+      slf4jLogger.error("Error in ComputerService in list");
+      slf4jLogger.error(exception.getMessage());
+    }
+    return null;
   }
 
   @Override
-  public void showComputerDetails(int computerId) throws ConnectionException {
-    computerDao.showComputerDetails(computerId);
+  public void showComputerDetails(int computerId) {
+    try {
+      computerDao.showComputerDetails(computerId);
+    } catch (ConnectionException exception) {
+      slf4jLogger.error("Error in ComputerService in showComputerDetails");
+      slf4jLogger.error(exception.getMessage());
+    }
   }
 
-  public int getNumber() throws ConnectionException {
-    return computerDao.getNumber();
+  @Override
+  public int count() {
+    try {
+      return computerDao.count();
+    } catch (ConnectionException exception) {
+      slf4jLogger.error("Error in ComputerService in count");
+      slf4jLogger.error(exception.getMessage());
+    }
+    return -1;
   }
 
 }

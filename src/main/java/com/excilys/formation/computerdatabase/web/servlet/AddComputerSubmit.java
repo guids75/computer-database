@@ -42,7 +42,7 @@ public class AddComputerSubmit extends HttpServlet {
         //introduced = localDateMapper.convertToLocalDate(simpleDateFormat.parse(request.getParameter("introduced")));
       }
       try {
-        Computer.ComputerBuilder computer = new Computer.ComputerBuilder(computerService.getNumber()+1, 
+        Computer.ComputerBuilder computer = new Computer.ComputerBuilder(computerService.count()+1, 
             request.getParameter("computerName"), companyService.getCompany(Integer.parseInt(request.getParameter("companyId"))));
         if (introduced != null) {
           computer.introduced(localDateMapper.convertToLocalDate(simpleDateFormat.parse(request.getParameter("introduced"))));

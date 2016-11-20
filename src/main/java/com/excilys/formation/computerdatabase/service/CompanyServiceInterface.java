@@ -13,11 +13,11 @@ public interface CompanyServiceInterface extends ServiceInterface<Company> {
   /**
    * @return the number of companies
    */
-  public int getNumber() throws ConnectionException;
+  public int count();
 
   /**
    * @param id : the id of the company
    * @return the company specified
    */
-  public Company getCompany(int id) throws ConnectionException;
+  public Company getCompany(int id);
 }

@@ -84,6 +84,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler.version}</version>
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
@@ -92,7 +93,7 @@
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
-				<version>${apache-tomcat-maven}</version>
+				<version>${apache-tomcat-maven.version}</version>
 				<configuration>
 					<url>http://localhost:8080/manager</url>
 					<server>localhost</server>

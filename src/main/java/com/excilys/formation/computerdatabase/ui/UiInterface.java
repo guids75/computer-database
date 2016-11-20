@@ -15,6 +15,6 @@ public interface UiInterface {
   /** List of objects.
    * 
    */
-  public void list() throws ConnectionException;
+  public void list();
 
 }

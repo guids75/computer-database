@@ -20,5 +20,5 @@ public interface ComputerDaoInterface extends DaoInterface<Computer> {
   /**
    * @return the number of computers
    */
-  public int getNumber() throws ConnectionException;
+  public int count() throws ConnectionException;
 }
