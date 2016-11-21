@@ -60,7 +60,8 @@ public class ComputerDaoImpl implements ComputerDao {
       preparedStatement.setInt(5,computer.getCompany().getId());
       preparedStatement.executeUpdate();
     } catch (SQLException exception) {
-      throw new ConnectionException("computer failed to be inserted", exception);
+exception.printStackTrace();
+throw new ConnectionException("computer failed to be inserted", exception);
     }
     return computer;
   }

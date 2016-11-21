@@ -14,8 +14,6 @@ import javax.servlet.http.HttpServletResponse;
  *
  */
 public class MainMenuSubmit extends HttpServlet {
-
-  private static final Logger logger = LoggerFactory.getLogger(Test.class);
   
   @Override
   public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException{

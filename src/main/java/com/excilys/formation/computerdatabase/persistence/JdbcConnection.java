@@ -38,7 +38,7 @@ public class JdbcConnection {
    */
   public void openConnection() {
     try {
-      Class.forName("com.mysql.cj.jdbc.Driver");
+      Class.forName("com.mysql.jdbc.Driver");
       Properties properties = PropertiesReader.getInstance().getPropValues(PROP_FILE_NAME);
       connection = DriverManager.getConnection(properties.getProperty("url"),
           properties.getProperty("login"), properties.getProperty("password"));

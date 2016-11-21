@@ -18,13 +18,12 @@ import com.excilys.formation.computerdatabase.service.computer.ComputerServiceIm
  * @author GUIDS
  *
  */
-public class ComputersMenuSubmit extends HttpServlet {
+public class Dashboard extends HttpServlet {
 
   private static final ComputerServiceImpl computerService = ComputerServiceImpl.getInstance(); //service of Computer to manage them
-  private static final Logger logger = LoggerFactory.getLogger(Test.class);
   private Page<Computer> pages; //pages' attributes to manage them
 
-  public ComputersMenuSubmit() throws ConnectionException {
+  public Dashboard() throws ConnectionException {
     pages = new Page<>(computerService.count());
     pages.setNbElementsByPage(10);
   }
@@ -35,13 +34,7 @@ public class ComputersMenuSubmit extends HttpServlet {
       String actionChosen = request.getParameter("computersAction");*/
     request.setAttribute("pages", pages);
 
-    /*switch (actionChosen) {
-      case ("listComputers"):*/
-    try {
-      request.setAttribute( "listComputers", computerService.list(pages.getNbElementsByPage(), 0));
-    } catch (ConnectionException exception) {
-      exception.printStackTrace();
-    }
+    request.setAttribute( "listComputers", computerService.list(pages.getNbElementsByPage(), 0));
     this.getServletContext().getRequestDispatcher( "/WEB-INF/jsp/listComputers.jsp" ).forward( request, response );
     /*break;
       default:
@@ -60,19 +53,15 @@ public class ComputersMenuSubmit extends HttpServlet {
         pages.calculateNbPages(pages.getNbElements());
       }
 
-      try {
-        request.setAttribute("pages", pages);
-        if (pages.getActualPage()-1 * pages.getNbElementsByPage() < pages.getNbElements()){
-          request.setAttribute( "listComputers", computerService.list(pages.getNbElementsByPage(), (pages.getActualPage()-1) * pages.getNbElementsByPage()));
-        } else {
-          pages.setActualPage(pages.getActualPage()-1);
-          request.setAttribute( "listComputers", computerService.list(pages.getNbElementsByPage(), (pages.getActualPage()-1) * pages.getNbElementsByPage()));
-        }
-
-        request.setAttribute("numberPages", pages.getNbPages());
-      } catch (ConnectionException exception) {
-        exception.printStackTrace();
+      request.setAttribute("pages", pages);
+      if (pages.getActualPage()-1 * pages.getNbElementsByPage() < pages.getNbElements()){
+        request.setAttribute( "listComputers", computerService.list(pages.getNbElementsByPage(), (pages.getActualPage()-1) * pages.getNbElementsByPage()));
+      } else {
+        pages.setActualPage(pages.getActualPage()-1);
+        request.setAttribute( "listComputers", computerService.list(pages.getNbElementsByPage(), (pages.getActualPage()-1) * pages.getNbElementsByPage()));
       }
+
+      request.setAttribute("numberPages", pages.getNbPages());
       this.getServletContext().getRequestDispatcher( "/WEB-INF/jsp/listComputers.jsp" ).forward( request, response );
     } else {
       doPost(request, response);

@@ -1,6 +1,7 @@
 package com.excilys.formation.computerdatabase.mapper;
 
 import com.excilys.formation.computerdatabase.model.Company;
+import com.excilys.formation.computerdatabase.model.Company.CompanyBuilder;
 import com.excilys.formation.computerdatabase.model.Computer;
 import com.excilys.formation.computerdatabase.ui.Cli;
 
@@ -61,10 +62,11 @@ public class ResultMapper {
    */
   public Computer convertToComputer(ResultSet results) {
     try {
-      Computer computer = new Computer.ComputerBuilder(results.getInt("comput.Id"), 
-          results.getString("comput.Name"), new Company(results.getInt("compan.Id"), results.getString("compan.Name")))
+      Computer computer = new Computer.ComputerBuilder(results.getString("comput.Name"))
+          .id(results.getInt("comput.Id"))
           .introduced(localMapper.convertToLocalDate(results.getDate("comput.Introduced")))
           .discontinued(localMapper.convertToLocalDate(results.getDate("comput.Discontinued")))
+          .company(new Company.CompanyBuilder(results.getString("compan.Name")).build())
           .build();
       return computer;
     } catch (SQLException exception) {
@@ -83,7 +85,6 @@ public class ResultMapper {
     List<Company> companies = new ArrayList<>();
     try {
       while (results.next()) {
-        System.out.println(1);
         companies.add(convertToCompany(results));
       }
     } catch (SQLException exception) {
@@ -100,9 +101,9 @@ public class ResultMapper {
    */
   public Company convertToCompany(ResultSet results) {
     try {
-      Company company = new Company();
-      company.setId(results.getInt("Id"));
-      company.setName(results.getString("Name"));
+      CompanyBuilder company = new Company.CompanyBuilder(results.getString("Name"));
+      company.id(results.getInt("Id"));
+      return company.build();
     } catch (SQLException exception) {
       slf4jLogger.error("Error in ResultToObject in convertToCompany");
       slf4jLogger.error(exception.getMessage());

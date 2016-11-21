@@ -15,8 +15,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class MainMenu extends HttpServlet {
 
-  private static final Logger logger = LoggerFactory.getLogger(Test.class);
-
   @Override
   public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException{
     this.getServletContext().getRequestDispatcher( "/WEB-INF/jsp/mainMenu.jsp" ).forward( request, response );

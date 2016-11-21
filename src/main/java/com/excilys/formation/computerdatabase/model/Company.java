@@ -1,5 +1,9 @@
 package com.excilys.formation.computerdatabase.model;
 
+import java.time.LocalDate;
+
+import com.excilys.formation.computerdatabase.model.Computer.ComputerBuilder;
+
 /**
  * @author GUIDS
  *
@@ -9,11 +13,13 @@ public class Company {
   private int id; // the id of the company
   private String name; //the name of the company
 
-  public Company() {}
-
-  public Company(int id, String name) {
-    this.id = id;
-    this.name = name;
+  /** Private constructor to use a builder.
+   * 
+   * @param builder : the builder of COmpany.
+   */
+  private Company(CompanyBuilder builder) {
+    this.id = builder.id;
+    this.name = builder.name;
   }
 
   /**
@@ -83,6 +89,39 @@ public class Company {
     return true;
   }
 
+  /** The class of the Computer builder.
+   * 
+   * @author GUIDS
+   */
+  public static class CompanyBuilder {
+    private int id;
+    private String name;
+    /** The builder of Computer.
+     * 
+     * @param name : the name of the computer
+     */
+    public CompanyBuilder(String name) {
+      this.name = name;
+    }
 
+    /** Setter for the id attribute.
+     * 
+     * @param id : the id to set
+     * @return the ComputerBuilder with his id updated
+     */
+    public CompanyBuilder id(int id) {
+      this.id = id;
+      return this;
+    }
+
+    /** Create the Computer according to the ComputerBuilder values.
+     * 
+     * @return the Computer based on its builder
+     */
+    public Company build() {
+      return new Company(this);
+    }
+
+  }
 
 }

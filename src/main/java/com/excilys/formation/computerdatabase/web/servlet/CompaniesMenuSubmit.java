@@ -21,7 +21,6 @@ import com.excilys.formation.computerdatabase.service.company.CompanyServiceImpl
 public class CompaniesMenuSubmit extends HttpServlet {
 
   private static CompanyServiceImpl companyService = CompanyServiceImpl.getInstance(); //service of Company to manage them
-  private static final Logger logger = LoggerFactory.getLogger(Test.class);
   private Page<Company> pages; //pages' attributes to manage them
 
   public CompaniesMenuSubmit() throws ConnectionException {
@@ -38,13 +37,9 @@ public class CompaniesMenuSubmit extends HttpServlet {
 
       switch (actionChosen) {
       case ("listCompanies"):
-        try {
-          request.setAttribute( "numberCompanies", pages.getNbElements() );
-          request.setAttribute( "listCompanies", companyService.list(pages.getNbElementsByPage(), 0));
-          request.setAttribute("numberPages", pages.getNbPages());
-        } catch (ConnectionException exception) {
-          exception.printStackTrace();
-        }
+        request.setAttribute( "numberCompanies", pages.getNbElements() );
+        request.setAttribute( "listCompanies", companyService.list(pages.getNbElementsByPage(), 0));
+        request.setAttribute("numberPages", pages.getNbPages());
       this.getServletContext().getRequestDispatcher( "/WEB-INF/jsp/listCompanies.jsp" ).forward( request, response );
       break;
       default:
@@ -63,22 +58,18 @@ public class CompaniesMenuSubmit extends HttpServlet {
         pages.calculateNbPages(pages.getNbElements());
       }
 
-      try {
-        request.setAttribute( "numberCompanies", pages.getNbElements() );
-        request.setAttribute("actualPage", pages.getActualPage());
-        request.setAttribute("hasNext", pages.hasNext());
-        request.setAttribute("hasPrev", pages.hasPrev());
-        if (pages.getActualPage()-1 * pages.getNbElementsByPage() < pages.getNbElements()){
-            request.setAttribute( "listCompanies", companyService.list(pages.getNbElementsByPage(), (pages.getActualPage()-1) * pages.getNbElementsByPage()));
-        } else {
-          pages.setActualPage(pages.getActualPage()-1);
+      request.setAttribute( "numberCompanies", pages.getNbElements() );
+      request.setAttribute("actualPage", pages.getActualPage());
+      request.setAttribute("hasNext", pages.hasNext());
+      request.setAttribute("hasPrev", pages.hasPrev());
+      if (pages.getActualPage()-1 * pages.getNbElementsByPage() < pages.getNbElements()){
           request.setAttribute( "listCompanies", companyService.list(pages.getNbElementsByPage(), (pages.getActualPage()-1) * pages.getNbElementsByPage()));
-        }
-        
-        request.setAttribute("numberPages", pages.getNbPages());
-      } catch (ConnectionException exception) {
-        exception.printStackTrace();
+      } else {
+        pages.setActualPage(pages.getActualPage()-1);
+        request.setAttribute( "listCompanies", companyService.list(pages.getNbElementsByPage(), (pages.getActualPage()-1) * pages.getNbElementsByPage()));
       }
+      
+      request.setAttribute("numberPages", pages.getNbPages());
       this.getServletContext().getRequestDispatcher( "/WEB-INF/jsp/listCompanies.jsp" ).forward( request, response );
     }
 

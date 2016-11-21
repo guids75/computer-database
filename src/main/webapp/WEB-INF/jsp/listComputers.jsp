@@ -15,7 +15,7 @@
 <body>
 	<header class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="mainMenu"> Application - Computer
+			<a class="navbar-brand" href="dashboard"> Application - Computer
 				Database </a>
 		</div>
 	</header>
@@ -88,7 +88,7 @@
 			<ul class="pagination">
 				<c:if test="${pages.hasPrev() == true}">
 					<li><a
-						href=<tag:linkTag target="computersMenuSubmit" page="${pages.actualPage-1}" nbElements="${pages.nbElementsByPage}"/>
+						href=<tag:linkTag target="dashboard" page="${pages.actualPage-1}" nbElements="${pages.nbElementsByPage}"/>
 						aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 					</a></li>
 				</c:if>
@@ -113,11 +113,11 @@
 
 				<c:forEach var="page" begin="${begin}" end="${end}">
 					<li><a
-						href=<tag:linkTag target="computersMenuSubmit" page="${page}" nbElements="${pages.nbElementsByPage}"/>>${page}</a></li>
+						href=<tag:linkTag target="dashboard" page="${page}" nbElements="${pages.nbElementsByPage}"/>>${page}</a></li>
 				</c:forEach>
 				<c:if test="${pages.hasNext() == true}">
 					<li><a
-						href=<tag:linkTag target="computersMenuSubmit" page="${pages.actualPage+1}" nbElements="${pages.nbElementsByPage}"/>
+						href=<tag:linkTag target="dashboard" page="${pages.actualPage+1}" nbElements="${pages.nbElementsByPage}"/>
 						aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 					</a></li>
 				</c:if>
@@ -125,11 +125,11 @@
 
 			<div class="btn-group btn-group-sm pull-right" role="group">
 				<button type="button" class="btn btn-default" name="nbElements"
-					onclick='window.location.href=<tag:linkTag target="computersMenuSubmit" page="1" nbElements="10"/>;'>10</button>
+					onclick='window.location.href=<tag:linkTag target="dashboard" page="1" nbElements="10"/>;'>10</button>
 				<button type="button" class="btn btn-default" name="nbElements"
-					onclick='window.location.href=<tag:linkTag target="computersMenuSubmit" page="1" nbElements="50"/>;'>50</button>
+					onclick='window.location.href=<tag:linkTag target="dashboard" page="1" nbElements="50"/>;'>50</button>
 				<button type="button" class="btn btn-default" name="nbElements"
-					onclick='window.location.href=<tag:linkTag target="computersMenuSubmit" page="1" nbElements="100"/>;'>100</button>
+					onclick='window.location.href=<tag:linkTag target="dashboard" page="1" nbElements="100"/>;'>100</button>
 			</div>
 		</div>
 

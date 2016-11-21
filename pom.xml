@@ -12,7 +12,7 @@
 		<slf4j.version>1.7.21</slf4j.version>
 		<logback.version>1.1.7</logback.version>
 		<junit.version>4.12</junit.version>
-		<mysql.version>6.0.5</mysql.version>
+		<mysql.version>5.1.39</mysql.version>
 		<mockito.version>1.10.19</mockito.version>
 		<servlet.version>3.1.0</servlet.version>
 		<jstl.version>1.2</jstl.version>

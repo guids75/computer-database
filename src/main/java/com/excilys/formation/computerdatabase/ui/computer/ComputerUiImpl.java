@@ -99,10 +99,10 @@ public void print(List<Computer> computers) {
     companyId = scanner.nextInt();
     scanner.nextLine();
     try {
-      computer = new Computer.ComputerBuilder(++nbComputers, 
-          name, companyService.getCompany(companyId))
+      computer = new Computer.ComputerBuilder(name)
           .introduced(localDateMapper.convertToLocalDate(sdf.parse(intro)))
           .discontinued(localDateMapper.convertToLocalDate(sdf.parse(disco)))
+          .company(companyService.getCompany(companyId))
           .build();
     } catch (ParseException exception) {
       exception.printStackTrace();
@@ -129,10 +129,10 @@ public void print(List<Computer> computers) {
     scanner.nextLine();
 
     try {
-      computer = new Computer.ComputerBuilder(++nbComputers, 
-          name, companyService.getCompany(companyId))
+      computer = new Computer.ComputerBuilder(name)
           .introduced(localDateMapper.convertToLocalDate(sdf.parse(intro)))
           .discontinued(localDateMapper.convertToLocalDate(sdf.parse(disco)))
+          .company(companyService.getCompany(companyId))
           .build();
     } catch (ParseException exception) {
       exception.printStackTrace();

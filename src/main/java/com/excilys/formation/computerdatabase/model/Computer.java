@@ -34,12 +34,20 @@ public class Computer {
   public int getId() {
     return id;
   }
+  
+  public void setId(int id) {
+    this.id = id;
+  }
 
   /**
    * @return the current name of the computer
    */
   public String getName() {
     return name;
+  }
+  
+  public void setName(String name) {
+    this.name = name;
   }
 
   /**
@@ -48,6 +56,10 @@ public class Computer {
   public LocalDate getIntroduced() {
     return introduced;
   }
+  
+  public void setIntroduced(LocalDate introduced) {
+    this.introduced = introduced;
+  }
 
   /**
    * @return the current date when the computer was discontinued
@@ -55,12 +67,20 @@ public class Computer {
   public LocalDate getDiscontinued() {
     return discontinued;
   }
+  
+  public void setDiscontinued(LocalDate discontinued) {
+    this.discontinued = discontinued;
+  }
 
   /**
    * @return the current company which produces the computer
    */
   public Company getCompany() {
     return company;
+  }
+  
+  public void setCompany(Company company) {
+    this.company = company;
   }
 
   @Override
@@ -134,24 +154,31 @@ public class Computer {
    * @author GUIDS
    */
   public static class ComputerBuilder {
-    private final int id;
-    private final String name;
+    private int id;
+    private String name;
     private LocalDate introduced;
     private LocalDate discontinued;
-    private final Company company;
+    private Company company;
 
     /** The builder of Computer.
      * 
-     * @param id : the id of the computer
      * @param name : the name of the computer
-     * @param company : the company of the computer
      */
-    public ComputerBuilder(int id, String name, Company company) {
-      this.id = id;
+    public ComputerBuilder(String name) {
       this.name = name;
-      this.company = company;
     }
 
+    /** Setter for the id attribute.
+     * 
+     * @param id : the id to set
+     * @return the ComputerBuilder with his id updated
+     */
+    public ComputerBuilder id(int id) {
+      this.id = id;
+      return this;
+    }
+
+    
     /** Setter for the introduced attribute.
      * 
      * @param introduced : the date to set
@@ -171,6 +198,17 @@ public class Computer {
       this.discontinued = discontinued;
       return this;
     }
+    
+    /** Setter for the company attribute.
+     * 
+     * @param company : the company to set
+     * @return the ComputerBuilder with his company updated
+     */
+    public ComputerBuilder company(Company company) {
+      this.company = company;
+      return this;
+    }
+
 
     /** Create the Computer according to the ComputerBuilder values.
      * 

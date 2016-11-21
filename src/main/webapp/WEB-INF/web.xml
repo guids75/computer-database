@@ -32,12 +32,12 @@
   </servlet-mapping>
   
    <servlet>
-    <servlet-name>Computers Menu Submit</servlet-name>
-    <servlet-class>com.excilys.formation.computerdatabase.web.servlet.ComputersMenuSubmit</servlet-class>
+    <servlet-name>Dashboard</servlet-name>
+    <servlet-class>com.excilys.formation.computerdatabase.web.servlet.Dashboard</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>Computers Menu Submit</servlet-name>
-    <url-pattern>/computersMenuSubmit</url-pattern>
+    <servlet-name>Dashboard</servlet-name>
+    <url-pattern>/dashboard</url-pattern>
   </servlet-mapping>
   
     <servlet>
