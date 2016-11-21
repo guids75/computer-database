@@ -3,6 +3,7 @@ package com.excilys.formation.computerdatabase.persistence.company.companyImpl;
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import com.excilys.formation.computerdatabase.mapper.ResultMapper;
 import com.excilys.formation.computerdatabase.model.Company;
+import com.excilys.formation.computerdatabase.persistence.HikariConnectionPool;
 import com.excilys.formation.computerdatabase.persistence.JdbcConnection;
 import com.excilys.formation.computerdatabase.persistence.company.CompanyDao;
 
@@ -20,7 +21,7 @@ import java.util.List;
 public class CompanyDaoImpl implements CompanyDao {
 
   private static CompanyDaoImpl companyDAO = new CompanyDaoImpl(); ////singleton of this class
-  private static JdbcConnection jdbcConnection = JdbcConnection.getInstance(); //get the connection
+  private static HikariConnectionPool hikariConnectionPool = HikariConnectionPool.getInstance(); //get the connection
 
   //requests
   private static final String LIST_REQUEST = "SELECT * FROM company LIMIT ? OFFSET ?";
@@ -44,9 +45,8 @@ public class CompanyDaoImpl implements CompanyDao {
 
   @Override
   public List<Company> list(int nbCompanies, int offset) throws ConnectionException {
-    jdbcConnection.openConnection();
-    try (Connection connection = jdbcConnection.getConnection(); 
-        PreparedStatement preparedStatement = jdbcConnection.getConnection().prepareStatement(LIST_REQUEST)) {
+    try (Connection connection = hikariConnectionPool.getDataSource().getConnection(); 
+        PreparedStatement preparedStatement = connection.prepareStatement(LIST_REQUEST)) {
       preparedStatement.setInt(1, nbCompanies);
       preparedStatement.setInt(2, offset);
       results = preparedStatement.executeQuery();
@@ -58,9 +58,8 @@ public class CompanyDaoImpl implements CompanyDao {
 
   @Override
   public int count() throws ConnectionException {
-    jdbcConnection.openConnection();
-    try (Connection connection = jdbcConnection.getConnection(); 
-        Statement statement = jdbcConnection.getConnection().createStatement()) { 
+    try (Connection connection = hikariConnectionPool.getDataSource().getConnection(); 
+        Statement statement = connection.createStatement()) { 
       results = statement.executeQuery(NUMBER_REQUEST); 
       results.next();
       return results.getInt("number");
@@ -71,8 +70,7 @@ public class CompanyDaoImpl implements CompanyDao {
 
   @Override
   public Company getCompany(int id) throws ConnectionException {
-    jdbcConnection.openConnection();
-    try (Connection connection = jdbcConnection.getConnection(); 
+    try (Connection connection = hikariConnectionPool.getDataSource().getConnection(); 
         PreparedStatement preparedStatement = connection.prepareStatement(COMPANY_REQUEST)) {
       preparedStatement.setInt(1,id);
       results = preparedStatement.executeQuery();

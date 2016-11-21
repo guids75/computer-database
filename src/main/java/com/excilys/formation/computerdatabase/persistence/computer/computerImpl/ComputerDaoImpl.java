@@ -3,6 +3,7 @@ package com.excilys.formation.computerdatabase.persistence.computer.computerImpl
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import com.excilys.formation.computerdatabase.mapper.ResultMapper;
 import com.excilys.formation.computerdatabase.model.Computer;
+import com.excilys.formation.computerdatabase.persistence.HikariConnectionPool;
 import com.excilys.formation.computerdatabase.persistence.JdbcConnection;
 import com.excilys.formation.computerdatabase.persistence.computer.ComputerDao;
 
@@ -21,7 +22,7 @@ import java.util.List;
 public class ComputerDaoImpl implements ComputerDao {
 
   private static ComputerDaoImpl computerDao = new ComputerDaoImpl(); //singleton of this class
-  private static JdbcConnection jdbcConnection = JdbcConnection.getInstance(); //get the connection
+  private static HikariConnectionPool hikariConnectionPool = HikariConnectionPool.getInstance(); //get the connection
 
   //requests
   private static final String INSERT_REQUEST = "INSERT INTO computer VALUES (?, ?, ?, ?, ?)";
@@ -48,8 +49,7 @@ public class ComputerDaoImpl implements ComputerDao {
 
   @Override
   public Computer insert(Computer computer) throws ConnectionException {
-    jdbcConnection.openConnection();
-    try (Connection connection = jdbcConnection.getConnection(); 
+    try (Connection connection = hikariConnectionPool.getDataSource().getConnection(); 
         PreparedStatement preparedStatement = connection.prepareStatement(INSERT_REQUEST)) {
       preparedStatement.setInt(1,computer.getId());
       preparedStatement.setString(2,computer.getName());
@@ -66,8 +66,7 @@ throw new ConnectionException("computer failed to be inserted", exception);
 
   @Override
   public Computer update(Computer computer) throws ConnectionException {
-    jdbcConnection.openConnection();
-    try (Connection connection = jdbcConnection.getConnection(); 
+    try (Connection connection = hikariConnectionPool.getDataSource().getConnection(); 
         PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_REQUEST)) {
       preparedStatement.setString(1, computer.getName());
       preparedStatement.setObject(2, computer.getIntroduced());
@@ -84,8 +83,7 @@ throw new ConnectionException("computer failed to be inserted", exception);
 
   @Override
   public void delete(int computerId) throws ConnectionException {
-    jdbcConnection.openConnection();
-    try (Connection connection = jdbcConnection.getConnection(); 
+    try (Connection connection = hikariConnectionPool.getDataSource().getConnection(); 
         PreparedStatement preparedStatement = connection.prepareStatement(DELETE_REQUEST)) {
       preparedStatement.setInt(1, computerId);
       preparedStatement.executeUpdate();
@@ -96,8 +94,7 @@ throw new ConnectionException("computer failed to be inserted", exception);
 
   @Override
   public List<Computer> list(int nbComputers, int offset) throws ConnectionException {
-    jdbcConnection.openConnection();
-    try (Connection connection = jdbcConnection.getConnection(); 
+    try (Connection connection = hikariConnectionPool.getDataSource().getConnection(); 
         PreparedStatement preparedStatement = connection.prepareStatement(LIST_REQUEST)) {
       preparedStatement.setInt(1, nbComputers);
       preparedStatement.setInt(2, offset);
@@ -109,8 +106,7 @@ throw new ConnectionException("computer failed to be inserted", exception);
 
   @Override
   public Computer showComputerDetails(int computerId) throws ConnectionException {
-    jdbcConnection.openConnection();
-    try (Connection connection = jdbcConnection.getConnection(); 
+    try (Connection connection = hikariConnectionPool.getDataSource().getConnection(); 
         PreparedStatement preparedStatement = connection.prepareStatement(DETAILS_REQUEST)) {
       preparedStatement.setInt(1, computerId);
       Computer computer = ResultMapper.convertToComputer(preparedStatement.executeQuery());
@@ -123,8 +119,7 @@ throw new ConnectionException("computer failed to be inserted", exception);
   @Override
   public int count() throws ConnectionException {
     int numberComputers = -1; 
-    jdbcConnection.openConnection();
-    try (Connection connection = jdbcConnection.getConnection(); 
+    try (Connection connection = hikariConnectionPool.getDataSource().getConnection(); 
         Statement statement = connection.createStatement()) {
       results = statement.executeQuery(NUMBER_REQUEST); 
       results.next();
