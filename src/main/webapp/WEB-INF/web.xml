@@ -4,33 +4,7 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
 		 http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
-  <servlet>
-    <servlet-name>Main Menu</servlet-name>
-    <servlet-class>com.excilys.formation.computerdatabase.web.servlet.MainMenu</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Main Menu</servlet-name>
-    <url-pattern>/mainMenu</url-pattern>
-  </servlet-mapping>
-  
-    <servlet>
-    <servlet-name>Main Menu Submit</servlet-name>
-    <servlet-class>com.excilys.formation.computerdatabase.web.servlet.MainMenuSubmit</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Main Menu Submit</servlet-name>
-    <url-pattern>/mainMenuSubmit</url-pattern>
-  </servlet-mapping>
-  
-   <servlet>
-    <servlet-name>Companies Menu Submit</servlet-name>
-    <servlet-class>com.excilys.formation.computerdatabase.web.servlet.CompaniesMenuSubmit</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Companies Menu Submit</servlet-name>
-    <url-pattern>/companiesMenuSubmit</url-pattern>
-  </servlet-mapping>
-  
+
    <servlet>
     <servlet-name>Dashboard</servlet-name>
     <servlet-class>com.excilys.formation.computerdatabase.web.servlet.Dashboard</servlet-class>
@@ -49,13 +23,4 @@
     <url-pattern>/addComputer</url-pattern>
   </servlet-mapping>
   
-  <servlet>
-    <servlet-name>Add Computer Submit</servlet-name>
-    <servlet-class>com.excilys.formation.computerdatabase.web.servlet.AddComputerSubmit</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Add Computer Submit</servlet-name>
-    <url-pattern>/addComputerSubmit</url-pattern>
-  </servlet-mapping>
-
 </web-app>

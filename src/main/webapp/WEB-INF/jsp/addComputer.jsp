@@ -23,12 +23,12 @@
 			<div class="row">
 				<div class="col-xs-8 col-xs-offset-2 box">
 					<h1>Add Computer</h1>
-					<form action="addComputer" method="POST">
+					<form action="addComputer" method="POST" name="addComputerRegistration">
 						<fieldset>
 							<div class="form-group">
 								<label for="computerName">Computer name</label> <input
 									type="text" class="form-control" id="computerName"
-									placeholder="Computer name" name="computerName">
+									placeholder="Computer name" name="computerName" minlength="2" required>
 							</div>
 							<div class="form-group">
 								<label for="introduced">Introduced date</label> <input
@@ -44,7 +44,7 @@
 								<label for="companyId">Company</label> <select
 									class="form-control" id="companyId" name="companyId">
 									<c:forEach var="company" items="${listCompanies}">
-										<option value="${company.id}">${company.name}</option>
+										<option name="company" value="${company.id}">${company.name}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -58,5 +58,12 @@
 			</div>
 		</div>
 	</section>
+
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+	<script src="../js/dashboard.js"></script>
+	<script src="../addComputerValidator.js"></script>
+	
+
 </body>
 </html>

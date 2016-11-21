@@ -20,32 +20,17 @@ import org.slf4j.LoggerFactory;
  * @author GUIDS
  *
  */
-public class ResultMapper {
+public final class ResultMapper {
 
   private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd"); //to convert localdate to date
-  private static ResultMapper resultToObjectMapper = new ResultMapper(); //singleton of this class
   private static final Logger slf4jLogger = LoggerFactory.getLogger(ResultMapper.class);
-
-
-  /**
-   * Private constructor for a singleton.
-   */
-  private ResultMapper() {
-  }
-
-  /**
-   * @return the singleton corresponding to this class
-   */
-  public static ResultMapper getInstance() {
-    return resultToObjectMapper;
-  }
 
   /** Convert a resultSet to the list of computers inside.
    * 
    * @param results : the result of a query
    * @return the list of computers corresponding
    */
-  public List<Computer> convertToComputers(ResultSet results) {
+  public static List<Computer> convertToComputers(ResultSet results) {
     List<Computer> computers = new ArrayList<>();
     try {
       while (results.next()) {
@@ -63,7 +48,7 @@ public class ResultMapper {
    * @param results : the result of a query
    * @return the computer corresponding
    */
-  public Computer convertToComputer(ResultSet results) {
+  public static Computer convertToComputer(ResultSet results) {
     try {
       ComputerBuilder computer = new Computer.ComputerBuilder(results.getString("comput.Name"))
           .id(results.getInt("comput.Id"));
@@ -88,7 +73,7 @@ public class ResultMapper {
    * @param results : the result of a query
    * @return the list of computers corresponding
    */
-  public List<Company> convertToCompanies(ResultSet results) {
+  public static List<Company> convertToCompanies(ResultSet results) {
     List<Company> companies = new ArrayList<>();
     try {
       while (results.next()) {
@@ -106,7 +91,7 @@ public class ResultMapper {
    * @param results : the result of a query
    * @return the company corresponding
    */
-  public Company convertToCompany(ResultSet results) {
+  public static Company convertToCompany(ResultSet results) {
     try {
       CompanyBuilder company = new Company.CompanyBuilder(results.getString("Name"));
       company.id(results.getInt("Id"));

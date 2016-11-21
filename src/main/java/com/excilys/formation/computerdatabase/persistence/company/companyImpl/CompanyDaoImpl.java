@@ -20,7 +20,6 @@ import java.util.List;
 public class CompanyDaoImpl implements CompanyDao {
 
   private static CompanyDaoImpl companyDAO = new CompanyDaoImpl(); ////singleton of this class
-  private static ResultMapper resultToObjectMapper = ResultMapper.getInstance(); //utility to process resultSets
   private static JdbcConnection jdbcConnection = JdbcConnection.getInstance(); //get the connection
 
   //requests
@@ -51,7 +50,7 @@ public class CompanyDaoImpl implements CompanyDao {
       preparedStatement.setInt(1, nbCompanies);
       preparedStatement.setInt(2, offset);
       results = preparedStatement.executeQuery();
-      return resultToObjectMapper.convertToCompanies(preparedStatement.executeQuery());
+      return ResultMapper.convertToCompanies(preparedStatement.executeQuery());
     } catch (SQLException exception) {
       throw new ConnectionException("companies failed to be listed", exception);
     }
@@ -78,7 +77,7 @@ public class CompanyDaoImpl implements CompanyDao {
       preparedStatement.setInt(1,id);
       results = preparedStatement.executeQuery();
       results.next();
-      return resultToObjectMapper.convertToCompany(results);
+      return ResultMapper.convertToCompany(results);
     } catch (SQLException exception) {
       throw new ConnectionException("company failed to be get", exception);
     }

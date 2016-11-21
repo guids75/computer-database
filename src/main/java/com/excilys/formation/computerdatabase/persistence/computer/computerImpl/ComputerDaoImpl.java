@@ -21,7 +21,6 @@ import java.util.List;
 public class ComputerDaoImpl implements ComputerDao {
 
   private static ComputerDaoImpl computerDao = new ComputerDaoImpl(); //singleton of this class
-  private static ResultMapper resultToObjectMapper = ResultMapper.getInstance(); //utility to manage resultSets
   private static JdbcConnection jdbcConnection = JdbcConnection.getInstance(); //get the connection
 
   //requests
@@ -102,7 +101,7 @@ throw new ConnectionException("computer failed to be inserted", exception);
         PreparedStatement preparedStatement = connection.prepareStatement(LIST_REQUEST)) {
       preparedStatement.setInt(1, nbComputers);
       preparedStatement.setInt(2, offset);
-      return resultToObjectMapper.convertToComputers(preparedStatement.executeQuery());
+      return ResultMapper.convertToComputers(preparedStatement.executeQuery());
     } catch (SQLException exception) {
       throw new ConnectionException("computers failed to be listed", exception);
     }
@@ -114,7 +113,7 @@ throw new ConnectionException("computer failed to be inserted", exception);
     try (Connection connection = jdbcConnection.getConnection(); 
         PreparedStatement preparedStatement = connection.prepareStatement(DETAILS_REQUEST)) {
       preparedStatement.setInt(1, computerId);
-      Computer computer = resultToObjectMapper.convertToComputer(preparedStatement.executeQuery());
+      Computer computer = ResultMapper.convertToComputer(preparedStatement.executeQuery());
       return computer;
     } catch (SQLException exception) {
       throw new ConnectionException("computer failed to be detailed", exception);

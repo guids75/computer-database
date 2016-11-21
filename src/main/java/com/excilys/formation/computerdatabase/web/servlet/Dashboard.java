@@ -30,18 +30,9 @@ public class Dashboard extends HttpServlet {
 
   @Override
   public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
-    /*if (request.getParameter("computersAction") != null) {  
-      String actionChosen = request.getParameter("computersAction");
     request.setAttribute("pages", pages);
-
     request.setAttribute( "listComputers", computerService.list(pages.getNbElementsByPage(), 0));
-    this.getServletContext().getRequestDispatcher( "/WEB-INF/jsp/listComputers.jsp" ).forward( request, response );
-    break;
-      default:
-        break;
-      }
-    }*/
-
+    this.getServletContext().getRequestDispatcher( "/WEB-INF/jsp/dashboard.jsp" ).forward( request, response );
   }
 
   public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
@@ -62,7 +53,7 @@ public class Dashboard extends HttpServlet {
       }
 
       request.setAttribute("numberPages", pages.getNbPages());
-      this.getServletContext().getRequestDispatcher( "/WEB-INF/jsp/listComputers.jsp" ).forward( request, response );
+      this.getServletContext().getRequestDispatcher( "/WEB-INF/jsp/dashboard.jsp" ).forward( request, response );
     } else {
       doPost(request, response);
     }

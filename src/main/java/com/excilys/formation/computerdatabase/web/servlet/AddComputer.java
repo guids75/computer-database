@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
+import com.excilys.formation.computerdatabase.mapper.RequestMapper;
 import com.excilys.formation.computerdatabase.model.Company;
 import com.excilys.formation.computerdatabase.model.Computer;
 import com.excilys.formation.computerdatabase.pagination.Page;
@@ -42,24 +43,9 @@ public class AddComputer extends HttpServlet {
 
   @Override
   public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
-    if (request.getParameter("computerName") != null && request.getParameter("companyId") != null) { 
-      LocalDate introduced = null;
-      LocalDate discontinued = null;
-      if (request.getParameter("introduced") != null) {
-        //introduced = localDateMapper.convertToLocalDate(simpleDateFormat.parse(request.getParameter("introduced")));
-      }
-      Computer.ComputerBuilder computer = new Computer.ComputerBuilder(request.getParameter("computerName"))
-          .company(companyServiceImpl.getCompany(Integer.parseInt(request.getParameter("companyId"))));
-      if (introduced != null) {
-        computer.introduced(LocalDate.parse(simpleDateFormat.format(request.getParameter("introduced"))));
-      }
-      if (discontinued != null) {
-        computer.discontinued(LocalDate.parse(simpleDateFormat.format(request.getParameter("discontinued"))));
-      }   
-      computerServiceImpl.insert(computer.build());
-      request.getRequestDispatcher( "/dashboard" ).forward( request, response );
-
-    }
+    Computer computer = RequestMapper.convertToComputer(request); 
+    computerServiceImpl.insert(computer);
+    request.getRequestDispatcher( "/dashboard" ).forward( request, response );
   }
 
 
