@@ -6,9 +6,26 @@
 <title>Computer Database</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap -->
+<link href="css/validator.css" rel="stylesheet" media="screen">
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="css/font-awesome.css" rel="stylesheet" media="screen">
 <link href="css/main.css" rel="stylesheet" media="screen">
+<link href="css/jquery-ui.css" rel="stylesheet" media="screen">
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/dashboard.js"></script>
+<script src="js/jquery.validate.min.js"></script>
+<script src="js/addComputerValidator.js"></script>
+<script src="js/jquery-ui.js"></script>
+
+<script>
+jQuery(document).ready(function($){
+	   $("#introduced").datepicker();
+	});
+jQuery(document).ready(function($){
+	   $("#discontinued").datepicker();
+	});
+</script>
 </head>
 <body>
 	<header class="navbar navbar-inverse navbar-fixed-top">
@@ -23,12 +40,13 @@
 			<div class="row">
 				<div class="col-xs-8 col-xs-offset-2 box">
 					<h1>Add Computer</h1>
-					<form action="addComputer" method="POST" name="addComputerRegistration">
+					<form action="addComputer" method="POST"
+						name="addComputerRegistration">
 						<fieldset>
 							<div class="form-group">
 								<label for="computerName">Computer name</label> <input
 									type="text" class="form-control" id="computerName"
-									placeholder="Computer name" name="computerName" minlength="2" required>
+									placeholder="Computer name" name="computerName">
 							</div>
 							<div class="form-group">
 								<label for="introduced">Introduced date</label> <input
@@ -58,12 +76,6 @@
 			</div>
 		</div>
 	</section>
-
-	<script src="../js/jquery.min.js"></script>
-	<script src="../js/bootstrap.min.js"></script>
-	<script src="../js/dashboard.js"></script>
-	<script src="../addComputerValidator.js"></script>
-	
 
 </body>
 </html>

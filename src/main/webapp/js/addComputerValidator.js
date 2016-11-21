@@ -8,18 +8,24 @@ $(function() {
       // The key name on the left side is the name attribute
       // of an input field. Validation rules are defined
       // on the right side
-      computerName: "required",
+      computerName: {
+    	  required: true,
+    	  minlength: 2
+    	},
       company: "required",
+    	  
     },
     // Specify validation error messages
     messages: {
-      firstname: "Please enter the name of the computer",
+      computerName: "Please enter a valid name for the computer (at least 2 letters)",
       company: "Please choose the company which created the computer",
     },
     // Make sure the form is submitted to the destination defined
     // in the "action" attribute of the form when valid
     submitHandler: function(form) {
-      form.submit();
-    }
+            if ($(form).valid()) 
+                form.submit(); 
+            return false; // prevent normal form posting
+     }
   });
 });

@@ -5,27 +5,28 @@ import java.time.LocalDate;
 import javax.servlet.http.HttpServletRequest;
 import com.excilys.formation.computerdatabase.model.Computer;
 import com.excilys.formation.computerdatabase.service.company.CompanyServiceImpl;
-import com.excilys.formation.computerdatabase.pagination.Page;
+import java.time.format.DateTimeFormatter;
 
 public class RequestMapper {
 
   private static CompanyServiceImpl companyServiceImpl = CompanyServiceImpl.getInstance(); //service of Company to manage them
+  private static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 
   public static Computer convertToComputer(HttpServletRequest request) {
     if (request.getParameter("computerName") != null && request.getParameter("companyId") != null) { 
       Computer.ComputerBuilder computer = new Computer.ComputerBuilder(request.getParameter("computerName"))
           .company(companyServiceImpl.getCompany(Integer.parseInt(request.getParameter("companyId"))));
       if (request.getParameter("introduced") != "") {
-        computer.introduced(LocalDate.parse(request.getParameter("introduced")));
+        computer.introduced(LocalDate.parse(request.getParameter("introduced"), dateTimeFormatter));
       }
       if (request.getParameter("discontinued") != "") {
-        computer.discontinued(LocalDate.parse(request.getParameter("discontinued")));
+        computer.discontinued(LocalDate.parse(request.getParameter("discontinued"), dateTimeFormatter));
       }  
       return computer.build();
     }
     return null;
   }
-  
+
   /*public static Page convertToPage(HttpServletRequest request) {
     if (request.getParameter("page") != null) {  
       pages.setActualPage(Integer.parseInt(request.getParameter("page")));
@@ -35,5 +36,5 @@ public class RequestMapper {
       }
     return null;
   }*/
-  
+
 }
