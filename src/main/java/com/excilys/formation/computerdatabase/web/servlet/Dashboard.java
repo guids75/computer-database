@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import com.excilys.formation.computerdatabase.model.Computer;
-import com.excilys.formation.computerdatabase.model.Page;
+import com.excilys.formation.computerdatabase.pagination.Page;
 import com.excilys.formation.computerdatabase.service.computer.ComputerServiceImpl;
 
 /**
@@ -31,12 +31,12 @@ public class Dashboard extends HttpServlet {
   @Override
   public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
     /*if (request.getParameter("computersAction") != null) {  
-      String actionChosen = request.getParameter("computersAction");*/
+      String actionChosen = request.getParameter("computersAction");
     request.setAttribute("pages", pages);
 
     request.setAttribute( "listComputers", computerService.list(pages.getNbElementsByPage(), 0));
     this.getServletContext().getRequestDispatcher( "/WEB-INF/jsp/listComputers.jsp" ).forward( request, response );
-    /*break;
+    break;
       default:
         break;
       }

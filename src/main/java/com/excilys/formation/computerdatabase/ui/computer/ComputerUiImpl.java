@@ -1,14 +1,15 @@
 package com.excilys.formation.computerdatabase.ui.computer;
 
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
-import com.excilys.formation.computerdatabase.mapper.LocalDateMapper;
 import com.excilys.formation.computerdatabase.model.Computer;
-import com.excilys.formation.computerdatabase.model.Page;
+import com.excilys.formation.computerdatabase.pagination.Page;
 import com.excilys.formation.computerdatabase.service.company.CompanyServiceImpl;
 import com.excilys.formation.computerdatabase.service.computer.ComputerServiceImpl;
 
+import java.time.ZoneId;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -20,11 +21,10 @@ public class ComputerUiImpl implements ComputerUi {
   private Computer computer;
   private static final ComputerServiceImpl computerService = ComputerServiceImpl.getInstance(); //service of Computer to manage them
   private static final CompanyServiceImpl companyService = CompanyServiceImpl.getInstance(); //service of COmpany to manage them
-  private static final LocalDateMapper localDateMapper = LocalDateMapper.getInstance(); //utility to manage the dates
 
   private String intro = "";
   private String disco = "";
-  private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-dd"); 
+  private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-M-dd"); 
   private int companyId;
   private int nbComputers;
 
@@ -32,9 +32,9 @@ public class ComputerUiImpl implements ComputerUi {
   private Page<Computer> pages; //pages' attributes to manage them
 
   /** Create a new instance of Page and set their number according to the number of computers.
- * 
- */
-public ComputerUiImpl() {
+   * 
+   */
+  public ComputerUiImpl() {
     nbComputers = computerService.count();
     pages = new Page<>(nbComputers);
   }
@@ -66,15 +66,15 @@ public ComputerUiImpl() {
 
   /** Print a list of computers.
    * 
- * @param computers : list of computers to print.
- */
-public void print(List<Computer> computers) {
+   * @param computers : list of computers to print.
+   */
+  public void print(List<Computer> computers) {
     for (Computer computer : computers) {
       System.out.println(computer);
     }
   }
 
-@Override
+  @Override
   public void showComputerDetails() {
     System.out.println("which id?");
     while (!scanner.hasNextInt()) {
@@ -85,7 +85,7 @@ public void print(List<Computer> computers) {
     scanner.nextLine();
   }
 
-@Override
+  @Override
   public void insert() {
     System.out.println("which name?");
     String name = scanner.nextLine();
@@ -98,20 +98,20 @@ public void print(List<Computer> computers) {
     System.out.println("which company id?");
     companyId = scanner.nextInt();
     scanner.nextLine();
-    try {
-      computer = new Computer.ComputerBuilder(name)
-          .introduced(localDateMapper.convertToLocalDate(sdf.parse(intro)))
-          .discontinued(localDateMapper.convertToLocalDate(sdf.parse(disco)))
-          .company(companyService.getCompany(companyId))
-          .build();
-    } catch (ParseException exception) {
-      exception.printStackTrace();
-    }
+        try {
+        computer = new Computer.ComputerBuilder(name)
+        .introduced(simpleDateFormat.parse(intro).toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
+        .discontinued(simpleDateFormat.parse(disco).toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
+        .company(companyService.getCompany(companyId))
+        .build();
+        } catch (ParseException exception) {
+          exception.printStackTrace();
+        }
     computerService.insert(computer);
     pages.setNbPages(pages.getNbPages() + 1);
   }
 
-@Override
+  @Override
   public void update() {
     System.out.println("which computer id?");
     int id = scanner.nextInt();
@@ -128,19 +128,16 @@ public void print(List<Computer> computers) {
     companyId = scanner.nextInt();
     scanner.nextLine();
 
-    try {
-      computer = new Computer.ComputerBuilder(name)
-          .introduced(localDateMapper.convertToLocalDate(sdf.parse(intro)))
-          .discontinued(localDateMapper.convertToLocalDate(sdf.parse(disco)))
-          .company(companyService.getCompany(companyId))
-          .build();
-    } catch (ParseException exception) {
-      exception.printStackTrace();
-    }
+    computer = new Computer.ComputerBuilder(name)
+        .introduced(LocalDate.parse(simpleDateFormat.format(intro)))
+        .discontinued(LocalDate.parse(simpleDateFormat.format(disco)))
+        .company(companyService.getCompany(companyId))
+        .build();
+
     computerService.update(computer);
   }
 
-@Override
+  @Override
   public void delete() {
     System.out.println("which computer id?");
     computerService.delete(scanner.nextInt());

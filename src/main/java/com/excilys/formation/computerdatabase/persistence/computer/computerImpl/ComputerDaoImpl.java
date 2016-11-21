@@ -1,10 +1,10 @@
-package com.excilys.formation.computerdatabase.persistence.computer;
+package com.excilys.formation.computerdatabase.persistence.computer.computerImpl;
 
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
-import com.excilys.formation.computerdatabase.mapper.LocalDateMapper;
 import com.excilys.formation.computerdatabase.mapper.ResultMapper;
 import com.excilys.formation.computerdatabase.model.Computer;
 import com.excilys.formation.computerdatabase.persistence.JdbcConnection;
+import com.excilys.formation.computerdatabase.persistence.computer.ComputerDao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,7 +23,6 @@ public class ComputerDaoImpl implements ComputerDao {
   private static ComputerDaoImpl computerDao = new ComputerDaoImpl(); //singleton of this class
   private static ResultMapper resultToObjectMapper = ResultMapper.getInstance(); //utility to manage resultSets
   private static JdbcConnection jdbcConnection = JdbcConnection.getInstance(); //get the connection
-  private static LocalDateMapper localDateMapper = LocalDateMapper.getInstance(); //utility to manage dates
 
   //requests
   private static final String INSERT_REQUEST = "INSERT INTO computer VALUES (?, ?, ?, ?, ?)";
@@ -55,8 +54,8 @@ public class ComputerDaoImpl implements ComputerDao {
         PreparedStatement preparedStatement = connection.prepareStatement(INSERT_REQUEST)) {
       preparedStatement.setInt(1,computer.getId());
       preparedStatement.setString(2,computer.getName());
-      preparedStatement.setObject(3,localDateMapper.convertToTimeStamp(computer.getIntroduced()));
-      preparedStatement.setObject(4,localDateMapper.convertToTimeStamp(computer.getDiscontinued()));
+      preparedStatement.setObject(3,computer.getIntroduced());
+      preparedStatement.setObject(4,computer.getDiscontinued());
       preparedStatement.setInt(5,computer.getCompany().getId());
       preparedStatement.executeUpdate();
     } catch (SQLException exception) {
@@ -72,8 +71,8 @@ throw new ConnectionException("computer failed to be inserted", exception);
     try (Connection connection = jdbcConnection.getConnection(); 
         PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_REQUEST)) {
       preparedStatement.setString(1, computer.getName());
-      preparedStatement.setObject(2, localDateMapper.convertToTimeStamp(computer.getIntroduced()));
-      preparedStatement.setObject(3, localDateMapper.convertToTimeStamp(computer.getDiscontinued()));
+      preparedStatement.setObject(2, computer.getIntroduced());
+      preparedStatement.setObject(3, computer.getDiscontinued());
       preparedStatement.setInt(4, computer.getCompany().getId());
       preparedStatement.setInt(5, computer.getId());
       preparedStatement.executeUpdate();

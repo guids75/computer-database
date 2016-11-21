@@ -2,7 +2,7 @@ package com.excilys.formation.computerdatabase.service.computer;
 
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import com.excilys.formation.computerdatabase.model.Computer;
-import com.excilys.formation.computerdatabase.persistence.computer.ComputerDaoImpl;
+import com.excilys.formation.computerdatabase.persistence.computer.computerImpl.ComputerDaoImpl;
 
 import java.util.List;
 

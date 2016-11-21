@@ -1,9 +1,10 @@
-package com.excilys.formation.computerdatabase.persistence.company;
+package com.excilys.formation.computerdatabase.persistence.company.companyImpl;
 
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import com.excilys.formation.computerdatabase.mapper.ResultMapper;
 import com.excilys.formation.computerdatabase.model.Company;
 import com.excilys.formation.computerdatabase.persistence.JdbcConnection;
+import com.excilys.formation.computerdatabase.persistence.company.CompanyDao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

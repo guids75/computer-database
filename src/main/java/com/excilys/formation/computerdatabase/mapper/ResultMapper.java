@@ -2,11 +2,14 @@ package com.excilys.formation.computerdatabase.mapper;
 
 import com.excilys.formation.computerdatabase.model.Company;
 import com.excilys.formation.computerdatabase.model.Company.CompanyBuilder;
+import com.excilys.formation.computerdatabase.model.Computer.ComputerBuilder;
 import com.excilys.formation.computerdatabase.model.Computer;
 import com.excilys.formation.computerdatabase.ui.Cli;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +22,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ResultMapper {
 
-  private static LocalDateMapper localMapper = LocalDateMapper.getInstance(); //utility to process dates
+  private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd"); //to convert localdate to date
   private static ResultMapper resultToObjectMapper = new ResultMapper(); //singleton of this class
   private static final Logger slf4jLogger = LoggerFactory.getLogger(ResultMapper.class);
 
@@ -62,13 +65,17 @@ public class ResultMapper {
    */
   public Computer convertToComputer(ResultSet results) {
     try {
-      Computer computer = new Computer.ComputerBuilder(results.getString("comput.Name"))
-          .id(results.getInt("comput.Id"))
-          .introduced(localMapper.convertToLocalDate(results.getDate("comput.Introduced")))
-          .discontinued(localMapper.convertToLocalDate(results.getDate("comput.Discontinued")))
-          .company(new Company.CompanyBuilder(results.getString("compan.Name")).build())
-          .build();
-      return computer;
+      ComputerBuilder computer = new Computer.ComputerBuilder(results.getString("comput.Name"))
+          .id(results.getInt("comput.Id"));
+          if (results.getDate("comput.Introduced") != null) {
+            computer.introduced(LocalDate.parse(simpleDateFormat.format(results.getDate("comput.Introduced"))));
+          }
+          if (results.getDate("comput.Discontinued") != null) {
+            computer.discontinued(LocalDate.parse(simpleDateFormat.format(results.getDate("comput.Discontinued"))));
+          }
+          
+          computer.company(new Company.CompanyBuilder(results.getString("compan.Name")).build());
+      return computer.build();
     } catch (SQLException exception) {
       slf4jLogger.error("Error in ResultToObject in convertToComputer");
       slf4jLogger.error(exception.getMessage());

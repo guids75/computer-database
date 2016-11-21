@@ -1,4 +1,4 @@
-package com.excilys.formation.computerdatabase.model;
+package com.excilys.formation.computerdatabase.pagination;
 
 import java.io.IOException;
 
