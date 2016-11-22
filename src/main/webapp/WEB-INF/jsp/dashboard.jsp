@@ -11,7 +11,9 @@
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="css/font-awesome.css" rel="stylesheet" media="screen">
 <link href="css/main.css" rel="stylesheet" media="screen">
-</head>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/dashboard.js"></script>
 <body>
 	<header class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
@@ -41,7 +43,7 @@
 			</div>
 		</div>
 
-		<form id="deleteForm" action="#" method="POST">
+		<form id="deleteForm" action="deleteComputer" method="POST">
 			<input type="hidden" name="selection" value="">
 		</form>
 
@@ -54,7 +56,7 @@
 
 						<th class="editMode" style="width: 60px; height: 22px;"><input
 							type="checkbox" id="selectall" /> <span
-							style="vertical-align: top;"> - <a href="#"
+							style="vertical-align: top;"> - <a href="deleteComputer"
 								id="deleteSelected" onclick="$.fn.deleteSelected();"> <i
 									class="fa fa-trash-o fa-lg"></i>
 							</a>
@@ -71,8 +73,8 @@
 							<tbody id="results">
 								<tr>
 									<td class="editMode"><input type="checkbox" name="cb"
-										class="cb" value="0"></td>
-									<td><a href="editComputer.html" onclick=""><c:out
+										class="cb" value="${computer.id}" id="cb"></td>
+									<td><a href="editComputer" onclick=""><c:out
 												value="${computer.name}" /></a></td>
 									<td><c:out value="${computer.introduced}" /></td>
 									<td><c:out value="${computer.discontinued}" /></td>
@@ -134,9 +136,6 @@
 		</div>
 
 	</footer>
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/dashboard.js"></script>
 
 </body>
 </html>

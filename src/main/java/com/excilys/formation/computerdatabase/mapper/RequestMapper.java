@@ -1,6 +1,8 @@
 package com.excilys.formation.computerdatabase.mapper;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import com.excilys.formation.computerdatabase.model.Computer;
@@ -10,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 public class RequestMapper {
 
   private static CompanyServiceImpl companyServiceImpl = CompanyServiceImpl.getInstance(); //service of Company to manage them
-  private static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+  private static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
   public static Computer convertToComputer(HttpServletRequest request) {
     if (request.getParameter("computerName") != null && request.getParameter("companyId") != null) { 
@@ -26,6 +28,20 @@ public class RequestMapper {
     }
     return null;
   }
+
+  public static List<Computer> convertToComputers(HttpServletRequest request) {
+    List<Computer> computers = new ArrayList<>();
+    String selection = request.getParameter("selection");
+    String[] deletedComputers = selection.split(",");
+    if (deletedComputers.length > 0) {
+      for (int i=0; i<deletedComputers.length;i++) {
+        computers.add(new Computer.ComputerBuilder("")
+            .id(Integer.parseInt(deletedComputers[i])).build());
+      }
+    }
+    return computers;
+  }
+    
 
   /*public static Page convertToPage(HttpServletRequest request) {
     if (request.getParameter("page") != null) {  

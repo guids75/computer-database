@@ -2,13 +2,8 @@ package com.excilys.formation.computerdatabase.ui;
 
 import java.util.Scanner;
 
-import org.slf4j.LoggerFactory;
-
-import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import com.excilys.formation.computerdatabase.ui.company.CompanyUiImpl;
 import com.excilys.formation.computerdatabase.ui.computer.ComputerUiImpl;
-
-import org.slf4j.Logger;
 
 /**
  * @author GUIDS

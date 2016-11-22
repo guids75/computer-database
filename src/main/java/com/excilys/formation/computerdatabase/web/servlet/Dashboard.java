@@ -23,18 +23,19 @@ public class Dashboard extends HttpServlet {
   private static final ComputerServiceImpl computerService = ComputerServiceImpl.getInstance(); //service of Computer to manage them
   private Page<Computer> pages; //pages' attributes to manage them
 
-  public Dashboard() throws ConnectionException {
-    pages = new Page<>(computerService.count());
-    pages.setNbElementsByPage(10);
+  public Dashboard() {
   }
 
   @Override
   public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
+    pages = new Page<>(computerService.count());
+    pages.setNbElementsByPage(10);
     request.setAttribute("pages", pages);
     request.setAttribute( "listComputers", computerService.list(pages.getNbElementsByPage(), 0));
     this.getServletContext().getRequestDispatcher( "/WEB-INF/jsp/dashboard.jsp" ).forward( request, response );
   }
 
+  @Override
   public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
     
     if (request.getParameter("page") != null) {  
