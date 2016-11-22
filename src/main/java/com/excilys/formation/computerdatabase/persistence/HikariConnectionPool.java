@@ -36,7 +36,6 @@ public class HikariConnectionPool {
         Properties properties = PropertiesReader.getInstance().getPropValues(PROP_FILE_NAME);
         Class.forName(properties.getProperty("className"));
         HikariConfig config = new HikariConfig();
-        System.out.println(properties.getProperty("url") + "\n" + properties.getProperty("login") + "\n" + properties.getProperty("password"));
         config.setJdbcUrl(properties.getProperty("url"));
         config.setUsername(properties.getProperty("login"));
         config.setPassword(properties.getProperty("password"));
