@@ -61,8 +61,8 @@ public class CompanyDaoImpl implements CompanyDao {
       try {
         connection.rollback();
       } catch (SQLException sqx) {
-        throw new EJBException("Rollback failed: " +
-            sqx.getMessage());
+        throw new EJBException("Rollback failed: " 
+            + sqx.getMessage());
       }
       throw new ConnectionException("companies failed to be listed", exception);
     }

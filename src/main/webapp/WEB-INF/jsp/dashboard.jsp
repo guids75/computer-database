@@ -11,9 +11,9 @@
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="css/font-awesome.css" rel="stylesheet" media="screen">
 <link href="css/main.css" rel="stylesheet" media="screen">
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/dashboard.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/dashboard.js"></script>
 <body>
 	<header class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
@@ -73,8 +73,8 @@
 							<tbody id="results">
 								<tr>
 									<td class="editMode"><input type="checkbox" name="cb"
-										class="cb" value="${computer.id}" id="cb"></td>
-									<td><a href="editComputer" onclick=""><c:out
+										class="cb" value="0"></td>
+									<td><a href="editComputer?computerId=${computer.id}" onclick="$('#cb').submit();"><c:out
 												value="${computer.name}" /></a></td>
 									<td><c:out value="${computer.introduced}" /></td>
 									<td><c:out value="${computer.discontinued}" /></td>

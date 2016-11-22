@@ -30,7 +30,7 @@ public class HikariConnectionPool {
   }
 
 
-  public static DataSource getDataSource() {
+  public DataSource getDataSource() {
     if(datasource == null) {
       try {
         Properties properties = PropertiesReader.getInstance().getPropValues(PROP_FILE_NAME);

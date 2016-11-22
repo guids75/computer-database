@@ -23,7 +23,7 @@ public class RequestMapper {
       }
       if (request.getParameter("discontinued") != "") {
         computer.discontinued(LocalDate.parse(request.getParameter("discontinued"), dateTimeFormatter));
-      }  
+      } 
       return computer.build();
     }
     return null;
@@ -34,7 +34,7 @@ public class RequestMapper {
     String selection = request.getParameter("selection");
     String[] deletedComputers = selection.split(",");
     if (deletedComputers.length > 0) {
-      for (int i=0; i<deletedComputers.length;i++) {
+      for (int i = 0; i < deletedComputers.length; i++) {
         computers.add(new Computer.ComputerBuilder("")
             .id(Integer.parseInt(deletedComputers[i])).build());
       }
