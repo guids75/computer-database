@@ -1,6 +1,7 @@
 package com.excilys.formation.computerdatabase.web.servlet;
 
 import java.io.IOException;
+import com.excilys.formation.computerdatabase.dto.ComputerDto;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,15 +21,15 @@ public class EditComputer extends HttpServlet {
   
   @Override
   public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
-    computerId = Integer.parseInt(request.getParameter("computerId"));
+    ComputerDto computerDto = RequestMapper.convertToComputer(request);
     request.setAttribute( "listCompanies", companyServiceImpl.list(companyServiceImpl.count(), 0));
-    request.setAttribute("computerId", computerId);
+    request.setAttribute("computer", computerDto);
     request.getRequestDispatcher( "/WEB-INF/jsp/editComputer.jsp" ).forward( request, response );
   }
   
   @Override
   public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
-    Computer computer = RequestMapper.convertToComputer(request); 
+    ComputerDto computer = RequestMapper.convertToComputer(request); 
     computerServiceImpl.update(computer);
     request.getRequestDispatcher( "/dashboard" ).forward( request, response );
   }

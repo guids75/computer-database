@@ -19,11 +19,11 @@
 <script src="js/jquery-ui.js"></script>
 
 <script>
-jQuery(document).ready(function($){
-	   $("#introduced").datepicker();
+	jQuery(document).ready(function($) {
+		$("#introduced").datepicker();
 	});
-jQuery(document).ready(function($){
-	   $("#discontinued").datepicker();
+	jQuery(document).ready(function($) {
+		$("#discontinued").datepicker();
 	});
 </script>
 </head>
@@ -35,37 +35,45 @@ jQuery(document).ready(function($){
 		</div>
 	</header>
 
-    <section id="main">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-8 col-xs-offset-2 box">
-                    <div class="label label-default pull-right">
-                        id: 0
-                    </div>
-                    <h1>Edit Computer</h1>
-					<form action="editComputer" method="POST"
-						name="editComputerRegistration">
+	<section id="main">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-8 col-xs-offset-2 box">
+					<div class="label label-default pull-right">id:
+						${computer.id}</div>
+					<h1>Edit Computer</h1>
+
+					<form action="editComputer" method="POST">
+						<input type="hidden" value="${computer.id}" id="id" name="id" />
+						<!-- TODO: Change this value with the computer id -->
 						<fieldset>
 							<div class="form-group">
 								<label for="computerName">Computer name</label> <input
 									type="text" class="form-control" id="computerName"
-									placeholder="Computer name" name="computerName">
+									placeholder="${computer.name}" name="computerName">
 							</div>
 							<div class="form-group">
 								<label for="introduced">Introduced date</label> <input
 									type="date" class="form-control" id="introduced"
-									placeholder="Introduced date" name="introduced">
+									placeholder="${computer.introduced}" name="introduced">
 							</div>
 							<div class="form-group">
 								<label for="discontinued">Discontinued date</label> <input
 									type="date" class="form-control" id="discontinued"
-									placeholder="Discontinued date" name="discontinued">
+									placeholder="${computer.discontinued}" name="discontinued">
 							</div>
 							<div class="form-group">
 								<label for="companyId">Company</label> <select
 									class="form-control" id="companyId" name="companyId">
 									<c:forEach var="company" items="${listCompanies}">
-										<option name="company" value="${company.id}">${company.name}</option>
+										<c:choose>
+											<c:when test="${company.id == computer.companyId}">
+												<option name="company" value="${company.id}" selected>${company.name}</option>
+											</c:when>
+											<c:otherwise>
+												<option name="company" value="${company.id}">${company.name}</option>
+											</c:otherwise>
+										</c:choose>
 									</c:forEach>
 								</select>
 							</div>

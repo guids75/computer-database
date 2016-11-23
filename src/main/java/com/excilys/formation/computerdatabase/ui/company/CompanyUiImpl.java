@@ -1,6 +1,7 @@
 package com.excilys.formation.computerdatabase.ui.company;
 
 import java.util.List;
+import com.excilys.formation.computerdatabase.dto.CompanyDto;
 
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import com.excilys.formation.computerdatabase.model.Company;
@@ -15,7 +16,7 @@ import com.excilys.formation.computerdatabase.service.company.CompanyServiceImpl
 public class CompanyUiImpl implements CompanyUi {
 
   private CompanyServiceImpl companyService = CompanyServiceImpl.getInstance(); //service of Company to manage them
-  private Page<Company> pages; //pages' attributes to manage them
+  private Page<CompanyDto> pages; //pages' attributes to manage them
   private int offset = 0;
 
   /** Create a new instance of Page and set their number according to the number of companies.
@@ -54,8 +55,8 @@ public class CompanyUiImpl implements CompanyUi {
    * 
    * @param companies : list of companies to print
    */
-  public void print(List<Company> companies) {
-    for (Company company : companies) {
+  public void print(List<CompanyDto> companies) {
+    for (CompanyDto company : companies) {
       System.out.println(company);
     }
   }

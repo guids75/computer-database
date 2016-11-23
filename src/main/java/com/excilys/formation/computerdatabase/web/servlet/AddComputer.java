@@ -1,6 +1,7 @@
 package com.excilys.formation.computerdatabase.web.servlet;
 
 import com.excilys.formation.computerdatabase.mapper.RequestMapper;
+import com.excilys.formation.computerdatabase.dto.ComputerDto;
 import com.excilys.formation.computerdatabase.model.Computer;
 import com.excilys.formation.computerdatabase.service.company.CompanyServiceImpl;
 import com.excilys.formation.computerdatabase.service.computer.ComputerServiceImpl;
@@ -29,7 +30,7 @@ public class AddComputer extends HttpServlet {
 
   @Override
   public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
-    Computer computer = RequestMapper.convertToComputer(request); 
+    ComputerDto computer = RequestMapper.convertToComputer(request); 
     computerServiceImpl.insert(computer);
     request.getRequestDispatcher( "/dashboard" ).forward( request, response );
   }

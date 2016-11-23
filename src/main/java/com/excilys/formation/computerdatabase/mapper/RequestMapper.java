@@ -1,42 +1,41 @@
 package com.excilys.formation.computerdatabase.mapper;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import com.excilys.formation.computerdatabase.model.Computer;
-import com.excilys.formation.computerdatabase.service.company.CompanyServiceImpl;
-import java.time.format.DateTimeFormatter;
+import com.excilys.formation.computerdatabase.dto.ComputerDto;
 
-public class RequestMapper {
+public final class RequestMapper {
 
-  private static CompanyServiceImpl companyServiceImpl = CompanyServiceImpl.getInstance(); //service of Company to manage them
-  private static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-  public static Computer convertToComputer(HttpServletRequest request) {
+  public static ComputerDto convertToComputer(HttpServletRequest request) {
     if (request.getParameter("computerName") != null && request.getParameter("companyId") != null) { 
-      Computer.ComputerBuilder computer = new Computer.ComputerBuilder(request.getParameter("computerName"))
-          .company(companyServiceImpl.getCompany(Integer.parseInt(request.getParameter("companyId"))));
+      ComputerDto computer = new ComputerDto();
+      computer.setName(request.getParameter("computerName"));
+      computer.setCompanyId(Integer.parseInt(request.getParameter("companyId")));
       if (request.getParameter("introduced") != "") {
-        computer.introduced(LocalDate.parse(request.getParameter("introduced"), dateTimeFormatter));
+        computer.setIntroduced(request.getParameter("introduced"));
       }
       if (request.getParameter("discontinued") != "") {
-        computer.discontinued(LocalDate.parse(request.getParameter("discontinued"), dateTimeFormatter));
-      } 
-      return computer.build();
+        computer.setDiscontinued(request.getParameter("discontinued"));
+      }
+      if (request.getParameter("id") != null){
+        computer.setId(Integer.parseInt(request.getParameter("id")));
+      }
+      return computer;
     }
     return null;
   }
 
-  public static List<Computer> convertToComputers(HttpServletRequest request) {
-    List<Computer> computers = new ArrayList<>();
+  public static List<ComputerDto> convertToComputers(HttpServletRequest request) {
+    List<ComputerDto> computers = new ArrayList<>();
     String selection = request.getParameter("selection");
     String[] deletedComputers = selection.split(",");
     if (deletedComputers.length > 0) {
       for (int i = 0; i < deletedComputers.length; i++) {
-        computers.add(new Computer.ComputerBuilder("")
-            .id(Integer.parseInt(deletedComputers[i])).build());
+        ComputerDto computer = new ComputerDto();
+        computer.setId(Integer.parseInt(deletedComputers[i]));
+        computers.add(computer);
       }
     }
     return computers;

@@ -1,6 +1,7 @@
 package com.excilys.formation.computerdatabase.ui.computer;
 
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
+import com.excilys.formation.computerdatabase.dto.ComputerDto;
 import com.excilys.formation.computerdatabase.model.Computer;
 import com.excilys.formation.computerdatabase.pagination.Page;
 import com.excilys.formation.computerdatabase.service.company.CompanyServiceImpl;
@@ -18,7 +19,7 @@ import java.util.List;
  */
 public class ComputerUiImpl implements ComputerUi {
 
-  private Computer computer;
+  private ComputerDto computer;
   private static final ComputerServiceImpl computerService = ComputerServiceImpl.getInstance(); //service of Computer to manage them
   private static final CompanyServiceImpl companyService = CompanyServiceImpl.getInstance(); //service of COmpany to manage them
 
@@ -29,7 +30,7 @@ public class ComputerUiImpl implements ComputerUi {
   private int nbComputers;
 
   private int offset = 0;
-  private Page<Computer> pages; //pages' attributes to manage them
+  private Page<ComputerDto> pages; //pages' attributes to manage them
 
   /** Create a new instance of Page and set their number according to the number of computers.
    * 
@@ -68,8 +69,8 @@ public class ComputerUiImpl implements ComputerUi {
    * 
    * @param computers : list of computers to print.
    */
-  public void print(List<Computer> computers) {
-    for (Computer computer : computers) {
+  public void print(List<ComputerDto> computers) {
+    for (ComputerDto computer : computers) {
       System.out.println(computer);
     }
   }
@@ -98,15 +99,15 @@ public class ComputerUiImpl implements ComputerUi {
     System.out.println("which company id?");
     companyId = scanner.nextInt();
     scanner.nextLine();
-        try {
-        computer = new Computer.ComputerBuilder(name)
-        .introduced(simpleDateFormat.parse(intro).toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
-        .discontinued(simpleDateFormat.parse(disco).toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
-        .company(companyService.getCompany(companyId))
-        .build();
-        } catch (ParseException exception) {
-          exception.printStackTrace();
-        }
+    computer = new ComputerDto();
+    computer.setName(name);
+    if (intro != null) {
+      computer.setIntroduced(intro);
+    }
+    if (disco != null) {
+      computer.setDiscontinued(disco);
+    }
+    computer.setCompanyId(companyId);
     computerService.insert(computer);
     pages.setNbPages(pages.getNbPages() + 1);
   }
@@ -128,12 +129,15 @@ public class ComputerUiImpl implements ComputerUi {
     companyId = scanner.nextInt();
     scanner.nextLine();
 
-    computer = new Computer.ComputerBuilder(name)
-        .introduced(LocalDate.parse(simpleDateFormat.format(intro)))
-        .discontinued(LocalDate.parse(simpleDateFormat.format(disco)))
-        .company(companyService.getCompany(companyId))
-        .build();
-
+    computer = new ComputerDto();
+    computer.setName(name);
+    if (intro != null) {
+      computer.setIntroduced(intro);
+    }
+    if (disco != null) {
+      computer.setDiscontinued(disco);
+    }
+    computer.setCompanyId(companyId);
     computerService.update(computer);
   }
 

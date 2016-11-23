@@ -1,10 +1,13 @@
 package com.excilys.formation.computerdatabase.service.company;
 
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
+import com.excilys.formation.computerdatabase.mapper.CompanyDtoMapper;
+import com.excilys.formation.computerdatabase.dto.CompanyDto;
 import com.excilys.formation.computerdatabase.model.Company;
 import com.excilys.formation.computerdatabase.persistence.company.companyImpl.CompanyDaoImpl;
 import com.excilys.formation.computerdatabase.ui.Cli;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -34,9 +37,9 @@ public class CompanyServiceImpl implements CompanyService {
   }
 
   @Override
-  public List<Company> list(int nbElements, int offset) {
+  public List<CompanyDto> list(int nbElements, int offset) {
     try {
-      return companyDao.list(nbElements, offset);
+      return CompanyDtoMapper.companyListToCompanyDtoList(companyDao.list(nbElements, offset));
     } catch (ConnectionException exception) {
       slf4jLogger.error("Error in CompanyService in list");
       slf4jLogger.error(exception.getMessage());
@@ -51,18 +54,18 @@ public class CompanyServiceImpl implements CompanyService {
     } catch (ConnectionException exception) {
       slf4jLogger.error("Error in CompanyList in count");
       slf4jLogger.error(exception.getMessage());
-      }
+    }
     return -1;
   }
 
   @Override
-  public Company getCompany(int id) {
+  public CompanyDto getCompany(int id) {
     try {
-      return companyDao.getCompany(id);
+      return CompanyDtoMapper.companyToCompanyDto(companyDao.getCompany(id));
     } catch (ConnectionException exception) {
       slf4jLogger.error("Error in CompanyService in getCompany");
       slf4jLogger.error(exception.getMessage());
-      }
+    }
     return null;
   }
 

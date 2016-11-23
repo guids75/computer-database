@@ -1,6 +1,7 @@
 package com.excilys.formation.computerdatabase.web.servlet;
 
 import java.io.IOException;
+import com.excilys.formation.computerdatabase.dto.ComputerDto;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -18,8 +19,8 @@ public class DeleteComputer extends HttpServlet {
 
   @Override
   public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
-    List<Computer> computers = RequestMapper.convertToComputers(request); 
-    for (Computer computer : computers) {
+    List<ComputerDto> computers = RequestMapper.convertToComputers(request); 
+    for (ComputerDto computer : computers) {
       computerServiceImpl.delete(computer.getId());
     }
     request.getRequestDispatcher( "/dashboard" ).forward( request, response );

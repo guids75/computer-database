@@ -1,9 +1,16 @@
 package com.excilys.formation.computerdatabase.service.computer;
 
+import com.excilys.formation.computerdatabase.dto.CompanyDto;
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
+import com.excilys.formation.computerdatabase.mapper.ComputerDtoMapper;
+import com.excilys.formation.computerdatabase.model.Company;
 import com.excilys.formation.computerdatabase.model.Computer;
+import com.excilys.formation.computerdatabase.dto.ComputerDto;
+import com.excilys.formation.computerdatabase.model.Computer.ComputerBuilder;
 import com.excilys.formation.computerdatabase.persistence.computer.computerImpl.ComputerDaoImpl;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -33,9 +40,10 @@ public class ComputerServiceImpl implements ComputerService {
   }
 
   @Override
-  public Computer insert(Computer computer) {
+  public ComputerDto insert(ComputerDto computerDto) {
     try {
-      return computerDao.insert(computer);
+      return ComputerDtoMapper.computerToComputerDto(
+          computerDao.insert(ComputerDtoMapper.computerDtoToComputer(computerDto)));
     } catch (ConnectionException exception) {
       slf4jLogger.error("Error in ComputerService in inserty");
       slf4jLogger.error(exception.getMessage());    
@@ -44,9 +52,10 @@ public class ComputerServiceImpl implements ComputerService {
   }
 
   @Override
-  public Computer update(Computer computer) {
+  public ComputerDto update(ComputerDto computerDto) {
     try {
-      return computerDao.update(computer);
+      return ComputerDtoMapper.computerToComputerDto(
+          computerDao.update(ComputerDtoMapper.computerDtoToComputer(computerDto)));
     } catch (ConnectionException exception) {
       slf4jLogger.error("Error in ComputerService in update");
       slf4jLogger.error(exception.getMessage());
@@ -57,6 +66,7 @@ public class ComputerServiceImpl implements ComputerService {
   @Override
   public void delete(int computer) {
     try {
+      System.out.println(computer);
       computerDao.delete(computer);
     } catch (ConnectionException exception) {
       slf4jLogger.error("Error in ComputerService in delete");
@@ -65,9 +75,9 @@ public class ComputerServiceImpl implements ComputerService {
   }
 
   @Override
-  public List<Computer> list(int nbElements, int offset) {
+  public List<ComputerDto> list(int nbElements, int offset) {
     try {
-      return computerDao.list(nbElements, offset);
+      return ComputerDtoMapper.computerListToComputerDtoList(computerDao.list(nbElements, offset));
     } catch (ConnectionException exception) {
       slf4jLogger.error("Error in ComputerService in list");
       slf4jLogger.error(exception.getMessage());

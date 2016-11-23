@@ -1,7 +1,7 @@
 package com.excilys.formation.computerdatabase.service.computer;
 
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
-import com.excilys.formation.computerdatabase.model.Computer;
+import com.excilys.formation.computerdatabase.dto.ComputerDto;
 import com.excilys.formation.computerdatabase.service.Service;
 
 /**
@@ -9,7 +9,7 @@ import com.excilys.formation.computerdatabase.service.Service;
  *
  * @param <T> : Computer
  */
-public interface ComputerService extends Service<Computer> {
+public interface ComputerService extends Service<ComputerDto> {
 
   /** Show all the attributes of the specified computer.
    * 

@@ -13,50 +13,67 @@ public class ComputerDto {
 
   private int id; //id of the computer, required
   private String name; //name of the computer, required
-  private LocalDate introduced; //date when the computer was introduced, optional
-  private LocalDate discontinued; //date when the computer was discontinued, optional
-  private Company company; //company which produces the computer, required
-
-  /**
-   * @return the current id of the computer
-   */
+  private String introduced; //date when the computer was introduced, optional
+  private String discontinued; //date when the computer was discontinued, optional
+  private int companyId; //id of the company which produces the computer, required
+  private String companyName; //name of the company which produces the computer, required
+  
   public int getId() {
     return id;
   }
-
-  /**
-   * @return the current name of the computer
-   */
+  
+  public void setId(int id) {
+    this.id = id;
+  }
+  
   public String getName() {
     return name;
   }
-
-  /**
-   * @return the current date when the computer was introduced
-   */
-  public LocalDate getIntroduced() {
+  
+  public void setName(String name) {
+    this.name = name;
+  }
+  
+  public String getIntroduced() {
     return introduced;
   }
-
-  /**
-   * @return the current date when the computer was discontinued
-   */
-  public LocalDate getDiscontinued() {
+  
+  public void setIntroduced(String introduced) {
+    this.introduced = introduced;
+  }
+  
+  public String getDiscontinued() {
     return discontinued;
   }
-
-  /**
-   * @return the computer which produces the computer
-   */
-  public Company getCompany() {
-    return company;
+  
+  public void setDiscontinued(String discontinued) {
+    this.discontinued = discontinued;
+  }
+  
+  public int getCompanyId() {
+    return companyId;
   }
 
-  /*@Override
+  public void setCompanyId(int companyId) {
+    this.companyId = companyId;
+  }
+  
+  public String getCompanyName() {
+    return companyName;
+  }
+
+  public void setCompanyName(String companyName) {
+    this.companyName = companyName;
+  }
+
+
+
+  @Override
   public String toString() {
     return new StringBuilder("Computer [id=").append(id).append(", name=").append(name)
         .append(", introduced=").append(introduced).append(", discontinued=").append(discontinued)
-        .append(", company=").append(company).append("]").toString();
-  }*/
+        .append(", companyId=").append(companyId).append(", companyName=").append(companyName)
+        .append("]").toString();
+  }
 
 }
