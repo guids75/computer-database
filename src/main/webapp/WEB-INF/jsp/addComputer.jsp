@@ -15,17 +15,9 @@
 <script src="js/bootstrap.min.js"></script>
 <script src="js/dashboard.js"></script>
 <script src="js/jquery.validate.min.js"></script>
-<script src="js/addComputerValidator.js"></script>
+<script src="js/computerValidator.js"></script>
 <script src="js/jquery-ui.js"></script>
 
-<script>
-jQuery(document).ready(function($){
-	   $("#introduced").datepicker();
-	});
-jQuery(document).ready(function($){
-	   $("#discontinued").datepicker();
-	});
-</script>
 </head>
 <body>
 	<header class="navbar navbar-inverse navbar-fixed-top">
@@ -41,7 +33,7 @@ jQuery(document).ready(function($){
 				<div class="col-xs-8 col-xs-offset-2 box">
 					<h1>Add Computer</h1>
 					<form action="addComputer" method="POST"
-						name="addComputerRegistration">
+						name="addComputerRegistration" class="computerValidatorForm">
 						<fieldset>
 							<div class="form-group">
 								<label for="computerName">Computer name</label> <input

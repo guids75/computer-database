@@ -51,27 +51,29 @@ public class ComputerDaoImpl implements ComputerDao {
 
   @Override
   public Computer insert(Computer computer) throws ConnectionException {
-    try (Connection connection = hikariConnectionPool.getDataSource().getConnection(); 
-        PreparedStatement preparedStatement = connection.prepareStatement(INSERT_REQUEST)) {
-      connection.setAutoCommit(false);
-      preparedStatement.setInt(1,computer.getId());
-      preparedStatement.setString(2,computer.getName());
-      preparedStatement.setObject(3,computer.getIntroduced());
-      preparedStatement.setObject(4,computer.getDiscontinued());
-      preparedStatement.setInt(5,computer.getCompany().getId());
-      preparedStatement.executeUpdate();
-      connection.commit();
-    } catch (SQLException exception) {
-      try {
+    try (Connection connection = hikariConnectionPool.getDataSource().getConnection()) {
+
+      try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_REQUEST)) {
+        connection.setAutoCommit(false);
+        preparedStatement.setInt(1,computer.getId());
+        preparedStatement.setString(2,computer.getName());
+        preparedStatement.setObject(3,computer.getIntroduced());
+        preparedStatement.setObject(4,computer.getDiscontinued());
+        preparedStatement.setInt(5,computer.getCompany().getId());
+        preparedStatement.executeUpdate();
+      } catch (SQLException exception) {
         connection.rollback();
-      } catch (SQLException sqx) {
-        throw new EJBException("Rollback failed: " 
-            + sqx.getMessage());
+        connection.setAutoCommit(true);
+        exception.printStackTrace();
+        throw new ConnectionException("computer failed to be inserted", exception);
       }
+      connection.commit();
+      connection.setAutoCommit(true);
+      return computer;
+    } catch (SQLException exception) {
       exception.printStackTrace();
       throw new ConnectionException("computer failed to be inserted", exception);
     }
-    return computer;
   }
 
   @Override

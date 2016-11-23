@@ -15,17 +15,9 @@
 <script src="js/bootstrap.min.js"></script>
 <script src="js/dashboard.js"></script>
 <script src="js/jquery.validate.min.js"></script>
-<script src="js/addComputerValidator.js"></script>
+<script src="js/computerValidator.js"></script>
 <script src="js/jquery-ui.js"></script>
 
-<script>
-	jQuery(document).ready(function($) {
-		$("#introduced").datepicker();
-	});
-	jQuery(document).ready(function($) {
-		$("#discontinued").datepicker();
-	});
-</script>
 </head>
 <body>
 	<header class="navbar navbar-inverse navbar-fixed-top">
@@ -43,7 +35,7 @@
 						${computer.id}</div>
 					<h1>Edit Computer</h1>
 
-					<form action="editComputer" method="POST">
+					<form action="editComputer" method="POST" class="computerValidatorForm">
 						<input type="hidden" value="${computer.id}" id="id" name="id" />
 						<!-- TODO: Change this value with the computer id -->
 						<fieldset>
