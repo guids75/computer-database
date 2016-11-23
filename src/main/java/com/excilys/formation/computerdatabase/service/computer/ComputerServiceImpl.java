@@ -66,7 +66,6 @@ public class ComputerServiceImpl implements ComputerService {
   @Override
   public void delete(int computer) {
     try {
-      System.out.println(computer);
       computerDao.delete(computer);
     } catch (ConnectionException exception) {
       slf4jLogger.error("Error in ComputerService in delete");
@@ -104,6 +103,17 @@ public class ComputerServiceImpl implements ComputerService {
       slf4jLogger.error(exception.getMessage());
     }
     return -1;
+  }
+  
+  @Override
+  public List<ComputerDto> search(String search, int nbElements, int offset) {
+    try {
+      return ComputerDtoMapper.computerListToComputerDtoList(computerDao.search(search, nbElements, offset));
+    } catch (ConnectionException exception) {
+      slf4jLogger.error("Error in ComputerService in search");
+      slf4jLogger.error(exception.getMessage());
+    }
+    return null;
   }
 
 }

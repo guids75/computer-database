@@ -13,9 +13,11 @@ $(function() {
 				minlength: 2
 			},
 			introduced: {
+				required: false,
 				validDate: true
 			},
 			discontinued: {
+				required: false,
 				validDate: true
 			},
 			company: "required",
@@ -40,7 +42,7 @@ $.validator.addMethod(
 		"validDate",
 		function(value, element) {
 			// put your own logic here, this is just a (crappy) example
-			return value.match(/^\d\d?\/\d\d?\/\d\d\d\d$/);
+			return value.match(/^(\d\d?\/\d\d?\/\d\d\d\d)?$/);
 		},
 		"Please enter a date in the format mm/dd/yyyy."
 );

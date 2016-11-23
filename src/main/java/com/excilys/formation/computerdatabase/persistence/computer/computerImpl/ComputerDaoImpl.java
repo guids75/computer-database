@@ -32,6 +32,10 @@ public class ComputerDaoImpl implements ComputerDao {
   private static final String LIST_REQUEST= "SELECT * FROM computer as comput LEFT JOIN company as compan ON comput.company_id=compan.id LIMIT ? OFFSET ?";
   private static final String DETAILS_REQUEST = "SELECT * FROM computer as comput WHERE comput.id=? LEFT JOIN company as compan ON comput.id=compan.id";
   private static final String NUMBER_REQUEST = "SELECT COUNT(*) as number FROM computer";
+  private static final String SEARCH_REQUEST = "SELECT * FROM computer as comput LEFT JOIN company as compan ON comput.company_id=compan.id "
+      + "WHERE lower(comput.name) LIKE ? OR lower(compan.name) LIKE ? "
+      + "LIMIT ? OFFSET ?";
+  private static final String LISTBYCOMPANY_REQUEST = "SELECT * FROM computer as comput LEFT JOIN company as compan ON comput.company_id=compan.id WHERE compan.id=?";
 
   private ResultSet results;
   private Connection connection = null;
@@ -182,5 +186,31 @@ public class ComputerDaoImpl implements ComputerDao {
     } 
     return numberComputers; 
   } 
+
+  @Override
+  public List<Computer> search(String search, int nbComputers, int offset) throws ConnectionException {
+    try (Connection connection = hikariConnectionPool.getDataSource().getConnection(); 
+        PreparedStatement preparedStatement = connection.prepareStatement(SEARCH_REQUEST)) {
+      connection.setAutoCommit(false);
+      preparedStatement.setString(1, "%"+ search + "%");
+      preparedStatement.setString(2, "%"+ search + "%");
+      preparedStatement.setInt(3, nbComputers);
+      preparedStatement.setInt(4, offset);
+      List<Computer> list = ResultMapper.convertToComputers(preparedStatement.executeQuery());
+      connection.commit();
+      return list;
+    } catch (SQLException exception) {
+      try {
+        exception.printStackTrace();
+        connection.rollback();
+      } catch (SQLException sqx) {
+        sqx.printStackTrace();
+        throw new EJBException("Rollback failed: " +
+            sqx.getMessage());
+      }
+      
+      throw new ConnectionException("computers failed to be searched", exception);
+    }
+  }
 
 }

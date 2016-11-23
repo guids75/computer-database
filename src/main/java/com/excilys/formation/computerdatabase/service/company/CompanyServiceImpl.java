@@ -1,10 +1,12 @@
 package com.excilys.formation.computerdatabase.service.company;
 
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
+import com.excilys.formation.computerdatabase.service.computer.ComputerServiceImpl;
 import com.excilys.formation.computerdatabase.mapper.CompanyDtoMapper;
 import com.excilys.formation.computerdatabase.dto.CompanyDto;
 import com.excilys.formation.computerdatabase.model.Company;
 import com.excilys.formation.computerdatabase.persistence.company.companyImpl.CompanyDaoImpl;
+import com.excilys.formation.computerdatabase.persistence.computer.computerImpl.ComputerDaoImpl;
 import com.excilys.formation.computerdatabase.ui.Cli;
 
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ public class CompanyServiceImpl implements CompanyService {
 
   private static final CompanyDaoImpl companyDao = CompanyDaoImpl.getInstance(); //dao of Company to manage the companies
   private static CompanyServiceImpl companyService = new CompanyServiceImpl(); //singleton of this class
+  private static ComputerServiceImpl computerService = ComputerServiceImpl.getInstance(); //singleton of this class
   private static final Logger slf4jLogger = LoggerFactory.getLogger(CompanyServiceImpl.class);
 
   /**
@@ -68,5 +71,16 @@ public class CompanyServiceImpl implements CompanyService {
     }
     return null;
   }
+  
+  /*@Override
+  public void delete(int id) {
+    try {
+      return CompanyDtoMapper.companyToCompanyDto(companyDao.getCompany(id));
+    } catch (ConnectionException exception) {
+      slf4jLogger.error("Error in CompanyService in getCompany");
+      slf4jLogger.error(exception.getMessage());
+    }
+    return null;
+  }*/
 
 }

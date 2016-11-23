@@ -27,17 +27,7 @@ public class Dashboard extends HttpServlet {
   }
 
   @Override
-  public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
-    pages = new Page<>(computerService.count());
-    pages.setNbElementsByPage(10);
-    request.setAttribute("pages", pages);
-    request.setAttribute( "listComputers", computerService.list(pages.getNbElementsByPage(), 0));
-    this.getServletContext().getRequestDispatcher( "/WEB-INF/jsp/dashboard.jsp" ).forward( request, response );
-  }
-
-  @Override
   public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
-    
     if (request.getParameter("page") != null) {  
       pages.setActualPage(Integer.parseInt(request.getParameter("page")));
       if (request.getParameter("nbElements") != null) {
@@ -45,20 +35,30 @@ public class Dashboard extends HttpServlet {
         pages.calculateNbPages(pages.getNbElements());
       }
 
+      if (pages.getActualPage() - 1 * pages.getNbElementsByPage() >= pages.getNbElements()) {
+        pages.setActualPage(pages.getActualPage() - 1);
+      }
       request.setAttribute("pages", pages);
-      if (pages.getActualPage()-1 * pages.getNbElementsByPage() < pages.getNbElements()){
-        request.setAttribute( "listComputers", computerService.list(pages.getNbElementsByPage(), (pages.getActualPage()-1) * pages.getNbElementsByPage()));
+      if (request.getParameter("search") != null) {
+        request.setAttribute( "listComputers", computerService.search(request.getParameter("search"), pages.getNbElementsByPage(), 
+            (pages.getActualPage() - 1) * pages.getNbElementsByPage()));
+        request.setAttribute("search", request.getParameter("search"));
       } else {
-        pages.setActualPage(pages.getActualPage()-1);
-        request.setAttribute( "listComputers", computerService.list(pages.getNbElementsByPage(), (pages.getActualPage()-1) * pages.getNbElementsByPage()));
+        request.setAttribute( "listComputers", computerService.list(pages.getNbElementsByPage(), (pages.getActualPage() - 1) * pages.getNbElementsByPage()));
+      }
+    } else {
+      pages = new Page<>(computerService.count());
+      pages.setNbElementsByPage(10);
+      request.setAttribute("pages", pages);
+      if (request.getParameter("search") != null) {
+        request.setAttribute( "listComputers", computerService.search(request.getParameter("search"), pages.getNbElementsByPage(), 0));
+        request.setAttribute("search", request.getParameter("search"));
+      } else {
+        request.setAttribute( "listComputers", computerService.list(pages.getNbElementsByPage(), 0));
       }
 
-      request.setAttribute("numberPages", pages.getNbPages());
-      this.getServletContext().getRequestDispatcher( "/WEB-INF/jsp/dashboard.jsp" ).forward( request, response );
-    } else {
-      doPost(request, response);
     }
-
+    this.getServletContext().getRequestDispatcher( "/WEB-INF/jsp/dashboard.jsp" ).forward( request, response );
   }
 
 }

@@ -24,13 +24,15 @@
 
 	<section id="main">
 		<div class="container">
-			<h1 id="homeTitle">${pages.nbElements}Computersfound</h1>
+			<h1 id="homeTitle">${pages.nbElements} Computers found</h1>
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
 					<form id="searchForm" action="#" method="GET" class="form-inline">
 
+${search} iciiiiiiii 
+
 						<input type="search" id="searchbox" name="search"
-							class="form-control" placeholder="Search name" /> <input
+							class="form-control" placeholder="Search name" value="<c:if test='not empty ${search}'>${search}</c:if>"/><input
 							type="submit" id="searchsubmit" value="Filter by name"
 							class="btn btn-primary" />
 					</form>

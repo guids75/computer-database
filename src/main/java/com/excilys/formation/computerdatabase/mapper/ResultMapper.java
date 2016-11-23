@@ -58,11 +58,11 @@ public final class ResultMapper {
           if (results.getDate("comput.Discontinued") != null) {
             computer.discontinued(LocalDate.parse(simpleDateFormat.format(results.getDate("comput.Discontinued"))));
           }
-          
           computer.company(new Company.CompanyBuilder(results.getString("compan.Name"))
-              .id(results.getInt("compan.id")).build());
+              .id(results.getInt("compan.Id")).build());
       return computer.build();
     } catch (SQLException exception) {
+      exception.printStackTrace();
       slf4jLogger.error("Error in ResultToObject in convertToComputer");
       slf4jLogger.error(exception.getMessage());
     }
