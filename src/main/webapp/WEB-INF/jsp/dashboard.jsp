@@ -24,7 +24,7 @@
 
 	<section id="main">
 		<div class="container">
-			<h1 id="homeTitle">${pages.nbElements} Computers found</h1>
+			<h1 id="homeTitle">${pages.nbElements}Computersfound</h1>
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
 					<form id="searchForm" action="#" method="GET" class="form-inline">
@@ -74,10 +74,29 @@
 								<tr>
 									<td class="editMode"><input type="checkbox" name="cb"
 										class="cb" value="${computer.id}"></td>
-									<td><a href="editComputer?computerId=${computer.id}&
-									computerName=${computer.name}&computerIntro=${computer.introduced}
-									&computerDisco=${computer.discontinued}&companyId=${computer.companyId}" 
-									onclick="$('#cb').submit();"><c:out
+
+									<c:choose>
+										<c:when test="${not empty computer.introduced}">
+											<c:set var="introduced" value="&introduced=${computer.introduced}" />
+										</c:when>
+										<c:otherwise>
+											<c:set var="introduced" value="" />
+										</c:otherwise>
+									</c:choose>
+									<c:choose>
+										<c:when test="${not empty computer.discontinued}">
+											<c:set var="discontinued" value="&discontinued=${computer.discontinued}" />
+										</c:when>
+										<c:otherwise>
+											<c:set var="discontinued" value="" />
+										</c:otherwise>
+									</c:choose>
+									
+									<td><a
+										href="editComputer?id=${computer.id}&
+									computerName=${computer.name}&introduced=${computer.introduced}
+									&discontinued=${computer.discontinued}&companyId=${computer.companyId}"
+										onclick="$('#cb').submit();"><c:out
 												value="${computer.name}" /></a></td>
 									<td><c:out value="${computer.introduced}" /></td>
 									<td><c:out value="${computer.discontinued}" /></td>

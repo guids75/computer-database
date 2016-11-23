@@ -48,19 +48,19 @@
 						<!-- TODO: Change this value with the computer id -->
 						<fieldset>
 							<div class="form-group">
-								<label for="computerName">Computer name</label> <input
+								<label for="computerName">Computer name</label><input
 									type="text" class="form-control" id="computerName"
-									placeholder="${computer.name}" name="computerName">
+									placeholder="${computer.name}" name="computerName" value="${computer.name}">
 							</div>
 							<div class="form-group">
-								<label for="introduced">Introduced date</label> <input
+								<label for="introduced">Introduced date</label><input
 									type="date" class="form-control" id="introduced"
-									placeholder="${computer.introduced}" name="introduced">
+									placeholder="${computer.introduced}" name="introduced" value="${computer.introduced}">
 							</div>
 							<div class="form-group">
-								<label for="discontinued">Discontinued date</label> <input
+								<label for="discontinued">Discontinued date</label><input
 									type="date" class="form-control" id="discontinued"
-									placeholder="${computer.discontinued}" name="discontinued">
+									placeholder="${computer.discontinued}" name="discontinued" value="${computer.discontinued}">
 							</div>
 							<div class="form-group">
 								<label for="companyId">Company</label> <select

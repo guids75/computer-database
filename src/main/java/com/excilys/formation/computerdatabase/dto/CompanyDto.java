@@ -37,8 +37,8 @@ public class CompanyDto {
     this.name = name;
   }
 
-  /*@Override
+  @Override
   public String toString() {
     return new StringBuilder("Company [id=").append(id).append(", name=").append(name).append("]").toString();
-  }*/
+  }
 }

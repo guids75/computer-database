@@ -15,11 +15,15 @@ public final class RequestMapper {
       computer.setCompanyId(Integer.parseInt(request.getParameter("companyId")));
       if (request.getParameter("introduced") != "") {
         computer.setIntroduced(request.getParameter("introduced"));
+      } else {
+        computer.setIntroduced(null);
       }
       if (request.getParameter("discontinued") != "") {
         computer.setDiscontinued(request.getParameter("discontinued"));
+      } else {
+        computer.setDiscontinued(null);
       }
-      if (request.getParameter("id") != null){
+      if (request.getParameter("id") != null) {
         computer.setId(Integer.parseInt(request.getParameter("id")));
       }
       return computer;

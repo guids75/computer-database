@@ -30,7 +30,7 @@ public class ComputerDaoImpl implements ComputerDao {
   private static final String UPDATE_REQUEST = "UPDATE computer SET name=?, introduced=?, discontinued=?, company_id=? WHERE id=?";
   private static final String DELETE_REQUEST = "DELETE FROM computer WHERE id=?";
   private static final String LIST_REQUEST= "SELECT * FROM computer as comput LEFT JOIN company as compan ON comput.company_id=compan.id LIMIT ? OFFSET ?";
-  private static final String DETAILS_REQUEST = "SELECT * FROM computer as comput, company as compan WHERE comput.id=? and comput.id=compan.id";
+  private static final String DETAILS_REQUEST = "SELECT * FROM computer as comput WHERE comput.id=? LEFT JOIN company as compan ON comput.id=compan.id";
   private static final String NUMBER_REQUEST = "SELECT COUNT(*) as number FROM computer";
 
   private ResultSet results;
@@ -65,8 +65,8 @@ public class ComputerDaoImpl implements ComputerDao {
       try {
         connection.rollback();
       } catch (SQLException sqx) {
-        throw new EJBException("Rollback failed: " +
-            sqx.getMessage());
+        throw new EJBException("Rollback failed: " 
+            + sqx.getMessage());
       }
       exception.printStackTrace();
       throw new ConnectionException("computer failed to be inserted", exception);
@@ -126,8 +126,8 @@ public class ComputerDaoImpl implements ComputerDao {
       preparedStatement.setInt(1, nbComputers);
       preparedStatement.setInt(2, offset);
       List<Computer> list = ResultMapper.convertToComputers(preparedStatement.executeQuery());
-        connection.commit();
-        return list;
+      connection.commit();
+      return list;
     } catch (SQLException exception) {
       try {
         connection.rollback();
