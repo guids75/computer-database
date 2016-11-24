@@ -5,14 +5,18 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import com.excilys.formation.computerdatabase.dto.ComputerDto;
+import com.excilys.formation.computerdatabase.pagination.Page;
 
 public final class RequestMapper {
 
+  private RequestMapper() {
+  }
+
   public static ComputerDto convertToComputer(HttpServletRequest request) {
-    if (request.getParameter("computerName") != null && request.getParameter("companyId") != null) { 
+    if (request.getParameter("computerName") != null && request.getParameter("companyId") != null) {
       ComputerDto computer = new ComputerDto();
       computer.setName(request.getParameter("computerName"));
-      computer.setCompanyId(Integer.parseInt(request.getParameter("companyId")));
+      computer.setCompanyId(Long.parseLong(request.getParameter("companyId")));
       if (request.getParameter("introduced") != "") {
         computer.setIntroduced(request.getParameter("introduced"));
       } else {
@@ -24,7 +28,7 @@ public final class RequestMapper {
         computer.setDiscontinued(null);
       }
       if (request.getParameter("id") != null) {
-        computer.setId(Integer.parseInt(request.getParameter("id")));
+        computer.setId(Long.parseLong(request.getParameter("id")));
       }
       return computer;
     }
@@ -38,22 +42,26 @@ public final class RequestMapper {
     if (deletedComputers.length > 0) {
       for (int i = 0; i < deletedComputers.length; i++) {
         ComputerDto computer = new ComputerDto();
-        computer.setId(Integer.parseInt(deletedComputers[i]));
+        computer.setId(Long.parseLong(deletedComputers[i]));
         computers.add(computer);
       }
     }
     return computers;
   }
-    
 
-  /*public static Page convertToPage(HttpServletRequest request) {
-    if (request.getParameter("page") != null) {  
+  public static Page convertToPage(HttpServletRequest request) {
+    Page pages = new Page();
+    if (request.getParameter("page") != null) {
       pages.setActualPage(Integer.parseInt(request.getParameter("page")));
-      if (request.getParameter("nbElements") != null) {
-        pages.setNbElementsByPage(Integer.parseInt(request.getParameter("nbElements")));
-        pages.calculateNbPages(pages.getNbElements());
-      }
-    return null;
-  }*/
+    } else {
+      pages.setActualPage(1);
+    }
+    if (request.getParameter("nbElementsByPage") != null) {
+      pages.setNbElementsByPage(Integer.parseInt(request.getParameter("nbElementsByPage")));
+    } else {
+      pages.setNbElementsByPage(10);
+    }
+    return pages;
+  }
 
 }

@@ -14,29 +14,30 @@ public final class ComputerDtoMapper {
 
   private static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
+  private ComputerDtoMapper() {
+  }
+
   /**
    * @param pListDto
    * @return
    */
-  public static List<Computer> computerDtoListToComputerList(List<ComputerDto> listComputerDto) { 
-    List<Computer> computers = new ArrayList<>(); 
-    if (listComputerDto != null) { 
-      for (ComputerDto computerDto : listComputerDto) { 
-        computers.add(computerDtoToComputer(computerDto)); 
-      } 
-    } 
-    return computers; 
-  } 
+  public static List<Computer> computerDtoListToComputerList(List<ComputerDto> listComputerDto) {
+    List<Computer> computers = new ArrayList<>();
+    if (listComputerDto != null) {
+      for (ComputerDto computerDto : listComputerDto) {
+        computers.add(computerDtoToComputer(computerDto));
+      }
+    }
+    return computers;
+  }
 
   /**
    * @param companyDto
    * @return
    */
   public static Computer computerDtoToComputer(ComputerDto computerDto) {
-    ComputerBuilder computer = new Computer.ComputerBuilder(computerDto.getName())
-        .id(computerDto.getId())
-        .company(new Company.CompanyBuilder(computerDto.getCompanyName())
-            .id(computerDto.getCompanyId()).build());
+    ComputerBuilder computer = new Computer.ComputerBuilder(computerDto.getName()).id(computerDto.getId())
+        .company(new Company.CompanyBuilder(computerDto.getCompanyName()).id(computerDto.getCompanyId()).build());
     if (computerDto.getIntroduced() != null) {
       computer.introduced(LocalDate.parse(computerDto.getIntroduced(), dateTimeFormatter));
     }
@@ -50,15 +51,15 @@ public final class ComputerDtoMapper {
    * @param pList
    * @return
    */
-  public static List<ComputerDto> computerListToComputerDtoList(List<Computer> listComputer) { 
-    List<ComputerDto> computersDto = new ArrayList<>(); 
-    if (listComputer != null) { 
+  public static List<ComputerDto> computerListToComputerDtoList(List<Computer> listComputer) {
+    List<ComputerDto> computersDto = new ArrayList<>();
+    if (listComputer != null) {
       for (Computer computer : listComputer) {
-        computersDto.add(computerToComputerDto(computer)); 
-      } 
-    } 
-    return computersDto; 
-  } 
+        computersDto.add(computerToComputerDto(computer));
+      }
+    }
+    return computersDto;
+  }
 
   /**
    * @param company
@@ -78,7 +79,5 @@ public final class ComputerDtoMapper {
     computerDto.setCompanyName(computer.getCompany().getName());
     return computerDto;
   }
-  
-  
 
 }

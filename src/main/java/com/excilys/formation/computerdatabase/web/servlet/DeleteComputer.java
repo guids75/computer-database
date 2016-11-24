@@ -10,26 +10,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.excilys.formation.computerdatabase.mapper.RequestMapper;
-import com.excilys.formation.computerdatabase.model.Computer;
 import com.excilys.formation.computerdatabase.service.computer.ComputerServiceImpl;
 
 public class DeleteComputer extends HttpServlet {
 
-  private static ComputerServiceImpl computerServiceImpl = ComputerServiceImpl.getInstance(); //service of Company to manage them
+  private static final long serialVersionUID = -3947839916923007223L;
+  private static ComputerServiceImpl computerServiceImpl = 
+      ComputerServiceImpl.INSTANCE; // service of Company to manage them
 
   @Override
-  public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
-    List<ComputerDto> computers = RequestMapper.convertToComputers(request); 
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    List<ComputerDto> computers = RequestMapper.convertToComputers(request);
     for (ComputerDto computer : computers) {
       computerServiceImpl.delete(computer.getId());
     }
-    request.getRequestDispatcher( "/dashboard" ).forward( request, response );
+    request.getRequestDispatcher("/dashboard").forward(request, response);
   }
- 
-  @Override
-  public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
 
-    request.getRequestDispatcher( "/dashboard" ).forward( request, response );
+  @Override
+  public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    request.getRequestDispatcher("/dashboard").forward(request, response);
   }
 
 }

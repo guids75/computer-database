@@ -7,21 +7,23 @@ import com.excilys.formation.computerdatabase.util.PropertiesReader;
 /**
  * @author GUIDS
  *
- * @param <T> : the object stored in the pages
+ * @param <T>
+ *          : the object stored in the pages
  */
-public class Page<T> {
+public class Page {
 
-  private int nbElementsByPage; //number of elements in one page
-  private int actualPage; //the page opened
-  private int nbPages; //the total number of pages
-  private int nbElements; //the total number of elements
+  private int nbElementsByPage; // number of elements in one page
+  private int actualPage; // the page opened
+  private int nbPages; // the total number of pages
+  private int nbElements; // the total number of elements
 
   public Page() {
   }
 
-  /** 
+  /**
    * 
-   * @param nbElements : the total number of elements to display
+   * @param nbElements
+   *          : the total number of elements to display
    */
   public Page(int nbElements) {
     this.nbElementsByPage = 10;
@@ -38,13 +40,15 @@ public class Page<T> {
     this.nbElements = nbElements;
   }
 
-  /** Calculate the number of pages needed to display nbElements elements,
+  /**
+   * Calculate the number of pages needed to display nbElements elements,
    * according to the number of elements per page.
    * 
-   * @param nbElements : the total number of elements to display
+   * @param nbElements
+   *          : the total number of elements to display
    */
   public void calculateNbPages(int nbElements) {
-    nbPages = (int)Math.ceil(((float)nbElements) / nbElementsByPage);
+    nbPages = (int) Math.ceil(((float) nbElements) / nbElementsByPage);
   }
 
   /**
@@ -55,7 +59,8 @@ public class Page<T> {
   }
 
   /**
-   * @param nbElementsByPage : the number of elements per page to set
+   * @param nbElementsByPage
+   *          : the number of elements per page to set
    */
   public void setNbElementsByPage(int nbElementsByPage) {
     this.nbElementsByPage = nbElementsByPage;
@@ -69,7 +74,8 @@ public class Page<T> {
   }
 
   /**
-   * @param actualPage : the actual page to set
+   * @param actualPage
+   *          : the actual page to set
    */
   public void setActualPage(int actualPage) {
     this.actualPage = actualPage;
@@ -83,27 +89,31 @@ public class Page<T> {
   }
 
   /**
-   * @param nbPages : number of pages to set
+   * @param nbPages
+   *          : number of pages to set
    */
   public void setNbPages(int nbPages) {
     this.nbPages = nbPages;
   }
 
-  /** Check if the actual page has a following one.
+  /**
+   * Check if the actual page has a following one.
    * 
-   * @return a boolean corresponding to the existence of a following page (true if exists)
+   * @return a boolean corresponding to the existence of a following page (true
+   *         if exists)
    */
   public boolean hasNext() {
     return (actualPage != nbPages);
   }
 
-  /** Check if the actual page has a previous one.
+  /**
+   * Check if the actual page has a previous one.
    * 
-   * @return a boolean corresponding to the existence of a previous page (true if exists)
+   * @return a boolean corresponding to the existence of a previous page (true
+   *         if exists)
    */
   public boolean hasPrev() {
     return (actualPage != 1);
   }
-
 
 }

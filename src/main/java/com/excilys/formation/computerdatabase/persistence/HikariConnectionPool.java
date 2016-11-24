@@ -10,28 +10,15 @@ import com.excilys.formation.computerdatabase.util.PropertiesReader;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
-public class HikariConnectionPool {
+public enum HikariConnectionPool {
 
+  INSTANCE;
   private static DataSource datasource;
-  private static HikariConnectionPool hikariConnection = new HikariConnectionPool(); //singleton of this class
-  private static final String PROP_FILE_NAME = "hikariConnection.properties"; //file to manage connection properties
-
-  /**
-   * Private constructor for singleton.
-   */
-  private HikariConnectionPool() {
-  }
-
-  /**
-   * @return the singleton corresponding to this class
-   */
-  public static HikariConnectionPool getInstance() {
-    return hikariConnection;
-  }
-
+  private static final String PROP_FILE_NAME = 
+      "hikariConnection.properties"; // file to manage connection properties
 
   public DataSource getDataSource() {
-    if(datasource == null) {
+    if (datasource == null) {
       try {
         Properties properties = PropertiesReader.getInstance().getPropValues(PROP_FILE_NAME);
         Class.forName(properties.getProperty("className"));

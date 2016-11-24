@@ -13,26 +13,15 @@ import java.util.Properties;
  * @author GUIDS
  *
  */
-public class JdbcConnection {  
+public enum JdbcConnection {
 
-  private static Connection connection = null; //connection
-  private static JdbcConnection jdbcConnection = new JdbcConnection(); //singleton of this class
-  private static final String PROP_FILE_NAME = "jdbcConnection.properties"; //file to manage connection properties
-
-  /**
-   * Private constructor for singleton.
-   */
-  private JdbcConnection() {
-  }
+  INSTANCE;
+  private static Connection connection = null; // connection
+  private static final String PROP_FILE_NAME =
+      "jdbcConnection.properties"; // file to manage connection properties
 
   /**
-   * @return the singleton corresponding to this class
-   */
-  public static JdbcConnection getInstance() {
-    return jdbcConnection;
-  }
-
-  /** Open a jdbc connection.
+   * Open a jdbc connection.
    * 
    * @return the connection opened
    */
@@ -40,8 +29,8 @@ public class JdbcConnection {
     try {
       Properties properties = PropertiesReader.getInstance().getPropValues(PROP_FILE_NAME);
       Class.forName(properties.getProperty("className"));
-      connection = DriverManager.getConnection(properties.getProperty("url"),
-          properties.getProperty("login"), properties.getProperty("password"));
+      connection = DriverManager.getConnection(properties.getProperty("url"), properties.getProperty("login"),
+          properties.getProperty("password"));
     } catch (SQLException | ClassNotFoundException | IOException exception) {
       exception.printStackTrace();
     }

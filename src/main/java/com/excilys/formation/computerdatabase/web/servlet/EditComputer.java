@@ -9,30 +9,31 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.excilys.formation.computerdatabase.mapper.RequestMapper;
-import com.excilys.formation.computerdatabase.model.Computer;
 import com.excilys.formation.computerdatabase.service.computer.ComputerServiceImpl;
 import com.excilys.formation.computerdatabase.service.company.CompanyServiceImpl;
 
 public class EditComputer extends HttpServlet {
 
-  private static ComputerServiceImpl computerServiceImpl = ComputerServiceImpl.getInstance(); //service of Company to manage them
-  private static CompanyServiceImpl companyServiceImpl = CompanyServiceImpl.getInstance(); //service of Company to manage them
-  private int computerId = -1;
-  
+  private static final long serialVersionUID = 1565503698100849730L;
+  private static ComputerServiceImpl computerServiceImpl = 
+      ComputerServiceImpl.INSTANCE; // service of Company to manage them
+  private static CompanyServiceImpl companyServiceImpl = 
+      CompanyServiceImpl.INSTANCE; // service of Company to manage them
+
   @Override
-  public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
+  public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     ComputerDto computerDto = RequestMapper.convertToComputer(request);
-    request.setAttribute( "listCompanies", companyServiceImpl.list(companyServiceImpl.count(), 0));
+    request.setAttribute("listCompanies", companyServiceImpl.list(companyServiceImpl.count(), 0));
     request.setAttribute("computer", computerDto);
-    request.getRequestDispatcher( "/WEB-INF/jsp/editComputer.jsp" ).forward( request, response );
+    request.getRequestDispatcher("/WEB-INF/jsp/editComputer.jsp").forward(request, response);
   }
-  
+
   @Override
-  public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
-    
-    ComputerDto computer = RequestMapper.convertToComputer(request); 
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    ComputerDto computer = RequestMapper.convertToComputer(request);
     computerServiceImpl.update(computer);
-    request.getRequestDispatcher( "/dashboard" ).forward( request, response );
+    request.getRequestDispatcher("/dashboard").forward(request, response);
   }
-  
+
 }

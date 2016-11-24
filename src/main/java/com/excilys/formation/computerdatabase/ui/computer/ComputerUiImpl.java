@@ -20,24 +20,28 @@ import java.util.List;
 public class ComputerUiImpl implements ComputerUi {
 
   private ComputerDto computer;
-  private static final ComputerServiceImpl computerService = ComputerServiceImpl.getInstance(); //service of Computer to manage them
-  private static final CompanyServiceImpl companyService = CompanyServiceImpl.getInstance(); //service of COmpany to manage them
+  private static final ComputerServiceImpl computerService = 
+      ComputerServiceImpl.INSTANCE; // service of Computer to manage them
+  private static final CompanyServiceImpl companyService = 
+      CompanyServiceImpl.INSTANCE; // service of Company to manage them
 
   private String intro = "";
   private String disco = "";
-  private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-M-dd"); 
-  private int companyId;
+  private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-M-dd");
+  private long companyId;
   private int nbComputers;
 
   private int offset = 0;
-  private Page<ComputerDto> pages; //pages' attributes to manage them
+  private Page pages; // pages' attributes to manage them
 
-  /** Create a new instance of Page and set their number according to the number of computers.
+  /**
+   * Create a new instance of Page and set their number according to the number
+   * of computers.
    * 
    */
   public ComputerUiImpl() {
-    nbComputers = computerService.count();
-    pages = new Page<>(nbComputers);
+    nbComputers = computerService.count("");
+    pages = new Page(nbComputers);
   }
 
   @Override
@@ -65,9 +69,11 @@ public class ComputerUiImpl implements ComputerUi {
     }
   }
 
-  /** Print a list of computers.
+  /**
+   * Print a list of computers.
    * 
-   * @param computers : list of computers to print.
+   * @param computers
+   *          : list of computers to print.
    */
   public void print(List<ComputerDto> computers) {
     for (ComputerDto computer : computers) {
@@ -115,7 +121,7 @@ public class ComputerUiImpl implements ComputerUi {
   @Override
   public void update() {
     System.out.println("which computer id?");
-    int id = scanner.nextInt();
+    long id = scanner.nextLong();
     scanner.nextLine();
     System.out.println("which name?");
     String name = scanner.nextLine();
@@ -126,7 +132,7 @@ public class ComputerUiImpl implements ComputerUi {
     disco = scanner.nextLine();
 
     System.out.println("which company id?");
-    companyId = scanner.nextInt();
+    companyId = scanner.nextLong();
     scanner.nextLine();
 
     computer = new ComputerDto();
@@ -144,7 +150,7 @@ public class ComputerUiImpl implements ComputerUi {
   @Override
   public void delete() {
     System.out.println("which computer id?");
-    computerService.delete(scanner.nextInt());
+    computerService.delete(scanner.nextLong());
     scanner.nextLine();
     pages.setNbPages(pages.getNbPages() - 1);
   }

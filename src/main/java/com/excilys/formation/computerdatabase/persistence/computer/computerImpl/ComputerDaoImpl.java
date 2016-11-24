@@ -20,38 +20,26 @@ import java.util.List;
  * @author GUIDS
  *
  */
-public class ComputerDaoImpl implements ComputerDao {
+public enum ComputerDaoImpl implements ComputerDao {
 
-  private static ComputerDaoImpl computerDao = new ComputerDaoImpl(); //singleton of this class
-  private static HikariConnectionPool hikariConnectionPool = HikariConnectionPool.getInstance(); //get the connection
+  INSTANCE;
+  private static HikariConnectionPool hikariConnectionPool = 
+      HikariConnectionPool.INSTANCE; // get the connection
 
-  //requests
+  // requests
   private static final String INSERT_REQUEST = "INSERT INTO computer VALUES (?, ?, ?, ?, ?)";
   private static final String UPDATE_REQUEST = "UPDATE computer SET name=?, introduced=?, discontinued=?, company_id=? WHERE id=?";
   private static final String DELETE_REQUEST = "DELETE FROM computer WHERE id=?";
-  private static final String LIST_REQUEST= "SELECT * FROM computer as comput LEFT JOIN company as compan ON comput.company_id=compan.id LIMIT ? OFFSET ?";
+  private static final String LIST_REQUEST = "SELECT * FROM computer as comput LEFT JOIN company as compan ON comput.company_id=compan.id LIMIT ? OFFSET ?";
   private static final String DETAILS_REQUEST = "SELECT * FROM computer as comput WHERE comput.id=? LEFT JOIN company as compan ON comput.id=compan.id";
   private static final String NUMBER_REQUEST = "SELECT COUNT(*) as number FROM computer";
   private static final String SEARCH_REQUEST = "SELECT * FROM computer as comput LEFT JOIN company as compan ON comput.company_id=compan.id "
-      + "WHERE lower(comput.name) LIKE ? OR lower(compan.name) LIKE ? "
-      + "LIMIT ? OFFSET ?";
+      + "WHERE lower(comput.name) LIKE ? OR lower(compan.name) LIKE ?";
+  private static final String LIMIT_OFFSET = " LIMIT ? OFFSET ?";
   private static final String LISTBYCOMPANY_REQUEST = "SELECT * FROM computer as comput LEFT JOIN company as compan ON comput.company_id=compan.id WHERE compan.id=?";
 
   private ResultSet results;
   private Connection connection = null;
-
-  /**
-   * Private constructor for singleton.
-   */
-  private ComputerDaoImpl() {
-  }
-
-  /**
-   * @return the singleton corresponding to this class
-   */
-  public static ComputerDaoImpl getInstance() {
-    return computerDao;
-  }
 
   @Override
   public Computer insert(Computer computer) throws ConnectionException {
@@ -59,11 +47,11 @@ public class ComputerDaoImpl implements ComputerDao {
 
       try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_REQUEST)) {
         connection.setAutoCommit(false);
-        preparedStatement.setInt(1,computer.getId());
-        preparedStatement.setString(2,computer.getName());
-        preparedStatement.setObject(3,computer.getIntroduced());
-        preparedStatement.setObject(4,computer.getDiscontinued());
-        preparedStatement.setInt(5,computer.getCompany().getId());
+        preparedStatement.setLong(1, computer.getId());
+        preparedStatement.setString(2, computer.getName());
+        preparedStatement.setObject(3, computer.getIntroduced());
+        preparedStatement.setObject(4, computer.getDiscontinued());
+        preparedStatement.setLong(5, computer.getCompany().getId());
         preparedStatement.executeUpdate();
       } catch (SQLException exception) {
         connection.rollback();
@@ -82,14 +70,14 @@ public class ComputerDaoImpl implements ComputerDao {
 
   @Override
   public Computer update(Computer computer) throws ConnectionException {
-    try (Connection connection = hikariConnectionPool.getDataSource().getConnection(); 
+    try (Connection connection = hikariConnectionPool.getDataSource().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_REQUEST)) {
       connection.setAutoCommit(false);
       preparedStatement.setString(1, computer.getName());
       preparedStatement.setObject(2, computer.getIntroduced());
       preparedStatement.setObject(3, computer.getDiscontinued());
-      preparedStatement.setInt(4, computer.getCompany().getId());
-      preparedStatement.setInt(5, computer.getId());
+      preparedStatement.setLong(4, computer.getCompany().getId());
+      preparedStatement.setLong(5, computer.getId());
       preparedStatement.executeUpdate();
       preparedStatement.close();
       connection.commit();
@@ -97,8 +85,7 @@ public class ComputerDaoImpl implements ComputerDao {
       try {
         connection.rollback();
       } catch (SQLException sqx) {
-        throw new EJBException("Rollback failed: " +
-            sqx.getMessage());
+        throw new EJBException("Rollback failed: " + sqx.getMessage());
       }
       throw new ConnectionException("computer failed to be updated", exception);
     }
@@ -106,19 +93,18 @@ public class ComputerDaoImpl implements ComputerDao {
   }
 
   @Override
-  public void delete(int computerId) throws ConnectionException {
-    try (Connection connection = hikariConnectionPool.getDataSource().getConnection(); 
+  public void delete(long computerId) throws ConnectionException {
+    try (Connection connection = hikariConnectionPool.getDataSource().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(DELETE_REQUEST)) {
       connection.setAutoCommit(false);
-      preparedStatement.setInt(1, computerId);
+      preparedStatement.setLong(1, computerId);
       preparedStatement.executeUpdate();
       connection.commit();
     } catch (SQLException exception) {
       try {
         connection.rollback();
       } catch (SQLException sqx) {
-        throw new EJBException("Rollback failed: " +
-            sqx.getMessage());
+        throw new EJBException("Rollback failed: " + sqx.getMessage());
       }
       throw new ConnectionException("computer failed to be deleted", exception);
     }
@@ -126,7 +112,7 @@ public class ComputerDaoImpl implements ComputerDao {
 
   @Override
   public List<Computer> list(int nbComputers, int offset) throws ConnectionException {
-    try (Connection connection = hikariConnectionPool.getDataSource().getConnection(); 
+    try (Connection connection = hikariConnectionPool.getDataSource().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(LIST_REQUEST)) {
       connection.setAutoCommit(false);
       preparedStatement.setInt(1, nbComputers);
@@ -138,19 +124,18 @@ public class ComputerDaoImpl implements ComputerDao {
       try {
         connection.rollback();
       } catch (SQLException sqx) {
-        throw new EJBException("Rollback failed: " +
-            sqx.getMessage());
+        throw new EJBException("Rollback failed: " + sqx.getMessage());
       }
       throw new ConnectionException("computers failed to be listed", exception);
     }
   }
 
   @Override
-  public Computer showComputerDetails(int computerId) throws ConnectionException {
-    try (Connection connection = hikariConnectionPool.getDataSource().getConnection(); 
+  public Computer showComputerDetails(long computerId) throws ConnectionException {
+    try (Connection connection = hikariConnectionPool.getDataSource().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(DETAILS_REQUEST)) {
       connection.setAutoCommit(false);
-      preparedStatement.setInt(1, computerId);
+      preparedStatement.setLong(1, computerId);
       Computer computer = ResultMapper.convertToComputer(preparedStatement.executeQuery());
       connection.commit();
       return computer;
@@ -158,42 +143,52 @@ public class ComputerDaoImpl implements ComputerDao {
       try {
         connection.rollback();
       } catch (SQLException sqx) {
-        throw new EJBException("Rollback failed: " +
-            sqx.getMessage());
+        throw new EJBException("Rollback failed: " + sqx.getMessage());
       }
       throw new ConnectionException("computer failed to be detailed", exception);
     }
   }
 
   @Override
-  public int count() throws ConnectionException {
-    int numberComputers = -1; 
-    try (Connection connection = hikariConnectionPool.getDataSource().getConnection(); 
-        Statement statement = connection.createStatement()) {
+  public int count(String search) throws ConnectionException {
+    int numberComputers = -1;
+    String request;
+    if (search != null && !search.equals("")){
+      request = NUMBER_REQUEST + " IN (" + SEARCH_REQUEST + ")";
+    } else {
+      request = NUMBER_REQUEST;
+    }
+    System.out.println(request);
+    try (Connection connection = hikariConnectionPool.getDataSource().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(request)) {
       connection.setAutoCommit(false);
-      results = statement.executeQuery(NUMBER_REQUEST); 
+      if (search != null && !search.equals("")){
+        preparedStatement.setString(1, "%" + search + "%");
+        preparedStatement.setString(2, "%" + search + "%");
+      }
+      results = preparedStatement.executeQuery();
       results.next();
       numberComputers = results.getInt("number");
       connection.commit();
-    } catch (SQLException exception) { 
+    } catch (SQLException exception) {
+      exception.printStackTrace();
       try {
         connection.rollback();
       } catch (SQLException sqx) {
-        throw new EJBException("Rollback failed: " +
-            sqx.getMessage());
+        throw new EJBException("Rollback failed: " + sqx.getMessage());
       }
       throw new ConnectionException("computers failed to be counted", exception);
-    } 
-    return numberComputers; 
-  } 
+    }
+    return numberComputers;
+  }
 
   @Override
   public List<Computer> search(String search, int nbComputers, int offset) throws ConnectionException {
-    try (Connection connection = hikariConnectionPool.getDataSource().getConnection(); 
-        PreparedStatement preparedStatement = connection.prepareStatement(SEARCH_REQUEST)) {
+    try (Connection connection = hikariConnectionPool.getDataSource().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(SEARCH_REQUEST + LIMIT_OFFSET)) {
       connection.setAutoCommit(false);
-      preparedStatement.setString(1, "%"+ search + "%");
-      preparedStatement.setString(2, "%"+ search + "%");
+      preparedStatement.setString(1, "%" + search + "%");
+      preparedStatement.setString(2, "%" + search + "%");
       preparedStatement.setInt(3, nbComputers);
       preparedStatement.setInt(4, offset);
       List<Computer> list = ResultMapper.convertToComputers(preparedStatement.executeQuery());
@@ -205,10 +200,9 @@ public class ComputerDaoImpl implements ComputerDao {
         connection.rollback();
       } catch (SQLException sqx) {
         sqx.printStackTrace();
-        throw new EJBException("Rollback failed: " +
-            sqx.getMessage());
+        throw new EJBException("Rollback failed: " + sqx.getMessage());
       }
-      
+
       throw new ConnectionException("computers failed to be searched", exception);
     }
   }

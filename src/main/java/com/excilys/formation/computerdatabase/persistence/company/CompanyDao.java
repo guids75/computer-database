@@ -7,16 +7,19 @@ import com.excilys.formation.computerdatabase.persistence.Dao;
 /**
  * @author GUIDS
  *
- * @param Company : type managed by the interface
+ * @param Company
+ *          : type managed by the interface
  */
 public interface CompanyDao extends Dao<Company> {
 
-  /** Get the company with its id.
+  /**
+   * Get the company with its id.
    * 
-   * @param id : the id of the company
+   * @param id
+   *          : the id of the company
    * @return the company specified
    */
-  public Company getCompany(int id) throws ConnectionException;
+  public Company getCompany(long id) throws ConnectionException;
 
   /**
    * @return the number of companies

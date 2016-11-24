@@ -21,12 +21,13 @@ import javax.ejb.EJBException;
  * @author GUIDS
  *
  */
-public class CompanyDaoImpl implements CompanyDao {
+public enum CompanyDaoImpl implements CompanyDao {
 
-  private static CompanyDaoImpl companyDAO = new CompanyDaoImpl(); ////singleton of this class
-  private static HikariConnectionPool hikariConnectionPool = HikariConnectionPool.getInstance(); //get the connection
+  INSTANCE;
+  private static HikariConnectionPool hikariConnectionPool = 
+      HikariConnectionPool.INSTANCE; // get the connection
 
-  //requests
+  // requests
   private static final String LIST_REQUEST = "SELECT * FROM company LIMIT ? OFFSET ?";
   private static final String NUMBER_REQUEST = "SELECT COUNT(*) as number FROM company";
   private static final String COMPANY_REQUEST = "SELECT * FROM company where id=?";
@@ -34,22 +35,9 @@ public class CompanyDaoImpl implements CompanyDao {
   private ResultSet results;
   private Connection connection = null;
 
-  /**
-   * Private constructor for a singleton.
-   */
-  private CompanyDaoImpl() {
-  }
-
-  /**
-   * @return the singleton corresponding to this class
-   */
-  public static CompanyDaoImpl getInstance() {
-    return companyDAO;
-  }
-
   @Override
   public List<Company> list(int nbCompanies, int offset) throws ConnectionException {
-    try (Connection connection = hikariConnectionPool.getDataSource().getConnection(); 
+    try (Connection connection = hikariConnectionPool.getDataSource().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(LIST_REQUEST)) {
       connection.setAutoCommit(false);
       preparedStatement.setInt(1, nbCompanies);
@@ -61,8 +49,7 @@ public class CompanyDaoImpl implements CompanyDao {
       try {
         connection.rollback();
       } catch (SQLException sqx) {
-        throw new EJBException("Rollback failed: " 
-            + sqx.getMessage());
+        throw new EJBException("Rollback failed: " + sqx.getMessage());
       }
       throw new ConnectionException("companies failed to be listed", exception);
     }
@@ -70,30 +57,29 @@ public class CompanyDaoImpl implements CompanyDao {
 
   @Override
   public int count() throws ConnectionException {
-    try (Connection connection = hikariConnectionPool.getDataSource().getConnection(); 
-        Statement statement = connection.createStatement()) { 
+    try (Connection connection = hikariConnectionPool.getDataSource().getConnection();
+        Statement statement = connection.createStatement()) {
       connection.setAutoCommit(false);
-      results = statement.executeQuery(NUMBER_REQUEST); 
+      results = statement.executeQuery(NUMBER_REQUEST);
       results.next();
       connection.commit();
       return results.getInt("number");
-    } catch (SQLException exception) { 
+    } catch (SQLException exception) {
       try {
         connection.rollback();
       } catch (SQLException sqx) {
-        throw new EJBException("Rollback failed: " +
-            sqx.getMessage());
+        throw new EJBException("Rollback failed: " + sqx.getMessage());
       }
       throw new ConnectionException("companies failed to be counted", exception);
-    } 
-  } 
+    }
+  }
 
   @Override
-  public Company getCompany(int id) throws ConnectionException {
-    try (Connection connection = hikariConnectionPool.getDataSource().getConnection(); 
+  public Company getCompany(long id) throws ConnectionException {
+    try (Connection connection = hikariConnectionPool.getDataSource().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(COMPANY_REQUEST)) {
       connection.setAutoCommit(false);
-      preparedStatement.setInt(1,id);
+      preparedStatement.setLong(1, id);
       results = preparedStatement.executeQuery();
       results.next();
       connection.commit();
@@ -102,8 +88,7 @@ public class CompanyDaoImpl implements CompanyDao {
       try {
         connection.rollback();
       } catch (SQLException sqx) {
-        throw new EJBException("Rollback failed: " +
-            sqx.getMessage());
+        throw new EJBException("Rollback failed: " + sqx.getMessage());
       }
       throw new ConnectionException("company failed to be get", exception);
     }

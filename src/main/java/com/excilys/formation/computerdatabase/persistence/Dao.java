@@ -7,13 +7,16 @@ import com.excilys.formation.computerdatabase.exception.ConnectionException;
 /**
  * @author GUIDS
  *
- * @param <T> : the object of the Dao
+ * @param <T>
+ *          : the object of the Dao
  */
 public interface Dao<T> {
 
-  /** Create a T object in the database. 
+  /**
+   * Create a T object in the database.
    * 
-   * @param object : the object to create
+   * @param object
+   *          : the object to create
    * @return : the T object created
    */
   public default T insert(T object) throws ConnectionException {
@@ -21,9 +24,11 @@ public interface Dao<T> {
     return null;
   }
 
-  /** Update a T object in the database.
+  /**
+   * Update a T object in the database.
    * 
-   * @param object : the object to update
+   * @param object
+   *          : the object to update
    * @return : the T object updated
    */
   public default T update(T object) throws ConnectionException {
@@ -31,20 +36,25 @@ public interface Dao<T> {
     return null;
   }
 
-  /** Delete a T object in the database.
+  /**
+   * Delete a T object in the database.
    * 
-   * @param idObject : the id of the T object to delete
+   * @param idObject
+   *          : the id of the T object to delete
    */
-  public default void delete(int idObject) throws ConnectionException {
+  public default void delete(long idObject) throws ConnectionException {
     System.out.println("Default implementation of delete");
   }
 
-  /** Get the list of all the T objects in the database.
+  /**
+   * Get the list of all the T objects in the database.
    * 
-   * @param nbElements : the number of T objects in the database
-   * @param offset : the offset to display
+   * @param nbElements
+   *          : the number of T objects in the database
+   * @param offset
+   *          : the offset to display
    * @return : the list of all the T objects in the database
    */
-  public List<T> list(int nbElements, int offset) throws ConnectionException; 
+  public List<T> list(int nbElements, int offset) throws ConnectionException;
 
 }

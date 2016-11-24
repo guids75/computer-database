@@ -28,11 +28,9 @@
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
 					<form id="searchForm" action="#" method="GET" class="form-inline">
-
-${search} iciiiiiiii 
-
 						<input type="search" id="searchbox" name="search"
-							class="form-control" placeholder="Search name" value="<c:if test='not empty ${search}'>${search}</c:if>"/><input
+							class="form-control" placeholder="Search name"
+							value="<c:if test='not empty ${search}'>${search}</c:if>" /><input
 							type="submit" id="searchsubmit" value="Filter by name"
 							class="btn btn-primary" />
 					</form>
@@ -79,7 +77,8 @@ ${search} iciiiiiiii
 
 									<c:choose>
 										<c:when test="${not empty computer.introduced}">
-											<c:set var="introduced" value="&introduced=${computer.introduced}" />
+											<c:set var="introduced"
+												value="&introduced=${computer.introduced}" />
 										</c:when>
 										<c:otherwise>
 											<c:set var="introduced" value="" />
@@ -87,13 +86,14 @@ ${search} iciiiiiiii
 									</c:choose>
 									<c:choose>
 										<c:when test="${not empty computer.discontinued}">
-											<c:set var="discontinued" value="&discontinued=${computer.discontinued}" />
+											<c:set var="discontinued"
+												value="&discontinued=${computer.discontinued}" />
 										</c:when>
 										<c:otherwise>
 											<c:set var="discontinued" value="" />
 										</c:otherwise>
 									</c:choose>
-									
+
 									<td><a
 										href="editComputer?id=${computer.id}&
 									computerName=${computer.name}&introduced=${computer.introduced}
@@ -114,7 +114,7 @@ ${search} iciiiiiiii
 			<ul class="pagination">
 				<c:if test="${pages.hasPrev() == true}">
 					<li><a
-						href=<tag:linkTag target="dashboard" page="${pages.actualPage-1}" nbElements="${pages.nbElementsByPage}"/>
+						href=<tag:linkTag target="dashboard" actualPage="${pages.actualPage-1}" nbElementsByPage="${pages.nbElementsByPage}" search="${search}"/>
 						aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 					</a></li>
 				</c:if>
@@ -139,23 +139,22 @@ ${search} iciiiiiiii
 
 				<c:forEach var="page" begin="${begin}" end="${end}">
 					<li><a
-						href=<tag:linkTag target="dashboard" page="${page}" nbElements="${pages.nbElementsByPage}"/>>${page}</a></li>
+						href=<tag:linkTag target="dashboard" actualPage="${page}" nbElementsByPage="${pages.nbElementsByPage}" search="${search}"/>>${page}</a></li>
 				</c:forEach>
 				<c:if test="${pages.hasNext() == true}">
 					<li><a
-						href=<tag:linkTag target="dashboard" page="${pages.actualPage+1}" nbElements="${pages.nbElementsByPage}"/>
+						href=<tag:linkTag target="dashboard" actualPage="${pages.actualPage+1}" nbElementsByPage="${pages.nbElementsByPage}" search="${search}"/>
 						aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 					</a></li>
 				</c:if>
 			</ul>
-
 			<div class="btn-group btn-group-sm pull-right" role="group">
-				<button type="button" class="btn btn-default" name="nbElements"
-					onclick='window.location.href=<tag:linkTag target="dashboard" page="1" nbElements="10"/>;'>10</button>
-				<button type="button" class="btn btn-default" name="nbElements"
-					onclick='window.location.href=<tag:linkTag target="dashboard" page="1" nbElements="50"/>;'>50</button>
-				<button type="button" class="btn btn-default" name="nbElements"
-					onclick='window.location.href=<tag:linkTag target="dashboard" page="1" nbElements="100"/>;'>100</button>
+				<button type="button" class="btn btn-default" name="nbElementsByPage"
+					onclick='window.location.href=<tag:linkTag target="dashboard" actualPage="1" nbElementsByPage="10" search="${search}"/>;'>10</button>
+				<button type="button" class="btn btn-default" name="nbElementsByPage"
+					onclick='window.location.href=<tag:linkTag target="dashboard" actualPage="1" nbElementsByPage="50" search="${search}"/>;'>50</button>
+				<button type="button" class="btn btn-default" name="nbElementsByPage"
+					onclick='window.location.href=<tag:linkTag target="dashboard" actualPage="1" nbElementsByPage="100" search="${search}"/>;'>100</button>
 			</div>
 		</div>
 

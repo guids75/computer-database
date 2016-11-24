@@ -5,21 +5,22 @@ package com.excilys.formation.computerdatabase.dto;
  *
  */
 public class CompanyDto {
-  
-  private int id; //id of the company
-  private String name; //name of the company
+
+  private long id; // id of the company
+  private String name; // name of the company
 
   /**
    * @return the current id of the company
    */
-  public int getId() {
+  public long getId() {
     return id;
   }
 
   /**
-   * @param id : the id to set
+   * @param id
+   *          : the id to set
    */
-  public void setId(int id) {
+  public void setId(long id) {
     this.id = id;
   }
 
@@ -31,7 +32,8 @@ public class CompanyDto {
   }
 
   /**
-   * @param name : the name to set
+   * @param name
+   *          : the name to set
    */
   public void setName(String name) {
     this.name = name;

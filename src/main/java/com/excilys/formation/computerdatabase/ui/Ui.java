@@ -12,7 +12,8 @@ public interface Ui {
 
   Scanner scanner = new Scanner(System.in);
 
-  /** List of objects.
+  /**
+   * List of objects.
    * 
    */
   public void list();

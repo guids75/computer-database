@@ -11,18 +11,20 @@ import com.excilys.formation.computerdatabase.service.Service;
 /**
  * @author GUIDS
  *
- * @param <T> : Company
+ * @param <T>
+ *          : Company
  */
 public interface CompanyService extends Service<CompanyDto> {
-  
+
   /**
    * @return the number of companies
    */
   public int count();
 
   /**
-   * @param id : the id of the company
+   * @param id
+   *          : the id of the company
    * @return the company specified
    */
-  public CompanyDto getCompany(int id);
+  public CompanyDto getCompany(long id);
 }

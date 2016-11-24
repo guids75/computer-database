@@ -20,33 +20,21 @@ import org.slf4j.LoggerFactory;
  * @author GUIDS
  *
  */
-public class ComputerServiceImpl implements ComputerService {
+public enum ComputerServiceImpl implements ComputerService {
 
-  private static final ComputerDaoImpl computerDao = ComputerDaoImpl.getInstance(); //dao for Computer to manage the computers
-  private static ComputerServiceImpl computerService = new ComputerServiceImpl(); //singleton of this class
+  INSTANCE;
+  private static final ComputerDaoImpl computerDao = 
+      ComputerDaoImpl.INSTANCE; // dao for Computer to manage the computers
   private static final Logger slf4jLogger = LoggerFactory.getLogger(ComputerServiceImpl.class);
-
-  /**
-   * Private constructor for singleton.
-   */
-  private ComputerServiceImpl() {
-  }
-
-  /**
-   * @return the singleton corresponding to this class
-   */
-  public static ComputerServiceImpl getInstance() {
-    return computerService;
-  }
 
   @Override
   public ComputerDto insert(ComputerDto computerDto) {
     try {
-      return ComputerDtoMapper.computerToComputerDto(
-          computerDao.insert(ComputerDtoMapper.computerDtoToComputer(computerDto)));
+      return ComputerDtoMapper
+          .computerToComputerDto(computerDao.insert(ComputerDtoMapper.computerDtoToComputer(computerDto)));
     } catch (ConnectionException exception) {
       slf4jLogger.error("Error in ComputerService in inserty");
-      slf4jLogger.error(exception.getMessage());    
+      slf4jLogger.error(exception.getMessage());
     }
     return null;
   }
@@ -54,8 +42,8 @@ public class ComputerServiceImpl implements ComputerService {
   @Override
   public ComputerDto update(ComputerDto computerDto) {
     try {
-      return ComputerDtoMapper.computerToComputerDto(
-          computerDao.update(ComputerDtoMapper.computerDtoToComputer(computerDto)));
+      return ComputerDtoMapper
+          .computerToComputerDto(computerDao.update(ComputerDtoMapper.computerDtoToComputer(computerDto)));
     } catch (ConnectionException exception) {
       slf4jLogger.error("Error in ComputerService in update");
       slf4jLogger.error(exception.getMessage());
@@ -64,9 +52,9 @@ public class ComputerServiceImpl implements ComputerService {
   }
 
   @Override
-  public void delete(int computer) {
+  public void delete(long computerId) {
     try {
-      computerDao.delete(computer);
+      computerDao.delete(computerId);
     } catch (ConnectionException exception) {
       slf4jLogger.error("Error in ComputerService in delete");
       slf4jLogger.error(exception.getMessage());
@@ -85,7 +73,7 @@ public class ComputerServiceImpl implements ComputerService {
   }
 
   @Override
-  public void showComputerDetails(int computerId) {
+  public void showComputerDetails(long computerId) {
     try {
       computerDao.showComputerDetails(computerId);
     } catch (ConnectionException exception) {
@@ -95,16 +83,16 @@ public class ComputerServiceImpl implements ComputerService {
   }
 
   @Override
-  public int count() {
+  public int count(String search) {
     try {
-      return computerDao.count();
+      return computerDao.count(search);
     } catch (ConnectionException exception) {
       slf4jLogger.error("Error in ComputerService in count");
       slf4jLogger.error(exception.getMessage());
     }
     return -1;
   }
-  
+
   @Override
   public List<ComputerDto> search(String search, int nbElements, int offset) {
     try {

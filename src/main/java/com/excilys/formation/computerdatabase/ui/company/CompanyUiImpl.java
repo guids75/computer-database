@@ -15,15 +15,18 @@ import com.excilys.formation.computerdatabase.service.company.CompanyServiceImpl
  */
 public class CompanyUiImpl implements CompanyUi {
 
-  private CompanyServiceImpl companyService = CompanyServiceImpl.getInstance(); //service of Company to manage them
-  private Page<CompanyDto> pages; //pages' attributes to manage them
+  private CompanyServiceImpl companyService = 
+      CompanyServiceImpl.INSTANCE; // service of Company to manage them
+  private Page pages; // pages' attributes to manage them
   private int offset = 0;
 
-  /** Create a new instance of Page and set their number according to the number of companies.
+  /**
+   * Create a new instance of Page and set their number according to the number
+   * of companies.
    * 
    */
   public CompanyUiImpl() {
-    pages = new Page<>(companyService.count());
+    pages = new Page(companyService.count());
   }
 
   @Override
@@ -51,9 +54,11 @@ public class CompanyUiImpl implements CompanyUi {
     }
   }
 
-  /** Print the list of companies.
+  /**
+   * Print the list of companies.
    * 
-   * @param companies : list of companies to print
+   * @param companies
+   *          : list of companies to print
    */
   public void print(List<CompanyDto> companies) {
     for (CompanyDto company : companies) {

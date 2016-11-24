@@ -19,21 +19,22 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class AddComputer extends HttpServlet {
 
-  private static CompanyServiceImpl companyServiceImpl = CompanyServiceImpl.getInstance(); //service of Company to manage them
-  private static ComputerServiceImpl computerServiceImpl = ComputerServiceImpl.getInstance(); //service of Company to manage them
+  private static CompanyServiceImpl companyServiceImpl = 
+      CompanyServiceImpl.INSTANCE; // service of Company to manage them
+  private static ComputerServiceImpl computerServiceImpl = 
+      ComputerServiceImpl.INSTANCE; // service of Company to manage them
 
   @Override
-  public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
-    request.setAttribute( "listCompanies", companyServiceImpl.list(companyServiceImpl.count(), 0));
-    this.getServletContext().getRequestDispatcher( "/WEB-INF/jsp/addComputer.jsp" ).forward( request, response );
+  public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    request.setAttribute("listCompanies", companyServiceImpl.list(companyServiceImpl.count(), 0));
+    this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/addComputer.jsp").forward(request, response);
   }
 
   @Override
-  public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
-    ComputerDto computer = RequestMapper.convertToComputer(request); 
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    ComputerDto computer = RequestMapper.convertToComputer(request);
     computerServiceImpl.insert(computer);
-    request.getRequestDispatcher( "/dashboard" ).forward( request, response );
+    request.getRequestDispatcher("/dashboard").forward(request, response);
   }
-
 
 }

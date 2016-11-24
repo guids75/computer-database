@@ -19,25 +19,14 @@ import org.slf4j.LoggerFactory;
  * @author GUIDS
  *
  */
-public class CompanyServiceImpl implements CompanyService {
+public enum CompanyServiceImpl implements CompanyService {
 
-  private static final CompanyDaoImpl companyDao = CompanyDaoImpl.getInstance(); //dao of Company to manage the companies
-  private static CompanyServiceImpl companyService = new CompanyServiceImpl(); //singleton of this class
-  private static ComputerServiceImpl computerService = ComputerServiceImpl.getInstance(); //singleton of this class
+  INSTANCE;
+  private static final CompanyDaoImpl companyDao = 
+      CompanyDaoImpl.INSTANCE; // dao of Company to manage the companies
+  private static ComputerServiceImpl computerService = 
+      ComputerServiceImpl.INSTANCE; // singleton of this class
   private static final Logger slf4jLogger = LoggerFactory.getLogger(CompanyServiceImpl.class);
-
-  /**
-   * Private constructor for singleton
-   */
-  private CompanyServiceImpl() {
-  }
-
-  /**
-   * @return the singleton corresponding to this class
-   */
-  public static CompanyServiceImpl getInstance() {
-    return companyService;
-  }
 
   @Override
   public List<CompanyDto> list(int nbElements, int offset) {
@@ -62,7 +51,7 @@ public class CompanyServiceImpl implements CompanyService {
   }
 
   @Override
-  public CompanyDto getCompany(int id) {
+  public CompanyDto getCompany(long id) {
     try {
       return CompanyDtoMapper.companyToCompanyDto(companyDao.getCompany(id));
     } catch (ConnectionException exception) {
@@ -71,16 +60,5 @@ public class CompanyServiceImpl implements CompanyService {
     }
     return null;
   }
-  
-  /*@Override
-  public void delete(int id) {
-    try {
-      return CompanyDtoMapper.companyToCompanyDto(companyDao.getCompany(id));
-    } catch (ConnectionException exception) {
-      slf4jLogger.error("Error in CompanyService in getCompany");
-      slf4jLogger.error(exception.getMessage());
-    }
-    return null;
-  }*/
 
 }

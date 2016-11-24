@@ -12,44 +12,45 @@ import com.excilys.formation.computerdatabase.model.Computer.ComputerBuilder;
 
 public final class CompanyDtoMapper {
 
-  
+  private CompanyDtoMapper() {
+  }
+
   /**
    * @param pListDto
    * @return
    */
-  public static List<Company> companyDtoListToCompanyList(List<CompanyDto> listCompanyDto) { 
-    List<Company> companies = new ArrayList<>(); 
-    if (listCompanyDto != null) { 
-      for (CompanyDto companyDto : listCompanyDto) { 
-        companies.add(companyDtoToCompany(companyDto)); 
-      } 
-    } 
-    return companies; 
-  } 
-  
+  public static List<Company> companyDtoListToCompanyList(List<CompanyDto> listCompanyDto) {
+    List<Company> companies = new ArrayList<>();
+    if (listCompanyDto != null) {
+      for (CompanyDto companyDto : listCompanyDto) {
+        companies.add(companyDtoToCompany(companyDto));
+      }
+    }
+    return companies;
+  }
+
   /**
    * @param companyDto
    * @return
    */
   public static Company companyDtoToCompany(CompanyDto companyDto) {
-    return new Company.CompanyBuilder(companyDto.getName())
-        .id(companyDto.getId()).build();
+    return new Company.CompanyBuilder(companyDto.getName()).id(companyDto.getId()).build();
   }
 
   /**
    * @param pList
    * @return
    */
-  public static List<CompanyDto> companyListToCompanyDtoList(List<Company> listCompany) { 
-    List<CompanyDto> companiesDto = new ArrayList<>(); 
-    if (listCompany != null) { 
+  public static List<CompanyDto> companyListToCompanyDtoList(List<Company> listCompany) {
+    List<CompanyDto> companiesDto = new ArrayList<>();
+    if (listCompany != null) {
       for (Company company : listCompany) {
-        companiesDto.add(companyToCompanyDto(company)); 
-      } 
-    } 
-    return companiesDto; 
-  } 
-  
+        companiesDto.add(companyToCompanyDto(company));
+      }
+    }
+    return companiesDto;
+  }
+
   /**
    * @param company
    * @return
