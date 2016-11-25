@@ -137,17 +137,17 @@ public enum ComputerDaoImpl implements ComputerDao {
     public int count(Constraints constraints) throws ConnectionException {
       int numberComputers = -1;
       String request;
-      /*if (constraints.getSearch() != null && !constraints.getSearch().equals("")){
-      request = "SELECT COUNT (*) FROM (" + SEARCH_REQUEST + ") as table";
-    } else {*/
+      if (constraints.getSearch() != null && !constraints.getSearch().equals("")){
+      request = "SELECT COUNT(*) as number FROM ( SELECT computer.id, computer.name, computer.introduced, computer.discontinued, company.id as companyId, company.name as companyName FROM computer LEFT JOIN company ON computer.company_id=company.id WHERE computer.name LIKE ? OR company.name LIKE ? ) AS derivedTable";
+    } else {
       request = NUMBER_REQUEST;
-      //}
+      }
       try (Connection connection = hikariConnectionPool.getDataSource().getConnection();
           PreparedStatement preparedStatement = connection.prepareStatement(request)) {
-        /*if (constraints.getSearch() != null && !constraints.getSearch().equals("")){
-        preparedStatement.setString(1, "%" + search + "%");
-        preparedStatement.setString(2, "%" + search + "%");
-      }*/
+        if (constraints.getSearch() != null && !constraints.getSearch().equals("")){
+        preparedStatement.setString(1, "%" + constraints.getSearch() + "%");
+        preparedStatement.setString(2, "%" + constraints.getSearch() + "%");
+      }
         results = preparedStatement.executeQuery();
         results.next();
         numberComputers = results.getInt("number");

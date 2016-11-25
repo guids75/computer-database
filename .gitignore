@@ -5,6 +5,7 @@
 .metadata
 bin/
 tmp/
+target/
 *.tmp
 *.bak
 *.swp
@@ -14,6 +15,8 @@ local.properties
 .loadpath
 .recommenders
 
+# Log file
+myLogFile.log
 
 # Eclipse Core
 .project
