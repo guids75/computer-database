@@ -4,4 +4,6 @@ import com.excilys.formation.computerdatabase.ui.Ui;
 
 public interface CompanyUi extends Ui {
 
+  public void delete();
+  
 }

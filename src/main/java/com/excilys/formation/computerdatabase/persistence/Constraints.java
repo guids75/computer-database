@@ -16,6 +16,7 @@ public class Constraints {
   private String search;
   private String orderBy;
   private List<Long> idList;
+  private long idCompany;
 
   private Constraints(ConstraintsBuilder builder) {
     this.limit = builder.limit;
@@ -24,6 +25,7 @@ public class Constraints {
     this.search = builder.search;
     this.orderBy = builder.orderBy;
     this.idList = builder.idList;
+    this.idCompany = builder.idCompany;
   }
 
   public int getLimit() {
@@ -74,6 +76,14 @@ public class Constraints {
     this.idList = idList;
   }
 
+  public long getIdCompany() {
+    return idCompany;
+  }
+
+  public void setIdCompany(long idCompany) {
+    this.idCompany = idCompany;
+  }
+
   public static class ConstraintsBuilder {
     private int limit;
     private int offset;
@@ -81,6 +91,7 @@ public class Constraints {
     private String search;
     private String orderBy;
     private List<Long> idList;
+    private long idCompany;
     
     /**
      * Setter for the id attribute.
@@ -151,6 +162,11 @@ public class Constraints {
      */
     public ConstraintsBuilder idList(List<Long> idList) {
       this.idList = idList;
+      return this;
+    }
+
+    public ConstraintsBuilder idCompany(long idCompany) {
+      this.idCompany = idCompany;
       return this;
     }
     

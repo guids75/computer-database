@@ -8,8 +8,11 @@ import com.excilys.formation.computerdatabase.model.Computer;
 import com.excilys.formation.computerdatabase.dto.ComputerDto;
 import com.excilys.formation.computerdatabase.model.Computer.ComputerBuilder;
 import com.excilys.formation.computerdatabase.persistence.Constraints;
+import com.excilys.formation.computerdatabase.persistence.HikariConnectionPool;
 import com.excilys.formation.computerdatabase.persistence.computer.computerImpl.ComputerDaoImpl;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +29,8 @@ public enum ComputerServiceImpl implements ComputerService {
   INSTANCE;
   private static final ComputerDaoImpl computerDao = 
       ComputerDaoImpl.INSTANCE; // dao for Computer to manage the computers
+  private static HikariConnectionPool hikariConnectionPool = 
+      HikariConnectionPool.INSTANCE; // get the connection
   private static final Logger slf4jLogger = LoggerFactory.getLogger(ComputerServiceImpl.class);
 
   @Override
@@ -52,10 +57,9 @@ public enum ComputerServiceImpl implements ComputerService {
 
   @Override
   public void delete(Constraints constraints) {
-    try {
-      System.out.println(constraints.getIdList());
-      computerDao.delete(constraints);
-    } catch (ConnectionException exception) {
+    try (Connection connection = hikariConnectionPool.getDataSource().getConnection()) {
+      computerDao.delete(constraints, connection);
+    } catch (SQLException | ConnectionException exception) {
       slf4jLogger.error("Error in ComputerService in delete");
       slf4jLogger.error(exception.getMessage());
     }
@@ -63,9 +67,9 @@ public enum ComputerServiceImpl implements ComputerService {
 
   @Override
   public List<Computer> list(Constraints constraints) {
-    try {
-      return computerDao.list(constraints);
-    } catch (ConnectionException exception) {
+    try (Connection connection = hikariConnectionPool.getDataSource().getConnection()) {
+      return computerDao.list(constraints, connection);
+    } catch (SQLException | ConnectionException exception) {
       slf4jLogger.error("Error in ComputerService in list");
       slf4jLogger.error(exception.getMessage());
     }

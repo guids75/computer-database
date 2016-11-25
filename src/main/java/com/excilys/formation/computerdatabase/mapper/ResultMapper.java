@@ -76,6 +76,26 @@ public final class ResultMapper {
     }
     return null;
   }
+  
+  /**
+   * Convert a resultSet to the list of computers inside.
+   * 
+   * @param results
+   *          : the result of a query
+   * @return the list of computers corresponding
+   */
+  public static List<Long> convertToComputersId(ResultSet results) {
+    List<Long> computersId = new ArrayList<>();
+    try {
+      while (results.next()) {
+        computersId.add(results.getLong("comput.Id"));
+      }
+    } catch (SQLException exception) {
+      slf4jLogger.error("Error in ResultToObject in convertToComputers");
+      slf4jLogger.error(exception.getMessage());
+    }
+    return computersId;
+  }
 
   /**
    * Convert a resultSet to the list of companies inside.

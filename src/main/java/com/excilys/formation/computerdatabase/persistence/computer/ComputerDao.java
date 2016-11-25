@@ -1,5 +1,6 @@
 package com.excilys.formation.computerdatabase.persistence.computer;
 
+import java.sql.Connection;
 import java.util.List;
 
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
@@ -36,5 +37,6 @@ public interface ComputerDao extends Dao<Computer> {
    * @throws ConnectionException
    */
   public List<Computer> search(Constraints constraints) throws ConnectionException;
-
+  
+  public List<Long> listByCompany(Constraints constraints, Connection connection);
 }

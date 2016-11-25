@@ -18,8 +18,6 @@ import java.util.List;
 
 import javax.ejb.EJBException;
 
-import org.apache.poi.ss.formula.functions.T;
-
 /**
  * @author GUIDS
  *
@@ -32,6 +30,7 @@ public enum CompanyDaoImpl implements CompanyDao {
 
   // requests
   private static final String LIST_REQUEST = "SELECT * FROM company LIMIT ? OFFSET ?";
+  private static final String DELETE_REQUEST = "DELETE FROM company WHERE id=?";
   private static final String NUMBER_REQUEST = "SELECT COUNT(*) as number FROM company";
   private static final String COMPANY_REQUEST = "SELECT * FROM company where id=?";
 
@@ -39,22 +38,26 @@ public enum CompanyDaoImpl implements CompanyDao {
   private Connection connection = null;
 
   @Override
-  public List<Company> list(Constraints constraints) throws ConnectionException {
-    try (Connection connection = hikariConnectionPool.getDataSource().getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(LIST_REQUEST)) {
-      connection.setAutoCommit(false);
+  public List<Company> list(Constraints constraints, Connection connection) throws ConnectionException {
+    try (PreparedStatement preparedStatement = connection.prepareStatement(LIST_REQUEST)) {
       preparedStatement.setInt(1, constraints.getLimit());
       preparedStatement.setInt(2, constraints.getOffset());
       List<Company> list = ResultMapper.convertToCompanies(preparedStatement.executeQuery());
-      connection.commit();
       return list;
     } catch (SQLException exception) {
-      try {
-        connection.rollback();
-      } catch (SQLException sqx) {
-        throw new EJBException("Rollback failed: " + sqx.getMessage());
-      }
+      exception.printStackTrace();
       throw new ConnectionException("companies failed to be listed", exception);
+    }
+  }
+
+  @Override
+  public void delete(Constraints constraints, Connection connection) throws ConnectionException {
+    try (PreparedStatement preparedStatement = connection.prepareStatement(DELETE_REQUEST)) {
+      preparedStatement.setLong(1, constraints.getIdCompany());
+      preparedStatement.executeUpdate();
+    } catch (SQLException exception) {
+      exception.printStackTrace();
+      throw new ConnectionException("company failed to be deleted", exception);
     }
   }
 
@@ -62,17 +65,11 @@ public enum CompanyDaoImpl implements CompanyDao {
   public int count() throws ConnectionException {
     try (Connection connection = hikariConnectionPool.getDataSource().getConnection();
         Statement statement = connection.createStatement()) {
-      connection.setAutoCommit(false);
       results = statement.executeQuery(NUMBER_REQUEST);
       results.next();
-      connection.commit();
       return results.getInt("number");
     } catch (SQLException exception) {
-      try {
-        connection.rollback();
-      } catch (SQLException sqx) {
-        throw new EJBException("Rollback failed: " + sqx.getMessage());
-      }
+      exception.printStackTrace();
       throw new ConnectionException("companies failed to be counted", exception);
     }
   }
@@ -81,18 +78,12 @@ public enum CompanyDaoImpl implements CompanyDao {
   public Company getCompany(long id) throws ConnectionException {
     try (Connection connection = hikariConnectionPool.getDataSource().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(COMPANY_REQUEST)) {
-      connection.setAutoCommit(false);
       preparedStatement.setLong(1, id);
       results = preparedStatement.executeQuery();
       results.next();
-      connection.commit();
       return ResultMapper.convertToCompany(results);
     } catch (SQLException exception) {
-      try {
-        connection.rollback();
-      } catch (SQLException sqx) {
-        throw new EJBException("Rollback failed: " + sqx.getMessage());
-      }
+      exception.printStackTrace();
       throw new ConnectionException("company failed to be get", exception);
     }
   }

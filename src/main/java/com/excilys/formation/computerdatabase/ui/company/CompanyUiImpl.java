@@ -1,5 +1,6 @@
 package com.excilys.formation.computerdatabase.ui.company;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.excilys.formation.computerdatabase.dto.CompanyDto;
 
@@ -57,6 +58,14 @@ public class CompanyUiImpl implements CompanyUi {
         line = scanner.nextLine();
       }
     }
+  }
+  
+  @Override
+  public void delete() {
+    System.out.println("which company id?");
+    companyService.delete(new Constraints.ConstraintsBuilder().idCompany(scanner.nextLong()).build());
+    scanner.nextLine();
+    pages.setNbPages(pages.getNbPages() - 1);
   }
 
   /**

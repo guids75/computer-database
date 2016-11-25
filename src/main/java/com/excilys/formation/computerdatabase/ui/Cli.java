@@ -32,6 +32,9 @@ public class Cli {
       case "list companies":
         companyUi.list();
         break;
+      case "delete company":
+        companyUi.delete();
+        break;
       case "computer details":
         computerUi.showComputerDetails();
         break;
