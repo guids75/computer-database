@@ -49,10 +49,22 @@ public final class RequestMapper {
     return computers;
   }
 
+  public static List<Long> convertToComputersId(HttpServletRequest request) {
+    List<Long> computersId = new ArrayList<>();
+    String selection = request.getParameter("selection");
+    String[] deletedComputers = selection.split(",");
+    if (deletedComputers.length > 0) {
+      for (int i = 0; i < deletedComputers.length; i++) {
+        computersId.add(Long.parseLong(deletedComputers[i]));
+      }
+    }
+    return computersId;
+  }
+  
   public static Page convertToPage(HttpServletRequest request) {
     Page pages = new Page();
-    if (request.getParameter("page") != null) {
-      pages.setActualPage(Integer.parseInt(request.getParameter("page")));
+    if (request.getParameter("actualPage") != null) {
+      pages.setActualPage(Integer.parseInt(request.getParameter("actualPage")));
     } else {
       pages.setActualPage(1);
     }

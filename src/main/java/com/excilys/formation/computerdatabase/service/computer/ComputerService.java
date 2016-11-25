@@ -4,7 +4,8 @@ import com.excilys.formation.computerdatabase.exception.ConnectionException;
 
 import java.util.List;
 
-import com.excilys.formation.computerdatabase.dto.ComputerDto;
+import com.excilys.formation.computerdatabase.model.Computer;
+import com.excilys.formation.computerdatabase.persistence.Constraints;
 import com.excilys.formation.computerdatabase.service.Service;
 
 /**
@@ -13,7 +14,7 @@ import com.excilys.formation.computerdatabase.service.Service;
  * @param <T>
  *          : Computer
  */
-public interface ComputerService extends Service<ComputerDto> {
+public interface ComputerService extends Service<Computer> {
 
   /**
    * Show all the attributes of the specified computer.
@@ -26,8 +27,8 @@ public interface ComputerService extends Service<ComputerDto> {
   /**
    * @return the number of computers
    */
-  public int count(String search);
+  public int count(Constraints constraints);
 
-  public List<ComputerDto> search(String search, int nbElements, int offset);
+  public List<Computer> search(Constraints constraints);
 
 }

@@ -5,7 +5,7 @@ import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import com.excilys.formation.computerdatabase.dto.CompanyDto;
+import com.excilys.formation.computerdatabase.model.Company;
 import com.excilys.formation.computerdatabase.service.Service;
 
 /**
@@ -14,7 +14,7 @@ import com.excilys.formation.computerdatabase.service.Service;
  * @param <T>
  *          : Company
  */
-public interface CompanyService extends Service<CompanyDto> {
+public interface CompanyService extends Service<Company> {
 
   /**
    * @return the number of companies
@@ -26,5 +26,5 @@ public interface CompanyService extends Service<CompanyDto> {
    *          : the id of the company
    * @return the company specified
    */
-  public CompanyDto getCompany(long id);
+  public Company getCompany(long id);
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import com.excilys.formation.computerdatabase.exception.NotImplementedMethodException;
+import com.excilys.formation.computerdatabase.persistence.Constraints;
 
 /**
  * @author GUIDS
@@ -41,7 +42,7 @@ public interface Service<T> {
    * @param objectId
    *          : the id of the T object to delete
    */
-  public default void delete(long objecId) throws NotImplementedMethodException {
+  public default void delete(Constraints constraints) throws NotImplementedMethodException {
     throw new NotImplementedMethodException("Default implementation of delete");
   }
 
@@ -54,6 +55,6 @@ public interface Service<T> {
    *          : the offset to display
    * @return : the list of all the T objects in the database
    */
-  public List<T> list(int nbElements, int offset);
+  public List<T> list(Constraints constraints);
 
 }

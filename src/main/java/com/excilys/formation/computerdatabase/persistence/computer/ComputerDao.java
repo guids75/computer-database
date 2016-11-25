@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import com.excilys.formation.computerdatabase.model.Computer;
+import com.excilys.formation.computerdatabase.persistence.Constraints;
 import com.excilys.formation.computerdatabase.persistence.Dao;
 
 /**
@@ -26,7 +27,7 @@ public interface ComputerDao extends Dao<Computer> {
   /**
    * @return the number of computers
    */
-  public int count(String search) throws ConnectionException;
+  public int count(Constraints constraints) throws ConnectionException;
 
   /**
    * @param nbElements
@@ -34,6 +35,6 @@ public interface ComputerDao extends Dao<Computer> {
    * @return
    * @throws ConnectionException
    */
-  public List<Computer> search(String search, int nbElements, int offset) throws ConnectionException;
+  public List<Computer> search(Constraints constraints) throws ConnectionException;
 
 }

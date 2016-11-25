@@ -5,6 +5,7 @@ import com.excilys.formation.computerdatabase.service.computer.ComputerServiceIm
 import com.excilys.formation.computerdatabase.mapper.CompanyDtoMapper;
 import com.excilys.formation.computerdatabase.dto.CompanyDto;
 import com.excilys.formation.computerdatabase.model.Company;
+import com.excilys.formation.computerdatabase.persistence.Constraints;
 import com.excilys.formation.computerdatabase.persistence.company.companyImpl.CompanyDaoImpl;
 import com.excilys.formation.computerdatabase.persistence.computer.computerImpl.ComputerDaoImpl;
 import com.excilys.formation.computerdatabase.ui.Cli;
@@ -29,9 +30,9 @@ public enum CompanyServiceImpl implements CompanyService {
   private static final Logger slf4jLogger = LoggerFactory.getLogger(CompanyServiceImpl.class);
 
   @Override
-  public List<CompanyDto> list(int nbElements, int offset) {
+  public List<Company> list(Constraints constraints) {
     try {
-      return CompanyDtoMapper.companyListToCompanyDtoList(companyDao.list(nbElements, offset));
+      return companyDao.list(constraints);
     } catch (ConnectionException exception) {
       slf4jLogger.error("Error in CompanyService in list");
       slf4jLogger.error(exception.getMessage());
@@ -51,9 +52,9 @@ public enum CompanyServiceImpl implements CompanyService {
   }
 
   @Override
-  public CompanyDto getCompany(long id) {
+  public Company getCompany(long id) {
     try {
-      return CompanyDtoMapper.companyToCompanyDto(companyDao.getCompany(id));
+      return companyDao.getCompany(id);
     } catch (ConnectionException exception) {
       slf4jLogger.error("Error in CompanyService in getCompany");
       slf4jLogger.error(exception.getMessage());

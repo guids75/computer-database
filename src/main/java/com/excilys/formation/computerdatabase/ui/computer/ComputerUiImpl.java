@@ -1,9 +1,11 @@
 package com.excilys.formation.computerdatabase.ui.computer;
 
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
+import com.excilys.formation.computerdatabase.mapper.ComputerDtoMapper;
 import com.excilys.formation.computerdatabase.dto.ComputerDto;
 import com.excilys.formation.computerdatabase.model.Computer;
 import com.excilys.formation.computerdatabase.pagination.Page;
+import com.excilys.formation.computerdatabase.persistence.Constraints;
 import com.excilys.formation.computerdatabase.service.company.CompanyServiceImpl;
 import com.excilys.formation.computerdatabase.service.computer.ComputerServiceImpl;
 
@@ -11,6 +13,7 @@ import java.time.ZoneId;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,13 +43,14 @@ public class ComputerUiImpl implements ComputerUi {
    * 
    */
   public ComputerUiImpl() {
-    nbComputers = computerService.count("");
+    nbComputers = computerService.count(new Constraints.ConstraintsBuilder().search("").build());
     pages = new Page(nbComputers);
   }
 
   @Override
   public void list() {
-    print(computerService.list(pages.getNbElementsByPage(), offset));
+    print(ComputerDtoMapper.computerListToComputerDtoList(computerService.list(new Constraints.ConstraintsBuilder()
+        .limit(pages.getNbElementsByPage()).offset(offset).build())));
     System.out.println("Type b to see before, a to see after, q to quit");
     String line = scanner.nextLine();
     while (!line.equals("q")) {
@@ -55,7 +59,8 @@ public class ComputerUiImpl implements ComputerUi {
           offset += pages.getNbElementsByPage();
         }
         pages.setActualPage(pages.getActualPage() + 1);
-        print(computerService.list(pages.getNbElementsByPage(), offset));
+        print(ComputerDtoMapper.computerListToComputerDtoList(computerService.list(new Constraints.ConstraintsBuilder()
+            .limit(pages.getNbElementsByPage()).offset(offset).build())));
         line = scanner.nextLine();
       }
       if (line.equals("b")) {
@@ -63,7 +68,8 @@ public class ComputerUiImpl implements ComputerUi {
           offset -= pages.getNbElementsByPage();
         }
         pages.setActualPage(pages.getActualPage() - 1);
-        print(computerService.list(pages.getNbElementsByPage(), offset));
+        print(ComputerDtoMapper.computerListToComputerDtoList(computerService.list(new Constraints.ConstraintsBuilder()
+            .limit(pages.getNbElementsByPage()).offset(offset).build())));
         line = scanner.nextLine();
       }
     }
@@ -114,7 +120,7 @@ public class ComputerUiImpl implements ComputerUi {
       computer.setDiscontinued(disco);
     }
     computer.setCompanyId(companyId);
-    computerService.insert(computer);
+    computerService.insert(ComputerDtoMapper.computerDtoToComputer(computer));
     pages.setNbPages(pages.getNbPages() + 1);
   }
 
@@ -144,13 +150,15 @@ public class ComputerUiImpl implements ComputerUi {
       computer.setDiscontinued(disco);
     }
     computer.setCompanyId(companyId);
-    computerService.update(computer);
+    computerService.update(ComputerDtoMapper.computerDtoToComputer(computer));
   }
 
   @Override
   public void delete() {
     System.out.println("which computer id?");
-    computerService.delete(scanner.nextLong());
+    ArrayList<Long> idList = new ArrayList<Long>();
+    idList.add(scanner.nextLong());
+    computerService.delete(new Constraints.ConstraintsBuilder().idList(idList).build());
     scanner.nextLine();
     pages.setNbPages(pages.getNbPages() - 1);
   }

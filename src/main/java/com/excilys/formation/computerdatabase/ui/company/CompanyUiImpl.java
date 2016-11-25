@@ -4,8 +4,10 @@ import java.util.List;
 import com.excilys.formation.computerdatabase.dto.CompanyDto;
 
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
+import com.excilys.formation.computerdatabase.mapper.CompanyDtoMapper;
 import com.excilys.formation.computerdatabase.model.Company;
 import com.excilys.formation.computerdatabase.pagination.Page;
+import com.excilys.formation.computerdatabase.persistence.Constraints;
 import com.excilys.formation.computerdatabase.persistence.company.companyImpl.CompanyDaoImpl;
 import com.excilys.formation.computerdatabase.service.company.CompanyServiceImpl;
 
@@ -31,7 +33,8 @@ public class CompanyUiImpl implements CompanyUi {
 
   @Override
   public void list() {
-    print(companyService.list(pages.getNbElementsByPage(), offset));
+    print(CompanyDtoMapper.companyListToCompanyDtoList(companyService.list(new Constraints.ConstraintsBuilder()
+        .limit(pages.getNbElementsByPage()).offset(offset).build())));
     System.out.println("Type b to see before, a to see after, q to quit");
     String line = scanner.nextLine();
     while (!line.equals("q")) {
@@ -40,7 +43,8 @@ public class CompanyUiImpl implements CompanyUi {
           offset += pages.getNbElementsByPage();
         }
         pages.setActualPage(pages.getActualPage() + 1);
-        print(companyService.list(pages.getNbElementsByPage(), offset));
+        print(CompanyDtoMapper.companyListToCompanyDtoList(companyService.list(new Constraints.ConstraintsBuilder()
+            .limit(pages.getNbElementsByPage()).offset(offset).build())));
         line = scanner.nextLine();
       }
       if (line.equals("b")) {
@@ -48,7 +52,8 @@ public class CompanyUiImpl implements CompanyUi {
           offset -= pages.getNbElementsByPage();
         }
         pages.setActualPage(pages.getActualPage() - 1);
-        print(companyService.list(pages.getNbElementsByPage(), offset));
+        print(CompanyDtoMapper.companyListToCompanyDtoList(companyService.list(new Constraints.ConstraintsBuilder()
+            .limit(pages.getNbElementsByPage()).offset(offset).build())));
         line = scanner.nextLine();
       }
     }

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.excilys.formation.computerdatabase.mapper.RequestMapper;
+import com.excilys.formation.computerdatabase.persistence.Constraints;
 import com.excilys.formation.computerdatabase.service.computer.ComputerServiceImpl;
 
 public class DeleteComputer extends HttpServlet {
@@ -20,10 +21,8 @@ public class DeleteComputer extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    List<ComputerDto> computers = RequestMapper.convertToComputers(request);
-    for (ComputerDto computer : computers) {
-      computerServiceImpl.delete(computer.getId());
-    }
+    List<Long> computersId = RequestMapper.convertToComputersId(request);
+    computerServiceImpl.delete(new Constraints.ConstraintsBuilder().idList(computersId).build());
     request.getRequestDispatcher("/dashboard").forward(request, response);
   }
 

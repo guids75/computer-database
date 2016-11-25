@@ -42,7 +42,7 @@ public interface Dao<T> {
    * @param idObject
    *          : the id of the T object to delete
    */
-  public default void delete(long idObject) throws ConnectionException {
+  public default void delete(Constraints constraints) throws ConnectionException {
     System.out.println("Default implementation of delete");
   }
 
@@ -55,6 +55,6 @@ public interface Dao<T> {
    *          : the offset to display
    * @return : the list of all the T objects in the database
    */
-  public List<T> list(int nbElements, int offset) throws ConnectionException;
+  public List<T> list(Constraints constraints) throws ConnectionException;
 
 }

@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.excilys.formation.computerdatabase.mapper.ComputerDtoMapper;
 import com.excilys.formation.computerdatabase.mapper.RequestMapper;
+import com.excilys.formation.computerdatabase.persistence.Constraints;
 import com.excilys.formation.computerdatabase.service.computer.ComputerServiceImpl;
 import com.excilys.formation.computerdatabase.service.company.CompanyServiceImpl;
 
@@ -23,7 +25,7 @@ public class EditComputer extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     ComputerDto computerDto = RequestMapper.convertToComputer(request);
-    request.setAttribute("listCompanies", companyServiceImpl.list(companyServiceImpl.count(), 0));
+    request.setAttribute("listCompanies", companyServiceImpl.list(new Constraints.ConstraintsBuilder().limit(companyServiceImpl.count()).offset(0).build()));
     request.setAttribute("computer", computerDto);
     request.getRequestDispatcher("/WEB-INF/jsp/editComputer.jsp").forward(request, response);
   }
@@ -32,7 +34,7 @@ public class EditComputer extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     ComputerDto computer = RequestMapper.convertToComputer(request);
-    computerServiceImpl.update(computer);
+    computerServiceImpl.update(ComputerDtoMapper.computerDtoToComputer(computer));
     request.getRequestDispatcher("/dashboard").forward(request, response);
   }
 

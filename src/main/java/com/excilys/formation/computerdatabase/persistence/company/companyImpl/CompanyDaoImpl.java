@@ -4,6 +4,7 @@ import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import com.excilys.formation.computerdatabase.mapper.ResultMapper;
 import com.excilys.formation.computerdatabase.model.Company;
 import com.excilys.formation.computerdatabase.model.Computer;
+import com.excilys.formation.computerdatabase.persistence.Constraints;
 import com.excilys.formation.computerdatabase.persistence.HikariConnectionPool;
 import com.excilys.formation.computerdatabase.persistence.JdbcConnection;
 import com.excilys.formation.computerdatabase.persistence.company.CompanyDao;
@@ -16,6 +17,8 @@ import java.sql.Statement;
 import java.util.List;
 
 import javax.ejb.EJBException;
+
+import org.apache.poi.ss.formula.functions.T;
 
 /**
  * @author GUIDS
@@ -36,12 +39,12 @@ public enum CompanyDaoImpl implements CompanyDao {
   private Connection connection = null;
 
   @Override
-  public List<Company> list(int nbCompanies, int offset) throws ConnectionException {
+  public List<Company> list(Constraints constraints) throws ConnectionException {
     try (Connection connection = hikariConnectionPool.getDataSource().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(LIST_REQUEST)) {
       connection.setAutoCommit(false);
-      preparedStatement.setInt(1, nbCompanies);
-      preparedStatement.setInt(2, offset);
+      preparedStatement.setInt(1, constraints.getLimit());
+      preparedStatement.setInt(2, constraints.getOffset());
       List<Company> list = ResultMapper.convertToCompanies(preparedStatement.executeQuery());
       connection.commit();
       return list;

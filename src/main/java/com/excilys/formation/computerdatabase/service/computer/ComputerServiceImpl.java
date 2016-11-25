@@ -7,6 +7,7 @@ import com.excilys.formation.computerdatabase.model.Company;
 import com.excilys.formation.computerdatabase.model.Computer;
 import com.excilys.formation.computerdatabase.dto.ComputerDto;
 import com.excilys.formation.computerdatabase.model.Computer.ComputerBuilder;
+import com.excilys.formation.computerdatabase.persistence.Constraints;
 import com.excilys.formation.computerdatabase.persistence.computer.computerImpl.ComputerDaoImpl;
 
 import java.time.LocalDate;
@@ -28,10 +29,9 @@ public enum ComputerServiceImpl implements ComputerService {
   private static final Logger slf4jLogger = LoggerFactory.getLogger(ComputerServiceImpl.class);
 
   @Override
-  public ComputerDto insert(ComputerDto computerDto) {
+  public Computer insert(Computer computer) {
     try {
-      return ComputerDtoMapper
-          .computerToComputerDto(computerDao.insert(ComputerDtoMapper.computerDtoToComputer(computerDto)));
+      return computerDao.insert(computer);
     } catch (ConnectionException exception) {
       slf4jLogger.error("Error in ComputerService in inserty");
       slf4jLogger.error(exception.getMessage());
@@ -40,10 +40,9 @@ public enum ComputerServiceImpl implements ComputerService {
   }
 
   @Override
-  public ComputerDto update(ComputerDto computerDto) {
+  public Computer update(Computer computer) {
     try {
-      return ComputerDtoMapper
-          .computerToComputerDto(computerDao.update(ComputerDtoMapper.computerDtoToComputer(computerDto)));
+      return computerDao.update(computer);
     } catch (ConnectionException exception) {
       slf4jLogger.error("Error in ComputerService in update");
       slf4jLogger.error(exception.getMessage());
@@ -52,9 +51,10 @@ public enum ComputerServiceImpl implements ComputerService {
   }
 
   @Override
-  public void delete(long computerId) {
+  public void delete(Constraints constraints) {
     try {
-      computerDao.delete(computerId);
+      System.out.println(constraints.getIdList());
+      computerDao.delete(constraints);
     } catch (ConnectionException exception) {
       slf4jLogger.error("Error in ComputerService in delete");
       slf4jLogger.error(exception.getMessage());
@@ -62,9 +62,9 @@ public enum ComputerServiceImpl implements ComputerService {
   }
 
   @Override
-  public List<ComputerDto> list(int nbElements, int offset) {
+  public List<Computer> list(Constraints constraints) {
     try {
-      return ComputerDtoMapper.computerListToComputerDtoList(computerDao.list(nbElements, offset));
+      return computerDao.list(constraints);
     } catch (ConnectionException exception) {
       slf4jLogger.error("Error in ComputerService in list");
       slf4jLogger.error(exception.getMessage());
@@ -83,9 +83,9 @@ public enum ComputerServiceImpl implements ComputerService {
   }
 
   @Override
-  public int count(String search) {
+  public int count(Constraints constraints) {
     try {
-      return computerDao.count(search);
+      return computerDao.count(constraints);
     } catch (ConnectionException exception) {
       slf4jLogger.error("Error in ComputerService in count");
       slf4jLogger.error(exception.getMessage());
@@ -94,9 +94,9 @@ public enum ComputerServiceImpl implements ComputerService {
   }
 
   @Override
-  public List<ComputerDto> search(String search, int nbElements, int offset) {
+  public List<Computer> search(Constraints constraints) {
     try {
-      return ComputerDtoMapper.computerListToComputerDtoList(computerDao.search(search, nbElements, offset));
+      return computerDao.search(constraints);
     } catch (ConnectionException exception) {
       slf4jLogger.error("Error in ComputerService in search");
       slf4jLogger.error(exception.getMessage());

@@ -4,6 +4,7 @@ import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import javax.ejb.EJBException;
 import com.excilys.formation.computerdatabase.mapper.ResultMapper;
 import com.excilys.formation.computerdatabase.model.Computer;
+import com.excilys.formation.computerdatabase.persistence.Constraints;
 import com.excilys.formation.computerdatabase.persistence.HikariConnectionPool;
 import com.excilys.formation.computerdatabase.persistence.JdbcConnection;
 import com.excilys.formation.computerdatabase.persistence.computer.ComputerDao;
@@ -29,12 +30,12 @@ public enum ComputerDaoImpl implements ComputerDao {
   // requests
   private static final String INSERT_REQUEST = "INSERT INTO computer VALUES (?, ?, ?, ?, ?)";
   private static final String UPDATE_REQUEST = "UPDATE computer SET name=?, introduced=?, discontinued=?, company_id=? WHERE id=?";
-  private static final String DELETE_REQUEST = "DELETE FROM computer WHERE id=?";
+  private static final String DELETE_REQUEST = "DELETE FROM computer WHERE id";
   private static final String LIST_REQUEST = "SELECT * FROM computer as comput LEFT JOIN company as compan ON comput.company_id=compan.id LIMIT ? OFFSET ?";
   private static final String DETAILS_REQUEST = "SELECT * FROM computer as comput WHERE comput.id=? LEFT JOIN company as compan ON comput.id=compan.id";
   private static final String NUMBER_REQUEST = "SELECT COUNT(*) as number FROM computer";
   private static final String SEARCH_REQUEST = "SELECT * FROM computer as comput LEFT JOIN company as compan ON comput.company_id=compan.id "
-      + "WHERE lower(comput.name) LIKE ? OR lower(compan.name) LIKE ?";
+      + "WHERE comput.name LIKE ? OR compan.name LIKE ?";
   private static final String LIMIT_OFFSET = " LIMIT ? OFFSET ?";
   private static final String LISTBYCOMPANY_REQUEST = "SELECT * FROM computer as comput LEFT JOIN company as compan ON comput.company_id=compan.id WHERE compan.id=?";
 
@@ -93,118 +94,127 @@ public enum ComputerDaoImpl implements ComputerDao {
   }
 
   @Override
-  public void delete(long computerId) throws ConnectionException {
-    try (Connection connection = hikariConnectionPool.getDataSource().getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(DELETE_REQUEST)) {
-      connection.setAutoCommit(false);
-      preparedStatement.setLong(1, computerId);
-      preparedStatement.executeUpdate();
-      connection.commit();
-    } catch (SQLException exception) {
-      try {
-        connection.rollback();
-      } catch (SQLException sqx) {
-        throw new EJBException("Rollback failed: " + sqx.getMessage());
-      }
-      throw new ConnectionException("computer failed to be deleted", exception);
-    }
-  }
-
-  @Override
-  public List<Computer> list(int nbComputers, int offset) throws ConnectionException {
-    try (Connection connection = hikariConnectionPool.getDataSource().getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(LIST_REQUEST)) {
-      connection.setAutoCommit(false);
-      preparedStatement.setInt(1, nbComputers);
-      preparedStatement.setInt(2, offset);
-      List<Computer> list = ResultMapper.convertToComputers(preparedStatement.executeQuery());
-      connection.commit();
-      return list;
-    } catch (SQLException exception) {
-      try {
-        connection.rollback();
-      } catch (SQLException sqx) {
-        throw new EJBException("Rollback failed: " + sqx.getMessage());
-      }
-      throw new ConnectionException("computers failed to be listed", exception);
-    }
-  }
-
-  @Override
-  public Computer showComputerDetails(long computerId) throws ConnectionException {
-    try (Connection connection = hikariConnectionPool.getDataSource().getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(DETAILS_REQUEST)) {
-      connection.setAutoCommit(false);
-      preparedStatement.setLong(1, computerId);
-      Computer computer = ResultMapper.convertToComputer(preparedStatement.executeQuery());
-      connection.commit();
-      return computer;
-    } catch (SQLException exception) {
-      try {
-        connection.rollback();
-      } catch (SQLException sqx) {
-        throw new EJBException("Rollback failed: " + sqx.getMessage());
-      }
-      throw new ConnectionException("computer failed to be detailed", exception);
-    }
-  }
-
-  @Override
-  public int count(String search) throws ConnectionException {
-    int numberComputers = -1;
+  public void delete(Constraints constraints) throws ConnectionException {
     String request;
-    if (search != null && !search.equals("")){
-      request = NUMBER_REQUEST + " IN (" + SEARCH_REQUEST + ")";
+    if (constraints.getIdList().size() == 1) {
+    request = DELETE_REQUEST + "=?";
     } else {
-      request = NUMBER_REQUEST;
+      request = DELETE_REQUEST + " IN " + constraints.getIdList().toString().replace('[', '(').replace(']', ')');
     }
     System.out.println(request);
-    try (Connection connection = hikariConnectionPool.getDataSource().getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(request)) {
-      connection.setAutoCommit(false);
-      if (search != null && !search.equals("")){
+      try (Connection connection = hikariConnectionPool.getDataSource().getConnection();
+          PreparedStatement preparedStatement = connection.prepareStatement(request)) {
+        connection.setAutoCommit(false);
+        if (constraints.getIdList().size() == 1) {
+          preparedStatement.setLong(1, constraints.getIdList().get(0));
+        }
+        preparedStatement.executeUpdate();
+        connection.commit();
+      } catch (SQLException exception) {
+        try {
+          exception.printStackTrace();
+          connection.rollback();
+        } catch (SQLException sqx) {
+          throw new EJBException("Rollback failed: " + sqx.getMessage());
+        }
+        throw new ConnectionException("computer failed to be deleted", exception);
+      }
+    }
+
+    @Override
+    public List<Computer> list(Constraints constraints) throws ConnectionException {
+      try (Connection connection = hikariConnectionPool.getDataSource().getConnection();
+          PreparedStatement preparedStatement = connection.prepareStatement(LIST_REQUEST)) {
+        connection.setAutoCommit(false);
+        preparedStatement.setInt(1, constraints.getLimit());
+        preparedStatement.setInt(2, constraints.getOffset());
+        List<Computer> list = ResultMapper.convertToComputers(preparedStatement.executeQuery());
+        connection.commit();
+        return list;
+      } catch (SQLException exception) {
+        try {
+          connection.rollback();
+        } catch (SQLException sqx) {
+          throw new EJBException("Rollback failed: " + sqx.getMessage());
+        }
+        throw new ConnectionException("computers failed to be listed", exception);
+      }
+    }
+
+    @Override
+    public Computer showComputerDetails(long computerId) throws ConnectionException {
+      try (Connection connection = hikariConnectionPool.getDataSource().getConnection();
+          PreparedStatement preparedStatement = connection.prepareStatement(DETAILS_REQUEST)) {
+        connection.setAutoCommit(false);
+        preparedStatement.setLong(1, computerId);
+        Computer computer = ResultMapper.convertToComputer(preparedStatement.executeQuery());
+        connection.commit();
+        return computer;
+      } catch (SQLException exception) {
+        try {
+          connection.rollback();
+        } catch (SQLException sqx) {
+          throw new EJBException("Rollback failed: " + sqx.getMessage());
+        }
+        throw new ConnectionException("computer failed to be detailed", exception);
+      }
+    }
+
+    @Override
+    public int count(Constraints constraints) throws ConnectionException {
+      int numberComputers = -1;
+      String request;
+      /*if (constraints.getSearch() != null && !constraints.getSearch().equals("")){
+      request = "SELECT COUNT (*) FROM (" + SEARCH_REQUEST + ") as table";
+    } else {*/
+      request = NUMBER_REQUEST;
+      //}
+      try (Connection connection = hikariConnectionPool.getDataSource().getConnection();
+          PreparedStatement preparedStatement = connection.prepareStatement(request)) {
+        connection.setAutoCommit(false);
+        /*if (constraints.getSearch() != null && !constraints.getSearch().equals("")){
         preparedStatement.setString(1, "%" + search + "%");
         preparedStatement.setString(2, "%" + search + "%");
-      }
-      results = preparedStatement.executeQuery();
-      results.next();
-      numberComputers = results.getInt("number");
-      connection.commit();
-    } catch (SQLException exception) {
-      exception.printStackTrace();
-      try {
-        connection.rollback();
-      } catch (SQLException sqx) {
-        throw new EJBException("Rollback failed: " + sqx.getMessage());
-      }
-      throw new ConnectionException("computers failed to be counted", exception);
-    }
-    return numberComputers;
-  }
-
-  @Override
-  public List<Computer> search(String search, int nbComputers, int offset) throws ConnectionException {
-    try (Connection connection = hikariConnectionPool.getDataSource().getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(SEARCH_REQUEST + LIMIT_OFFSET)) {
-      connection.setAutoCommit(false);
-      preparedStatement.setString(1, "%" + search + "%");
-      preparedStatement.setString(2, "%" + search + "%");
-      preparedStatement.setInt(3, nbComputers);
-      preparedStatement.setInt(4, offset);
-      List<Computer> list = ResultMapper.convertToComputers(preparedStatement.executeQuery());
-      connection.commit();
-      return list;
-    } catch (SQLException exception) {
-      try {
+      }*/
+        results = preparedStatement.executeQuery();
+        results.next();
+        numberComputers = results.getInt("number");
+        connection.commit();
+      } catch (SQLException exception) {
         exception.printStackTrace();
-        connection.rollback();
-      } catch (SQLException sqx) {
-        sqx.printStackTrace();
-        throw new EJBException("Rollback failed: " + sqx.getMessage());
+        try {
+          connection.rollback();
+        } catch (SQLException sqx) {
+          throw new EJBException("Rollback failed: " + sqx.getMessage());
+        }
+        throw new ConnectionException("computers failed to be counted", exception);
       }
-
-      throw new ConnectionException("computers failed to be searched", exception);
+      return numberComputers;
     }
-  }
 
-}
+    @Override
+    public List<Computer> search(Constraints constraints) throws ConnectionException {
+      try (Connection connection = hikariConnectionPool.getDataSource().getConnection();
+          PreparedStatement preparedStatement = connection.prepareStatement(SEARCH_REQUEST + LIMIT_OFFSET)) {
+        connection.setAutoCommit(false);
+        preparedStatement.setString(1, "%" + constraints.getSearch() + "%");
+        preparedStatement.setString(2, "%" + constraints.getSearch() + "%");
+        preparedStatement.setInt(3, constraints.getLimit());
+        preparedStatement.setInt(4, constraints.getOffset());
+        List<Computer> list = ResultMapper.convertToComputers(preparedStatement.executeQuery());
+        connection.commit();
+        return list;
+      } catch (SQLException exception) {
+        try {
+          exception.printStackTrace();
+          connection.rollback();
+        } catch (SQLException sqx) {
+          sqx.printStackTrace();
+          throw new EJBException("Rollback failed: " + sqx.getMessage());
+        }
+
+        throw new ConnectionException("computers failed to be searched", exception);
+      }
+    }
+
+  }
