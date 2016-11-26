@@ -17,6 +17,7 @@ public class SeleniumTest {
 
   @Before
   public void setUp() throws Exception {
+    System.setProperty("webdriver.gecko.driver", "C:\\Drivers\\geckodriver.exe");
     driver = new FirefoxDriver();
     baseUrl = "http://localhost:8081/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -24,8 +25,8 @@ public class SeleniumTest {
 
   @Test
   public void testSelenium() throws Exception {
-    driver.get(baseUrl + "omputer-database/dashboard");
-    driver.findElement(By.linkText("CM-2a")).click();
+    driver.get(baseUrl + "computer-database/dashboard");
+    driver.findElement(By.linkText("CM-5")).click();
     driver.findElement(By.xpath("//section[@id='main']/div/div/div/form/fieldset/div[3]/label")).click();
     driver.findElement(By.id("discontinued")).click();
     driver.findElement(By.id("introduced")).click();
