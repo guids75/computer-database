@@ -1,6 +1,5 @@
 package com.excilys.formation.computerdatabase.util;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,13 +8,11 @@ import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.excilys.formation.computerdatabase.ui.Cli;
-
 /**
  * @author GUIDS
  *
  */
-public class PropertiesReader {
+public final class PropertiesReader {
 
   private static InputStream inputStream;
   private static PropertiesReader propertiesReader = 

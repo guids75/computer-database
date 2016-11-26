@@ -1,7 +1,5 @@
 package com.excilys.formation.computerdatabase.service.computer;
 
-import com.excilys.formation.computerdatabase.exception.ConnectionException;
-
 import java.util.List;
 
 import com.excilys.formation.computerdatabase.model.Computer;

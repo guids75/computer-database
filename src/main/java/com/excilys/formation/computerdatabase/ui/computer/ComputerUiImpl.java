@@ -1,18 +1,13 @@
 package com.excilys.formation.computerdatabase.ui.computer;
 
-import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import com.excilys.formation.computerdatabase.mapper.ComputerDtoMapper;
 import com.excilys.formation.computerdatabase.dto.ComputerDto;
-import com.excilys.formation.computerdatabase.model.Computer;
 import com.excilys.formation.computerdatabase.pagination.Page;
 import com.excilys.formation.computerdatabase.persistence.Constraints;
 import com.excilys.formation.computerdatabase.service.company.CompanyServiceImpl;
 import com.excilys.formation.computerdatabase.service.computer.ComputerServiceImpl;
 
-import java.time.ZoneId;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 

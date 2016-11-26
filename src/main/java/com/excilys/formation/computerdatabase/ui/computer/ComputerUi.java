@@ -1,6 +1,5 @@
 package com.excilys.formation.computerdatabase.ui.computer;
 
-import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import com.excilys.formation.computerdatabase.ui.Ui;
 
 public interface ComputerUi extends Ui {

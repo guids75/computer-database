@@ -1,0 +1,357 @@
+2016-11-23 02:11:10,841 [main] DEBUG  com.zaxxer.hikari.HikariConfig - HikariPool-1 - configuration:
+2016-11-23 02:11:10,858 [main] DEBUG  com.zaxxer.hikari.HikariConfig - allowPoolSuspension.............false
+2016-11-23 02:11:10,858 [main] DEBUG  com.zaxxer.hikari.HikariConfig - autoCommit......................true
+2016-11-23 02:11:10,859 [main] DEBUG  com.zaxxer.hikari.HikariConfig - catalog.........................null
+2016-11-23 02:11:10,859 [main] DEBUG  com.zaxxer.hikari.HikariConfig - connectionInitSql...............null
+2016-11-23 02:11:10,859 [main] DEBUG  com.zaxxer.hikari.HikariConfig - connectionTestQuery.............null
+2016-11-23 02:11:10,859 [main] DEBUG  com.zaxxer.hikari.HikariConfig - connectionTimeout...............30000
+2016-11-23 02:11:10,859 [main] DEBUG  com.zaxxer.hikari.HikariConfig - dataSource......................null
+2016-11-23 02:11:10,859 [main] DEBUG  com.zaxxer.hikari.HikariConfig - dataSourceClassName.............null
+2016-11-23 02:11:10,859 [main] DEBUG  com.zaxxer.hikari.HikariConfig - dataSourceJNDI..................null
+2016-11-23 02:11:10,938 [main] DEBUG  com.zaxxer.hikari.HikariConfig - dataSourceProperties............{password=<masked>}
+2016-11-23 02:11:10,938 [main] DEBUG  com.zaxxer.hikari.HikariConfig - driverClassName.................null
+2016-11-23 02:11:10,938 [main] DEBUG  com.zaxxer.hikari.HikariConfig - healthCheckProperties...........{}
+2016-11-23 02:11:10,938 [main] DEBUG  com.zaxxer.hikari.HikariConfig - healthCheckRegistry.............null
+2016-11-23 02:11:10,938 [main] DEBUG  com.zaxxer.hikari.HikariConfig - idleTimeout.....................600000
+2016-11-23 02:11:10,938 [main] DEBUG  com.zaxxer.hikari.HikariConfig - initializationFailFast..........true
+2016-11-23 02:11:10,939 [main] DEBUG  com.zaxxer.hikari.HikariConfig - isolateInternalQueries..........false
+2016-11-23 02:11:10,939 [main] DEBUG  com.zaxxer.hikari.HikariConfig - jdbc4ConnectionTest.............false
+2016-11-23 02:11:10,939 [main] DEBUG  com.zaxxer.hikari.HikariConfig - jdbcUrl........................."jdbc:mysql://localhost:3306/computer-database-db"
+2016-11-23 02:11:10,939 [main] DEBUG  com.zaxxer.hikari.HikariConfig - leakDetectionThreshold..........0
+2016-11-23 02:11:10,939 [main] DEBUG  com.zaxxer.hikari.HikariConfig - maxLifetime.....................1800000
+2016-11-23 02:11:10,940 [main] DEBUG  com.zaxxer.hikari.HikariConfig - maximumPoolSize.................10
+2016-11-23 02:11:10,940 [main] DEBUG  com.zaxxer.hikari.HikariConfig - metricRegistry..................null
+2016-11-23 02:11:10,940 [main] DEBUG  com.zaxxer.hikari.HikariConfig - metricsTrackerFactory...........null
+2016-11-23 02:11:10,940 [main] DEBUG  com.zaxxer.hikari.HikariConfig - minimumIdle.....................10
+2016-11-23 02:11:10,940 [main] DEBUG  com.zaxxer.hikari.HikariConfig - password........................<masked>
+2016-11-23 02:11:10,940 [main] DEBUG  com.zaxxer.hikari.HikariConfig - poolName........................"HikariPool-1"
+2016-11-23 02:11:10,940 [main] DEBUG  com.zaxxer.hikari.HikariConfig - readOnly........................false
+2016-11-23 02:11:10,940 [main] DEBUG  com.zaxxer.hikari.HikariConfig - registerMbeans..................false
+2016-11-23 02:11:10,941 [main] DEBUG  com.zaxxer.hikari.HikariConfig - scheduledExecutorService........null
+2016-11-23 02:11:10,941 [main] DEBUG  com.zaxxer.hikari.HikariConfig - threadFactory...................null
+2016-11-23 02:11:10,941 [main] DEBUG  com.zaxxer.hikari.HikariConfig - transactionIsolation............null
+2016-11-23 02:11:10,941 [main] DEBUG  com.zaxxer.hikari.HikariConfig - username........................"admincdb"
+2016-11-23 02:11:10,941 [main] DEBUG  com.zaxxer.hikari.HikariConfig - validationTimeout...............5000
+2016-11-23 02:11:10,944 [main] INFO   com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Started.
+2016-11-23 02:11:11,528 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@2484773d
+2016-11-23 02:11:11,566 [main] DEBUG  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Reset (autoCommit) on connection com.mysql.jdbc.JDBC4Connection@2484773d
+2016-11-23 02:11:11,587 [main] DEBUG  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Reset (autoCommit) on connection com.mysql.jdbc.JDBC4Connection@2484773d
+2016-11-23 02:11:11,633 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=1, active=0, idle=1, waiting=0)
+2016-11-23 02:11:11,643 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@74cc4569
+2016-11-23 02:11:11,650 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@2bb289d3
+2016-11-23 02:11:11,657 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@301e0ad1
+2016-11-23 02:11:11,666 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@d035283
+2016-11-23 02:11:11,675 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@73342e08
+2016-11-23 02:11:11,683 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@7b34b6b2
+2016-11-23 02:11:11,690 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@5d0105f0
+2016-11-23 02:11:11,698 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@2546eeb8
+2016-11-23 02:11:11,704 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@49fce1b7
+2016-11-23 02:11:11,704 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - After adding stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:11:15,214 [main] DEBUG  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Reset (autoCommit) on connection com.mysql.jdbc.JDBC4Connection@2484773d
+2016-11-23 02:11:41,635 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:12:11,638 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:12:41,640 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:12:50,174 [main] DEBUG  com.zaxxer.hikari.HikariConfig - HikariPool-1 - configuration:
+2016-11-23 02:12:50,195 [main] DEBUG  com.zaxxer.hikari.HikariConfig - allowPoolSuspension.............false
+2016-11-23 02:12:50,196 [main] DEBUG  com.zaxxer.hikari.HikariConfig - autoCommit......................true
+2016-11-23 02:12:50,196 [main] DEBUG  com.zaxxer.hikari.HikariConfig - catalog.........................null
+2016-11-23 02:12:50,196 [main] DEBUG  com.zaxxer.hikari.HikariConfig - connectionInitSql...............null
+2016-11-23 02:12:50,196 [main] DEBUG  com.zaxxer.hikari.HikariConfig - connectionTestQuery.............null
+2016-11-23 02:12:50,197 [main] DEBUG  com.zaxxer.hikari.HikariConfig - connectionTimeout...............30000
+2016-11-23 02:12:50,197 [main] DEBUG  com.zaxxer.hikari.HikariConfig - dataSource......................null
+2016-11-23 02:12:50,197 [main] DEBUG  com.zaxxer.hikari.HikariConfig - dataSourceClassName.............null
+2016-11-23 02:12:50,197 [main] DEBUG  com.zaxxer.hikari.HikariConfig - dataSourceJNDI..................null
+2016-11-23 02:12:50,292 [main] DEBUG  com.zaxxer.hikari.HikariConfig - dataSourceProperties............{password=<masked>}
+2016-11-23 02:12:50,292 [main] DEBUG  com.zaxxer.hikari.HikariConfig - driverClassName.................null
+2016-11-23 02:12:50,292 [main] DEBUG  com.zaxxer.hikari.HikariConfig - healthCheckProperties...........{}
+2016-11-23 02:12:50,293 [main] DEBUG  com.zaxxer.hikari.HikariConfig - healthCheckRegistry.............null
+2016-11-23 02:12:50,293 [main] DEBUG  com.zaxxer.hikari.HikariConfig - idleTimeout.....................600000
+2016-11-23 02:12:50,293 [main] DEBUG  com.zaxxer.hikari.HikariConfig - initializationFailFast..........true
+2016-11-23 02:12:50,293 [main] DEBUG  com.zaxxer.hikari.HikariConfig - isolateInternalQueries..........false
+2016-11-23 02:12:50,293 [main] DEBUG  com.zaxxer.hikari.HikariConfig - jdbc4ConnectionTest.............false
+2016-11-23 02:12:50,294 [main] DEBUG  com.zaxxer.hikari.HikariConfig - jdbcUrl........................."jdbc:mysql://localhost:3306/computer-database-db"
+2016-11-23 02:12:50,294 [main] DEBUG  com.zaxxer.hikari.HikariConfig - leakDetectionThreshold..........0
+2016-11-23 02:12:50,294 [main] DEBUG  com.zaxxer.hikari.HikariConfig - maxLifetime.....................1800000
+2016-11-23 02:12:50,294 [main] DEBUG  com.zaxxer.hikari.HikariConfig - maximumPoolSize.................10
+2016-11-23 02:12:50,294 [main] DEBUG  com.zaxxer.hikari.HikariConfig - metricRegistry..................null
+2016-11-23 02:12:50,294 [main] DEBUG  com.zaxxer.hikari.HikariConfig - metricsTrackerFactory...........null
+2016-11-23 02:12:50,295 [main] DEBUG  com.zaxxer.hikari.HikariConfig - minimumIdle.....................10
+2016-11-23 02:12:50,295 [main] DEBUG  com.zaxxer.hikari.HikariConfig - password........................<masked>
+2016-11-23 02:12:50,295 [main] DEBUG  com.zaxxer.hikari.HikariConfig - poolName........................"HikariPool-1"
+2016-11-23 02:12:50,295 [main] DEBUG  com.zaxxer.hikari.HikariConfig - readOnly........................false
+2016-11-23 02:12:50,295 [main] DEBUG  com.zaxxer.hikari.HikariConfig - registerMbeans..................false
+2016-11-23 02:12:50,295 [main] DEBUG  com.zaxxer.hikari.HikariConfig - scheduledExecutorService........null
+2016-11-23 02:12:50,295 [main] DEBUG  com.zaxxer.hikari.HikariConfig - threadFactory...................null
+2016-11-23 02:12:50,296 [main] DEBUG  com.zaxxer.hikari.HikariConfig - transactionIsolation............null
+2016-11-23 02:12:50,296 [main] DEBUG  com.zaxxer.hikari.HikariConfig - username........................"admincdb"
+2016-11-23 02:12:50,296 [main] DEBUG  com.zaxxer.hikari.HikariConfig - validationTimeout...............5000
+2016-11-23 02:12:50,297 [main] INFO   com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Started.
+2016-11-23 02:12:50,861 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@2484773d
+2016-11-23 02:12:50,902 [main] DEBUG  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Reset (autoCommit) on connection com.mysql.jdbc.JDBC4Connection@2484773d
+2016-11-23 02:12:50,907 [main] DEBUG  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Reset (autoCommit) on connection com.mysql.jdbc.JDBC4Connection@2484773d
+2016-11-23 02:12:50,968 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=1, active=0, idle=1, waiting=0)
+2016-11-23 02:12:50,980 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@74cc4569
+2016-11-23 02:12:50,988 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@2bb289d3
+2016-11-23 02:12:50,995 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@301e0ad1
+2016-11-23 02:12:51,005 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@d035283
+2016-11-23 02:12:51,012 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@73342e08
+2016-11-23 02:12:51,021 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@7b34b6b2
+2016-11-23 02:12:51,028 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@5d0105f0
+2016-11-23 02:12:51,036 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@2546eeb8
+2016-11-23 02:12:51,043 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@49fce1b7
+2016-11-23 02:12:51,044 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - After adding stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:12:53,994 [main] DEBUG  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Reset (autoCommit) on connection com.mysql.jdbc.JDBC4Connection@2484773d
+2016-11-23 02:13:11,643 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:13:18,871 [main] DEBUG  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Reset (autoCommit) on connection com.mysql.jdbc.JDBC4Connection@2484773d
+2016-11-23 02:13:20,972 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:13:22,921 [main] DEBUG  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Reset (autoCommit) on connection com.mysql.jdbc.JDBC4Connection@2484773d
+2016-11-23 02:13:41,645 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:14:11,647 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:14:41,649 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:15:11,651 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:15:41,653 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:16:11,654 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:16:41,656 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:17:11,659 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:17:41,661 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:18:11,664 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:18:41,665 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:19:11,667 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:19:41,669 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:20:11,670 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:20:41,682 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:21:11,683 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:21:41,685 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:22:11,687 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:22:41,688 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:23:11,689 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:23:41,691 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:24:11,692 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:24:41,694 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:25:11,698 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:25:41,699 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:26:11,701 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:26:41,703 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:27:11,705 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:27:41,706 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:28:11,708 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:28:41,709 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:29:11,712 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:29:41,714 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:30:11,715 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:30:41,717 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:31:11,718 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:31:41,720 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:32:11,722 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:32:41,724 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:33:11,725 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:33:41,726 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:34:11,728 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:34:41,729 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:35:11,731 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:35:41,732 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:36:11,734 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:36:41,736 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:37:11,738 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:37:41,754 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:38:11,755 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:38:41,757 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:39:11,758 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:39:41,761 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:40:11,762 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:40:31,615 [HikariPool-1 connection closer] DEBUG  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection com.mysql.jdbc.JDBC4Connection@2546eeb8: (connection has passed maxLifetime)
+2016-11-23 02:40:32,229 [HikariPool-1 connection closer] DEBUG  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection com.mysql.jdbc.JDBC4Connection@49fce1b7: (connection has passed maxLifetime)
+2016-11-23 02:40:37,285 [HikariPool-1 connection closer] DEBUG  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection com.mysql.jdbc.JDBC4Connection@73342e08: (connection has passed maxLifetime)
+2016-11-23 02:40:39,327 [HikariPool-1 connection closer] DEBUG  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection com.mysql.jdbc.JDBC4Connection@d035283: (connection has passed maxLifetime)
+2016-11-23 02:40:40,282 [HikariPool-1 connection closer] DEBUG  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection com.mysql.jdbc.JDBC4Connection@5d0105f0: (connection has passed maxLifetime)
+2016-11-23 02:40:40,417 [HikariPool-1 connection closer] DEBUG  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection com.mysql.jdbc.JDBC4Connection@7b34b6b2: (connection has passed maxLifetime)
+2016-11-23 02:40:41,786 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=4, active=0, idle=4, waiting=0)
+2016-11-23 02:40:41,850 [HikariPool-1 connection closer] DEBUG  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection com.mysql.jdbc.JDBC4Connection@2484773d: (connection has passed maxLifetime)
+2016-11-23 02:40:41,856 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@7ece0725
+2016-11-23 02:40:41,884 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@10183263
+2016-11-23 02:40:41,896 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@5ac62382
+2016-11-23 02:40:41,907 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@26df0999
+2016-11-23 02:40:41,916 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@4c1a73a3
+2016-11-23 02:40:41,923 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@78a74fa0
+2016-11-23 02:40:41,924 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - After adding stats (total=9, active=0, idle=9, waiting=0)
+2016-11-23 02:40:45,849 [HikariPool-1 connection closer] DEBUG  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection com.mysql.jdbc.JDBC4Connection@301e0ad1: (connection has passed maxLifetime)
+2016-11-23 02:40:47,363 [HikariPool-1 connection closer] DEBUG  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection com.mysql.jdbc.JDBC4Connection@2bb289d3: (connection has passed maxLifetime)
+2016-11-23 02:41:00,468 [HikariPool-1 connection closer] DEBUG  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection com.mysql.jdbc.JDBC4Connection@74cc4569: (connection has passed maxLifetime)
+2016-11-23 02:41:11,787 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=6, active=0, idle=6, waiting=0)
+2016-11-23 02:41:11,799 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@702320d7
+2016-11-23 02:41:11,812 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@4de4331
+2016-11-23 02:41:11,818 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@7ab8b7f5
+2016-11-23 02:41:11,824 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@5140764f
+2016-11-23 02:41:11,825 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - After adding stats (total=10, active=0, idle=10, waiting=0)
+2016-11-23 02:41:41,789 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:13:42,659 [main] DEBUG  com.zaxxer.hikari.HikariConfig - HikariPool-1 - configuration:
+2016-11-26 16:13:42,720 [main] DEBUG  com.zaxxer.hikari.HikariConfig - allowPoolSuspension.............false
+2016-11-26 16:13:42,720 [main] DEBUG  com.zaxxer.hikari.HikariConfig - autoCommit......................true
+2016-11-26 16:13:42,720 [main] DEBUG  com.zaxxer.hikari.HikariConfig - catalog.........................null
+2016-11-26 16:13:42,720 [main] DEBUG  com.zaxxer.hikari.HikariConfig - connectionInitSql...............null
+2016-11-26 16:13:42,720 [main] DEBUG  com.zaxxer.hikari.HikariConfig - connectionTestQuery.............null
+2016-11-26 16:13:42,720 [main] DEBUG  com.zaxxer.hikari.HikariConfig - connectionTimeout...............30000
+2016-11-26 16:13:42,720 [main] DEBUG  com.zaxxer.hikari.HikariConfig - dataSource......................null
+2016-11-26 16:13:42,720 [main] DEBUG  com.zaxxer.hikari.HikariConfig - dataSourceClassName.............null
+2016-11-26 16:13:42,720 [main] DEBUG  com.zaxxer.hikari.HikariConfig - dataSourceJNDI..................null
+2016-11-26 16:13:42,799 [main] DEBUG  com.zaxxer.hikari.HikariConfig - dataSourceProperties............{password=<masked>}
+2016-11-26 16:13:42,799 [main] DEBUG  com.zaxxer.hikari.HikariConfig - driverClassName.................null
+2016-11-26 16:13:42,799 [main] DEBUG  com.zaxxer.hikari.HikariConfig - healthCheckProperties...........{}
+2016-11-26 16:13:42,799 [main] DEBUG  com.zaxxer.hikari.HikariConfig - healthCheckRegistry.............null
+2016-11-26 16:13:42,799 [main] DEBUG  com.zaxxer.hikari.HikariConfig - idleTimeout.....................600000
+2016-11-26 16:13:42,799 [main] DEBUG  com.zaxxer.hikari.HikariConfig - initializationFailFast..........true
+2016-11-26 16:13:42,799 [main] DEBUG  com.zaxxer.hikari.HikariConfig - isolateInternalQueries..........false
+2016-11-26 16:13:42,799 [main] DEBUG  com.zaxxer.hikari.HikariConfig - jdbc4ConnectionTest.............false
+2016-11-26 16:13:42,799 [main] DEBUG  com.zaxxer.hikari.HikariConfig - jdbcUrl........................."jdbc:mysql://localhost:3306/computer-database-db"
+2016-11-26 16:13:42,799 [main] DEBUG  com.zaxxer.hikari.HikariConfig - leakDetectionThreshold..........0
+2016-11-26 16:13:42,799 [main] DEBUG  com.zaxxer.hikari.HikariConfig - maxLifetime.....................1800000
+2016-11-26 16:13:42,799 [main] DEBUG  com.zaxxer.hikari.HikariConfig - maximumPoolSize.................10
+2016-11-26 16:13:42,799 [main] DEBUG  com.zaxxer.hikari.HikariConfig - metricRegistry..................null
+2016-11-26 16:13:42,799 [main] DEBUG  com.zaxxer.hikari.HikariConfig - metricsTrackerFactory...........null
+2016-11-26 16:13:42,799 [main] DEBUG  com.zaxxer.hikari.HikariConfig - minimumIdle.....................10
+2016-11-26 16:13:42,799 [main] DEBUG  com.zaxxer.hikari.HikariConfig - password........................<masked>
+2016-11-26 16:13:42,799 [main] DEBUG  com.zaxxer.hikari.HikariConfig - poolName........................"HikariPool-1"
+2016-11-26 16:13:42,799 [main] DEBUG  com.zaxxer.hikari.HikariConfig - readOnly........................false
+2016-11-26 16:13:42,799 [main] DEBUG  com.zaxxer.hikari.HikariConfig - registerMbeans..................false
+2016-11-26 16:13:42,799 [main] DEBUG  com.zaxxer.hikari.HikariConfig - scheduledExecutorService........null
+2016-11-26 16:13:42,799 [main] DEBUG  com.zaxxer.hikari.HikariConfig - threadFactory...................null
+2016-11-26 16:13:42,804 [main] DEBUG  com.zaxxer.hikari.HikariConfig - transactionIsolation............null
+2016-11-26 16:13:42,804 [main] DEBUG  com.zaxxer.hikari.HikariConfig - username........................"admincdb"
+2016-11-26 16:13:42,804 [main] DEBUG  com.zaxxer.hikari.HikariConfig - validationTimeout...............5000
+2016-11-26 16:13:42,804 [main] INFO   com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Started.
+2016-11-26 16:13:43,294 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@7255bdff
+2016-11-26 16:13:43,419 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=1, active=1, idle=0, waiting=0)
+2016-11-26 16:13:43,428 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@2403e02f
+2016-11-26 16:13:43,438 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@4e2da0c7
+2016-11-26 16:13:43,445 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@40e6a254
+2016-11-26 16:13:43,452 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@6a63da7a
+2016-11-26 16:13:43,459 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@1a94d0d8
+2016-11-26 16:13:43,464 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@69d2a34f
+2016-11-26 16:13:43,469 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@69bcad11
+2016-11-26 16:13:43,484 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@311c497
+2016-11-26 16:13:43,489 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@57fb0d5
+2016-11-26 16:13:43,489 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - After adding stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:14:13,426 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:14:19,637 [main] DEBUG  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Reset (autoCommit) on connection com.mysql.jdbc.JDBC4Connection@7255bdff
+2016-11-26 16:14:43,429 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:15:13,432 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:15:43,436 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:16:13,440 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:16:43,444 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:17:13,445 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:17:43,448 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:18:13,453 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:18:43,457 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:19:13,463 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:19:43,467 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:20:13,471 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:20:43,474 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:21:13,480 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:21:43,482 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:22:13,486 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:22:43,491 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:23:13,492 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:23:43,495 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:24:13,499 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:24:43,503 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:25:13,505 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:25:43,508 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:26:13,513 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:26:43,517 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:27:13,522 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:27:43,528 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:28:13,533 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:28:43,538 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:29:13,543 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:29:43,545 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:30:13,545 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:30:43,551 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:31:13,556 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:31:43,559 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:32:13,562 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:32:43,563 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:33:13,568 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:33:43,568 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:34:13,573 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:34:43,578 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:35:13,583 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:35:43,587 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:36:13,592 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:36:43,594 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:37:13,597 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:37:43,603 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:38:13,607 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:38:43,609 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:39:13,612 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:39:43,616 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:40:13,620 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:40:43,623 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:41:13,625 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:41:43,631 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:42:13,631 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:42:43,633 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:43:04,384 [HikariPool-1 connection closer] DEBUG  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection com.mysql.jdbc.JDBC4Connection@4e2da0c7: (connection has passed maxLifetime)
+2016-11-26 16:43:08,234 [HikariPool-1 connection closer] DEBUG  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection com.mysql.jdbc.JDBC4Connection@6a63da7a: (connection has passed maxLifetime)
+2016-11-26 16:43:12,246 [HikariPool-1 connection closer] DEBUG  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection com.mysql.jdbc.JDBC4Connection@7255bdff: (connection has passed maxLifetime)
+2016-11-26 16:43:12,655 [HikariPool-1 connection closer] DEBUG  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection com.mysql.jdbc.JDBC4Connection@69d2a34f: (connection has passed maxLifetime)
+2016-11-26 16:43:13,637 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=6, active=0, idle=6, waiting=0)
+2016-11-26 16:43:13,666 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@7f4a4582
+2016-11-26 16:43:13,677 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@b38d98d
+2016-11-26 16:43:13,702 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@495de1ee
+2016-11-26 16:43:13,707 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@5e29859e
+2016-11-26 16:43:13,707 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - After adding stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:43:15,597 [HikariPool-1 connection closer] DEBUG  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection com.mysql.jdbc.JDBC4Connection@2403e02f: (connection has passed maxLifetime)
+2016-11-26 16:43:19,680 [HikariPool-1 connection closer] DEBUG  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection com.mysql.jdbc.JDBC4Connection@311c497: (connection has passed maxLifetime)
+2016-11-26 16:43:27,633 [HikariPool-1 connection closer] DEBUG  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection com.mysql.jdbc.JDBC4Connection@57fb0d5: (connection has passed maxLifetime)
+2016-11-26 16:43:33,889 [HikariPool-1 connection closer] DEBUG  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection com.mysql.jdbc.JDBC4Connection@40e6a254: (connection has passed maxLifetime)
+2016-11-26 16:43:40,763 [HikariPool-1 connection closer] DEBUG  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection com.mysql.jdbc.JDBC4Connection@69bcad11: (connection has passed maxLifetime)
+2016-11-26 16:43:42,536 [HikariPool-1 connection closer] DEBUG  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection com.mysql.jdbc.JDBC4Connection@1a94d0d8: (connection has passed maxLifetime)
+2016-11-26 16:43:43,638 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=4, active=0, idle=4, waiting=0)
+2016-11-26 16:43:43,654 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@27b302c
+2016-11-26 16:43:43,664 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@2df28b2d
+2016-11-26 16:43:43,669 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@57632694
+2016-11-26 16:43:43,679 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@2349c7fb
+2016-11-26 16:43:43,684 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@5fd26306
+2016-11-26 16:43:43,689 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.jdbc.JDBC4Connection@5ffb1e38
+2016-11-26 16:43:43,689 [HikariPool-1 connection adder] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - After adding stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:44:13,640 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:44:43,646 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:45:13,649 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:45:43,650 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:46:13,653 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:46:43,654 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:47:13,660 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:47:43,662 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:48:13,663 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:48:43,666 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:49:13,670 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:49:43,671 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:50:13,672 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:50:43,677 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:51:13,680 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:51:43,684 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:52:13,686 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:52:43,702 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:53:13,717 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:53:43,731 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:54:13,732 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:54:43,736 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:55:13,740 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:55:43,752 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:56:13,759 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:56:43,774 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:57:13,778 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:57:43,784 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:58:13,797 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:58:43,808 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:59:13,826 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 16:59:43,844 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 17:00:13,862 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 17:00:43,881 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 17:01:13,895 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 17:01:43,901 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 17:02:13,908 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 17:02:43,916 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 17:03:13,923 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 17:03:43,931 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2016-11-26 17:04:13,935 [HikariPool-1 housekeeper] DEBUG  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)

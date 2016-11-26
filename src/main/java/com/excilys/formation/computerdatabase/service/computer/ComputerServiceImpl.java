@@ -1,20 +1,13 @@
 package com.excilys.formation.computerdatabase.service.computer;
 
-import com.excilys.formation.computerdatabase.dto.CompanyDto;
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
-import com.excilys.formation.computerdatabase.mapper.ComputerDtoMapper;
-import com.excilys.formation.computerdatabase.model.Company;
 import com.excilys.formation.computerdatabase.model.Computer;
-import com.excilys.formation.computerdatabase.dto.ComputerDto;
-import com.excilys.formation.computerdatabase.model.Computer.ComputerBuilder;
 import com.excilys.formation.computerdatabase.persistence.Constraints;
 import com.excilys.formation.computerdatabase.persistence.HikariConnectionPool;
 import com.excilys.formation.computerdatabase.persistence.computer.computerImpl.ComputerDaoImpl;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;

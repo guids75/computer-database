@@ -3,10 +3,13 @@ package com.excilys.formation.computerdatabase.exception;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.excilys.formation.computerdatabase.ui.Cli;
-
+/**
+ * @author GUIDS
+ *
+ */
 public class ConnectionException extends RuntimeException {
 
+  private static final long serialVersionUID = 6048598383138996086L;
   private static final Logger slf4jLogger = LoggerFactory.getLogger(ConnectionException.class);
 
   /**

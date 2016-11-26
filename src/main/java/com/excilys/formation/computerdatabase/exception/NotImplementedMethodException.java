@@ -7,6 +7,7 @@ import com.excilys.formation.computerdatabase.ui.Cli;
 
 public class NotImplementedMethodException extends Exception {
 
+  private static final long serialVersionUID = 21613349142469981L;
   private static final Logger slf4jLogger = LoggerFactory.getLogger(NotImplementedMethodException.class);
 
   /**

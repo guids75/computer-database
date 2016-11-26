@@ -1,14 +1,10 @@
 package com.excilys.formation.computerdatabase.persistence;
 
-import java.time.LocalDate;
 import java.util.List;
 
-import com.excilys.formation.computerdatabase.model.Company;
-import com.excilys.formation.computerdatabase.model.Computer;
-import com.excilys.formation.computerdatabase.model.Computer.ComputerBuilder;
 import com.excilys.formation.computerdatabase.pagination.Page;
 
-public class Constraints {
+public final class Constraints {
 
   private int limit;
   private int offset;

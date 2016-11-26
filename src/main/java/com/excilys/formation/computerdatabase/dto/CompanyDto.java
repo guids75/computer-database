@@ -20,7 +20,7 @@ public class CompanyDto {
    * @param id
    *          : the id to set
    */
-  public void setId(long id) {
+  public void setId(final long id) {
     this.id = id;
   }
 
@@ -41,6 +41,7 @@ public class CompanyDto {
 
   @Override
   public String toString() {
-    return new StringBuilder("Company [id=").append(id).append(", name=").append(name).append("]").toString();
+    return new StringBuilder("Company [id=").append(id).append(", name=").append(name).append("]")
+        .toString();
   }
 }

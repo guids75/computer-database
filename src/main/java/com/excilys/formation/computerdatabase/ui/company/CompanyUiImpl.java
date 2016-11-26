@@ -1,15 +1,11 @@
 package com.excilys.formation.computerdatabase.ui.company;
 
-import java.util.ArrayList;
 import java.util.List;
 import com.excilys.formation.computerdatabase.dto.CompanyDto;
 
-import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import com.excilys.formation.computerdatabase.mapper.CompanyDtoMapper;
-import com.excilys.formation.computerdatabase.model.Company;
 import com.excilys.formation.computerdatabase.pagination.Page;
 import com.excilys.formation.computerdatabase.persistence.Constraints;
-import com.excilys.formation.computerdatabase.persistence.company.companyImpl.CompanyDaoImpl;
 import com.excilys.formation.computerdatabase.service.company.CompanyServiceImpl;
 
 /**

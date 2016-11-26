@@ -6,7 +6,7 @@
 
 	<servlet>
 		<servlet-name>Dashboard</servlet-name>
-		<servlet-class>com.excilys.formation.computerdatabase.web.servlet.Dashboard</servlet-class>
+		<servlet-class>com.excilys.formation.computerdatabase.servlet.Dashboard</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Dashboard</servlet-name>
@@ -15,7 +15,7 @@
 
 	<servlet>
 		<servlet-name>Add Computer</servlet-name>
-		<servlet-class>com.excilys.formation.computerdatabase.web.servlet.AddComputer</servlet-class>
+		<servlet-class>com.excilys.formation.computerdatabase.servlet.AddComputer</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Add Computer</servlet-name>
@@ -24,7 +24,7 @@
 
 	<servlet>
 		<servlet-name>Delete Computer</servlet-name>
-		<servlet-class>com.excilys.formation.computerdatabase.web.servlet.DeleteComputer</servlet-class>
+		<servlet-class>com.excilys.formation.computerdatabase.servlet.DeleteComputer</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Delete Computer</servlet-name>
@@ -33,7 +33,7 @@
 
 	<servlet>
 		<servlet-name>Edit Computer</servlet-name>
-		<servlet-class>com.excilys.formation.computerdatabase.web.servlet.EditComputer</servlet-class>
+		<servlet-class>com.excilys.formation.computerdatabase.servlet.EditComputer</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Edit Computer</servlet-name>

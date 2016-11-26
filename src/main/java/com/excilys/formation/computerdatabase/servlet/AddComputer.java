@@ -1,10 +1,9 @@
-package com.excilys.formation.computerdatabase.web.servlet;
+package com.excilys.formation.computerdatabase.servlet;
 
 import com.excilys.formation.computerdatabase.mapper.CompanyDtoMapper;
 import com.excilys.formation.computerdatabase.mapper.ComputerDtoMapper;
 import com.excilys.formation.computerdatabase.mapper.RequestMapper;
 import com.excilys.formation.computerdatabase.dto.ComputerDto;
-import com.excilys.formation.computerdatabase.model.Computer;
 import com.excilys.formation.computerdatabase.persistence.Constraints;
 import com.excilys.formation.computerdatabase.service.company.CompanyServiceImpl;
 import com.excilys.formation.computerdatabase.service.computer.ComputerServiceImpl;
@@ -22,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class AddComputer extends HttpServlet {
 
+  private static final long serialVersionUID = -2391324266165934348L;
   private static CompanyServiceImpl companyServiceImpl = 
       CompanyServiceImpl.INSTANCE; // service of Company to manage them
   private static ComputerServiceImpl computerServiceImpl = 

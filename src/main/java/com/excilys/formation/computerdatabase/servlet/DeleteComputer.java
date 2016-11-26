@@ -1,7 +1,6 @@
-package com.excilys.formation.computerdatabase.web.servlet;
+package com.excilys.formation.computerdatabase.servlet;
 
 import java.io.IOException;
-import com.excilys.formation.computerdatabase.dto.ComputerDto;
 import java.util.List;
 
 import javax.servlet.ServletException;

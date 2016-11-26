@@ -1,4 +1,4 @@
-package com.excilys.formation.computerdatabase.web.servlet;
+package com.excilys.formation.computerdatabase.servlet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +24,7 @@ import com.excilys.formation.computerdatabase.service.computer.ComputerServiceIm
  */
 public class Dashboard extends HttpServlet {
 
+  private static final long serialVersionUID = 3765045871388643647L;
   private static final ComputerServiceImpl computerService = 
       ComputerServiceImpl.INSTANCE; // service of Computer to manage them
   private Page pages; // pages' attributes to manage them

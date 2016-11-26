@@ -1,14 +1,10 @@
 package com.excilys.formation.computerdatabase.mapper;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.excilys.formation.computerdatabase.dto.CompanyDto;
-import com.excilys.formation.computerdatabase.dto.ComputerDto;
 import com.excilys.formation.computerdatabase.model.Company;
-import com.excilys.formation.computerdatabase.model.Computer;
-import com.excilys.formation.computerdatabase.model.Computer.ComputerBuilder;
 
 public final class CompanyDtoMapper {
 
