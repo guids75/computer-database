@@ -58,16 +58,16 @@ public final class ResultMapper {
    */
   public static Computer convertToComputer(ResultSet results) {
     try {
-      ComputerBuilder computer = new Computer.ComputerBuilder(results.getString("comput.Name"))
-          .id(results.getLong("comput.Id"));
-      if (results.getDate("comput.Introduced") != null) {
-        computer.introduced(LocalDate.parse(simpleDateFormat.format(results.getDate("comput.Introduced"))));
+      ComputerBuilder computer = new Computer.ComputerBuilder(results.getString("computerName"))
+          .id(results.getLong("computerId"));
+      if (results.getDate("computer.introduced") != null) {
+        computer.introduced(LocalDate.parse(simpleDateFormat.format(results.getDate("computer.introduced"))));
       }
-      if (results.getDate("comput.Discontinued") != null) {
-        computer.discontinued(LocalDate.parse(simpleDateFormat.format(results.getDate("comput.Discontinued"))));
+      if (results.getDate("computer.discontinued") != null) {
+        computer.discontinued(LocalDate.parse(simpleDateFormat.format(results.getDate("computer.discontinued"))));
       }
       computer.company(
-          new Company.CompanyBuilder(results.getString("compan.Name")).id(results.getLong("compan.Id")).build());
+          new Company.CompanyBuilder(results.getString("companyName")).id(results.getLong("companyId")).build());
       return computer.build();
     } catch (SQLException exception) {
       exception.printStackTrace();
@@ -88,7 +88,7 @@ public final class ResultMapper {
     List<Long> computersId = new ArrayList<>();
     try {
       while (results.next()) {
-        computersId.add(results.getLong("comput.Id"));
+        computersId.add(results.getLong("computerId"));
       }
     } catch (SQLException exception) {
       slf4jLogger.error("Error in ResultToObject in convertToComputers");
@@ -126,8 +126,8 @@ public final class ResultMapper {
    */
   public static Company convertToCompany(ResultSet results) {
     try {
-      CompanyBuilder company = new Company.CompanyBuilder(results.getString("Name"));
-      company.id(results.getLong("Id"));
+      CompanyBuilder company = new Company.CompanyBuilder(results.getString("companyName"));
+      company.id(results.getLong("companyId"));
       return company.build();
     } catch (SQLException exception) {
       slf4jLogger.error("Error in ResultToObject in convertToCompany");

@@ -31,13 +31,16 @@ public enum ComputerDaoImpl implements ComputerDao {
   private static final String INSERT_REQUEST = "INSERT INTO computer VALUES (?, ?, ?, ?, ?)";
   private static final String UPDATE_REQUEST = "UPDATE computer SET name=?, introduced=?, discontinued=?, company_id=? WHERE id=?";
   private static final String DELETE_REQUEST = "DELETE FROM computer WHERE id";
-  private static final String LIST_REQUEST = "SELECT * FROM computer as comput LEFT JOIN company as compan ON comput.company_id=compan.id LIMIT ? OFFSET ?";
-  private static final String DETAILS_REQUEST = "SELECT * FROM computer as comput WHERE comput.id=? LEFT JOIN company as compan ON comput.id=compan.id";
+  private static final String LIST_REQUEST = "SELECT computer.id as computerId, computer.name as computerName, computer.introduced, computer.discontinued, company.id as companyId, company.name as companyName"
+      + " FROM computer LEFT JOIN company ON computer.company_id=company.id LIMIT ? OFFSET ?";
+  private static final String DETAILS_REQUEST = "SELECT computer.id as computerId, computer.name as computerName, computer.introduced, computer.discontinued, company.id as companyId, company.name as companyName"
+      + " FROM computer WHERE computer.id=? LEFT JOIN company ON computer.company_id=company.id";
   private static final String NUMBER_REQUEST = "SELECT COUNT(*) as number FROM computer";
-  private static final String SEARCH_REQUEST = "SELECT * FROM computer as comput LEFT JOIN company as compan ON comput.company_id=compan.id "
-      + "WHERE comput.name LIKE ? OR compan.name LIKE ?";
+  private static final String SEARCH_REQUEST = "SELECT computer.id as computerId, computer.name as computerName, computer.introduced, computer.discontinued, company.id as companyId, company.name as companyName"
+      + " FROM computer LEFT JOIN company ON computer.company_id=company.id WHERE computer.name LIKE ? OR company.name LIKE ?";
   private static final String LIMIT_OFFSET = " LIMIT ? OFFSET ?";
-  private static final String LISTBYCOMPANY_REQUEST = "SELECT comput.id FROM computer as comput LEFT JOIN company as compan ON comput.company_id=compan.id WHERE compan.id=?";
+  private static final String LISTBYCOMPANY_REQUEST = "SELECT computer.id as computerId, computer.name as computerName, computer.introduced, computer.discontinued, company.id as companyId, company.name as companyName"
+      + " FROM computer LEFT JOIN company ON computer.company_id=company.id WHERE company.id=?";
 
   private ResultSet results;
   private Connection connection = null;
@@ -137,17 +140,17 @@ public enum ComputerDaoImpl implements ComputerDao {
     public int count(Constraints constraints) throws ConnectionException {
       int numberComputers = -1;
       String request;
-      /*if (constraints.getSearch() != null && !constraints.getSearch().equals("")){
-      request = "SELECT COUNT (*) FROM (" + SEARCH_REQUEST + ") as table";
-    } else {*/
+      if (constraints.getSearch() != null && !constraints.getSearch().equals("")){
+      request = "SELECT COUNT(*) As number FROM (" + SEARCH_REQUEST + ") as derivedTable";
+    } else {
       request = NUMBER_REQUEST;
-      //}
+      }
       try (Connection connection = hikariConnectionPool.getDataSource().getConnection();
           PreparedStatement preparedStatement = connection.prepareStatement(request)) {
-        /*if (constraints.getSearch() != null && !constraints.getSearch().equals("")){
-        preparedStatement.setString(1, "%" + search + "%");
-        preparedStatement.setString(2, "%" + search + "%");
-      }*/
+        if (constraints.getSearch() != null && !constraints.getSearch().equals("")){
+        preparedStatement.setString(1, "%" + constraints.getSearch() + "%");
+        preparedStatement.setString(2, "%" + constraints.getSearch() + "%");
+      }
         results = preparedStatement.executeQuery();
         results.next();
         numberComputers = results.getInt("number");

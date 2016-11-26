@@ -29,10 +29,10 @@ public enum CompanyDaoImpl implements CompanyDao {
       HikariConnectionPool.INSTANCE; // get the connection
 
   // requests
-  private static final String LIST_REQUEST = "SELECT * FROM company LIMIT ? OFFSET ?";
+  private static final String LIST_REQUEST = "SELECT company.id as companyId, company.name as companyName FROM company LIMIT ? OFFSET ?";
   private static final String DELETE_REQUEST = "DELETE FROM company WHERE id=?";
   private static final String NUMBER_REQUEST = "SELECT COUNT(*) as number FROM company";
-  private static final String COMPANY_REQUEST = "SELECT * FROM company where id=?";
+  private static final String COMPANY_REQUEST = "SELECT company.id as companyId, company.name as companyName FROM company where id=?";
 
   private ResultSet results;
   private Connection connection = null;

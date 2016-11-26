@@ -36,20 +36,13 @@ public class Dashboard extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     Page pages = RequestMapper.convertToPage(request);
     if (request.getParameter("search") != null) {
-      pages.setNbElements(computerService.count(new Constraints.ConstraintsBuilder().search(request.getParameter("search")).build()));
       request.setAttribute("listComputers", ComputerDtoMapper.computerListToComputerDtoList(computerService.search(new Constraints.ConstraintsBuilder()
           .search(request.getParameter("search")).limit(pages.getNbElementsByPage()).offset((pages.getActualPage() - 1) * pages.getNbElementsByPage()).build())));
       request.setAttribute("search", request.getParameter("search"));
     } else {
-      pages.setNbElements(computerService.count(new Constraints.ConstraintsBuilder().search("").build()));
       request.setAttribute("listComputers", ComputerDtoMapper.computerListToComputerDtoList(computerService.list(new Constraints.ConstraintsBuilder()
           .limit(pages.getNbElementsByPage()).offset((pages.getActualPage() - 1) * pages.getNbElementsByPage()).build())));
     }
-    pages.calculateNbPages(pages.getNbElements());
-    //when it's the last page
-    if (pages.getActualPage() - 1 * pages.getNbElementsByPage() >= pages.getNbElements()) {
-      pages.setActualPage(pages.getActualPage() - 1);
-    }  
     request.setAttribute("pages", pages);
     this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/dashboard.jsp").forward(request, response);
   }

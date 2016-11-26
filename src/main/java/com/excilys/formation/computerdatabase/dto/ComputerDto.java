@@ -6,9 +6,6 @@ package com.excilys.formation.computerdatabase.dto;
  */
 public class ComputerDto {
 
-  /**
-   * 
-   */
   private long id; // id of the computer, required
   private String name; // name of the computer, required
   private String introduced; // date when the computer was introduced, optional

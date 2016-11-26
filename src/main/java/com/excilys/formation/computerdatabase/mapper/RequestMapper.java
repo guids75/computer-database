@@ -6,9 +6,13 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import com.excilys.formation.computerdatabase.dto.ComputerDto;
 import com.excilys.formation.computerdatabase.pagination.Page;
+import com.excilys.formation.computerdatabase.persistence.Constraints;
+import com.excilys.formation.computerdatabase.service.computer.ComputerServiceImpl;
 
 public final class RequestMapper {
 
+  private static final ComputerServiceImpl computerService = ComputerServiceImpl.INSTANCE;
+  
   private RequestMapper() {
   }
 
@@ -63,16 +67,31 @@ public final class RequestMapper {
   
   public static Page convertToPage(HttpServletRequest request) {
     Page pages = new Page();
+    //if there is an actual page, use it, otherwise use the first page
     if (request.getParameter("actualPage") != null) {
       pages.setActualPage(Integer.parseInt(request.getParameter("actualPage")));
     } else {
       pages.setActualPage(1);
     }
+    //if there is a nbElementsByPage defined, use it, otherwise use 10
     if (request.getParameter("nbElementsByPage") != null) {
       pages.setNbElementsByPage(Integer.parseInt(request.getParameter("nbElementsByPage")));
     } else {
       pages.setNbElementsByPage(10);
     }
+    //get the right number of pages according to the search
+    if (request.getParameter("search") != null) {
+      pages.setNbElements(computerService.count(new Constraints.ConstraintsBuilder().search(request.getParameter("search")).build()));
+    } else {
+      pages.setNbElements(computerService.count(new Constraints.ConstraintsBuilder().search("").build()));
+    }
+    pages.calculateNbPages(pages.getNbElements());
+    
+    //when it's the last page
+    if (pages.getActualPage() - 1 * pages.getNbElementsByPage() >= pages.getNbElements()) {
+      pages.setActualPage(pages.getActualPage() - 1);
+    }  
+    
     return pages;
   }
 
