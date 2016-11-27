@@ -14,7 +14,8 @@
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/dashboard.js"></script>
-<body>
+
+<body>			
 	<header class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
 			<a class="navbar-brand" href="dashboard"> Application - Computer
@@ -68,97 +69,39 @@
 						<!-- Table header for Company -->
 						<th>Company</th>
 
-						<c:forEach var="computer" items="${listComputers}">
-							<!-- Browse attribute computers -->
-							<tbody id="results">
-								<tr>
-									<td class="editMode"><input type="checkbox" name="cb"
-										class="cb" value="${computer.id}"></td>
-
-									<c:choose>
-										<c:when test="${not empty computer.introduced}">
-											<c:set var="introduced"
-												value="&introduced=${computer.introduced}" />
-										</c:when>
-										<c:otherwise>
-											<c:set var="introduced" value="" />
-										</c:otherwise>
-									</c:choose>
-									<c:choose>
-										<c:when test="${not empty computer.discontinued}">
-											<c:set var="discontinued"
-												value="&discontinued=${computer.discontinued}" />
-										</c:when>
-										<c:otherwise>
-											<c:set var="discontinued" value="" />
-										</c:otherwise>
-									</c:choose>
-
-									<td><a
-										href="editComputer?id=${computer.id}&
-									computerName=${computer.name}&introduced=${computer.introduced}
-									&discontinued=${computer.discontinued}&companyId=${computer.companyId}"
-										onclick="$('#cb').submit();"><c:out
-												value="${computer.name}" /></a></td>
-									<td><c:out value="${computer.introduced}" /></td>
-									<td><c:out value="${computer.discontinued}" /></td>
-									<td><c:out value="${computer.companyName}" /></td>
-								</tr>
-						</c:forEach>
+						<tag:pageTag />
 				</tbody>
 			</table>
 		</div>
 	</section>
+
 	<footer class="navbar-fixed-bottom">
 		<div class="container text-center">
 			<ul class="pagination">
-				<c:if test="${pages.hasPrev() == true}">
-					<li><a
-						href=<tag:linkTag target="dashboard" actualPage="${pages.actualPage-1}" nbElementsByPage="${pages.nbElementsByPage}" search="${search}"/>
-						aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-					</a></li>
-				</c:if>
-
-				<c:choose>
-					<c:when test="${pages.actualPage - 2 < 1}">
-						<c:set var="begin" value="${1}" />
-					</c:when>
-					<c:otherwise>
-						<c:set var="begin" value="${pages.actualPage - 2}" />
-					</c:otherwise>
-				</c:choose>
-
-				<c:choose>
-					<c:when test="${pages.actualPage + 2 > pages.nbPages}">
-						<c:set var="begin" value="${pages.nbPages}" />
-					</c:when>
-					<c:otherwise>
-						<c:set var="end" value="${pages.actualPage + 2}" />
-					</c:otherwise>
-				</c:choose>
-
-				<c:forEach var="page" begin="${begin}" end="${end}">
-					<li><a
-						href=<tag:linkTag target="dashboard" actualPage="${page}" nbElementsByPage="${pages.nbElementsByPage}" search="${search}"/>>${page}</a></li>
-				</c:forEach>
-				<c:if test="${pages.hasNext() == true}">
-					<li><a
-						href=<tag:linkTag target="dashboard" actualPage="${pages.actualPage+1}" nbElementsByPage="${pages.nbElementsByPage}" search="${search}"/>
-						aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-					</a></li>
-				</c:if>
+				<tag:linkTag target="dashboard" actualPage="${pages.actualPage-1}"
+					nbElementsByPage="${pages.nbElementsByPage}" search="${search}"
+					pageHandler="-1" />
+				<tag:linkTag target="dashboard" actualPage="${pages.actualPage}"
+					nbElementsByPage="${pages.nbElementsByPage}" search="${search}"
+					pageHandler="0" />
+				<tag:linkTag target="dashboard" actualPage="${pages.actualPage+1}"
+					nbElementsByPage="${pages.nbElementsByPage}" search="${search}"
+					pageHandler="1" />
 			</ul>
+
+
 			<div class="btn-group btn-group-sm pull-right" role="group">
-				<button type="button" class="btn btn-default" name="nbElementsByPage"
-					onclick='window.location.href=<tag:linkTag target="dashboard" actualPage="1" nbElementsByPage="10" search="${search}"/>;'>10</button>
-				<button type="button" class="btn btn-default" name="nbElementsByPage"
-					onclick='window.location.href=<tag:linkTag target="dashboard" actualPage="1" nbElementsByPage="50" search="${search}"/>;'>50</button>
-				<button type="button" class="btn btn-default" name="nbElementsByPage"
-					onclick='window.location.href=<tag:linkTag target="dashboard" actualPage="1" nbElementsByPage="100" search="${search}"/>;'>100</button>
+				<tag:linkTag target="dashboard" actualPage="1" nbElementsByPage="10"
+					search="${search}" />
+				<tag:linkTag target="dashboard" actualPage="1" nbElementsByPage="50"
+					search="${search}" />
+				<tag:linkTag target="dashboard" actualPage="1"
+					nbElementsByPage="100" search="${search}" />
 			</div>
 		</div>
-
 	</footer>
+
+
 
 </body>
 </html>
