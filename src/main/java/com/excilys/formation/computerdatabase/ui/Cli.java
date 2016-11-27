@@ -11,6 +11,8 @@ import com.excilys.formation.computerdatabase.ui.computer.ComputerUiImpl;
  */
 public class Cli {
 
+  public static Scanner in = new Scanner(System.in);
+  
   public static void main(String[] args) {
 
     ComputerUiImpl computerUi = new ComputerUiImpl();
@@ -22,7 +24,6 @@ public class Cli {
       System.out.println("Options available :\n" + "- list computers\n" + "- list companies\n" + "- computer details\n"
           + "- insert computer\n" + "- update computer\n" + "- delete computer\n");
 
-      Scanner in = new Scanner(System.in);
       String action = in.nextLine();
 
       switch (action) {

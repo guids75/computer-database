@@ -1,5 +1,8 @@
 # Created by https://www.gitignore.io/api/eclipse,intellij,java
 
+myLogFile.log
+WebContent/
+
 ### Eclipse ###
 
 .metadata

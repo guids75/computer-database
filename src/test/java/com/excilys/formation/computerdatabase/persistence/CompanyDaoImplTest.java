@@ -2,24 +2,28 @@ package com.excilys.formation.computerdatabase.persistence;
 
 import static org.junit.Assert.*;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class CompanyDaoTest {
+import com.excilys.formation.computerdatabase.model.Company;
+import com.excilys.formation.computerdatabase.persistence.company.CompanyDao;
+import com.excilys.formation.computerdatabase.persistence.company.companyImpl.CompanyDaoImpl;
 
-  @BeforeClass
-  public static void setUpBeforeClass() throws Exception {
-  }
+public class CompanyDaoImplTest {
 
-  @AfterClass
-  public static void tearDownAfterClass() throws Exception {
-  }
+  private CompanyDaoImpl companyDao;
+  private HikariConnectionPool hikariConnectionPool = HikariConnectionPool.INSTANCE;
 
   @Before
   public void setUp() throws Exception {
+    CompanyDaoImpl companyDao = CompanyDaoImpl.INSTANCE;
   }
 
   @After
@@ -28,7 +32,12 @@ public class CompanyDaoTest {
 
   @Test
   public void testList() {
-    fail("Not yet implemented");
+    try (Connection connection = hikariConnectionPool.getDataSource().getConnection()) {
+      List<Company> companies = companyDao.list(new Constraints.ConstraintsBuilder().limit(10).offset(0).build(), connection);
+      assertNotNull(companies);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 
 }
