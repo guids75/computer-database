@@ -23,7 +23,7 @@ public class CompanyDaoImplTest {
 
   @Before
   public void setUp() throws Exception {
-    CompanyDaoImpl companyDao = CompanyDaoImpl.INSTANCE;
+    companyDao = CompanyDaoImpl.INSTANCE;
   }
 
   @After
@@ -34,10 +34,23 @@ public class CompanyDaoImplTest {
   public void testList() {
     try (Connection connection = hikariConnectionPool.getDataSource().getConnection()) {
       List<Company> companies = companyDao.list(new Constraints.ConstraintsBuilder().limit(10).offset(0).build(), connection);
-      assertNotNull(companies);
+      assertNotNull("list", companies);
     } catch (SQLException e) {
       e.printStackTrace();
     }
+  }
+  
+  @Test
+  public void testCount() {
+      int count = companyDao.count();
+      assertNotNull("count not null", count);
+      assertTrue("count bigger than -1", count > -1);
+  }
+  
+  @Test
+  public void testGetCompany() {
+      Company company = companyDao.getCompany(1);
+      assertNotNull("get company", company);
   }
 
 }
