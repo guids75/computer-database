@@ -37,13 +37,15 @@ public enum CompanyDaoImpl implements CompanyDao {
 
     @Override
     public List<Company> list(Constraints constraints) throws ConnectionException {
+        if (constraints == null || (constraints.getLimit() == -1 || constraints.getOffset() == -1)) {
+            throw new IllegalArgumentException("A limit or an offset is missing in the constraints");
+        }
         try (Connection connection = hikariConnectionPool.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(LIST_REQUEST)) {
             preparedStatement.setInt(1, constraints.getLimit());
             preparedStatement.setInt(2, constraints.getOffset());
             results = preparedStatement.executeQuery();
             List<Company> list = ResultMapper.convertToCompanies(preparedStatement.executeQuery());
-            hikariConnectionPool.closeConnection(connection);
             return list;
         } catch (SQLException exception) {
             throw new ConnectionException("companies failed to be listed", exception);
@@ -52,6 +54,9 @@ public enum CompanyDaoImpl implements CompanyDao {
 
     @Override
     public void delete(Constraints constraints, Connection connection) throws ConnectionException {
+        if (constraints == null || (constraints.getIdCompany() == -1L || connection == null)) {
+            throw new IllegalArgumentException("A company is missing in the constraints or the connection is closed");
+        }
         try (PreparedStatement preparedStatement = connection.prepareStatement(DELETE_REQUEST)) {
             preparedStatement.setLong(1, constraints.getIdCompany());
             preparedStatement.executeUpdate();
@@ -66,7 +71,6 @@ public enum CompanyDaoImpl implements CompanyDao {
                 Statement statement = connection.createStatement()) {
             results = statement.executeQuery(NUMBER_REQUEST);
             results.next();
-            hikariConnectionPool.closeConnection(connection);
             return results.getInt("number");
         } catch (SQLException exception) {
             throw new ConnectionException("companies failed to be counted", exception);
@@ -75,12 +79,14 @@ public enum CompanyDaoImpl implements CompanyDao {
 
     @Override
     public Company getCompany(Long id) throws ConnectionException {
+        if (id < 1) {
+            throw new IllegalArgumentException("The id given for the company is wrong");
+        }
         try (Connection connection = hikariConnectionPool.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(COMPANY_REQUEST)) {
             preparedStatement.setLong(1, id);
             results = preparedStatement.executeQuery();
             results.next();
-            hikariConnectionPool.closeConnection(connection);
             return ResultMapper.convertToCompany(results);
         } catch (SQLException exception) {
             throw new ConnectionException("company failed to be get", exception);

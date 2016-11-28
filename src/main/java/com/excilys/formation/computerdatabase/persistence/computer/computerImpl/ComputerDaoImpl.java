@@ -45,6 +45,9 @@ public enum ComputerDaoImpl implements ComputerDao {
 
     @Override
     public Computer insert(Computer computer) throws ConnectionException {
+        if (computer == null) {
+            throw new IllegalArgumentException("A computer is missing to insert");
+        }
         try (Connection connection = hikariConnectionPool.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(INSERT_REQUEST,
                         PreparedStatement.RETURN_GENERATED_KEYS)) {
@@ -57,7 +60,7 @@ public enum ComputerDaoImpl implements ComputerDao {
             if (results != null && results.next()) {
                 computer.setId(results.getLong(1));
             }
-            hikariConnectionPool.closeConnection(connection);
+            results.close();
         } catch (SQLException exception) {
             throw new ConnectionException("computer failed to be inserted", exception);
         }
@@ -66,6 +69,9 @@ public enum ComputerDaoImpl implements ComputerDao {
 
     @Override
     public Computer update(Computer computer) throws ConnectionException {
+        if (computer == null) {
+            throw new IllegalArgumentException("A computer is missing to update");
+        }
         try (Connection connection = hikariConnectionPool.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_REQUEST)) {
             preparedStatement.setString(1, computer.getName());
@@ -74,7 +80,6 @@ public enum ComputerDaoImpl implements ComputerDao {
             preparedStatement.setLong(4, computer.getCompany().getId());
             preparedStatement.setLong(5, computer.getId());
             preparedStatement.executeUpdate();
-            hikariConnectionPool.closeConnection(connection);
         } catch (SQLException exception) {
             throw new ConnectionException("computer failed to be updated", exception);
         }
@@ -83,6 +88,9 @@ public enum ComputerDaoImpl implements ComputerDao {
 
     @Override
     public void delete(Constraints constraints, Connection connection) throws ConnectionException {
+        if (constraints == null | (constraints.getIdList() != null | connection == null)) {
+            throw new IllegalArgumentException("A connection is missing to delete or the constraints are null");
+        }
         String request;
         if (constraints.getIdList().size() == 1) {
             request = DELETE_REQUEST + "=?";
@@ -101,12 +109,14 @@ public enum ComputerDaoImpl implements ComputerDao {
 
     @Override
     public List<Computer> list(Constraints constraints) throws ConnectionException {
+        if (constraints == null | (constraints.getLimit() == -1 || constraints.getOffset() == -1)) {
+            throw new IllegalArgumentException("Constraints are missing to list");
+        }
         try (Connection connection = hikariConnectionPool.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(LIST_REQUEST)) {
             preparedStatement.setInt(1, constraints.getLimit());
             preparedStatement.setInt(2, constraints.getOffset());
             List<Computer> list = ResultMapper.convertToComputers(preparedStatement.executeQuery());
-            hikariConnectionPool.closeConnection(connection);
             return list;
         } catch (SQLException exception) {
             throw new ConnectionException("computers failed to be listed", exception);
@@ -115,6 +125,9 @@ public enum ComputerDaoImpl implements ComputerDao {
 
     @Override
     public List<Long> listByCompany(Constraints constraints, Connection connection) throws ConnectionException {
+        if (constraints == null | (constraints.getIdCompany() == -1 || connection == null)) {
+            throw new IllegalArgumentException("Constraints are missing to listByCompany");
+        } 
         try (PreparedStatement preparedStatement = connection.prepareStatement(LISTBYCOMPANY_REQUEST)) {
             preparedStatement.setLong(1, constraints.getIdCompany());
             List<Long> list = ResultMapper.convertToComputersId(preparedStatement.executeQuery());
@@ -126,11 +139,13 @@ public enum ComputerDaoImpl implements ComputerDao {
 
     @Override
     public Computer showComputerDetails(Long computerId) throws ConnectionException {
+        if (computerId < 1) {
+            throw new IllegalArgumentException("The computerId is wrong to showComputerDetails : must be more than 0");
+        }
         try (Connection connection = hikariConnectionPool.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(DETAILS_REQUEST)) {
             preparedStatement.setLong(1, computerId);
             Computer computer = ResultMapper.convertToComputer(preparedStatement.executeQuery());
-            hikariConnectionPool.closeConnection(connection);
             return computer;
         } catch (SQLException exception) {
             throw new ConnectionException("computer failed to be detailed", exception);
@@ -139,6 +154,9 @@ public enum ComputerDaoImpl implements ComputerDao {
 
     @Override
     public int count(Constraints constraints) throws ConnectionException {
+        if (constraints == null) {
+            throw new IllegalArgumentException("Constraints are missing to count");
+        }
         int numberComputers = -1;
         String request;
         if (constraints.getSearch() != null && !constraints.getSearch().equals("")) {
@@ -155,7 +173,6 @@ public enum ComputerDaoImpl implements ComputerDao {
             results = preparedStatement.executeQuery();
             results.next();
             numberComputers = results.getInt("number");
-            hikariConnectionPool.closeConnection(connection);
         } catch (SQLException exception) {
             throw new ConnectionException("computers failed to be counted", exception);
         }
@@ -164,6 +181,9 @@ public enum ComputerDaoImpl implements ComputerDao {
 
     @Override
     public List<Computer> search(Constraints constraints) throws ConnectionException {
+        if (constraints == null) {
+            throw new IllegalArgumentException("Constraints are missing to search");
+        }
         try (Connection connection = hikariConnectionPool.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(SEARCH_REQUEST + LIMIT_OFFSET)) {
             preparedStatement.setString(1, "%" + constraints.getSearch() + "%");
@@ -171,7 +191,6 @@ public enum ComputerDaoImpl implements ComputerDao {
             preparedStatement.setInt(3, constraints.getLimit());
             preparedStatement.setInt(4, constraints.getOffset());
             List<Computer> list = ResultMapper.convertToComputers(preparedStatement.executeQuery());
-            hikariConnectionPool.closeConnection(connection);
             return list;
         } catch (SQLException exception) {
             throw new ConnectionException("computers failed to be searched", exception);

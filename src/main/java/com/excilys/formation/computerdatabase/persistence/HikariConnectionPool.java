@@ -25,8 +25,7 @@ public enum HikariConnectionPool {
     private static final String PROP_FILE_NAME = 
             "hikariConnection.properties"; // file to manage connection properties
     private static final Logger logger = LoggerFactory.getLogger(HikariConnectionPool.class);
-    public static final ThreadLocal<Connection> threadConnection = new ThreadLocal<Connection>();
-
+    private static final ThreadLocal<Connection> threadConnection = new ThreadLocal<Connection>();
 
     public DataSource getDataSource() {
         if (datasource == null) {
@@ -47,52 +46,54 @@ public enum HikariConnectionPool {
         return datasource;
     }
 
-    public Connection getConnection() {
-        if (threadConnection.get() == null) {
-            Connection connection = null;
-            try {
-                connection = getDataSource().getConnection();
-            } catch (SQLException exception) {
-                logger.error("Problem with HikariConnection", exception);
-            }
-            threadConnection.set(connection);
-            return threadConnection.get();
-        } else {
-            return threadConnection.get();
-        }
-    } 
-    
-    public void beginTransaction() {
-        try {
-            threadConnection.get().setAutoCommit(false);
-        } catch (SQLException exception) {
-            logger.error("Error in beginTransaction", exception);
-        }
+    public ThreadLocal<Connection> geThreadLocal() {
+        return threadConnection;
     }
-    
+
+    public Connection getConnection() {
+        try {
+            return getDataSource().getConnection();
+        } catch (SQLException exception) {
+            logger.error("Error in getConnection", exception);
+        }
+        return null;
+    } 
+
+    public Connection beginTransaction() {
+        if (threadConnection.get() == null) {
+            Connection connection = getConnection();
+            threadConnection.set(connection);
+            try {
+                threadConnection.get().setAutoCommit(false);
+                return threadConnection.get();
+            } catch (SQLException exception) {
+                logger.error("Error in beginTransaction", exception);
+            }
+        }
+        return null;
+    }
+
     public void rollBackTransaction() {
         try {
             threadConnection.get().rollback();
             threadConnection.get().setAutoCommit(true);
+            threadConnection.get().close();
             threadConnection.remove();
         } catch (SQLException exception) {
             logger.error("Error in rollBackTransaction", exception);
         }
     }
-        
-    
+
+
     public void endTransaction() {
         try {
             threadConnection.get().commit();
             threadConnection.get().setAutoCommit(true);
+            threadConnection.get().close();
             threadConnection.remove();
         } catch (SQLException exception) {
             logger.error("Error in endTransaction", exception);
         }
-    }
-    
-    public void closeConnection(Connection connection) throws SQLException {
-        threadConnection.remove();
     }
 
 }

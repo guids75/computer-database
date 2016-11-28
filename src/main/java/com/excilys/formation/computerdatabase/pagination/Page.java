@@ -48,7 +48,11 @@ public class Page {
      *            : the total number of elements to display
      */
     public void calculateNbPages(int nbElements) {
-        nbPages = (int) Math.ceil(((float) nbElements) / nbElementsByPage);
+        if (nbElements > 0) {
+            nbPages = (int) Math.ceil(((float) nbElements) / nbElementsByPage);
+        } else {
+            throw new IllegalArgumentException("nbElements for pages is illegal : must be at least 1");
+        }
     }
 
     /**

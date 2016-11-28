@@ -37,15 +37,18 @@ public final class ComputerDtoMapper {
      * @return
      */
     public static Computer computerDtoToComputer(ComputerDto computerDto) {
-        ComputerBuilder computer = new Computer.ComputerBuilder(computerDto.getName()).id(computerDto.getId());
-        if (computerDto.getIntroduced() != null) {
-            computer.introduced(LocalDate.parse(computerDto.getIntroduced(), dateTimeFormatter));
+        if (computerDto != null) {
+            ComputerBuilder computer = new Computer.ComputerBuilder(computerDto.getName()).id(computerDto.getId());
+            if (computerDto.getIntroduced() != null) {
+                computer.introduced(LocalDate.parse(computerDto.getIntroduced(), dateTimeFormatter));
+            }
+            if (computerDto.getDiscontinued() != null) {
+                computer.discontinued(LocalDate.parse(computerDto.getDiscontinued(), dateTimeFormatter));
+            }
+            computer.company(new Company.CompanyBuilder(computerDto.getCompanyName()).id(computerDto.getCompanyId()).build());
+            return computer.build();
         }
-        if (computerDto.getDiscontinued() != null) {
-            computer.discontinued(LocalDate.parse(computerDto.getDiscontinued(), dateTimeFormatter));
-        }
-        computer.company(new Company.CompanyBuilder(computerDto.getCompanyName()).id(computerDto.getCompanyId()).build());
-        return computer.build();
+        return null;
     }
 
     /**
@@ -67,18 +70,21 @@ public final class ComputerDtoMapper {
      * @return
      */
     public static ComputerDto computerToComputerDto(Computer computer) {
-        ComputerDtoBuilder computerDto = new ComputerDto.ComputerDtoBuilder(computer.getName()).id(computer.getId());
-        if (computer.getIntroduced() != null) {
-            computerDto.introduced(computer.getIntroduced().toString());
+        if (computer != null) {
+            ComputerDtoBuilder computerDto = new ComputerDto.ComputerDtoBuilder(computer.getName()).id(computer.getId());
+            if (computer.getIntroduced() != null) {
+                computerDto.introduced(computer.getIntroduced().toString());
+            }
+            if (computer.getDiscontinued() != null) {
+                computerDto.discontinued(computer.getDiscontinued().toString());
+            }
+            if (computer.getCompany() != null) {
+                computerDto.companyId(computer.getCompany().getId());
+                computerDto.companyName(computer.getCompany().getName());
+            }
+            return computerDto.build();
         }
-        if (computer.getDiscontinued() != null) {
-            computerDto.discontinued(computer.getDiscontinued().toString());
-        }
-        if (computer.getCompany() != null) {
-            computerDto.companyId(computer.getCompany().getId());
-            computerDto.companyName(computer.getCompany().getName());
-        }
-        return computerDto.build();
+        return null;
     }
 
 }

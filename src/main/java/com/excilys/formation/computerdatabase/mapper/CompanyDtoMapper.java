@@ -30,7 +30,10 @@ public final class CompanyDtoMapper {
      * @return
      */
     public static Company companyDtoToCompany(CompanyDto companyDto) {
-        return new Company.CompanyBuilder(companyDto.getName()).id(companyDto.getId()).build();
+        if (companyDto != null) {
+            return new Company.CompanyBuilder(companyDto.getName()).id(companyDto.getId()).build();
+        }
+        return null;
     }
 
     /**
@@ -52,10 +55,13 @@ public final class CompanyDtoMapper {
      * @return
      */
     public static CompanyDto companyToCompanyDto(Company company) {
-        CompanyDto companyDto = new CompanyDto();
-        companyDto.setName(company.getName());
-        companyDto.setId(company.getId());
-        return companyDto;
+        if (company != null) {
+            CompanyDto companyDto = new CompanyDto();
+            companyDto.setName(company.getName());
+            companyDto.setId(company.getId());
+            return companyDto;
+        }
+        return null;
     }
 
 }

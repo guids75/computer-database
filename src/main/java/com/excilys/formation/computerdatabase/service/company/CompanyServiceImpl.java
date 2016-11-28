@@ -47,8 +47,7 @@ public enum CompanyServiceImpl implements CompanyService {
 
     @Override
     public void delete(Constraints constraints) {
-        try (Connection connection = hikariConnectionPool.getConnection()){
-            hikariConnectionPool.beginTransaction();
+        try (Connection connection = hikariConnectionPool.beginTransaction()){
             constraints.setIdList(computerDao.listByCompany(constraints, connection));
             computerDao.delete(constraints, connection);
             companyDao.delete(constraints, connection);

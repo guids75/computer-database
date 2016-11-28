@@ -6,13 +6,13 @@ import com.excilys.formation.computerdatabase.pagination.Page;
 
 public final class Constraints {
 
-    private int limit;
-    private int offset;
+    private int limit = -1;
+    private int offset = -1;
     private Page page; // TODO stay??
     private String search;
     private String orderBy;
     private List<Long> idList;
-    private Long idCompany;
+    private Long idCompany = -1L;
 
     private Constraints(ConstraintsBuilder builder) {
         this.limit = builder.limit;
