@@ -25,14 +25,22 @@ public enum ComputerServiceImpl implements ComputerService {
   private static HikariConnectionPool hikariConnectionPool = 
       HikariConnectionPool.INSTANCE; // get the connection
   private static final Logger slf4jLogger = LoggerFactory.getLogger(ComputerServiceImpl.class);
-
+  private static Connection connection;
+  
+  static {
+    try {
+      connection = hikariConnectionPool.getDataSource().getConnection();
+    } catch (SQLException exception) {
+      slf4jLogger.error("Error in ComputerServiceImpl", exception);
+    }
+  }
+  
   @Override
   public Computer insert(Computer computer) {
     try {
-      return computerDao.insert(computer);
+      return computerDao.insert(computer, connection);
     } catch (ConnectionException exception) {
-      slf4jLogger.error("Error in ComputerService in inserty");
-      slf4jLogger.error(exception.getMessage());
+      slf4jLogger.error("Error in ComputerService in insert", exception);
     }
     return null;
   }
@@ -40,31 +48,28 @@ public enum ComputerServiceImpl implements ComputerService {
   @Override
   public Computer update(Computer computer) {
     try {
-      return computerDao.update(computer);
+      return computerDao.update(computer, connection);
     } catch (ConnectionException exception) {
-      slf4jLogger.error("Error in ComputerService in update");
-      slf4jLogger.error(exception.getMessage());
+      slf4jLogger.error("Error in ComputerService in update", exception);
     }
     return null;
   }
 
   @Override
   public void delete(Constraints constraints) {
-    try (Connection connection = hikariConnectionPool.getDataSource().getConnection()) {
+    try  {
       computerDao.delete(constraints, connection);
-    } catch (SQLException | ConnectionException exception) {
-      slf4jLogger.error("Error in ComputerService in delete");
-      slf4jLogger.error(exception.getMessage());
+    } catch (ConnectionException exception) {
+      slf4jLogger.error("Error in ComputerService in delete", exception);
     }
   }
 
   @Override
   public List<Computer> list(Constraints constraints) {
-    try (Connection connection = hikariConnectionPool.getDataSource().getConnection()) {
+    try {
       return computerDao.list(constraints, connection);
-    } catch (SQLException | ConnectionException exception) {
-      slf4jLogger.error("Error in ComputerService in list");
-      slf4jLogger.error(exception.getMessage());
+    } catch (ConnectionException exception) {
+      slf4jLogger.error("Error in ComputerService in list", exception);
     }
     return null;
   }
@@ -72,20 +77,18 @@ public enum ComputerServiceImpl implements ComputerService {
   @Override
   public void showComputerDetails(long computerId) {
     try {
-      computerDao.showComputerDetails(computerId);
+      computerDao.showComputerDetails(computerId, connection);
     } catch (ConnectionException exception) {
-      slf4jLogger.error("Error in ComputerService in showComputerDetails");
-      slf4jLogger.error(exception.getMessage());
+      slf4jLogger.error("Error in ComputerService in showComputerDetails", exception);
     }
   }
 
   @Override
   public int count(Constraints constraints) {
     try {
-      return computerDao.count(constraints);
+      return computerDao.count(constraints, connection);
     } catch (ConnectionException exception) {
-      slf4jLogger.error("Error in ComputerService in count");
-      slf4jLogger.error(exception.getMessage());
+      slf4jLogger.error("Error in ComputerService in count", exception);
     }
     return -1;
   }
@@ -93,10 +96,9 @@ public enum ComputerServiceImpl implements ComputerService {
   @Override
   public List<Computer> search(Constraints constraints) {
     try {
-      return computerDao.search(constraints);
+      return computerDao.search(constraints, connection);
     } catch (ConnectionException exception) {
-      slf4jLogger.error("Error in ComputerService in search");
-      slf4jLogger.error(exception.getMessage());
+      slf4jLogger.error("Error in ComputerService in search", exception);
     }
     return null;
   }

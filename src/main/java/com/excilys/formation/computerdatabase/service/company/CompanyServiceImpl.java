@@ -37,22 +37,29 @@ public enum CompanyServiceImpl implements CompanyService {
   private static final ComputerDaoImpl computerDao = 
       ComputerDaoImpl.INSTANCE; // dao of Company to manage the companies
   private static final Logger slf4jLogger = LoggerFactory.getLogger(CompanyServiceImpl.class);
-  private Connection connection =  null;
+  private static Connection connection;
+  
+  static {
+    try {
+      connection = hikariConnectionPool.getDataSource().getConnection();
+    } catch (SQLException exception) {
+      slf4jLogger.error("Error in CompanyServiceImpl", exception);
+    }
+  }
 
   @Override
   public List<Company> list(Constraints constraints) {
-    try (Connection connection = hikariConnectionPool.getDataSource().getConnection()) {
+    try {
       return companyDao.list(constraints, connection);
-    } catch (SQLException | ConnectionException exception) {
-      slf4jLogger.error("Error in CompanyService in list");
-      slf4jLogger.error(exception.getMessage());
+    } catch (ConnectionException exception) {
+      slf4jLogger.error("Error in CompanyService in list", exception);
     }
     return null;
   }
 
   @Override
   public void delete(Constraints constraints) {
-    try (Connection connection = hikariConnectionPool.getDataSource().getConnection()) {
+    try {
       connection.setAutoCommit(false);
       constraints.setIdList(computerDao.listByCompany(constraints, connection));
       computerDao.delete(constraints, connection);
@@ -72,7 +79,7 @@ public enum CompanyServiceImpl implements CompanyService {
   @Override
   public int count() {
     try {
-      return companyDao.count();
+      return companyDao.count(connection);
     } catch (ConnectionException exception) {
       slf4jLogger.error("Error in CompanyList in count");
       slf4jLogger.error(exception.getMessage());
@@ -83,7 +90,7 @@ public enum CompanyServiceImpl implements CompanyService {
   @Override
   public Company getCompany(long id) {
     try {
-      return companyDao.getCompany(id);
+      return companyDao.getCompany(id, connection);
     } catch (ConnectionException exception) {
       slf4jLogger.error("Error in CompanyService in getCompany");
       slf4jLogger.error(exception.getMessage());

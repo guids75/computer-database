@@ -6,7 +6,6 @@ import com.excilys.formation.computerdatabase.model.Company;
 import com.excilys.formation.computerdatabase.model.Computer;
 import com.excilys.formation.computerdatabase.persistence.Constraints;
 import com.excilys.formation.computerdatabase.persistence.HikariConnectionPool;
-import com.excilys.formation.computerdatabase.persistence.JdbcConnection;
 import com.excilys.formation.computerdatabase.persistence.company.CompanyDao;
 
 import java.sql.Connection;
@@ -25,8 +24,6 @@ import javax.ejb.EJBException;
 public enum CompanyDaoImpl implements CompanyDao {
 
   INSTANCE;
-  private static HikariConnectionPool hikariConnectionPool = 
-      HikariConnectionPool.INSTANCE; // get the connection
 
   // requests
   private static final String LIST_REQUEST = "SELECT company.id as companyId, company.name as companyName FROM company LIMIT ? OFFSET ?";
@@ -60,9 +57,8 @@ public enum CompanyDaoImpl implements CompanyDao {
   }
 
   @Override
-  public int count() throws ConnectionException {
-    try (Connection connection = hikariConnectionPool.getDataSource().getConnection();
-        Statement statement = connection.createStatement()) {
+  public int count(Connection connection) throws ConnectionException {
+    try (Statement statement = connection.createStatement()) {
       results = statement.executeQuery(NUMBER_REQUEST);
       results.next();
       return results.getInt("number");
@@ -72,9 +68,8 @@ public enum CompanyDaoImpl implements CompanyDao {
   }
 
   @Override
-  public Company getCompany(long id) throws ConnectionException {
-    try (Connection connection = hikariConnectionPool.getDataSource().getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(COMPANY_REQUEST)) {
+  public Company getCompany(long id, Connection connection) throws ConnectionException {
+    try (PreparedStatement preparedStatement = connection.prepareStatement(COMPANY_REQUEST)) {
       preparedStatement.setLong(1, id);
       results = preparedStatement.executeQuery();
       results.next();

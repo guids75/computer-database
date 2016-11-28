@@ -20,7 +20,7 @@ public interface Dao<T> {
    *          : the object to create
    * @return : the T object created
    */
-  public default T insert(T object) throws ConnectionException {
+  public default T insert(T object, Connection connection) throws ConnectionException {
     System.out.println("Default implementation of create");
     return null;
   }
@@ -32,7 +32,7 @@ public interface Dao<T> {
    *          : the object to update
    * @return : the T object updated
    */
-  public default T update(T object) throws ConnectionException {
+  public default T update(T object, Connection connection) throws ConnectionException {
     System.out.println("Default implementation of update");
     return null;
   }

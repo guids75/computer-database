@@ -23,12 +23,12 @@ public interface ComputerDao extends Dao<Computer> {
    *          : the id of the computer
    * @return the computer specified
    */
-  public Computer showComputerDetails(long computerId) throws ConnectionException;
+  public Computer showComputerDetails(long computerId, Connection connection) throws ConnectionException;
 
   /**
    * @return the number of computers
    */
-  public int count(Constraints constraints) throws ConnectionException;
+  public int count(Constraints constraints, Connection connection) throws ConnectionException;
 
   /**
    * @param nbElements
@@ -36,7 +36,7 @@ public interface ComputerDao extends Dao<Computer> {
    * @return
    * @throws ConnectionException
    */
-  public List<Computer> search(Constraints constraints) throws ConnectionException;
+  public List<Computer> search(Constraints constraints, Connection connection) throws ConnectionException;
   
   public List<Long> listByCompany(Constraints constraints, Connection connection);
 }

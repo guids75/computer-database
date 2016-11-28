@@ -35,7 +35,6 @@ public class Dashboard extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    slf4jLogger.error("hereee");
 
     Page pages = RequestMapper.convertToPage(request);
     if (request.getParameter("search") != null) {
