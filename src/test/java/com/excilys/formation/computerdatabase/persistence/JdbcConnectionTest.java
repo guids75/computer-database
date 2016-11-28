@@ -10,30 +10,30 @@ import org.junit.Test;
 
 public class JdbcConnectionTest {
 
-  @BeforeClass
-  public static void setUpBeforeClass() throws Exception {
-  }
+    @BeforeClass
+    public static void setUpBeforeClass() throws Exception {
+    }
 
-  @AfterClass
-  public static void tearDownAfterClass() throws Exception {
-  }
+    @AfterClass
+    public static void tearDownAfterClass() throws Exception {
+    }
 
-  @Before
-  public void setUp() throws Exception {
-  }
+    @Before
+    public void setUp() throws Exception {
+    }
 
-  @After
-  public void tearDown() throws Exception {
-  }
+    @After
+    public void tearDown() throws Exception {
+    }
 
-  @Test
-  public void testOpenConnection() {
-    fail("Not yet implemented");
-  }
+    @Test
+    public void testOpenConnection() {
+        fail("Not yet implemented");
+    }
 
-  @Test
-  public void testCloseConnection() {
-    fail("Not yet implemented");
-  }
+    @Test
+    public void testCloseConnection() {
+        fail("Not yet implemented");
+    }
 
 }

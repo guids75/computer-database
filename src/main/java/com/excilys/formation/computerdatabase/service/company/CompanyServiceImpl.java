@@ -7,7 +7,9 @@ import com.excilys.formation.computerdatabase.dto.CompanyDto;
 import com.excilys.formation.computerdatabase.model.Company;
 import com.excilys.formation.computerdatabase.persistence.Constraints;
 import com.excilys.formation.computerdatabase.persistence.HikariConnectionPool;
+import com.excilys.formation.computerdatabase.persistence.company.CompanyDao;
 import com.excilys.formation.computerdatabase.persistence.company.companyImpl.CompanyDaoImpl;
+import com.excilys.formation.computerdatabase.persistence.computer.ComputerDao;
 import com.excilys.formation.computerdatabase.persistence.computer.computerImpl.ComputerDaoImpl;
 import com.excilys.formation.computerdatabase.ui.Cli;
 
@@ -29,66 +31,42 @@ import org.slf4j.LoggerFactory;
  */
 public enum CompanyServiceImpl implements CompanyService {
 
-  INSTANCE;
-  private static HikariConnectionPool hikariConnectionPool = 
-      HikariConnectionPool.INSTANCE; // get the connection
-  private static final CompanyDaoImpl companyDao = 
-      CompanyDaoImpl.INSTANCE; // dao of Company to manage the companies
-  private static final ComputerDaoImpl computerDao = 
-      ComputerDaoImpl.INSTANCE; // dao of Company to manage the companies
-  private static final Logger slf4jLogger = LoggerFactory.getLogger(CompanyServiceImpl.class);
-  private Connection connection =  null;
+    INSTANCE;
+    private static HikariConnectionPool hikariConnectionPool = 
+            HikariConnectionPool.INSTANCE; // get the connection
+    private static final CompanyDao companyDao = 
+            CompanyDaoImpl.INSTANCE; // dao of Company to manage the companies
+    private static final ComputerDao computerDao = 
+            ComputerDaoImpl.INSTANCE; // dao of Company to manage the companies
+    private Connection connection;
 
-  @Override
-  public List<Company> list(Constraints constraints) {
-    try (Connection connection = hikariConnectionPool.getDataSource().getConnection()) {
-      return companyDao.list(constraints, connection);
-    } catch (SQLException | ConnectionException exception) {
-      slf4jLogger.error("Error in CompanyService in list");
-      slf4jLogger.error(exception.getMessage());
+    @Override
+    public List<Company> list(Constraints constraints) {
+        return companyDao.list(constraints);
     }
-    return null;
-  }
 
-  @Override
-  public void delete(Constraints constraints) {
-    try (Connection connection = hikariConnectionPool.getDataSource().getConnection()) {
-      connection.setAutoCommit(false);
-      constraints.setIdList(computerDao.listByCompany(constraints, connection));
-      computerDao.delete(constraints, connection);
-      companyDao.delete(constraints, connection);
-      connection.commit();
-    } catch (SQLException exception) {
-      try {
-        connection.rollback();
-        connection.setAutoCommit(true);
-      } catch (SQLException sqx) {
-        throw new EJBException("Rollback failed: " + sqx.getMessage());
-      }
-      throw new ConnectionException("companies failed to be counted", exception);
+    @Override
+    public void delete(Constraints constraints) {
+        try (Connection connection = hikariConnectionPool.getConnection()){
+            hikariConnectionPool.beginTransaction();
+            constraints.setIdList(computerDao.listByCompany(constraints, connection));
+            computerDao.delete(constraints, connection);
+            companyDao.delete(constraints, connection);
+            hikariConnectionPool.endTransaction();
+        } catch (SQLException exception) {
+            hikariConnectionPool.rollBackTransaction();
+            throw new ConnectionException("companies failed to be counted", exception);
+        }
     }
-  }
 
-  @Override
-  public int count() {
-    try {
-      return companyDao.count();
-    } catch (ConnectionException exception) {
-      slf4jLogger.error("Error in CompanyList in count");
-      slf4jLogger.error(exception.getMessage());
+    @Override
+    public int count() {
+        return companyDao.count();
     }
-    return -1;
-  }
 
-  @Override
-  public Company getCompany(long id) {
-    try {
-      return companyDao.getCompany(id);
-    } catch (ConnectionException exception) {
-      slf4jLogger.error("Error in CompanyService in getCompany");
-      slf4jLogger.error(exception.getMessage());
+    @Override
+    public Company getCompany(Long id) {
+        return companyDao.getCompany(id);
     }
-    return null;
-  }
 
 }

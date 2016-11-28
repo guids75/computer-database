@@ -10,214 +10,221 @@ import java.time.LocalDate;
  */
 public final class Computer {
 
-  private long id; // id of the computer, required
-  private String name; // name of the computer, required
-  private LocalDate introduced; // date when the computer was introduced,
-                                // optional
-  private LocalDate discontinued; // date when the computer was discontinued,
+    private Long id; // id of the computer, required
+    private String name; // name of the computer, required
+    private LocalDate introduced; // date when the computer was introduced,
                                   // optional
-  private Company company; // company which produces the computer, optional
+    private LocalDate discontinued; // date when the computer was discontinued,
+                                    // optional
+    private Company company; // company which produces the computer, optional
 
-  /**
-   * Private constructor to use a builder.
-   * 
-   * @param builder
-   *          : the builder of Computer.
-   */
-  private Computer(ComputerBuilder builder) {
-    this.id = builder.id;
-    this.name = builder.name;
-    this.introduced = builder.introduced;
-    this.discontinued = builder.discontinued;
-    this.company = builder.company;
-  }
-
-  /**
-   * @return the current id of the computer
-   */
-  public long getId() {
-    return id;
-  }
-
-  public void setId(long id) {
-    this.id = id;
-  }
-
-  /**
-   * @return the current name of the computer
-   */
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  /**
-   * @return the current date when the computer was introduced
-   */
-  public LocalDate getIntroduced() {
-    return introduced;
-  }
-
-  public void setIntroduced(LocalDate introduced) {
-    this.introduced = introduced;
-  }
-
-  /**
-   * @return the current date when the computer was discontinued
-   */
-  public LocalDate getDiscontinued() {
-    return discontinued;
-  }
-
-  public void setDiscontinued(LocalDate discontinued) {
-    this.discontinued = discontinued;
-  }
-
-  /**
-   * @return the current company which produces the computer
-   */
-  public Company getCompany() {
-    return company;
-  }
-
-  public void setCompany(Company company) {
-    this.company = company;
-  }
-
-  @Override
-  public String toString() {
-    return new StringBuilder("Computer [id=").append(id).append(", name=").append(name).append(", introduced=")
-        .append(introduced).append(", discontinued=").append(discontinued).append(", company=").append(company)
-        .append("]").toString();
-  }
-
-  @Override
-  public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((company == null) ? 0 : company.hashCode());
-    result = prime * result + ((discontinued == null) ? 0 : discontinued.hashCode());
-    result = prime * result + (int) (id ^ (id >>> 32));
-    result = prime * result + ((introduced == null) ? 0 : introduced.hashCode());
-    result = prime * result + ((name == null) ? 0 : name.hashCode());
-    return result;
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
-    Computer other = (Computer) obj;
-    if (company == null) {
-      if (other.company != null)
-        return false;
-    } else if (!company.equals(other.company))
-      return false;
-    if (discontinued == null) {
-      if (other.discontinued != null)
-        return false;
-    } else if (!discontinued.equals(other.discontinued))
-      return false;
-    if (id != other.id)
-      return false;
-    if (introduced == null) {
-      if (other.introduced != null)
-        return false;
-    } else if (!introduced.equals(other.introduced))
-      return false;
-    if (name == null) {
-      if (other.name != null)
-        return false;
-    } else if (!name.equals(other.name))
-      return false;
-    return true;
-  }
-
-  /**
-   * The class of the Computer builder.
-   * 
-   * @author GUIDS
-   */
-  public static class ComputerBuilder {
-    private long id;
-    private String name;
-    private LocalDate introduced;
-    private LocalDate discontinued;
-    private Company company;
-
+    public Computer() {
+    }
+    
     /**
-     * The builder of Computer.
+     * Private constructor to use a builder.
      * 
-     * @param name
-     *          : the name of the computer
+     * @param builder
+     *            : the builder of Computer.
      */
-    public ComputerBuilder(String name) {
-      this.name = name;
+    private Computer(ComputerBuilder builder) {
+        this.id = builder.id;
+        this.name = builder.name;
+        this.introduced = builder.introduced;
+        this.discontinued = builder.discontinued;
+        this.company = builder.company;
     }
 
     /**
-     * Setter for the id attribute.
-     * 
-     * @param id
-     *          : the id to set
-     * @return the ComputerBuilder with his id updated
+     * @return the current id of the computer
      */
-    public ComputerBuilder id(long id) {
-      this.id = id;
-      return this;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     /**
-     * Setter for the introduced attribute.
-     * 
-     * @param introduced
-     *          : the date to set
-     * @return the ComputerBuilder with his introduced date updated
+     * @return the current name of the computer
      */
-    public ComputerBuilder introduced(LocalDate introduced) {
-      this.introduced = introduced;
-      return this;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
-     * Setter for the discontinued attribute.
-     * 
-     * @param discontinued
-     *          : the date to set
-     * @return the ComputerBuilder with his discontinued date updated
+     * @return the current date when the computer was introduced
      */
-    public ComputerBuilder discontinued(LocalDate discontinued) {
-      this.discontinued = discontinued;
-      return this;
+    public LocalDate getIntroduced() {
+        return introduced;
+    }
+
+    public void setIntroduced(LocalDate introduced) {
+        this.introduced = introduced;
     }
 
     /**
-     * Setter for the company attribute.
-     * 
-     * @param company
-     *          : the company to set
-     * @return the ComputerBuilder with his company updated
+     * @return the current date when the computer was discontinued
      */
-    public ComputerBuilder company(Company company) {
-      this.company = company;
-      return this;
+    public LocalDate getDiscontinued() {
+        return discontinued;
+    }
+
+    public void setDiscontinued(LocalDate discontinued) {
+        this.discontinued = discontinued;
     }
 
     /**
-     * Create the Computer according to the ComputerBuilder values.
-     * 
-     * @return the Computer based on its builder
+     * @return the current company which produces the computer
      */
-    public Computer build() {
-      return new Computer(this);
+    public Company getCompany() {
+        return company;
     }
 
-  }
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    @Override
+    public String toString() {
+        return new StringBuilder("Computer [id=").append(id).append(", name=").append(name).append(", introduced=")
+                .append(introduced).append(", discontinued=").append(discontinued).append(", company=").append(company)
+                .append("]").toString();
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((company == null) ? 0 : company.hashCode());
+        result = prime * result + ((discontinued == null) ? 0 : discontinued.hashCode());
+        result = prime * result + (int) (id ^ (id >>> 32));
+        result = prime * result + ((introduced == null) ? 0 : introduced.hashCode());
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Computer other = (Computer) obj;
+        if (company == null) {
+            if (other.company != null)
+                return false;
+        } else if (!company.equals(other.company))
+            return false;
+        if (discontinued == null) {
+            if (other.discontinued != null)
+                return false;
+        } else if (!discontinued.equals(other.discontinued))
+            return false;
+        if (id != other.id)
+            return false;
+        if (introduced == null) {
+            if (other.introduced != null)
+                return false;
+        } else if (!introduced.equals(other.introduced))
+            return false;
+        if (name == null) {
+            if (other.name != null)
+                return false;
+        } else if (!name.equals(other.name))
+            return false;
+        return true;
+    }
+
+    /**
+     * The class of the Computer builder.
+     * 
+     * @author GUIDS
+     */
+    public static class ComputerBuilder {
+        private Long id;
+        private String name;
+        private LocalDate introduced;
+        private LocalDate discontinued;
+        private Company company;
+
+        /**
+         * The builder of Computer.
+         * 
+         * @param name
+         *            : the name of the computer
+         */
+        public ComputerBuilder(String name) {
+            if (name.trim().length() > 1) {
+                this.name = name;
+            } else {
+                throw new IllegalArgumentException("The name of the computer must contain at least 2 characters");
+            }
+        }
+
+        /**
+         * Setter for the id attribute.
+         * 
+         * @param id
+         *            : the id to set
+         * @return the ComputerBuilder with his id updated
+         */
+        public ComputerBuilder id(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        /**
+         * Setter for the introduced attribute.
+         * 
+         * @param introduced
+         *            : the date to set
+         * @return the ComputerBuilder with his introduced date updated
+         */
+        public ComputerBuilder introduced(LocalDate introduced) {
+            this.introduced = introduced;
+            return this;
+        }
+
+        /**
+         * Setter for the discontinued attribute.
+         * 
+         * @param discontinued
+         *            : the date to set
+         * @return the ComputerBuilder with his discontinued date updated
+         */
+        public ComputerBuilder discontinued(LocalDate discontinued) {
+            this.discontinued = discontinued;
+            return this;
+        }
+
+        /**
+         * Setter for the company attribute.
+         * 
+         * @param company
+         *            : the company to set
+         * @return the ComputerBuilder with his company updated
+         */
+        public ComputerBuilder company(Company company) {
+            this.company = company;
+            return this;
+        }
+
+        /**
+         * Create the Computer according to the ComputerBuilder values.
+         * 
+         * @return the Computer based on its builder
+         */
+        public Computer build() {
+            return new Computer(this);
+        }
+
+    }
 }

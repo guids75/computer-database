@@ -6,41 +6,41 @@ package com.excilys.formation.computerdatabase.dto;
  */
 public class CompanyDto {
 
-  private long id; // id of the company
-  private String name; // name of the company
+    private Long id; // id of the company
+    private String name; // name of the company
 
-  /**
-   * @return the current id of the company
-   */
-  public long getId() {
-    return id;
-  }
+    /**
+     * @return the current id of the company
+     */
+    public Long getId() {
+        return id;
+    }
 
-  /**
-   * @param id
-   *          : the id to set
-   */
-  public void setId(long id) {
-    this.id = id;
-  }
+    /**
+     * @param id
+     *            : the id to set
+     */
+    public void setId(final Long id) {
+        this.id = id;
+    }
 
-  /**
-   * @return the current name of the company
-   */
-  public String getName() {
-    return name;
-  }
+    /**
+     * @return the current name of the company
+     */
+    public String getName() {
+        return name;
+    }
 
-  /**
-   * @param name
-   *          : the name to set
-   */
-  public void setName(String name) {
-    this.name = name;
-  }
+    /**
+     * @param name
+     *            : the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
 
-  @Override
-  public String toString() {
-    return new StringBuilder("Company [id=").append(id).append(", name=").append(name).append("]").toString();
-  }
+    @Override
+    public String toString() {
+        return new StringBuilder("Company [id=").append(id).append(", name=").append(name).append("]").toString();
+    }
 }

@@ -14,11 +14,13 @@ $(function() {
 			},
 			introduced: {
 				required: false,
-				validDate: true
+				validDate: true,
+				minDate : new Date(1970,1)
 			},
 			discontinued: {
 				required: false,
-				validDate: true
+				validDate: true,
+				minDate : new Date(1970,1)
 			},
 			company: "required",
 

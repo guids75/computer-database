@@ -12,31 +12,31 @@ import com.excilys.formation.computerdatabase.persistence.Dao;
  * @author GUIDS
  *
  * @param Computer
- *          : type managed by the interface
+ *            : type managed by the interface
  */
 public interface ComputerDao extends Dao<Computer> {
 
-  /**
-   * Show all the attributes of a specific computer.
-   * 
-   * @param computerId
-   *          : the id of the computer
-   * @return the computer specified
-   */
-  public Computer showComputerDetails(long computerId) throws ConnectionException;
+    /**
+     * Show all the attributes of a specific computer.
+     * 
+     * @param computerId
+     *            : the id of the computer
+     * @return the computer specified
+     */
+    public Computer showComputerDetails(Long computerId) throws ConnectionException;
 
-  /**
-   * @return the number of computers
-   */
-  public int count(Constraints constraints) throws ConnectionException;
+    /**
+     * @return the number of computers
+     */
+    public int count(Constraints constraints) throws ConnectionException;
 
-  /**
-   * @param nbElements
-   * @param offset
-   * @return
-   * @throws ConnectionException
-   */
-  public List<Computer> search(Constraints constraints) throws ConnectionException;
-  
-  public List<Long> listByCompany(Constraints constraints, Connection connection);
+    /**
+     * @param nbElements
+     * @param offset
+     * @return
+     * @throws ConnectionException
+     */
+    public List<Computer> search(Constraints constraints) throws ConnectionException;
+
+    public List<Long> listByCompany(Constraints constraints, Connection connection);
 }

@@ -22,118 +22,112 @@ import org.slf4j.LoggerFactory;
  */
 public final class ResultMapper {
 
-  private static SimpleDateFormat simpleDateFormat = 
-      new SimpleDateFormat("yyyy-MM-dd"); // to convert localdate to date
-  private static final Logger slf4jLogger = LoggerFactory.getLogger(ResultMapper.class);
+    private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd"); // to convert localdate to date
+    private static final Logger slf4jLogger = LoggerFactory.getLogger(ResultMapper.class);
 
-  private ResultMapper() {
-  }
+    private ResultMapper() {
+    }
 
-  /**
-   * Convert a resultSet to the list of computers inside.
-   * 
-   * @param results
-   *          : the result of a query
-   * @return the list of computers corresponding
-   */
-  public static List<Computer> convertToComputers(ResultSet results) {
-    List<Computer> computers = new ArrayList<>();
-    try {
-      while (results.next()) {
-        computers.add(convertToComputer(results));
-      }
-    } catch (SQLException exception) {
-      slf4jLogger.error("Error in ResultToObject in convertToComputers");
-      slf4jLogger.error(exception.getMessage());
+    /**
+     * Convert a resultSet to the list of computers inside.
+     * 
+     * @param results
+     *            : the result of a query
+     * @return the list of computers corresponding
+     */
+    public static List<Computer> convertToComputers(ResultSet results) {
+        List<Computer> computers = new ArrayList<>();
+        try {
+            while (results.next()) {
+                computers.add(convertToComputer(results));
+            }
+        } catch (SQLException exception) {
+            slf4jLogger.error("Error in ResultToObject in convertToComputers", exception);
+        }
+        return computers;
     }
-    return computers;
-  }
 
-  /**
-   * Convert the first element of a resultSet to the computer inside.
-   * 
-   * @param results
-   *          : the result of a query
-   * @return the computer corresponding
-   */
-  public static Computer convertToComputer(ResultSet results) {
-    try {
-      ComputerBuilder computer = new Computer.ComputerBuilder(results.getString("comput.Name"))
-          .id(results.getLong("comput.Id"));
-      if (results.getDate("comput.Introduced") != null) {
-        computer.introduced(LocalDate.parse(simpleDateFormat.format(results.getDate("comput.Introduced"))));
-      }
-      if (results.getDate("comput.Discontinued") != null) {
-        computer.discontinued(LocalDate.parse(simpleDateFormat.format(results.getDate("comput.Discontinued"))));
-      }
-      computer.company(
-          new Company.CompanyBuilder(results.getString("compan.Name")).id(results.getLong("compan.Id")).build());
-      return computer.build();
-    } catch (SQLException exception) {
-      exception.printStackTrace();
-      slf4jLogger.error("Error in ResultToObject in convertToComputer");
-      slf4jLogger.error(exception.getMessage());
+    /**
+     * Convert the first element of a resultSet to the computer inside.
+     * 
+     * @param results
+     *            : the result of a query
+     * @return the computer corresponding
+     */
+    public static Computer convertToComputer(ResultSet results) {
+        try {
+            ComputerBuilder computer = new Computer.ComputerBuilder(results.getString("computerName"))
+                    .id(results.getLong("computerId"));
+            if (results.getDate("computer.introduced") != null) {
+                computer.introduced(LocalDate.parse(simpleDateFormat.format(results.getDate("computer.introduced"))));
+            }
+            if (results.getDate("computer.discontinued") != null) {
+                computer.discontinued(
+                        LocalDate.parse(simpleDateFormat.format(results.getDate("computer.discontinued"))));
+            }
+            computer.company(new Company.CompanyBuilder(results.getString("companyName"))
+                    .id(results.getLong("companyId")).build());
+            return computer.build();
+        } catch (SQLException exception) {
+            slf4jLogger.error("Error in ResultToObject in convertToComputer", exception);
+        }
+        return null;
     }
-    return null;
-  }
-  
-  /**
-   * Convert a resultSet to the list of computers inside.
-   * 
-   * @param results
-   *          : the result of a query
-   * @return the list of computers corresponding
-   */
-  public static List<Long> convertToComputersId(ResultSet results) {
-    List<Long> computersId = new ArrayList<>();
-    try {
-      while (results.next()) {
-        computersId.add(results.getLong("comput.Id"));
-      }
-    } catch (SQLException exception) {
-      slf4jLogger.error("Error in ResultToObject in convertToComputers");
-      slf4jLogger.error(exception.getMessage());
-    }
-    return computersId;
-  }
 
-  /**
-   * Convert a resultSet to the list of companies inside.
-   * 
-   * @param results
-   *          : the result of a query
-   * @return the list of computers corresponding
-   */
-  public static List<Company> convertToCompanies(ResultSet results) {
-    List<Company> companies = new ArrayList<>();
-    try {
-      while (results.next()) {
-        companies.add(convertToCompany(results));
-      }
-    } catch (SQLException exception) {
-      slf4jLogger.error("Error in ResultToObject in convertToCompanies");
-      slf4jLogger.error(exception.getMessage());
+    /**
+     * Convert a resultSet to the list of computers inside.
+     * 
+     * @param results
+     *            : the result of a query
+     * @return the list of computers corresponding
+     */
+    public static List<Long> convertToComputersId(ResultSet results) {
+        List<Long> computersId = new ArrayList<>();
+        try {
+            while (results.next()) {
+                computersId.add(results.getLong("computerId"));
+            }
+        } catch (SQLException exception) {
+            slf4jLogger.error("Error in ResultToObject in convertToComputers", exception);
+        }
+        return computersId;
     }
-    return companies;
-  }
 
-  /**
-   * Convert the first element of a resultSet to the company inside.
-   * 
-   * @param results
-   *          : the result of a query
-   * @return the company corresponding
-   */
-  public static Company convertToCompany(ResultSet results) {
-    try {
-      CompanyBuilder company = new Company.CompanyBuilder(results.getString("Name"));
-      company.id(results.getLong("Id"));
-      return company.build();
-    } catch (SQLException exception) {
-      slf4jLogger.error("Error in ResultToObject in convertToCompany");
-      slf4jLogger.error(exception.getMessage());
+    /**
+     * Convert a resultSet to the list of companies inside.
+     * 
+     * @param results
+     *            : the result of a query
+     * @return the list of computers corresponding
+     */
+    public static List<Company> convertToCompanies(ResultSet results) {
+        List<Company> companies = new ArrayList<>();
+        try {
+            while (results.next()) {
+                companies.add(convertToCompany(results));
+            }
+        } catch (SQLException exception) {
+            slf4jLogger.error("Error in ResultToObject in convertToCompanies", exception);
+        }
+        return companies;
     }
-    return null;
-  }
+
+    /**
+     * Convert the first element of a resultSet to the company inside.
+     * 
+     * @param results
+     *            : the result of a query
+     * @return the company corresponding
+     */
+    public static Company convertToCompany(ResultSet results) {
+        try {
+            CompanyBuilder company = new Company.CompanyBuilder(results.getString("companyName"));
+            company.id(results.getLong("companyId"));
+            return company.build();
+        } catch (SQLException exception) {
+            slf4jLogger.error("Error in ResultToObject in convertToCompany", exception);
+        }
+        return null;
+    }
 
 }

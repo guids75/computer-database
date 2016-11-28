@@ -2,7 +2,9 @@ package com.excilys.formation.computerdatabase.ui;
 
 import java.util.Scanner;
 
+import com.excilys.formation.computerdatabase.ui.company.CompanyUi;
 import com.excilys.formation.computerdatabase.ui.company.CompanyUiImpl;
+import com.excilys.formation.computerdatabase.ui.computer.ComputerUi;
 import com.excilys.formation.computerdatabase.ui.computer.ComputerUiImpl;
 
 /**
@@ -11,47 +13,48 @@ import com.excilys.formation.computerdatabase.ui.computer.ComputerUiImpl;
  */
 public class Cli {
 
-  public static void main(String[] args) {
+    public static Scanner in = new Scanner(System.in);
 
-    ComputerUiImpl computerUi = new ComputerUiImpl();
-    CompanyUiImpl companyUi = new CompanyUiImpl();
+    public static void main(String[] args) {
 
-    while (true) {
+        ComputerUi computerUi = new ComputerUiImpl();
+        CompanyUi companyUi = new CompanyUiImpl();
 
-      // main menu
-      System.out.println("Options available :\n" + "- list computers\n" + "- list companies\n" + "- computer details\n"
-          + "- insert computer\n" + "- update computer\n" + "- delete computer\n");
+        while (true) {
 
-      Scanner in = new Scanner(System.in);
-      String action = in.nextLine();
+            // main menu
+            System.out.println("Options available :\n" + "- list computers\n" + "- list companies\n"
+                    + "- computer details\n" + "- insert computer\n" + "- update computer\n" + "- delete computer\n");
 
-      switch (action) {
-      case "list computers":
-        computerUi.list();
-        break;
-      case "list companies":
-        companyUi.list();
-        break;
-      case "delete company":
-        companyUi.delete();
-        break;
-      case "computer details":
-        computerUi.showComputerDetails();
-        break;
-      case "insert computer":
-        computerUi.insert();
-        break;
-      case "update computer":
-        computerUi.update();
-        break;
-      case "delete computer":
-        computerUi.delete();
-        break;
-      default:
-        break;
-      }
+            String action = in.nextLine();
+
+            switch (action) {
+            case "list computers":
+                computerUi.list();
+                break;
+            case "list companies":
+                companyUi.list();
+                break;
+            case "delete company":
+                companyUi.delete();
+                break;
+            case "computer details":
+                computerUi.showComputerDetails();
+                break;
+            case "insert computer":
+                computerUi.insert();
+                break;
+            case "update computer":
+                computerUi.update();
+                break;
+            case "delete computer":
+                computerUi.delete();
+                break;
+            default:
+                break;
+            }
+        }
+
     }
-
-  }
 
 }
