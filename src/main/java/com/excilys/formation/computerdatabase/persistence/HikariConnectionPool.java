@@ -6,6 +6,10 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.excilys.formation.computerdatabase.mapper.ResultMapper;
 import com.excilys.formation.computerdatabase.util.PropertiesReader;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -16,6 +20,7 @@ public enum HikariConnectionPool {
   private static DataSource datasource;
   private static final String PROP_FILE_NAME = 
       "hikariConnection.properties"; // file to manage connection properties
+  private static final Logger slf4jLogger = LoggerFactory.getLogger(HikariConnectionPool.class);
 
   public DataSource getDataSource() {
     if (datasource == null) {
@@ -30,7 +35,7 @@ public enum HikariConnectionPool {
         datasource = new HikariDataSource(config);
         return datasource;
       } catch (IOException | ClassNotFoundException exception) {
-        exception.printStackTrace();
+        slf4jLogger.error("Problem with HikariConnection", exception);
       }
     }
     return datasource;

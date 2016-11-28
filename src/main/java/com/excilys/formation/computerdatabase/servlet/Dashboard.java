@@ -13,6 +13,7 @@ import com.excilys.formation.computerdatabase.dto.ComputerDto;
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import com.excilys.formation.computerdatabase.mapper.ComputerDtoMapper;
 import com.excilys.formation.computerdatabase.mapper.RequestMapper;
+import com.excilys.formation.computerdatabase.mapper.ResultMapper;
 import com.excilys.formation.computerdatabase.model.Computer;
 import com.excilys.formation.computerdatabase.pagination.Page;
 import com.excilys.formation.computerdatabase.persistence.Constraints;
@@ -24,6 +25,7 @@ import com.excilys.formation.computerdatabase.service.computer.ComputerServiceIm
  */
 public class Dashboard extends HttpServlet {
 
+  private static final Logger slf4jLogger = LoggerFactory.getLogger(Dashboard.class);
   private static final long serialVersionUID = 3765045871388643647L;
   private static final ComputerServiceImpl computerService = 
       ComputerServiceImpl.INSTANCE; // service of Computer to manage them
@@ -33,6 +35,8 @@ public class Dashboard extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    slf4jLogger.error("hereee");
+
     Page pages = RequestMapper.convertToPage(request);
     if (request.getParameter("search") != null) {
       request.setAttribute("listComputers", ComputerDtoMapper.computerListToComputerDtoList(computerService.search(new Constraints.ConstraintsBuilder()

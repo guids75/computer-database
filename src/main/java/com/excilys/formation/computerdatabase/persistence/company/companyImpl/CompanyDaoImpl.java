@@ -45,7 +45,6 @@ public enum CompanyDaoImpl implements CompanyDao {
       List<Company> list = ResultMapper.convertToCompanies(preparedStatement.executeQuery());
       return list;
     } catch (SQLException exception) {
-      exception.printStackTrace();
       throw new ConnectionException("companies failed to be listed", exception);
     }
   }
@@ -56,7 +55,6 @@ public enum CompanyDaoImpl implements CompanyDao {
       preparedStatement.setLong(1, constraints.getIdCompany());
       preparedStatement.executeUpdate();
     } catch (SQLException exception) {
-      exception.printStackTrace();
       throw new ConnectionException("company failed to be deleted", exception);
     }
   }
@@ -69,7 +67,6 @@ public enum CompanyDaoImpl implements CompanyDao {
       results.next();
       return results.getInt("number");
     } catch (SQLException exception) {
-      exception.printStackTrace();
       throw new ConnectionException("companies failed to be counted", exception);
     }
   }
@@ -83,7 +80,6 @@ public enum CompanyDaoImpl implements CompanyDao {
       results.next();
       return ResultMapper.convertToCompany(results);
     } catch (SQLException exception) {
-      exception.printStackTrace();
       throw new ConnectionException("company failed to be get", exception);
     }
   }

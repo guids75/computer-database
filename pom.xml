@@ -10,13 +10,13 @@
 
 	<properties>
 		<mysql.version>5.1.39</mysql.version>
-	
+
 		<jquery-validation.version>1.15.1</jquery-validation.version>
-	
+
 		<hikari.version>2.5.1</hikari.version>
-	
+
 		<glassfish.version>3.1-b23</glassfish.version>
-	
+
 		<junit.version>4.12</junit.version>
 		<mockito.version>1.10.19</mockito.version>
 		<selenium.version>3.0.1</selenium.version>
@@ -111,6 +111,11 @@
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
+			<version>${logback.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
 			<version>${logback.version}</version>
 		</dependency>
 

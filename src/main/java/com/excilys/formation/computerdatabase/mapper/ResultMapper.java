@@ -43,8 +43,7 @@ public final class ResultMapper {
         computers.add(convertToComputer(results));
       }
     } catch (SQLException exception) {
-      slf4jLogger.error("Error in ResultToObject in convertToComputers");
-      slf4jLogger.error(exception.getMessage());
+      slf4jLogger.error("Error in ResultToObject in convertToComputers", exception);
     }
     return computers;
   }
@@ -70,9 +69,7 @@ public final class ResultMapper {
           new Company.CompanyBuilder(results.getString("companyName")).id(results.getLong("companyId")).build());
       return computer.build();
     } catch (SQLException exception) {
-      exception.printStackTrace();
-      slf4jLogger.error("Error in ResultToObject in convertToComputer");
-      slf4jLogger.error(exception.getMessage());
+      slf4jLogger.error("Error in ResultToObject in convertToComputer", exception);
     }
     return null;
   }
@@ -91,8 +88,7 @@ public final class ResultMapper {
         computersId.add(results.getLong("computerId"));
       }
     } catch (SQLException exception) {
-      slf4jLogger.error("Error in ResultToObject in convertToComputers");
-      slf4jLogger.error(exception.getMessage());
+      slf4jLogger.error("Error in ResultToObject in convertToComputers", exception);
     }
     return computersId;
   }
@@ -111,8 +107,7 @@ public final class ResultMapper {
         companies.add(convertToCompany(results));
       }
     } catch (SQLException exception) {
-      slf4jLogger.error("Error in ResultToObject in convertToCompanies");
-      slf4jLogger.error(exception.getMessage());
+      slf4jLogger.error("Error in ResultToObject in convertToCompanies", exception);
     }
     return companies;
   }
@@ -130,8 +125,7 @@ public final class ResultMapper {
       company.id(results.getLong("companyId"));
       return company.build();
     } catch (SQLException exception) {
-      slf4jLogger.error("Error in ResultToObject in convertToCompany");
-      slf4jLogger.error(exception.getMessage());
+      slf4jLogger.error("Error in ResultToObject in convertToCompany", exception);
     }
     return null;
   }

@@ -56,7 +56,6 @@ public enum ComputerDaoImpl implements ComputerDao {
         preparedStatement.setLong(5, computer.getCompany().getId());
         preparedStatement.executeUpdate();
       } catch (SQLException exception) {
-        exception.printStackTrace();
         throw new ConnectionException("computer failed to be inserted", exception);
       }
       return computer;
@@ -73,7 +72,6 @@ public enum ComputerDaoImpl implements ComputerDao {
       preparedStatement.setLong(5, computer.getId());
       preparedStatement.executeUpdate();
     } catch (SQLException exception) {
-      exception.printStackTrace();
       throw new ConnectionException("computer failed to be updated", exception);
     }
     return computer;
@@ -93,7 +91,6 @@ public enum ComputerDaoImpl implements ComputerDao {
         }
         preparedStatement.executeUpdate();
       } catch (SQLException exception) {
-        exception.printStackTrace();
         throw new ConnectionException("computer failed to be deleted", exception);
       }
     }
@@ -106,7 +103,6 @@ public enum ComputerDaoImpl implements ComputerDao {
         List<Computer> list = ResultMapper.convertToComputers(preparedStatement.executeQuery());
         return list;
       } catch (SQLException exception) {
-        exception.printStackTrace();
         throw new ConnectionException("computers failed to be listed", exception);
       }
     }
@@ -118,7 +114,6 @@ public enum ComputerDaoImpl implements ComputerDao {
         List<Long> list = ResultMapper.convertToComputersId(preparedStatement.executeQuery());
         return list;
       } catch (SQLException exception) {
-        exception.printStackTrace();
         throw new ConnectionException("computers failed to be listed", exception);
       }
     }
@@ -131,7 +126,6 @@ public enum ComputerDaoImpl implements ComputerDao {
         Computer computer = ResultMapper.convertToComputer(preparedStatement.executeQuery());
         return computer;
       } catch (SQLException exception) {
-        exception.printStackTrace();
         throw new ConnectionException("computer failed to be detailed", exception);
       }
     }
@@ -155,7 +149,6 @@ public enum ComputerDaoImpl implements ComputerDao {
         results.next();
         numberComputers = results.getInt("number");
       } catch (SQLException exception) {
-        exception.printStackTrace();
         throw new ConnectionException("computers failed to be counted", exception);
       }
       return numberComputers;
@@ -172,7 +165,6 @@ public enum ComputerDaoImpl implements ComputerDao {
         List<Computer> list = ResultMapper.convertToComputers(preparedStatement.executeQuery());
         return list;
       } catch (SQLException exception) {
-          exception.printStackTrace();
           throw new ConnectionException("computers failed to be searched", exception);
       }
     }
