@@ -4,7 +4,7 @@
 	<groupId>com.excilys.formation.computerdatabase</groupId>
 	<artifactId>computer-database</artifactId>
 	<packaging>war</packaging>
-	<version>1.3</version>
+	<version>1.4-SNAPSHOT</version>
 	<name>computer-database</name>
 	<url>http://maven.apache.org</url>
 
