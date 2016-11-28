@@ -46,12 +46,12 @@ $.validator.addMethod(
 			// put your own logic here, this is just a (crappy) example
 			return value.match(/^(\d\d?\/\d\d?\/\d\d\d\d)?$/);
 		},
-		"Please enter a date in the format mm/dd/yyyy."
+		"Please enter a date in the format mm-dd-yyyy."
 );
 
 jQuery(document).ready(function($) {
-	$("#introduced").datepicker();
+	$("#introduced").datepicker().datepicker({ dateFormat: "mm-dd-yy" });
 });
 jQuery(document).ready(function($) {
-	$("#discontinued").datepicker();
+	$("#discontinued").datepicker().datepicker({ dateFormat: "mm-dd-yy" });
 });

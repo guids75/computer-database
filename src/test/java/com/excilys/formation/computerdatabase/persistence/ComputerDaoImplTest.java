@@ -33,13 +33,13 @@ public class ComputerDaoImplTest {
 
     @Test
     public void testInsert() {
-        int count = computerDao.count(new Constraints.ConstraintsBuilder().build(), connection);
+        int count = computerDao.count(new Constraints.ConstraintsBuilder().build());
         Computer computer = new Computer.ComputerBuilder("MyComputer").introduced(LocalDate.parse("1990-02-02"))
                 .discontinued(LocalDate.parse("1991-02-02"))
                 .company(new Company.CompanyBuilder("Company").id(5L).build()).build();
-        Computer computer2 = computerDao.insert(computer, connection);
+        Computer computer2 = computerDao.insert(computer);
         assertNotNull("insert", computer2);
-        assertTrue("insert", count + 1 == computerDao.count(new Constraints.ConstraintsBuilder().build(), connection));
+        assertTrue("insert", count + 1 == computerDao.count(new Constraints.ConstraintsBuilder().build()));
     }
 
     @Test

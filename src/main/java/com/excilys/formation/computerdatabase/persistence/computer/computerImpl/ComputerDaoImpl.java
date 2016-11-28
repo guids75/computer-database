@@ -25,7 +25,7 @@ public enum ComputerDaoImpl implements ComputerDao {
     INSTANCE;
 
     // requests
-    private static final String INSERT_REQUEST = "INSERT INTO computer VALUES (?, ?, ?, ?, ?)";
+    private static final String INSERT_REQUEST = "INSERT INTO computer(name, introduced, discontinued, company_id) VALUES (?, ?, ?, ?)";
     private static final String UPDATE_REQUEST = "UPDATE computer SET name=?, introduced=?, discontinued=?, company_id=? WHERE id=?";
     private static final String DELETE_REQUEST = "DELETE FROM computer WHERE id";
     private static final String LIST_REQUEST = "SELECT computer.id as computerId, computer.name as computerName, computer.introduced, computer.discontinued, company.id as companyId, company.name as companyName"
@@ -46,13 +46,17 @@ public enum ComputerDaoImpl implements ComputerDao {
     @Override
     public Computer insert(Computer computer) throws ConnectionException {
         try (Connection connection = hikariConnectionPool.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(INSERT_REQUEST)) {
-            preparedStatement.setLong(1, computer.getId());
-            preparedStatement.setString(2, computer.getName());
-            preparedStatement.setObject(3, computer.getIntroduced());
-            preparedStatement.setObject(4, computer.getDiscontinued());
-            preparedStatement.setLong(5, computer.getCompany().getId());
+                PreparedStatement preparedStatement = connection.prepareStatement(INSERT_REQUEST,
+                        PreparedStatement.RETURN_GENERATED_KEYS)) {
+            preparedStatement.setString(1, computer.getName());
+            preparedStatement.setObject(2, computer.getIntroduced());
+            preparedStatement.setObject(3, computer.getDiscontinued());
+            preparedStatement.setLong(4, computer.getCompany().getId());
             preparedStatement.executeUpdate();
+            results = preparedStatement.getGeneratedKeys();
+            if (results != null && results.next()) {
+                computer.setId(results.getLong(1));
+            }
             hikariConnectionPool.closeConnection(connection);
         } catch (SQLException exception) {
             throw new ConnectionException("computer failed to be inserted", exception);

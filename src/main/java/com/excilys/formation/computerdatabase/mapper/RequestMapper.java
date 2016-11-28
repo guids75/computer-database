@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import com.excilys.formation.computerdatabase.dto.ComputerDto;
+import com.excilys.formation.computerdatabase.dto.ComputerDto.ComputerDtoBuilder;
 import com.excilys.formation.computerdatabase.pagination.Page;
 import com.excilys.formation.computerdatabase.persistence.Constraints;
 import com.excilys.formation.computerdatabase.service.computer.ComputerService;
@@ -18,40 +19,25 @@ public final class RequestMapper {
     }
 
     public static ComputerDto convertToComputer(HttpServletRequest request) {
-        if (request.getParameter("computerName") != null && request.getParameter("companyId") != null) {
-            ComputerDto computer = new ComputerDto();
-            computer.setName(request.getParameter("computerName"));
-            computer.setCompanyId(Long.parseLong(request.getParameter("companyId")));
+        if (request.getParameter("computerName") != null) {
+            ComputerDtoBuilder computerDto = new ComputerDto.ComputerDtoBuilder(request.getParameter("computerName"));
+            if (request.getParameter("id") != null) {
+                computerDto.id(Long.parseLong(request.getParameter("id")));
+            }
             if (request.getParameter("introduced") != "") {
-                computer.setIntroduced(request.getParameter("introduced"));
-            } else {
-                computer.setIntroduced(null);
+                computerDto.introduced(request.getParameter("introduced"));
             }
             if (request.getParameter("discontinued") != "") {
-                computer.setDiscontinued(request.getParameter("discontinued"));
+                computerDto.discontinued(request.getParameter("discontinued"));
+            }
+            if (request.getParameter("companyId") != null && !request.getParameter("companyId").equals("")) {
+                computerDto.companyId(Long.parseLong(request.getParameter("companyId")));
             } else {
-                computer.setDiscontinued(null);
+                computerDto.companyId(0L);
             }
-            if (request.getParameter("id") != null) {
-                computer.setId(Long.parseLong(request.getParameter("id")));
-            }
-            return computer;
+            return computerDto.build();
         }
         return null;
-    }
-
-    public static List<ComputerDto> convertToComputers(HttpServletRequest request) {
-        List<ComputerDto> computers = new ArrayList<>();
-        String selection = request.getParameter("selection");
-        String[] deletedComputers = selection.split(",");
-        if (deletedComputers.length > 0) {
-            for (int i = 0; i < deletedComputers.length; i++) {
-                ComputerDto computer = new ComputerDto();
-                computer.setId(Long.parseLong(deletedComputers[i]));
-                computers.add(computer);
-            }
-        }
-        return computers;
     }
 
     public static List<Long> convertToComputersId(HttpServletRequest request) {

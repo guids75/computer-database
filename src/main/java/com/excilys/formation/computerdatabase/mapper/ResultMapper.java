@@ -65,8 +65,10 @@ public final class ResultMapper {
                 computer.discontinued(
                         LocalDate.parse(simpleDateFormat.format(results.getDate("computer.discontinued"))));
             }
+            if (results.getLong("companyId") != 0 && results.getString("companyName") != null) {
             computer.company(new Company.CompanyBuilder(results.getString("companyName"))
                     .id(results.getLong("companyId")).build());
+            }
             return computer.build();
         } catch (SQLException exception) {
             slf4jLogger.error("Error in ResultToObject in convertToComputer", exception);

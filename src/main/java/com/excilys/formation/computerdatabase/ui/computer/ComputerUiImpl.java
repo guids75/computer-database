@@ -2,6 +2,7 @@ package com.excilys.formation.computerdatabase.ui.computer;
 
 import com.excilys.formation.computerdatabase.mapper.ComputerDtoMapper;
 import com.excilys.formation.computerdatabase.dto.ComputerDto;
+import com.excilys.formation.computerdatabase.dto.ComputerDto.ComputerDtoBuilder;
 import com.excilys.formation.computerdatabase.pagination.Page;
 import com.excilys.formation.computerdatabase.persistence.Constraints;
 import com.excilys.formation.computerdatabase.service.company.CompanyServiceImpl;
@@ -17,7 +18,7 @@ import java.util.List;
  */
 public class ComputerUiImpl implements ComputerUi {
 
-    private ComputerDto computer;
+    private ComputerDtoBuilder computer;
     private static final ComputerServiceImpl computerService = 
             ComputerServiceImpl.INSTANCE; // service of Computer to manage them
     private static final CompanyServiceImpl companyService = 
@@ -106,16 +107,17 @@ public class ComputerUiImpl implements ComputerUi {
         System.out.println("which company id?");
         companyId = scanner.nextLong();
         scanner.nextLine();
-        computer = new ComputerDto();
-        computer.setName(name);
+        computer = new ComputerDto.ComputerDtoBuilder(name);
         if (intro != null) {
-            computer.setIntroduced(intro);
+            computer.introduced(intro);
         }
         if (disco != null) {
-            computer.setDiscontinued(disco);
+            computer.discontinued(disco);
         }
-        computer.setCompanyId(companyId);
-        computerService.insert(ComputerDtoMapper.computerDtoToComputer(computer));
+        if (companyId != null) {
+        computer.companyId(companyId);
+        }
+        computerService.insert(ComputerDtoMapper.computerDtoToComputer(computer.build()));
         pages.setNbPages(pages.getNbPages() + 1);
     }
 
@@ -136,16 +138,15 @@ public class ComputerUiImpl implements ComputerUi {
         companyId = scanner.nextLong();
         scanner.nextLine();
 
-        computer = new ComputerDto();
-        computer.setName(name);
+        computer = new ComputerDto.ComputerDtoBuilder(name);
         if (intro != null) {
-            computer.setIntroduced(intro);
+            computer.introduced(intro);
         }
         if (disco != null) {
-            computer.setDiscontinued(disco);
+            computer.discontinued(disco);
         }
-        computer.setCompanyId(companyId);
-        computerService.update(ComputerDtoMapper.computerDtoToComputer(computer));
+        computer.companyId(companyId);
+        computerService.update(ComputerDtoMapper.computerDtoToComputer(computer.build()));
     }
 
     @Override

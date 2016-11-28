@@ -48,12 +48,9 @@ public enum HikariConnectionPool {
     }
 
     public Connection getConnection() {
-        System.out.println(1);
         if (threadConnection.get() == null) {
-            System.out.println(2);
             Connection connection = null;
             try {
-                System.out.println(3);
                 connection = getDataSource().getConnection();
             } catch (SQLException exception) {
                 logger.error("Problem with HikariConnection", exception);
@@ -61,13 +58,6 @@ public enum HikariConnectionPool {
             threadConnection.set(connection);
             return threadConnection.get();
         } else {
-            System.out.println(4);
-            try {
-                System.out.println(threadConnection.get().isClosed());
-            } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
             return threadConnection.get();
         }
     } 

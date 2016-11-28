@@ -41,6 +41,7 @@ public enum CompanyDaoImpl implements CompanyDao {
                 PreparedStatement preparedStatement = connection.prepareStatement(LIST_REQUEST)) {
             preparedStatement.setInt(1, constraints.getLimit());
             preparedStatement.setInt(2, constraints.getOffset());
+            results = preparedStatement.executeQuery();
             List<Company> list = ResultMapper.convertToCompanies(preparedStatement.executeQuery());
             hikariConnectionPool.closeConnection(connection);
             return list;

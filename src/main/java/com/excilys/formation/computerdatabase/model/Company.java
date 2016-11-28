@@ -9,8 +9,6 @@ public final class Company {
     private Long id; // the id of the company
     private String name; // the name of the company
 
-    public Company() {
-    }
     
     /**
      * Private constructor to use a builder.

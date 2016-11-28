@@ -1,20 +1,13 @@
 package com.excilys.formation.computerdatabase.servlet;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.excilys.formation.computerdatabase.dto.ComputerDto;
-import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import com.excilys.formation.computerdatabase.mapper.ComputerDtoMapper;
 import com.excilys.formation.computerdatabase.mapper.RequestMapper;
-import com.excilys.formation.computerdatabase.mapper.ResultMapper;
-import com.excilys.formation.computerdatabase.model.Computer;
 import com.excilys.formation.computerdatabase.pagination.Page;
 import com.excilys.formation.computerdatabase.persistence.Constraints;
 import com.excilys.formation.computerdatabase.service.computer.ComputerService;
@@ -26,7 +19,6 @@ import com.excilys.formation.computerdatabase.service.computer.ComputerServiceIm
  */
 public class Dashboard extends HttpServlet {
 
-    private static final Logger slf4jLogger = LoggerFactory.getLogger(Dashboard.class);
     private static final long serialVersionUID = 3765045871388643647L;
     private static final ComputerService computerService = 
             ComputerServiceImpl.INSTANCE; // service of Computer to manage them
