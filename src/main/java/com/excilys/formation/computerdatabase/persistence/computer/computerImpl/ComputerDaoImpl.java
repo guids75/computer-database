@@ -88,7 +88,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 
     @Override
     public void delete(Constraints constraints, Connection connection) throws ConnectionException {
-        if (constraints == null | (constraints.getIdList() != null | connection == null)) {
+        if (constraints == null | (constraints.getIdList() == null | connection == null)) {
             throw new IllegalArgumentException("A connection is missing to delete or the constraints are null");
         }
         String request;
