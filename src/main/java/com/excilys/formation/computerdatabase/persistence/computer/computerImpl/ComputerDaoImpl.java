@@ -115,7 +115,7 @@ public enum ComputerDaoImpl implements ComputerDao {
         }
         String request = LIST_REQUEST;
         if (constraints.getOrderBy() != null) {
-            request += ORDER_BY + " ASC" + LIMIT_OFFSET;
+            request += ORDER_BY + " DESC" + LIMIT_OFFSET;
         } else {
             request += LIMIT_OFFSET;
         }
@@ -128,9 +128,9 @@ public enum ComputerDaoImpl implements ComputerDao {
             preparedStatement.setInt(count++, constraints.getLimit());
             preparedStatement.setInt(count++, constraints.getOffset());
             List<Computer> list = ResultMapper.convertToComputers(preparedStatement.executeQuery());
+            System.out.println(preparedStatement);
             return list;
         } catch (SQLException exception) {
-            exception.printStackTrace();
             throw new ConnectionException("computers failed to be listed", exception);
         }
     }
