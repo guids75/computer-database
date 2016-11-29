@@ -1,6 +1,0 @@
-09:54:03.051  156  [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Started.
-11:21:03.334  161  [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Started.
-11:21:43.957  159  [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Started.
-11:24:58.821  144  [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Started.
-11:25:32.031  150  [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Started.
-11:27:28.446  154  [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Started.
