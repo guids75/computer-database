@@ -71,9 +71,7 @@ public class CompanyUiImpl implements CompanyUi {
      *          : list of companies to print
      */
     public void print(List<CompanyDto> companies) {
-        for (CompanyDto company : companies) {
-            System.out.println(company);
-        }
+        companies.forEach(company-> System.out.println(company));
     }
 
 }

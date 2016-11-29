@@ -1,6 +1,6 @@
 # Created by https://www.gitignore.io/api/eclipse,intellij,java
 
-myLogFile.log
+
 WebContent/
 
 ### Eclipse ###
@@ -19,7 +19,7 @@ local.properties
 .recommenders
 
 # Log file
-myLogFile.log
+logFile.*
 
 # Eclipse Core
 .project

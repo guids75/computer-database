@@ -78,9 +78,7 @@ public class ComputerUiImpl implements ComputerUi {
      *          : list of computers to print.
      */
     public void print(List<ComputerDto> computers) {
-        for (ComputerDto computer : computers) {
-            System.out.println(computer);
-        }
+        computers.forEach(computer-> System.out.println(computer));
     }
 
     @Override
@@ -115,7 +113,7 @@ public class ComputerUiImpl implements ComputerUi {
             computer.discontinued(disco);
         }
         if (companyId != null) {
-        computer.companyId(companyId);
+            computer.companyId(companyId);
         }
         computerService.insert(ComputerDtoMapper.computerDtoToComputer(computer.build()));
         pages.setNbPages(pages.getNbPages() + 1);

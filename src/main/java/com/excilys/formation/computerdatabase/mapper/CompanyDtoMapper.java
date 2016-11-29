@@ -18,9 +18,7 @@ public final class CompanyDtoMapper {
     public static List<Company> companyDtoListToCompanyList(List<CompanyDto> listCompanyDto) {
         List<Company> companies = new ArrayList<>();
         if (listCompanyDto != null) {
-            for (CompanyDto companyDto : listCompanyDto) {
-                companies.add(companyDtoToCompany(companyDto));
-            }
+            listCompanyDto.forEach(companyDto-> companies.add(companyDtoToCompany(companyDto)));
         }
         return companies;
     }
@@ -43,9 +41,7 @@ public final class CompanyDtoMapper {
     public static List<CompanyDto> companyListToCompanyDtoList(List<Company> listCompany) {
         List<CompanyDto> companiesDto = new ArrayList<>();
         if (listCompany != null) {
-            for (Company company : listCompany) {
-                companiesDto.add(companyToCompanyDto(company));
-            }
+            listCompany.forEach(company-> companiesDto.add(companyToCompanyDto(company)));
         }
         return companiesDto;
     }

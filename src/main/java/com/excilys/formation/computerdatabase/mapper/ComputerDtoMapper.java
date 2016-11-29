@@ -25,9 +25,7 @@ public final class ComputerDtoMapper {
     public static List<Computer> computerDtoListToComputerList(List<ComputerDto> listComputerDto) {
         List<Computer> computers = new ArrayList<>();
         if (listComputerDto != null) {
-            for (ComputerDto computerDto : listComputerDto) {
-                computers.add(computerDtoToComputer(computerDto));
-            }
+            listComputerDto.forEach(computerDto-> computers.add(computerDtoToComputer(computerDto)));
         }
         return computers;
     }
@@ -58,9 +56,7 @@ public final class ComputerDtoMapper {
     public static List<ComputerDto> computerListToComputerDtoList(List<Computer> listComputer) {
         List<ComputerDto> computersDto = new ArrayList<>();
         if (listComputer != null) {
-            for (Computer computer : listComputer) {
-                computersDto.add(computerToComputerDto(computer));
-            }
+            listComputer.forEach(computer-> computersDto.add(computerToComputerDto(computer)));
         }
         return computersDto;
     }
