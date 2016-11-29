@@ -13,7 +13,7 @@ import com.excilys.formation.computerdatabase.model.Computer.ComputerBuilder;
 
 public final class ComputerDtoMapper {
 
-    private static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+    private static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     private ComputerDtoMapper() {
     }

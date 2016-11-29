@@ -8,6 +8,7 @@ import com.excilys.formation.computerdatabase.dto.ComputerDto;
 import com.excilys.formation.computerdatabase.dto.ComputerDto.ComputerDtoBuilder;
 import com.excilys.formation.computerdatabase.pagination.Page;
 import com.excilys.formation.computerdatabase.persistence.Constraints;
+import com.excilys.formation.computerdatabase.persistence.Constraints.ConstraintsBuilder;
 import com.excilys.formation.computerdatabase.service.computer.ComputerService;
 import com.excilys.formation.computerdatabase.service.computer.ComputerServiceImpl;
 
@@ -46,7 +47,12 @@ public final class RequestMapper {
         String[] deletedComputers = selection.split(",");
         if (deletedComputers.length > 0) {
             for (int i = 0; i < deletedComputers.length; i++) {
-                computersId.add(Long.parseLong(deletedComputers[i]));
+                Long id = Long.parseLong(deletedComputers[i]);
+                if (id > 0) {
+                    computersId.add(id);
+                } else {
+                    throw new IllegalArgumentException("An id is not consistent when deleting the computers");
+                }
             }
         }
         return computersId;
@@ -81,6 +87,17 @@ public final class RequestMapper {
         }
 
         return pages;
+    }
+    
+    public static ConstraintsBuilder convertToConstraints(HttpServletRequest request) {
+        ConstraintsBuilder constraints = new Constraints.ConstraintsBuilder();
+        if (request.getParameter("order") != null) {
+            constraints.orderBy(request.getParameter("order").replace('_', '.'));
+        }
+        if (request.getParameter("search") != null) {
+            constraints.orderBy(request.getParameter("search"));
+        }
+        return constraints;
     }
 
 }

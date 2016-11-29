@@ -25,6 +25,16 @@
 			<a class="navbar-brand" href="dashboard"> Application - Computer
 				Database </a>
 		</div>
+		<c:choose>
+		<c:when test='${empty errors}'>
+			<c:set var="hide" value="visibility:hidden" />
+		</c:when>
+		<c:otherwise></c:otherwise>
+		</c:choose>
+		
+		<div>
+		<textarea name="hideError" ${hide}>${errors}</textarea>
+		</div>
 	</header>
 
 	<section id="main">

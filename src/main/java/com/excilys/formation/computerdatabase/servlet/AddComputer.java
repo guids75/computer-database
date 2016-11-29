@@ -7,6 +7,7 @@ import com.excilys.formation.computerdatabase.dto.ComputerDto;
 import com.excilys.formation.computerdatabase.persistence.Constraints;
 import com.excilys.formation.computerdatabase.service.company.CompanyServiceImpl;
 import com.excilys.formation.computerdatabase.service.computer.ComputerServiceImpl;
+import com.excilys.formation.computerdatabase.validation.servlet.ComputerValidator;
 
 import java.io.IOException;
 
@@ -37,8 +38,12 @@ public class AddComputer extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ComputerDto computer = RequestMapper.convertToComputer(request);
+        if (!ComputerValidator.validate(computer).isEmpty()) {
+            doGet(request, response);
+        } else {
         computerServiceImpl.insert(ComputerDtoMapper.computerDtoToComputer(computer));
-        request.getRequestDispatcher("/dashboard").forward(request, response);
+        request.getRequestDispatcher("/dashboardSubmit").forward(request, response);
+        }
     }
 
 }

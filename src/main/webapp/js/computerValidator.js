@@ -1,3 +1,25 @@
+jQuery(document).ready(function($) {
+	$("#introduced").datepicker({ 
+		dateFormat: 'yy-mm-dd',
+		minDate : new Date(1970,1,-1,-1)
+	});
+});
+
+jQuery(document).ready(function($) {
+	$("#discontinued").datepicker({ 
+		dateFormat: 'yy-mm-dd',
+		minDate : new Date(1970,1,-1,-1)
+	});
+});
+
+$.validator.addMethod(
+		"validDate",
+		function(value, element) {
+			return value.match(/^(((19[7-9]\d)|([2-9]\d{3}))\-\d{2}\-\d{2})?$/);
+		},
+		"Please enter a date in the format yy-mm-dd."
+);
+
 //Wait for the DOM to be ready
 $(function() {
 	// Initialize form validation on the registration form.
@@ -14,13 +36,11 @@ $(function() {
 			},
 			introduced: {
 				required: false,
-				validDate: true,
-				minDate : new Date(1970,1)
+				validDate: true
 			},
 			discontinued: {
 				required: false,
-				validDate: true,
-				minDate : new Date(1970,1)
+				validDate: true
 			},
 			company: "required",
 
@@ -38,20 +58,4 @@ $(function() {
 			return false; // prevent normal form posting
 		}
 	});
-});
-
-$.validator.addMethod(
-		"validDate",
-		function(value, element) {
-			// put your own logic here, this is just a (crappy) example
-			return value.match(/^(\d\d?\/\d\d?\/\d\d\d\d)?$/);
-		},
-		"Please enter a date in the format mm-dd-yyyy."
-);
-
-jQuery(document).ready(function($) {
-	$("#introduced").datepicker().datepicker({ dateFormat: "mm-dd-yy" });
-});
-jQuery(document).ready(function($) {
-	$("#discontinued").datepicker().datepicker({ dateFormat: "mm-dd-yy" });
 });

@@ -14,8 +14,7 @@
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/dashboard.js"></script>
-
-<body>			
+<body>
 	<header class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
 			<a class="navbar-brand" href="dashboard"> Application - Computer
@@ -25,7 +24,7 @@
 
 	<section id="main">
 		<div class="container">
-			<h1 id="homeTitle">${pages.nbElements} Computers found</h1>
+			<h1 id="homeTitle">${pages.nbElements}Computers found</h1>
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
 					<form id="searchForm" action="#" method="GET" class="form-inline">
@@ -47,6 +46,9 @@
 		<form id="deleteForm" action="deleteComputer" method="POST">
 			<input type="hidden" name="selection" value="">
 		</form>
+		<form id="orderForm" action="dashboard" method="GET">
+			<input type="hidden" name="order" value="">
+		</form>
 
 		<div class="container" style="margin-top: 10px;">
 			<table class="table table-striped table-bordered">
@@ -62,12 +64,25 @@
 									class="fa fa-trash-o fa-lg"></i>
 							</a>
 						</span></th>
-						<th id="name" onclick="$.fn.orderBy('name');">Computer name</th>
-						<th id="introduced" onclick="$.fn.orderBy('introduced');">Introduced date</th>
+						
+						
+						
+						<th><a id="name" onclick="$.fn.orderBy('computer_name');">Computer Name<span
+									aria-hidden="true">&raquo;</span>
+							</a></th>
+						<th><a id="introduced" onclick="$.fn.orderBy('computer_introduced');">Introduced<span
+									aria-hidden="true">&raquo;</span>
+							</a>
+							</th>
 						<!-- Table header for Discontinued Date -->
-						<th id="discontinued" onclick="$.fn.orderBy('discontinued');">Discontinued date</th>
+						<th><a id="discontinued" onclick="$.fn.orderBy('computer_discontinued');">Discontinued<span
+									aria-hidden="true">&raquo;</span>
+							</a>
+							</th>
 						<!-- Table header for Company -->
-						<th id="company" onclick="$.fn.orderBy('company');">Company</th>
+						<th><a id="company" onclick="$.fn.orderBy('company_name');">Company<span
+									aria-hidden="true">&raquo;</span>
+							</a></th>
 
 						<tag:pageTag />
 				</tbody>

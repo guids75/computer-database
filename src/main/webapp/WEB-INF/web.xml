@@ -40,4 +40,13 @@
 		<url-pattern>/editComputer</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+		<servlet-name>Dashboard Submit</servlet-name>
+		<servlet-class>com.excilys.formation.computerdatabase.servlet.DashboardSubmit</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Dashboard Submit</servlet-name>
+		<url-pattern>/dashboardSubmit</url-pattern>
+	</servlet-mapping>
+
 </web-app>
