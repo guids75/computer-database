@@ -95,7 +95,7 @@ public final class RequestMapper {
             constraints.orderBy(request.getParameter("order").replace('_', '.'));
         }
         if (request.getParameter("search") != null) {
-            constraints.orderBy(request.getParameter("search"));
+            constraints.search(request.getParameter("search"));
         }
         return constraints;
     }

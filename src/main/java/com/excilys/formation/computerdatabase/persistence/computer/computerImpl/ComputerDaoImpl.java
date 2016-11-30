@@ -38,7 +38,7 @@ public enum ComputerDaoImpl implements ComputerDao {
     private static final String LIMIT_OFFSET = " LIMIT ? OFFSET ?";
     private static final String LISTBYCOMPANY_REQUEST = "SELECT computer.id as computerId, computer.name as computerName, computer.introduced, computer.discontinued, company.id as companyId, company.name as companyName"
             + " FROM computer LEFT JOIN company ON computer.company_id=company.id WHERE company.id=?";
-    private static final String ORDER_BY = " ORDER BY ?";
+    private static final String ORDER_BY = " ORDER BY ";
     
     private static HikariConnectionPool hikariConnectionPool = 
             HikariConnectionPool.INSTANCE; // get the connection
@@ -115,22 +115,19 @@ public enum ComputerDaoImpl implements ComputerDao {
         }
         String request = LIST_REQUEST;
         if (constraints.getOrderBy() != null) {
-            request += ORDER_BY + " DESC" + LIMIT_OFFSET;
+            request += ORDER_BY + "ISNULL(" + constraints.getOrderBy() + "), " + constraints.getOrderBy() + " ASC" + LIMIT_OFFSET;
         } else {
             request += LIMIT_OFFSET;
         }
         try (Connection connection = hikariConnectionPool.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(request)) {
-            int count = 1;
-            if (constraints.getOrderBy() != null) {
-                preparedStatement.setString(count++, constraints.getOrderBy());
-            }
-            preparedStatement.setInt(count++, constraints.getLimit());
-            preparedStatement.setInt(count++, constraints.getOffset());
-            List<Computer> list = ResultMapper.convertToComputers(preparedStatement.executeQuery());
+            preparedStatement.setInt(1, constraints.getLimit());
+            preparedStatement.setInt(2, constraints.getOffset());
             System.out.println(preparedStatement);
+            List<Computer> list = ResultMapper.convertToComputers(preparedStatement.executeQuery());
             return list;
         } catch (SQLException exception) {
+            exception.printStackTrace();
             throw new ConnectionException("computers failed to be listed", exception);
         }
     }
