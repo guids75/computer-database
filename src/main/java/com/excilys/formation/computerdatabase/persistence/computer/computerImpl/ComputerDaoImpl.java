@@ -123,7 +123,6 @@ public enum ComputerDaoImpl implements ComputerDao {
                 PreparedStatement preparedStatement = connection.prepareStatement(request)) {
             preparedStatement.setInt(1, constraints.getLimit());
             preparedStatement.setInt(2, constraints.getOffset());
-            System.out.println(preparedStatement);
             List<Computer> list = ResultMapper.convertToComputers(preparedStatement.executeQuery());
             return list;
         } catch (SQLException exception) {
