@@ -4,7 +4,7 @@
 	<groupId>com.excilys.formation.computerdatabase</groupId>
 	<artifactId>computer-database</artifactId>
 	<packaging>war</packaging>
-	<version>1.4-SNAPSHOT</version>
+	<version>1.4-RELEASE</version>
 	<name>computer-database</name>
 	<url>http://maven.apache.org</url>
 
@@ -38,13 +38,6 @@
 		<TOMCAT_HOME>/home/excilys/softwares/apache-tomcat-8.5.6/</TOMCAT_HOME>
 		<surefire.version>2.17</surefire.version>
 	</properties>
-
-	<repositories>
-		<repository>
-			<id>Java.Net</id>
-			<url>http://download.java.net/maven/2/</url>
-		</repository>
-	</repositories>
 
 	<dependencies>
 
@@ -100,6 +93,7 @@
 			<groupId>org.dbunit</groupId>
 			<artifactId>dbunit</artifactId>
 			<version>${dbunit.version}</version>
+			<scope>test</scope>
 		</dependency>
 
 		<!-- Logging dependencies -->
