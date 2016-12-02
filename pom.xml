@@ -4,11 +4,13 @@
 	<groupId>com.excilys.formation.computerdatabase</groupId>
 	<artifactId>computer-database</artifactId>
 	<packaging>war</packaging>
-	<version>1.4-RELEASE</version>
+	<version>1.4.1-SNAPSHOT</version>
 	<name>computer-database</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		
 		<mysql.version>5.1.39</mysql.version>
 
 		<jquery-validation.version>1.15.1</jquery-validation.version>
@@ -168,7 +170,7 @@
 					<!-- Container configuration -->
 					<container>
 						<type>installed</type>
-						<containerId>tomcat6x</containerId>
+						<containerId>tomcat8x</containerId>
 						<home>${TOMCAT_HOME}</home>
 					</container>
 				</configuration>
