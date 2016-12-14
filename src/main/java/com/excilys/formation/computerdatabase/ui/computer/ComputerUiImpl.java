@@ -12,6 +12,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 /**
  * @author GUIDS
  *
@@ -19,10 +21,10 @@ import java.util.List;
 public class ComputerUiImpl implements ComputerUi {
 
     private ComputerDtoBuilder computer;
-    private static final ComputerServiceImpl computerService = 
-            ComputerServiceImpl.INSTANCE; // service of Computer to manage them
-    private static final CompanyServiceImpl companyService = 
-            CompanyServiceImpl.INSTANCE; // service of Company to manage them
+    @Autowired
+    private ComputerServiceImpl computerService; // service of Computer to manage them
+    @Autowired
+    private CompanyServiceImpl companyService; // service of Company to manage them
 
     private String intro = "";
     private String disco = "";
@@ -38,10 +40,29 @@ public class ComputerUiImpl implements ComputerUi {
      * of computers.
      * 
      */
-    public ComputerUiImpl() {
+    public ComputerUiImpl(ComputerServiceImpl computerService) {
+        this.computerService = computerService;
         nbComputers = computerService.count(new Constraints.ConstraintsBuilder().search("").build());
         pages = new Page(nbComputers);
     }
+
+    
+    public ComputerServiceImpl getComputerService() {
+        return computerService;
+    }
+    
+    public void setComputerService(ComputerServiceImpl computerService) {
+        this.computerService = computerService;
+    }
+
+    public CompanyServiceImpl getCompanyService() {
+        return companyService;
+    }
+    
+    public void setCompanyService(CompanyServiceImpl companyService) {
+        this.companyService = companyService;
+    }
+
 
     @Override
     public void list() {

@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.excilys.formation.computerdatabase.mapper.ComputerDtoMapper;
 import com.excilys.formation.computerdatabase.mapper.RequestMapper;
 import com.excilys.formation.computerdatabase.persistence.Constraints;
@@ -20,15 +22,30 @@ import com.excilys.formation.computerdatabase.service.company.CompanyServiceImpl
 public class EditComputer extends HttpServlet {
 
     private static final long serialVersionUID = 1565503698100849730L;
-    private static ComputerServiceImpl computerServiceImpl = 
-            ComputerServiceImpl.INSTANCE; // service of Company to manage them
-    private static CompanyServiceImpl companyServiceImpl = 
-            CompanyServiceImpl.INSTANCE; // service of Company to manage them
+    private ComputerServiceImpl computerService; // service of Company to manage them
+    private CompanyServiceImpl companyService; // service of Company to manage them
+    
+    public ComputerServiceImpl getComputerService() {
+        return computerService;
+    }
+
+    public void setComputerService(ComputerServiceImpl computerService) {
+        this.computerService = computerService;
+    }
+
+    public CompanyServiceImpl getCompanyService() {
+        return companyService;
+    }
+
+    public void setCompanyService(CompanyServiceImpl companyService) {
+        this.companyService = companyService;
+    }
+    
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ComputerDto computerDto = RequestMapper.convertToComputer(request);
-        request.setAttribute("listCompanies", companyServiceImpl.list(new Constraints.ConstraintsBuilder().limit(companyServiceImpl.count()).offset(0).build()));
+        request.setAttribute("listCompanies", companyService.list(new Constraints.ConstraintsBuilder().limit(companyService.count()).offset(0).build()));
         request.setAttribute("computer", computerDto);
         request.getRequestDispatcher("/WEB-INF/jsp/editComputer.jsp").forward(request, response);
     }
@@ -41,7 +58,7 @@ public class EditComputer extends HttpServlet {
             request.setAttribute("errors", errors.get(0));
             doGet(request, response);
         } else {
-        computerServiceImpl.update(ComputerDtoMapper.computerDtoToComputer(computer));
+        computerService.update(ComputerDtoMapper.computerDtoToComputer(computer));
         request.getRequestDispatcher("/dashboardSubmit").forward(request, response);
         }
     }

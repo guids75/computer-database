@@ -1,11 +1,5 @@
 package com.excilys.formation.computerdatabase.dto;
 
-import java.time.LocalDate;
-
-import com.excilys.formation.computerdatabase.model.Company;
-import com.excilys.formation.computerdatabase.model.Computer;
-import com.excilys.formation.computerdatabase.model.Computer.ComputerBuilder;
-
 /**
  * @author GUIDS
  *

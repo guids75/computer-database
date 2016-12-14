@@ -1,28 +1,27 @@
-package com.excilys.formation.computerdatabase.persistence.computer.computerImpl;
+package com.excilys.formation.computerdatabase.persistence.computer;
 
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
-import javax.ejb.EJBException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import com.excilys.formation.computerdatabase.mapper.ResultMapper;
 import com.excilys.formation.computerdatabase.model.Computer;
 import com.excilys.formation.computerdatabase.persistence.Constraints;
-import com.excilys.formation.computerdatabase.persistence.HikariConnectionPool;
-import com.excilys.formation.computerdatabase.persistence.computer.ComputerDao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.List;
+
+import javax.sql.DataSource;
 
 /**
  * @author GUIDS
  *
  */
-public enum ComputerDaoImpl implements ComputerDao {
-
-    INSTANCE;
+public class ComputerDaoImpl implements ComputerDao {
 
     // requests
     private static final String INSERT_REQUEST = "INSERT INTO computer(name, introduced, discontinued, company_id) VALUES (?, ?, ?, ?)";
@@ -40,16 +39,26 @@ public enum ComputerDaoImpl implements ComputerDao {
             + " FROM computer LEFT JOIN company ON computer.company_id=company.id WHERE company.id=?";
     private static final String ORDER_BY = " ORDER BY ";
     
-    private static HikariConnectionPool hikariConnectionPool = 
-            HikariConnectionPool.INSTANCE; // get the connection
+    private DataSource dataSource; // get the connection
     private ResultSet results;
+    
+    public ComputerDaoImpl() {
+    }
+    
+    public DataSource getDataSource() {
+        return dataSource;
+    }
+
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
     @Override
     public Computer insert(Computer computer) throws ConnectionException {
         if (computer == null) {
             throw new IllegalArgumentException("A computer is missing to insert");
         }
-        try (Connection connection = hikariConnectionPool.getConnection();
+        try (Connection connection = dataSource.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(INSERT_REQUEST,
                         PreparedStatement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, computer.getName());
@@ -73,7 +82,7 @@ public enum ComputerDaoImpl implements ComputerDao {
         if (computer == null) {
             throw new IllegalArgumentException("A computer is missing to update");
         }
-        try (Connection connection = hikariConnectionPool.getConnection();
+        try (Connection connection = dataSource.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_REQUEST)) {
             preparedStatement.setString(1, computer.getName());
             preparedStatement.setObject(2, computer.getIntroduced());
@@ -119,7 +128,7 @@ public enum ComputerDaoImpl implements ComputerDao {
         } else {
             request += LIMIT_OFFSET;
         }
-        try (Connection connection = hikariConnectionPool.getConnection();
+        try (Connection connection = dataSource.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(request)) {
             preparedStatement.setInt(1, constraints.getLimit());
             preparedStatement.setInt(2, constraints.getOffset());
@@ -150,7 +159,7 @@ public enum ComputerDaoImpl implements ComputerDao {
         if (computerId < 1) {
             throw new IllegalArgumentException("The computerId is wrong to showComputerDetails : must be more than 0");
         }
-        try (Connection connection = hikariConnectionPool.getConnection();
+        try (Connection connection = dataSource.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(DETAILS_REQUEST)) {
             preparedStatement.setLong(1, computerId);
             Computer computer = ResultMapper.convertToComputer(preparedStatement.executeQuery());
@@ -172,7 +181,7 @@ public enum ComputerDaoImpl implements ComputerDao {
         } else {
             request = NUMBER_REQUEST;
         }
-        try (Connection connection = hikariConnectionPool.getConnection();
+        try (Connection connection = dataSource.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(request)) {
             if (constraints.getSearch() != null && !constraints.getSearch().equals("")) {
                 preparedStatement.setString(1, "%" + constraints.getSearch() + "%");
@@ -192,7 +201,7 @@ public enum ComputerDaoImpl implements ComputerDao {
         if (constraints == null) {
             throw new IllegalArgumentException("Constraints are missing to search");
         }
-        try (Connection connection = hikariConnectionPool.getConnection();
+        try (Connection connection = dataSource.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(SEARCH_REQUEST + LIMIT_OFFSET)) {
             preparedStatement.setString(1, "%" + constraints.getSearch() + "%");
             preparedStatement.setString(2, "%" + constraints.getSearch() + "%");

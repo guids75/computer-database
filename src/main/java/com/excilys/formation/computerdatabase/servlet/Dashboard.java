@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.excilys.formation.computerdatabase.mapper.ComputerDtoMapper;
 import com.excilys.formation.computerdatabase.mapper.RequestMapper;
 import com.excilys.formation.computerdatabase.pagination.Page;
@@ -21,16 +23,22 @@ import com.excilys.formation.computerdatabase.service.computer.ComputerServiceIm
 public class Dashboard extends HttpServlet {
 
     private static final long serialVersionUID = 3765045871388643647L;
-    private static final ComputerService computerService = 
-            ComputerServiceImpl.INSTANCE; // service of Computer to manage them
+    private ComputerService computerService; // service of Computer to manage them
 
-    public Dashboard() {
+
+    public ComputerService getComputerService() {
+        return computerService;
     }
+
+    public void setComputerService(ComputerService computerService) {
+        this.computerService = computerService;
+    }
+
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ConstraintsBuilder constraints = RequestMapper.convertToConstraints(request);
-        Page pages = RequestMapper.convertToPage(request);
+        Page pages = new RequestMapper().convertToPage(request);
         if (request.getParameter("search") != null) {
             request.setAttribute("listComputers", ComputerDtoMapper.computerListToComputerDtoList(computerService.search(constraints
                     .limit(pages.getNbElementsByPage()).offset((pages.getActualPage() - 1) * pages.getNbElementsByPage()).build())));

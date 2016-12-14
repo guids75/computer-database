@@ -1,8 +1,5 @@
 package com.excilys.formation.computerdatabase.dto;
 
-import com.excilys.formation.computerdatabase.model.Company;
-import com.excilys.formation.computerdatabase.model.Company.CompanyBuilder;
-
 /**
  * @author GUIDS
  *

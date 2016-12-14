@@ -2,6 +2,11 @@ package com.excilys.formation.computerdatabase.ui;
 
 import java.util.Scanner;
 
+import javax.sql.DataSource;
+
+import org.apache.catalina.core.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import com.excilys.formation.computerdatabase.ui.company.CompanyUi;
 import com.excilys.formation.computerdatabase.ui.company.CompanyUiImpl;
 import com.excilys.formation.computerdatabase.ui.computer.ComputerUi;
@@ -14,12 +19,31 @@ import com.excilys.formation.computerdatabase.ui.computer.ComputerUiImpl;
 public class Cli {
 
     public static Scanner in = new Scanner(System.in);
+    private static CompanyUi companyUi;
+    private static ComputerUi computerUi;
+    
+    
+    public static CompanyUi getCompanyUi() {
+        return companyUi;
+    }
+
+    public static void setCompanyUi(CompanyUi companyUi) {
+        Cli.companyUi = companyUi;
+    }
+
+    public static ComputerUi getComputerUi() {
+        return computerUi;
+    }
+
+    public static void setComputerUi(ComputerUi computerUi) {
+        Cli.computerUi = computerUi;
+    }
+
 
     public static void main(String[] args) {
-
-        ComputerUi computerUi = new ComputerUiImpl();
-        CompanyUi companyUi = new CompanyUiImpl();
-
+        
+        ClassPathXmlApplicationContext appContext = new ClassPathXmlApplicationContext("bean.xml"); 
+        
         while (true) {
 
             // main menu

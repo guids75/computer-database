@@ -15,7 +15,7 @@ import org.junit.Test;
 
 import com.excilys.formation.computerdatabase.model.Company;
 import com.excilys.formation.computerdatabase.model.Computer;
-import com.excilys.formation.computerdatabase.persistence.computer.computerImpl.ComputerDaoImpl;
+import com.excilys.formation.computerdatabase.persistence.computer.ComputerDaoImpl;
 
 public class ComputerDaoImplTest {
 

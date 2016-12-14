@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.excilys.formation.computerdatabase.mapper.ComputerDtoMapper;
 import com.excilys.formation.computerdatabase.mapper.RequestMapper;
 import com.excilys.formation.computerdatabase.pagination.Page;
@@ -20,15 +22,21 @@ import com.excilys.formation.computerdatabase.service.computer.ComputerServiceIm
 public class DashboardSubmit extends HttpServlet {
 
     private static final long serialVersionUID = 3765045871388643647L;
-    private static final ComputerService computerService = 
-            ComputerServiceImpl.INSTANCE; // service of Computer to manage them
+    private ComputerService computerService; // service of Computer to manage them
+    
 
-    public DashboardSubmit() {
+    public ComputerService getComputerService() {
+        return computerService;
     }
+
+    public void setComputerService(ComputerService computerService) {
+        this.computerService = computerService;
+    }
+
 
     @Override
     public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
-        Page pages = RequestMapper.convertToPage(request);
+        Page pages = new RequestMapper().convertToPage(request);
         pages.setNbElements(computerService.count(new Constraints.ConstraintsBuilder().search("").build()));
         pages.calculateNbPages(pages.getNbElements());
         request.setAttribute("pages", pages);

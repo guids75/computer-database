@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 /**
  * @author GUIDS
  *
@@ -23,15 +25,31 @@ import javax.servlet.http.HttpServletResponse;
 public class AddComputer extends HttpServlet {
 
     private static final long serialVersionUID = -2391324266165934348L;
-    private static CompanyServiceImpl companyServiceImpl = 
-            CompanyServiceImpl.INSTANCE; // service of Company to manage them
-    private static ComputerServiceImpl computerServiceImpl = 
-            ComputerServiceImpl.INSTANCE; // service of Company to manage them
+    private CompanyServiceImpl companyService; // service of Company to manage them
+    private ComputerServiceImpl computerService; // service of Company to manage them
+    
+
+    public CompanyServiceImpl getCompanyService() {
+        return companyService;
+    }
+
+    public void setCompanyService(CompanyServiceImpl companyService) {
+        this.companyService = companyService;
+    }
+
+    public ComputerServiceImpl getComputerService() {
+        return computerService;
+    }
+
+    public void setComputerService(ComputerServiceImpl computerService) {
+        this.computerService = computerService;
+    }
+    
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("listCompanies", CompanyDtoMapper.companyListToCompanyDtoList(companyServiceImpl.list(new Constraints.ConstraintsBuilder()
-                .limit(companyServiceImpl.count()).offset(0).build())));
+        request.setAttribute("listCompanies", CompanyDtoMapper.companyListToCompanyDtoList(companyService.list(new Constraints.ConstraintsBuilder()
+                .limit(companyService.count()).offset(0).build())));
         this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/addComputer.jsp").forward(request, response);
     }
 
@@ -41,7 +59,7 @@ public class AddComputer extends HttpServlet {
         if (!ComputerValidator.validate(computer).isEmpty()) {
             doGet(request, response);
         } else {
-        computerServiceImpl.insert(ComputerDtoMapper.computerDtoToComputer(computer));
+        computerService.insert(ComputerDtoMapper.computerDtoToComputer(computer));
         request.getRequestDispatcher("/dashboardSubmit").forward(request, response);
         }
     }

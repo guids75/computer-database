@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import com.excilys.formation.computerdatabase.dto.ComputerDto;
 import com.excilys.formation.computerdatabase.dto.ComputerDto.ComputerDtoBuilder;
 import com.excilys.formation.computerdatabase.pagination.Page;
@@ -14,11 +20,19 @@ import com.excilys.formation.computerdatabase.service.computer.ComputerServiceIm
 
 public final class RequestMapper {
 
-    private static final ComputerService computerService = ComputerServiceImpl.INSTANCE;
+    private ApplicationContext appContext = new ClassPathXmlApplicationContext("bean.xml"); 
+    private ComputerService computerService = (ComputerService) appContext.getBean("computerService");
 
-    private RequestMapper() {
+    
+    public ComputerService getComputerService() {
+        return computerService;
     }
 
+    public void setComputerService(ComputerService computerService) {
+        this.computerService = computerService;
+    }
+
+    
     public static ComputerDto convertToComputer(HttpServletRequest request) {
         if (request.getParameter("computerName") != null) {
             ComputerDtoBuilder computerDto = new ComputerDto.ComputerDtoBuilder(request.getParameter("computerName"));
@@ -58,7 +72,7 @@ public final class RequestMapper {
         return computersId;
     }
 
-    public static Page convertToPage(HttpServletRequest request) {
+    public Page convertToPage(HttpServletRequest request) {
         Page pages = new Page();
         // if there is an actual page, use it, otherwise use the first page
         if (request.getParameter("actualPage") != null) {

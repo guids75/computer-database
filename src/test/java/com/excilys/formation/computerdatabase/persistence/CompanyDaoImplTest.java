@@ -14,7 +14,7 @@ import org.junit.Test;
 
 import com.excilys.formation.computerdatabase.model.Company;
 import com.excilys.formation.computerdatabase.persistence.company.CompanyDao;
-import com.excilys.formation.computerdatabase.persistence.company.companyImpl.CompanyDaoImpl;
+import com.excilys.formation.computerdatabase.persistence.company.CompanyDaoImpl;
 
 public class CompanyDaoImplTest {
 

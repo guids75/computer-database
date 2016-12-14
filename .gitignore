@@ -1,7 +1,9 @@
 # Created by https://www.gitignore.io/api/eclipse,intellij,java
 
-
+dockers/
+src/main/java/com/excilys/formation/computerdatabase/spring/
 WebContent/
+WEB-INF/
 
 ### Eclipse ###
 

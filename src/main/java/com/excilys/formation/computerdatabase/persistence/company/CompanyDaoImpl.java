@@ -1,12 +1,9 @@
-package com.excilys.formation.computerdatabase.persistence.company.companyImpl;
+package com.excilys.formation.computerdatabase.persistence.company;
 
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import com.excilys.formation.computerdatabase.mapper.ResultMapper;
 import com.excilys.formation.computerdatabase.model.Company;
-import com.excilys.formation.computerdatabase.model.Computer;
 import com.excilys.formation.computerdatabase.persistence.Constraints;
-import com.excilys.formation.computerdatabase.persistence.HikariConnectionPool;
-import com.excilys.formation.computerdatabase.persistence.company.CompanyDao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,32 +12,44 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
-import javax.ejb.EJBException;
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Repository;
 
 /**
  * @author GUIDS
  *
  */
-public enum CompanyDaoImpl implements CompanyDao {
-
-    INSTANCE;
+public class CompanyDaoImpl implements CompanyDao {
 
     // requests
     private static final String LIST_REQUEST = "SELECT company.id as companyId, company.name as companyName FROM company LIMIT ? OFFSET ?";
     private static final String DELETE_REQUEST = "DELETE FROM company WHERE id=?";
     private static final String NUMBER_REQUEST = "SELECT COUNT(company.id) as number FROM company";
     private static final String COMPANY_REQUEST = "SELECT company.id as companyId, company.name as companyName FROM company where id=?";
-    
-    private static HikariConnectionPool hikariConnectionPool = 
-            HikariConnectionPool.INSTANCE; // get the connection
+ 
+    private DataSource dataSource; // get the connection
     private ResultSet results;
+    
+    public CompanyDaoImpl() {
+    }
+    
+    public DataSource getDataSource() {
+        return dataSource;
+    }
+
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
     @Override
     public List<Company> list(Constraints constraints) throws ConnectionException {
         if (constraints == null || (constraints.getLimit() == -1 || constraints.getOffset() == -1)) {
             throw new IllegalArgumentException("A limit or an offset is missing in the constraints");
         }
-        try (Connection connection = hikariConnectionPool.getConnection();
+        try (Connection connection = dataSource.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(LIST_REQUEST)) {
             preparedStatement.setInt(1, constraints.getLimit());
             preparedStatement.setInt(2, constraints.getOffset());
@@ -67,7 +76,7 @@ public enum CompanyDaoImpl implements CompanyDao {
 
     @Override
     public int count() throws ConnectionException {
-        try (Connection connection = hikariConnectionPool.getConnection();
+        try (Connection connection = dataSource.getConnection();
                 Statement statement = connection.createStatement()) {
             results = statement.executeQuery(NUMBER_REQUEST);
             results.next();
@@ -82,7 +91,7 @@ public enum CompanyDaoImpl implements CompanyDao {
         if (id < 1) {
             throw new IllegalArgumentException("The id given for the company is wrong");
         }
-        try (Connection connection = hikariConnectionPool.getConnection();
+        try (Connection connection = dataSource.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(COMPANY_REQUEST)) {
             preparedStatement.setLong(1, id);
             results = preparedStatement.executeQuery();

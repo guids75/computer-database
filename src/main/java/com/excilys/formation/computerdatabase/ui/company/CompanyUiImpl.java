@@ -1,11 +1,15 @@
 package com.excilys.formation.computerdatabase.ui.company;
 
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.excilys.formation.computerdatabase.dto.CompanyDto;
 
 import com.excilys.formation.computerdatabase.mapper.CompanyDtoMapper;
 import com.excilys.formation.computerdatabase.pagination.Page;
 import com.excilys.formation.computerdatabase.persistence.Constraints;
+import com.excilys.formation.computerdatabase.service.company.CompanyService;
 import com.excilys.formation.computerdatabase.service.company.CompanyServiceImpl;
 
 /**
@@ -14,8 +18,8 @@ import com.excilys.formation.computerdatabase.service.company.CompanyServiceImpl
  */
 public class CompanyUiImpl implements CompanyUi {
 
-    private CompanyServiceImpl companyService = 
-            CompanyServiceImpl.INSTANCE; // service of Company to manage them
+    @Autowired
+    private CompanyServiceImpl companyService; // service of Company to manage them
     private Page pages; // pages' attributes to manage them
     private int offset = 0;
 
@@ -24,9 +28,19 @@ public class CompanyUiImpl implements CompanyUi {
      * of companies.
      * 
      */
-    public CompanyUiImpl() {
+    public CompanyUiImpl(CompanyServiceImpl companyService) {
+        this.companyService = companyService;
         pages = new Page(companyService.count());
     }
+
+    public CompanyServiceImpl getCompanyService() {
+        return companyService;
+    }
+
+    public void setCompanyService(CompanyServiceImpl companyService) {
+        this.companyService = companyService;
+    }
+
 
     @Override
     public void list() {
@@ -59,9 +73,9 @@ public class CompanyUiImpl implements CompanyUi {
     @Override
     public void delete() {
         System.out.println("which company id?");
-        companyService.delete(new Constraints.ConstraintsBuilder().idCompany(scanner.nextLong()).build());
+     /*   companyService.delete(new Constraints.ConstraintsBuilder().idCompany(scanner.nextLong()).build());
         scanner.nextLine();
-        pages.setNbPages(pages.getNbPages() - 1);
+        pages.setNbPages(pages.getNbPages() - 1);*/
     }
 
     /**
