@@ -2,10 +2,15 @@ package com.excilys.formation.computerdatabase.ui.company;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 import com.excilys.formation.computerdatabase.dto.CompanyDto;
-
+import com.excilys.formation.computerdatabase.exception.ConnectionException;
+import com.excilys.formation.computerdatabase.exception.NotImplementedMethodException;
 import com.excilys.formation.computerdatabase.mapper.CompanyDtoMapper;
 import com.excilys.formation.computerdatabase.pagination.Page;
 import com.excilys.formation.computerdatabase.persistence.Constraints;
@@ -16,13 +21,16 @@ import com.excilys.formation.computerdatabase.service.company.CompanyServiceImpl
  * @author GUIDS
  *
  */
+@Controller
 public class CompanyUiImpl implements CompanyUi {
 
     @Autowired
-    private CompanyServiceImpl companyService; // service of Company to manage them
+    private CompanyService companyService; // service of Company to manage them
     private Page pages; // pages' attributes to manage them
     private int offset = 0;
 
+    private static final Logger slf4jLogger = LoggerFactory.getLogger(ConnectionException.class);
+    
     /**
      * Create a new instance of Page and set their number according to the number
      * of companies.
@@ -33,11 +41,11 @@ public class CompanyUiImpl implements CompanyUi {
         pages = new Page(companyService.count());
     }
 
-    public CompanyServiceImpl getCompanyService() {
+    public CompanyService getCompanyService() {
         return companyService;
     }
 
-    public void setCompanyService(CompanyServiceImpl companyService) {
+    public void setCompanyService(CompanyService companyService) {
         this.companyService = companyService;
     }
 
@@ -73,9 +81,13 @@ public class CompanyUiImpl implements CompanyUi {
     @Override
     public void delete() {
         System.out.println("which company id?");
-     /*   companyService.delete(new Constraints.ConstraintsBuilder().idCompany(scanner.nextLong()).build());
+        try {
+            companyService.delete(new Constraints.ConstraintsBuilder().idCompany(scanner.nextLong()).build());
+        } catch (NotImplementedMethodException exception) {
+            slf4jLogger.error("delete in companyService is not implemented yet", exception);
+        }
         scanner.nextLine();
-        pages.setNbPages(pages.getNbPages() - 1);*/
+        pages.setNbPages(pages.getNbPages() - 1);
     }
 
     /**

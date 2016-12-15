@@ -1,10 +1,8 @@
 package com.excilys.formation.computerdatabase.service.computer;
 
-import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import com.excilys.formation.computerdatabase.model.Computer;
 import com.excilys.formation.computerdatabase.persistence.Constraints;
 import com.excilys.formation.computerdatabase.persistence.computer.ComputerDao;
-import com.excilys.formation.computerdatabase.persistence.computer.ComputerDaoImpl;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -15,14 +13,18 @@ import javax.sql.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * @author GUIDS
  *
  */
+@Service
 public class ComputerServiceImpl implements ComputerService {
 
+    @Autowired
     private ComputerDao computerDao; // dao for Computer to manage the computers
+    @Autowired
     private DataSource dataSource; // get the connection
     private static final Logger logger = LoggerFactory.getLogger(ComputerServiceImpl.class);
     
@@ -57,7 +59,7 @@ public class ComputerServiceImpl implements ComputerService {
     @Override
     public void delete(Constraints constraints) {
         try (Connection connection = dataSource.getConnection()){
-            computerDao.delete(constraints, connection);
+            computerDao.delete(constraints);
         } catch (SQLException exception) {
             logger.error("Error in ComputerService in delete", exception);
         }

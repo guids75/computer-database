@@ -3,28 +3,36 @@ package com.excilys.formation.computerdatabase.ui.computer;
 import com.excilys.formation.computerdatabase.mapper.ComputerDtoMapper;
 import com.excilys.formation.computerdatabase.dto.ComputerDto;
 import com.excilys.formation.computerdatabase.dto.ComputerDto.ComputerDtoBuilder;
+import com.excilys.formation.computerdatabase.exception.ConnectionException;
+import com.excilys.formation.computerdatabase.exception.NotImplementedMethodException;
 import com.excilys.formation.computerdatabase.pagination.Page;
 import com.excilys.formation.computerdatabase.persistence.Constraints;
+import com.excilys.formation.computerdatabase.service.company.CompanyService;
 import com.excilys.formation.computerdatabase.service.company.CompanyServiceImpl;
+import com.excilys.formation.computerdatabase.service.computer.ComputerService;
 import com.excilys.formation.computerdatabase.service.computer.ComputerServiceImpl;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 /**
  * @author GUIDS
  *
  */
+@Controller
 public class ComputerUiImpl implements ComputerUi {
 
     private ComputerDtoBuilder computer;
     @Autowired
-    private ComputerServiceImpl computerService; // service of Computer to manage them
+    private ComputerService computerService; // service of Computer to manage them
     @Autowired
-    private CompanyServiceImpl companyService; // service of Company to manage them
+    private CompanyService companyService; // service of Company to manage them
 
     private String intro = "";
     private String disco = "";
@@ -35,31 +43,33 @@ public class ComputerUiImpl implements ComputerUi {
     private int offset = 0;
     private Page pages; // pages' attributes to manage them
 
+    private static final Logger slf4jLogger = LoggerFactory.getLogger(ConnectionException.class);
+    
     /**
      * Create a new instance of Page and set their number according to the number
      * of computers.
      * 
      */
-    public ComputerUiImpl(ComputerServiceImpl computerService) {
+    public ComputerUiImpl(ComputerService computerService) {
         this.computerService = computerService;
         nbComputers = computerService.count(new Constraints.ConstraintsBuilder().search("").build());
         pages = new Page(nbComputers);
     }
 
     
-    public ComputerServiceImpl getComputerService() {
+    public ComputerService getComputerService() {
         return computerService;
     }
     
-    public void setComputerService(ComputerServiceImpl computerService) {
+    public void setComputerService(ComputerService computerService) {
         this.computerService = computerService;
     }
 
-    public CompanyServiceImpl getCompanyService() {
+    public CompanyService getCompanyService() {
         return companyService;
     }
     
-    public void setCompanyService(CompanyServiceImpl companyService) {
+    public void setCompanyService(CompanyService companyService) {
         this.companyService = companyService;
     }
 
@@ -136,7 +146,11 @@ public class ComputerUiImpl implements ComputerUi {
         if (companyId != null) {
             computer.companyId(companyId);
         }
-        computerService.insert(ComputerDtoMapper.computerDtoToComputer(computer.build()));
+        try {
+            computerService.insert(ComputerDtoMapper.computerDtoToComputer(computer.build()));
+        } catch (NotImplementedMethodException exception) {
+            slf4jLogger.error("insert in computerService is not implemented yet", exception);
+        }
         pages.setNbPages(pages.getNbPages() + 1);
     }
 
@@ -165,7 +179,11 @@ public class ComputerUiImpl implements ComputerUi {
             computer.discontinued(disco);
         }
         computer.companyId(companyId);
-        computerService.update(ComputerDtoMapper.computerDtoToComputer(computer.build()));
+        try {
+            computerService.update(ComputerDtoMapper.computerDtoToComputer(computer.build()));
+        } catch (NotImplementedMethodException exception) {
+            slf4jLogger.error("update in computerService is not implemented yet", exception);
+        }
     }
 
     @Override
@@ -173,7 +191,11 @@ public class ComputerUiImpl implements ComputerUi {
         System.out.println("which computer id?");
         ArrayList<Long> idList = new ArrayList<Long>();
         idList.add(scanner.nextLong());
-        computerService.delete(new Constraints.ConstraintsBuilder().idList(idList).build());
+        try {
+            computerService.delete(new Constraints.ConstraintsBuilder().idList(idList).build());
+        } catch (NotImplementedMethodException exception) {
+            slf4jLogger.error("delete in computerService is not implemented yet", exception);
+        }
         scanner.nextLine();
         pages.setNbPages(pages.getNbPages() - 1);
     }

@@ -3,36 +3,57 @@ package com.excilys.formation.computerdatabase.servlet;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 
+import com.excilys.formation.computerdatabase.exception.ConnectionException;
+import com.excilys.formation.computerdatabase.exception.NotImplementedMethodException;
 import com.excilys.formation.computerdatabase.mapper.RequestMapper;
 import com.excilys.formation.computerdatabase.persistence.Constraints;
+import com.excilys.formation.computerdatabase.service.company.CompanyServiceImpl;
+import com.excilys.formation.computerdatabase.service.computer.ComputerService;
 import com.excilys.formation.computerdatabase.service.computer.ComputerServiceImpl;
 
 public class DeleteComputer extends HttpServlet {
 
     private static final long serialVersionUID = -3947839916923007223L;
-    private ComputerServiceImpl computerService; // service of Company to manage them
+    @Autowired
+    private ComputerService computerService; // service of Company to manage them
+    private static final Logger slf4jLogger = LoggerFactory.getLogger(ConnectionException.class);
 
 
-    public ComputerServiceImpl getComputerService() {
+    public ComputerService getComputerService() {
         return computerService;
     }
 
-    public void setComputerService(ComputerServiceImpl computerService) {
+    public void setComputerService(ComputerService computerService) {
         this.computerService = computerService;
     }
 
     
     @Override
+    public void init(ServletConfig config) throws ServletException {
+       super.init(config);
+       ApplicationContext applicationContext = (ApplicationContext) config.getServletContext().getAttribute("applicationContext");
+       this.computerService = (ComputerService) applicationContext.getBean("computerService");
+    }
+    
+    @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Long> computersId = RequestMapper.convertToComputersId(request);
-        computerService.delete(new Constraints.ConstraintsBuilder().idList(computersId).build());
+        try {
+            computerService.delete(new Constraints.ConstraintsBuilder().idList(computersId).build());
+        } catch (NotImplementedMethodException exception) {
+            slf4jLogger.error("delete in computerService is not implemented yet", exception);
+        }
         request.getRequestDispatcher("/dashboard").forward(request, response);
     }
 

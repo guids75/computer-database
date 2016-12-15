@@ -4,19 +4,27 @@ import com.excilys.formation.computerdatabase.mapper.CompanyDtoMapper;
 import com.excilys.formation.computerdatabase.mapper.ComputerDtoMapper;
 import com.excilys.formation.computerdatabase.mapper.RequestMapper;
 import com.excilys.formation.computerdatabase.dto.ComputerDto;
+import com.excilys.formation.computerdatabase.exception.ConnectionException;
+import com.excilys.formation.computerdatabase.exception.NotImplementedMethodException;
 import com.excilys.formation.computerdatabase.persistence.Constraints;
+import com.excilys.formation.computerdatabase.service.company.CompanyService;
 import com.excilys.formation.computerdatabase.service.company.CompanyServiceImpl;
+import com.excilys.formation.computerdatabase.service.computer.ComputerService;
 import com.excilys.formation.computerdatabase.service.computer.ComputerServiceImpl;
 import com.excilys.formation.computerdatabase.validation.servlet.ComputerValidator;
 
 import java.io.IOException;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 
 /**
  * @author GUIDS
@@ -25,26 +33,37 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class AddComputer extends HttpServlet {
 
     private static final long serialVersionUID = -2391324266165934348L;
-    private CompanyServiceImpl companyService; // service of Company to manage them
-    private ComputerServiceImpl computerService; // service of Company to manage them
-    
+    @Autowired
+    private CompanyService companyService; // service of Company to manage them
+    @Autowired
+    private ComputerService computerService; // service of Company to manage them
+    private static final Logger slf4jLogger = LoggerFactory.getLogger(ConnectionException.class);
 
-    public CompanyServiceImpl getCompanyService() {
+
+    public CompanyService getCompanyService() {
         return companyService;
     }
 
-    public void setCompanyService(CompanyServiceImpl companyService) {
+    public void setCompanyService(CompanyService companyService) {
         this.companyService = companyService;
     }
 
-    public ComputerServiceImpl getComputerService() {
+    public ComputerService getComputerService() {
         return computerService;
     }
 
-    public void setComputerService(ComputerServiceImpl computerService) {
+    public void setComputerService(ComputerService computerService) {
         this.computerService = computerService;
     }
+
     
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+       super.init(config);
+       ApplicationContext applicationContext = (ApplicationContext) config.getServletContext().getAttribute("applicationContext");
+       this.companyService = (CompanyService) applicationContext.getBean("companyService");
+       this.computerService = (ComputerService) applicationContext.getBean("computerService");
+    }
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -59,7 +78,11 @@ public class AddComputer extends HttpServlet {
         if (!ComputerValidator.validate(computer).isEmpty()) {
             doGet(request, response);
         } else {
-        computerService.insert(ComputerDtoMapper.computerDtoToComputer(computer));
+        try {
+            computerService.insert(ComputerDtoMapper.computerDtoToComputer(computer));
+        } catch (NotImplementedMethodException exception) {
+            slf4jLogger.error("insert in companyService is not implemented yet", exception);
+        }
         request.getRequestDispatcher("/dashboardSubmit").forward(request, response);
         }
     }

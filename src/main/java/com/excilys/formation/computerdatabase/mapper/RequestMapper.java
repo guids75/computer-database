@@ -20,7 +20,7 @@ import com.excilys.formation.computerdatabase.service.computer.ComputerServiceIm
 
 public final class RequestMapper {
 
-    private ApplicationContext appContext = new ClassPathXmlApplicationContext("bean.xml"); 
+    private ApplicationContext appContext = new ClassPathXmlApplicationContext("applicationContext.xml"); 
     private ComputerService computerService = (ComputerService) appContext.getBean("computerService");
 
     

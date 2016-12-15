@@ -15,13 +15,17 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.jdbc.datasource.DataSourceUtils;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 /**
  * @author GUIDS
  *
  */
+@Repository
 public class CompanyDaoImpl implements CompanyDao {
 
     // requests
@@ -30,6 +34,7 @@ public class CompanyDaoImpl implements CompanyDao {
     private static final String NUMBER_REQUEST = "SELECT COUNT(company.id) as number FROM company";
     private static final String COMPANY_REQUEST = "SELECT company.id as companyId, company.name as companyName FROM company where id=?";
  
+    @Autowired
     private DataSource dataSource; // get the connection
     private ResultSet results;
     
@@ -49,7 +54,7 @@ public class CompanyDaoImpl implements CompanyDao {
         if (constraints == null || (constraints.getLimit() == -1 || constraints.getOffset() == -1)) {
             throw new IllegalArgumentException("A limit or an offset is missing in the constraints");
         }
-        try (Connection connection = dataSource.getConnection();
+        try (Connection connection = DataSourceUtils.getConnection(dataSource);
                 PreparedStatement preparedStatement = connection.prepareStatement(LIST_REQUEST)) {
             preparedStatement.setInt(1, constraints.getLimit());
             preparedStatement.setInt(2, constraints.getOffset());
@@ -62,11 +67,11 @@ public class CompanyDaoImpl implements CompanyDao {
     }
 
     @Override
-    public void delete(Constraints constraints, Connection connection) throws ConnectionException {
-        if (constraints == null || (constraints.getIdCompany() == -1L || connection == null)) {
+    public void delete(Constraints constraints) throws ConnectionException {
+        if (constraints == null || (constraints.getIdCompany() == -1L)) {
             throw new IllegalArgumentException("A company is missing in the constraints or the connection is closed");
         }
-        try (PreparedStatement preparedStatement = connection.prepareStatement(DELETE_REQUEST)) {
+        try (PreparedStatement preparedStatement = DataSourceUtils.getConnection(dataSource).prepareStatement(DELETE_REQUEST)) {
             preparedStatement.setLong(1, constraints.getIdCompany());
             preparedStatement.executeUpdate();
         } catch (SQLException exception) {
@@ -76,7 +81,7 @@ public class CompanyDaoImpl implements CompanyDao {
 
     @Override
     public int count() throws ConnectionException {
-        try (Connection connection = dataSource.getConnection();
+        try (Connection connection = DataSourceUtils.getConnection(dataSource);
                 Statement statement = connection.createStatement()) {
             results = statement.executeQuery(NUMBER_REQUEST);
             results.next();
@@ -91,7 +96,7 @@ public class CompanyDaoImpl implements CompanyDao {
         if (id < 1) {
             throw new IllegalArgumentException("The id given for the company is wrong");
         }
-        try (Connection connection = dataSource.getConnection();
+        try (Connection connection = DataSourceUtils.getConnection(dataSource);
                 PreparedStatement preparedStatement = connection.prepareStatement(COMPANY_REQUEST)) {
             preparedStatement.setLong(1, id);
             results = preparedStatement.executeQuery();

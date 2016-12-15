@@ -38,5 +38,5 @@ public interface ComputerDao extends Dao<Computer> {
      */
     public List<Computer> search(Constraints constraints) throws ConnectionException;
 
-    public List<Long> listByCompany(Constraints constraints, Connection connection);
+    public List<Long> listByCompany(Constraints constraints);
 }

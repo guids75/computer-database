@@ -4,9 +4,10 @@ import java.util.Scanner;
 
 import javax.sql.DataSource;
 
-import org.apache.catalina.core.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.ApplicationContext;
 
+import com.excilys.formation.computerdatabase.persistence.company.CompanyDaoImpl;
 import com.excilys.formation.computerdatabase.ui.company.CompanyUi;
 import com.excilys.formation.computerdatabase.ui.company.CompanyUiImpl;
 import com.excilys.formation.computerdatabase.ui.computer.ComputerUi;
@@ -21,28 +22,13 @@ public class Cli {
     public static Scanner in = new Scanner(System.in);
     private static CompanyUi companyUi;
     private static ComputerUi computerUi;
-    
-    
-    public static CompanyUi getCompanyUi() {
-        return companyUi;
-    }
-
-    public static void setCompanyUi(CompanyUi companyUi) {
-        Cli.companyUi = companyUi;
-    }
-
-    public static ComputerUi getComputerUi() {
-        return computerUi;
-    }
-
-    public static void setComputerUi(ComputerUi computerUi) {
-        Cli.computerUi = computerUi;
-    }
 
 
     public static void main(String[] args) {
         
-        ClassPathXmlApplicationContext appContext = new ClassPathXmlApplicationContext("bean.xml"); 
+        ApplicationContext appContext = new ClassPathXmlApplicationContext("applicationContext.xml");
+        companyUi = (CompanyUiImpl) appContext.getBean(CompanyUi.class);
+        computerUi = (ComputerUiImpl) appContext.getBean(ComputerUi.class);
         
         while (true) {
 

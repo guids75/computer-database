@@ -4,43 +4,63 @@ import java.io.IOException;
 import java.util.List;
 
 import com.excilys.formation.computerdatabase.dto.ComputerDto;
+import com.excilys.formation.computerdatabase.exception.ConnectionException;
+import com.excilys.formation.computerdatabase.exception.NotImplementedMethodException;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 
 import com.excilys.formation.computerdatabase.mapper.ComputerDtoMapper;
 import com.excilys.formation.computerdatabase.mapper.RequestMapper;
 import com.excilys.formation.computerdatabase.persistence.Constraints;
+import com.excilys.formation.computerdatabase.service.computer.ComputerService;
 import com.excilys.formation.computerdatabase.service.computer.ComputerServiceImpl;
 import com.excilys.formation.computerdatabase.validation.servlet.ComputerValidator;
+import com.excilys.formation.computerdatabase.service.company.CompanyService;
 import com.excilys.formation.computerdatabase.service.company.CompanyServiceImpl;
 
 public class EditComputer extends HttpServlet {
 
     private static final long serialVersionUID = 1565503698100849730L;
-    private ComputerServiceImpl computerService; // service of Company to manage them
-    private CompanyServiceImpl companyService; // service of Company to manage them
+    @Autowired
+    private ComputerService computerService; // service of Company to manage them
+    @Autowired
+    private CompanyService companyService; // service of Company to manage them
+    private static final Logger slf4jLogger = LoggerFactory.getLogger(ConnectionException.class);
+   
     
-    public ComputerServiceImpl getComputerService() {
+    public ComputerService getComputerService() {
         return computerService;
     }
 
-    public void setComputerService(ComputerServiceImpl computerService) {
+    public void setComputerService(ComputerService computerService) {
         this.computerService = computerService;
     }
 
-    public CompanyServiceImpl getCompanyService() {
+    public CompanyService getCompanyService() {
         return companyService;
     }
 
-    public void setCompanyService(CompanyServiceImpl companyService) {
+    public void setCompanyService(CompanyService companyService) {
         this.companyService = companyService;
     }
+
     
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+       super.init(config);
+       ApplicationContext applicationContext = (ApplicationContext) config.getServletContext().getAttribute("applicationContext");
+       this.companyService = (CompanyService) applicationContext.getBean("companyService");
+       this.computerService = (ComputerService) applicationContext.getBean("computerService");
+    }
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -58,7 +78,11 @@ public class EditComputer extends HttpServlet {
             request.setAttribute("errors", errors.get(0));
             doGet(request, response);
         } else {
-        computerService.update(ComputerDtoMapper.computerDtoToComputer(computer));
+        try {
+            computerService.update(ComputerDtoMapper.computerDtoToComputer(computer));
+        } catch (NotImplementedMethodException exception) {
+            slf4jLogger.error("update in computerService is not implemented yet", exception);
+        }
         request.getRequestDispatcher("/dashboardSubmit").forward(request, response);
         }
     }

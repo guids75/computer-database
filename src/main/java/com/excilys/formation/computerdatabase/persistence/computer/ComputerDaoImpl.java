@@ -2,7 +2,11 @@ package com.excilys.formation.computerdatabase.persistence.computer;
 
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
 
+import org.apache.taglibs.standard.tag.common.sql.DataSourceUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.jdbc.datasource.DataSourceUtils;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import com.excilys.formation.computerdatabase.mapper.ResultMapper;
@@ -21,6 +25,7 @@ import javax.sql.DataSource;
  * @author GUIDS
  *
  */
+@Repository
 public class ComputerDaoImpl implements ComputerDao {
 
     // requests
@@ -39,6 +44,7 @@ public class ComputerDaoImpl implements ComputerDao {
             + " FROM computer LEFT JOIN company ON computer.company_id=company.id WHERE company.id=?";
     private static final String ORDER_BY = " ORDER BY ";
     
+    @Autowired
     private DataSource dataSource; // get the connection
     private ResultSet results;
     
@@ -58,7 +64,7 @@ public class ComputerDaoImpl implements ComputerDao {
         if (computer == null) {
             throw new IllegalArgumentException("A computer is missing to insert");
         }
-        try (Connection connection = dataSource.getConnection();
+        try (Connection connection = DataSourceUtils.getConnection(dataSource);
                 PreparedStatement preparedStatement = connection.prepareStatement(INSERT_REQUEST,
                         PreparedStatement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, computer.getName());
@@ -82,7 +88,7 @@ public class ComputerDaoImpl implements ComputerDao {
         if (computer == null) {
             throw new IllegalArgumentException("A computer is missing to update");
         }
-        try (Connection connection = dataSource.getConnection();
+        try (Connection connection = DataSourceUtils.getConnection(dataSource);
                 PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_REQUEST)) {
             preparedStatement.setString(1, computer.getName());
             preparedStatement.setObject(2, computer.getIntroduced());
@@ -97,9 +103,12 @@ public class ComputerDaoImpl implements ComputerDao {
     }
 
     @Override
-    public void delete(Constraints constraints, Connection connection) throws ConnectionException {
-        if (constraints == null | (constraints.getIdList() == null | connection == null)) {
+    public void delete(Constraints constraints) throws ConnectionException {
+        if (constraints == null | (constraints.getIdList() == null)) {
             throw new IllegalArgumentException("A connection is missing to delete or the constraints are null");
+        }
+        if (constraints.getIdList().isEmpty()) {
+            return;
         }
         String request;
         if (constraints.getIdList().size() == 1) {
@@ -107,7 +116,7 @@ public class ComputerDaoImpl implements ComputerDao {
         } else {
             request = DELETE_REQUEST + " IN " + constraints.getIdList().toString().replace('[', '(').replace(']', ')');
         }
-        try (PreparedStatement preparedStatement = connection.prepareStatement(request)) {
+        try (PreparedStatement preparedStatement = DataSourceUtils.getConnection(dataSource).prepareStatement(request)) {
             if (constraints.getIdList().size() == 1) {
                 preparedStatement.setLong(1, constraints.getIdList().get(0));
             }
@@ -128,7 +137,7 @@ public class ComputerDaoImpl implements ComputerDao {
         } else {
             request += LIMIT_OFFSET;
         }
-        try (Connection connection = dataSource.getConnection();
+        try (Connection connection = DataSourceUtils.getConnection(dataSource);
                 PreparedStatement preparedStatement = connection.prepareStatement(request)) {
             preparedStatement.setInt(1, constraints.getLimit());
             preparedStatement.setInt(2, constraints.getOffset());
@@ -141,11 +150,11 @@ public class ComputerDaoImpl implements ComputerDao {
     }
 
     @Override
-    public List<Long> listByCompany(Constraints constraints, Connection connection) throws ConnectionException {
-        if (constraints == null | (constraints.getIdCompany() == -1 || connection == null)) {
+    public List<Long> listByCompany(Constraints constraints) throws ConnectionException {
+        if (constraints == null | (constraints.getIdCompany() == -1)) {
             throw new IllegalArgumentException("Constraints are missing to listByCompany");
         } 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(LISTBYCOMPANY_REQUEST)) {
+        try (PreparedStatement preparedStatement = DataSourceUtils.getConnection(dataSource).prepareStatement(LISTBYCOMPANY_REQUEST)) {
             preparedStatement.setLong(1, constraints.getIdCompany());
             List<Long> list = ResultMapper.convertToComputersId(preparedStatement.executeQuery());
             return list;
@@ -159,7 +168,7 @@ public class ComputerDaoImpl implements ComputerDao {
         if (computerId < 1) {
             throw new IllegalArgumentException("The computerId is wrong to showComputerDetails : must be more than 0");
         }
-        try (Connection connection = dataSource.getConnection();
+        try (Connection connection = DataSourceUtils.getConnection(dataSource);
                 PreparedStatement preparedStatement = connection.prepareStatement(DETAILS_REQUEST)) {
             preparedStatement.setLong(1, computerId);
             Computer computer = ResultMapper.convertToComputer(preparedStatement.executeQuery());
@@ -181,7 +190,7 @@ public class ComputerDaoImpl implements ComputerDao {
         } else {
             request = NUMBER_REQUEST;
         }
-        try (Connection connection = dataSource.getConnection();
+        try (Connection connection = DataSourceUtils.getConnection(dataSource);
                 PreparedStatement preparedStatement = connection.prepareStatement(request)) {
             if (constraints.getSearch() != null && !constraints.getSearch().equals("")) {
                 preparedStatement.setString(1, "%" + constraints.getSearch() + "%");
@@ -201,7 +210,7 @@ public class ComputerDaoImpl implements ComputerDao {
         if (constraints == null) {
             throw new IllegalArgumentException("Constraints are missing to search");
         }
-        try (Connection connection = dataSource.getConnection();
+        try (Connection connection = DataSourceUtils.getConnection(dataSource);
                 PreparedStatement preparedStatement = connection.prepareStatement(SEARCH_REQUEST + LIMIT_OFFSET)) {
             preparedStatement.setString(1, "%" + constraints.getSearch() + "%");
             preparedStatement.setString(2, "%" + constraints.getSearch() + "%");

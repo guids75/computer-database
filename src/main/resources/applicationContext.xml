@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<context:property-placeholder location="classpath:hikariConnection.properties" />
+
+	<context:annotation-config />
+	<context:component-scan base-package="com.excilys.formation.computerdatabase" />
+	<tx:annotation-driven />
+
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
+		destroy-method="close">
+		<property name="dataSourceClassName" value="${className}" />
+		<property name="maximumPoolSize" value="10" />
+		<property name="maxLifetime" value="1800000" />
+		<property name="idleTimeout" value="600000" />
+		<property name="connectionTimeout" value="60000" />
+		<property name="dataSourceProperties">
+			<props>
+				<prop key="url">${url}</prop>
+				<prop key="user">${login}</prop>
+				<prop key="password">${password}</prop>
+				<prop key="prepStmtCacheSize">250</prop>
+				<prop key="prepStmtCacheSqlLimit">2048</prop>
+				<prop key="cachePrepStmts">true</prop>
+				<prop key="useServerPrepStmts">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="txManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<tx:advice id="txDeleteAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="delete*" />
+		</tx:attributes>
+	</tx:advice>
+	
+	<aop:config proxy-target-class="true">
+		<aop:pointcut id="deleteMethod"
+			expression="execution(* com.excilys.formation.computerdatabase.service.company.CompanyService.*(..))" />
+		<aop:advisor advice-ref="txDeleteAdvice" pointcut-ref="deleteMethod" />
+	</aop:config>
+
+
+</beans>
