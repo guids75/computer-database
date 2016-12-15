@@ -25,6 +25,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
  * @author GUIDS
@@ -56,13 +58,12 @@ public class AddComputer extends HttpServlet {
         this.computerService = computerService;
     }
 
-    
+
     @Override
-    public void init(ServletConfig config) throws ServletException {
-       super.init(config);
-       ApplicationContext applicationContext = (ApplicationContext) config.getServletContext().getAttribute("applicationContext");
-       this.companyService = (CompanyService) applicationContext.getBean("companyService");
-       this.computerService = (ComputerService) applicationContext.getBean("computerService");
+    public void init() throws ServletException {
+        WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
+        this.companyService = (CompanyService) webApplicationContext.getBean(CompanyService.class);
+        this.computerService = (ComputerService) webApplicationContext.getBean(ComputerService.class);
     }
 
     @Override
@@ -78,12 +79,12 @@ public class AddComputer extends HttpServlet {
         if (!ComputerValidator.validate(computer).isEmpty()) {
             doGet(request, response);
         } else {
-        try {
-            computerService.insert(ComputerDtoMapper.computerDtoToComputer(computer));
-        } catch (NotImplementedMethodException exception) {
-            slf4jLogger.error("insert in companyService is not implemented yet", exception);
-        }
-        request.getRequestDispatcher("/dashboardSubmit").forward(request, response);
+            try {
+                computerService.insert(ComputerDtoMapper.computerDtoToComputer(computer));
+            } catch (NotImplementedMethodException exception) {
+                slf4jLogger.error("insert in companyService is not implemented yet", exception);
+            }
+            request.getRequestDispatcher("/dashboardSubmit").forward(request, response);
         }
     }
 

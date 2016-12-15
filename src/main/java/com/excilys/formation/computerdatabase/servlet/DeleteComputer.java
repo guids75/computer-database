@@ -13,6 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import com.excilys.formation.computerdatabase.exception.NotImplementedMethodException;
@@ -38,14 +40,13 @@ public class DeleteComputer extends HttpServlet {
         this.computerService = computerService;
     }
 
-    
+
     @Override
-    public void init(ServletConfig config) throws ServletException {
-       super.init(config);
-       ApplicationContext applicationContext = (ApplicationContext) config.getServletContext().getAttribute("applicationContext");
-       this.computerService = (ComputerService) applicationContext.getBean("computerService");
+    public void init() throws ServletException {
+        WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
+        this.computerService = (ComputerService) webApplicationContext.getBean(ComputerService.class);
     }
-    
+
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Long> computersId = RequestMapper.convertToComputersId(request);

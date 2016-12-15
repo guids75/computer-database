@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.excilys.formation.computerdatabase.mapper.ComputerDtoMapper;
 import com.excilys.formation.computerdatabase.mapper.RequestMapper;
@@ -40,10 +42,9 @@ public class DashboardSubmit extends HttpServlet {
 
     
     @Override
-    public void init(ServletConfig config) throws ServletException {
-       super.init(config);
-       ApplicationContext applicationContext = (ApplicationContext) config.getServletContext().getAttribute("applicationContext");
-       this.computerService = (ComputerService) applicationContext.getBean("computerService");
+    public void init() throws ServletException {
+        WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
+        this.computerService = (ComputerService) webApplicationContext.getBean(ComputerService.class);
     }
 
     @Override
