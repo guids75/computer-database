@@ -43,7 +43,7 @@ public final class ResultMapper {
         }
         return computers;
     }
-
+    
     /**
      * Convert the first element of a resultSet to the computer inside.
      * 
