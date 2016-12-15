@@ -11,6 +11,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.excilys.formation.computerdatabase.model.Company;
 import com.excilys.formation.computerdatabase.persistence.company.CompanyDao;
@@ -18,17 +19,8 @@ import com.excilys.formation.computerdatabase.persistence.company.CompanyDaoImpl
 
 public class CompanyDaoImplTest {
 
+    @Autowired
     private CompanyDaoImpl companyDao;
-    private Connection connection = HikariConnectionPool.INSTANCE.getConnection();
-
-    @Before
-    public void setUp() throws Exception {
-        companyDao = CompanyDaoImpl.INSTANCE;
-    }
-
-    @After
-    public void tearDown() throws Exception {
-    }
 
     @Test
     public void testList() {

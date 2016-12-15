@@ -14,6 +14,8 @@ import java.util.Scanner;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.excilys.formation.computerdatabase.ui.company.CompanyUiImpl;
 import com.excilys.formation.computerdatabase.dto.CompanyDto;
 
@@ -23,22 +25,8 @@ import com.excilys.formation.computerdatabase.dto.CompanyDto;
  */
 public class CompanyUiImplTest {
 
+    @Autowired
     CompanyUiImpl companyUi;
-
-    /**
-     * @throws java.lang.Exception
-     */
-    @Before
-    public void setUp() throws Exception {
-        companyUi = new CompanyUiImpl();
-    }
-
-    /**
-     * @throws java.lang.Exception
-     */
-    @After
-    public void tearDown() throws Exception {
-    }
 
     @Test
     public void testList() {
