@@ -1,7 +1,5 @@
 package com.excilys.formation.computerdatabase.persistence.company;
 
-import java.sql.Connection;
-
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import com.excilys.formation.computerdatabase.model.Company;
 import com.excilys.formation.computerdatabase.persistence.Dao;

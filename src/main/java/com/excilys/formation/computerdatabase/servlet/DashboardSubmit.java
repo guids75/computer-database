@@ -2,14 +2,12 @@ package com.excilys.formation.computerdatabase.servlet;
 
 import java.io.IOException;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -17,9 +15,7 @@ import com.excilys.formation.computerdatabase.mapper.ComputerDtoMapper;
 import com.excilys.formation.computerdatabase.mapper.RequestMapper;
 import com.excilys.formation.computerdatabase.pagination.Page;
 import com.excilys.formation.computerdatabase.persistence.Constraints;
-import com.excilys.formation.computerdatabase.service.company.CompanyServiceImpl;
 import com.excilys.formation.computerdatabase.service.computer.ComputerService;
-import com.excilys.formation.computerdatabase.service.computer.ComputerServiceImpl;
 
 /**
  * @author GUIDS

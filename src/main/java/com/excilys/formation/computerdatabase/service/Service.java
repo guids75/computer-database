@@ -2,7 +2,6 @@ package com.excilys.formation.computerdatabase.service;
 
 import java.util.List;
 
-import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import com.excilys.formation.computerdatabase.exception.NotImplementedMethodException;
 import com.excilys.formation.computerdatabase.persistence.Constraints;
 

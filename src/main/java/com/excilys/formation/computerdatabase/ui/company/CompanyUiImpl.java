@@ -5,7 +5,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 import com.excilys.formation.computerdatabase.dto.CompanyDto;
@@ -90,12 +89,7 @@ public class CompanyUiImpl implements CompanyUi {
         pages.setNbPages(pages.getNbPages() - 1);
     }
 
-    /**
-     * Print the list of companies.
-     * 
-     * @param companies
-     *          : list of companies to print
-     */
+    @Override
     public void print(List<CompanyDto> companies) {
         companies.forEach(company-> System.out.println(company));
     }

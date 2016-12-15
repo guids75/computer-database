@@ -3,8 +3,6 @@ package com.excilys.formation.computerdatabase.exception;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.excilys.formation.computerdatabase.ui.Cli;
-
 public class NotImplementedMethodException extends Exception {
 
     private static final long serialVersionUID = 21613349142469981L;

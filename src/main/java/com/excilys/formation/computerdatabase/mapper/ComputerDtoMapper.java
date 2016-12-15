@@ -9,7 +9,7 @@ import com.excilys.formation.computerdatabase.dto.ComputerDto;
 import com.excilys.formation.computerdatabase.dto.ComputerDto.ComputerDtoBuilder;
 import com.excilys.formation.computerdatabase.model.Company;
 import com.excilys.formation.computerdatabase.model.Computer;
-import com.excilys.formation.computerdatabase.model.Computer.ComputerBuilder;
+import com.excilys.formation.computerdatabase.model.Computer.Builder;
 
 public final class ComputerDtoMapper {
 
@@ -36,14 +36,14 @@ public final class ComputerDtoMapper {
      */
     public static Computer computerDtoToComputer(ComputerDto computerDto) {
         if (computerDto != null) {
-            ComputerBuilder computer = new Computer.ComputerBuilder(computerDto.getName()).id(computerDto.getId());
+            Builder computer = new Computer.Builder(computerDto.getName()).id(computerDto.getId());
             if (computerDto.getIntroduced() != null) {
                 computer.introduced(LocalDate.parse(computerDto.getIntroduced(), dateTimeFormatter));
             }
             if (computerDto.getDiscontinued() != null) {
                 computer.discontinued(LocalDate.parse(computerDto.getDiscontinued(), dateTimeFormatter));
             }
-            computer.company(new Company.CompanyBuilder(computerDto.getCompanyName()).id(computerDto.getCompanyId()).build());
+            computer.company(new Company.Builder(computerDto.getCompanyName()).id(computerDto.getCompanyId()).build());
             return computer.build();
         }
         return null;

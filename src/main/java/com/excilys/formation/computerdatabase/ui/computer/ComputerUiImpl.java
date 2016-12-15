@@ -8,9 +8,7 @@ import com.excilys.formation.computerdatabase.exception.NotImplementedMethodExce
 import com.excilys.formation.computerdatabase.pagination.Page;
 import com.excilys.formation.computerdatabase.persistence.Constraints;
 import com.excilys.formation.computerdatabase.service.company.CompanyService;
-import com.excilys.formation.computerdatabase.service.company.CompanyServiceImpl;
 import com.excilys.formation.computerdatabase.service.computer.ComputerService;
-import com.excilys.formation.computerdatabase.service.computer.ComputerServiceImpl;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

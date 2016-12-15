@@ -1,10 +1,5 @@
 package com.excilys.formation.computerdatabase.service.company;
 
-import com.excilys.formation.computerdatabase.exception.ConnectionException;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 import com.excilys.formation.computerdatabase.model.Company;
 import com.excilys.formation.computerdatabase.service.Service;
 

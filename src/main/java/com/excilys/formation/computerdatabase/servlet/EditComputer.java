@@ -7,7 +7,6 @@ import com.excilys.formation.computerdatabase.dto.ComputerDto;
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import com.excilys.formation.computerdatabase.exception.NotImplementedMethodException;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -24,10 +22,8 @@ import com.excilys.formation.computerdatabase.mapper.ComputerDtoMapper;
 import com.excilys.formation.computerdatabase.mapper.RequestMapper;
 import com.excilys.formation.computerdatabase.persistence.Constraints;
 import com.excilys.formation.computerdatabase.service.computer.ComputerService;
-import com.excilys.formation.computerdatabase.service.computer.ComputerServiceImpl;
 import com.excilys.formation.computerdatabase.validation.servlet.ComputerValidator;
 import com.excilys.formation.computerdatabase.service.company.CompanyService;
-import com.excilys.formation.computerdatabase.service.company.CompanyServiceImpl;
 
 public class EditComputer extends HttpServlet {
 

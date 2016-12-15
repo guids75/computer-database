@@ -1,9 +1,5 @@
 package com.excilys.formation.computerdatabase.pagination;
 
-import java.io.IOException;
-
-import com.excilys.formation.computerdatabase.util.PropertiesReader;
-
 /**
  * @author GUIDS
  *

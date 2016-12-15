@@ -1,10 +1,7 @@
 package com.excilys.formation.computerdatabase.mapper;
 
 import com.excilys.formation.computerdatabase.model.Company;
-import com.excilys.formation.computerdatabase.model.Company.CompanyBuilder;
-import com.excilys.formation.computerdatabase.model.Computer.ComputerBuilder;
 import com.excilys.formation.computerdatabase.model.Computer;
-import com.excilys.formation.computerdatabase.ui.Cli;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -56,7 +53,7 @@ public final class ResultMapper {
      */
     public static Computer convertToComputer(ResultSet results) {
         try {
-            ComputerBuilder computer = new Computer.ComputerBuilder(results.getString("computerName"))
+            Computer.Builder computer = new Computer.Builder(results.getString("computerName"))
                     .id(results.getLong("computerId"));
             if (results.getDate("computer.introduced") != null) {
                 computer.introduced(LocalDate.parse(simpleDateFormat.format(results.getDate("computer.introduced"))));
@@ -66,7 +63,7 @@ public final class ResultMapper {
                         LocalDate.parse(simpleDateFormat.format(results.getDate("computer.discontinued"))));
             }
             if (results.getLong("companyId") != 0 && results.getString("companyName") != null) {
-            computer.company(new Company.CompanyBuilder(results.getString("companyName"))
+            computer.company(new Company.Builder(results.getString("companyName"))
                     .id(results.getLong("companyId")).build());
             }
             return computer.build();
@@ -123,7 +120,7 @@ public final class ResultMapper {
      */
     public static Company convertToCompany(ResultSet results) {
         try {
-            CompanyBuilder company = new Company.CompanyBuilder(results.getString("companyName"));
+            Company.Builder company = new Company.Builder(results.getString("companyName"));
             company.id(results.getLong("companyId"));
             return company.build();
         } catch (SQLException exception) {

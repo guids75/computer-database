@@ -16,7 +16,7 @@ public final class Company {
      * @param builder
      *            : the builder of COmpany.
      */
-    private Company(CompanyBuilder builder) {
+    private Company(Builder builder) {
         this.id = builder.id;
         this.name = builder.name;
     }
@@ -89,7 +89,7 @@ public final class Company {
      * 
      * @author GUIDS
      */
-    public static class CompanyBuilder {
+    public static class Builder {
         private Long id;
         private String name;
 
@@ -99,7 +99,7 @@ public final class Company {
          * @param name
          *            : the name of the computer
          */
-        public CompanyBuilder(String name) {
+        public Builder(String name) {
             this.name = name;
         }
 
@@ -110,7 +110,7 @@ public final class Company {
          *            : the id to set
          * @return the ComputerBuilder with his id updated
          */
-        public CompanyBuilder id(Long id) {
+        public Builder id(Long id) {
             this.id = id;
             return this;
         }

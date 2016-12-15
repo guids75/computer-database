@@ -1,6 +1,5 @@
 package com.excilys.formation.computerdatabase.persistence.computer;
 
-import java.sql.Connection;
 import java.util.List;
 
 import com.excilys.formation.computerdatabase.exception.ConnectionException;

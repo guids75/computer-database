@@ -2,33 +2,26 @@ package com.excilys.formation.computerdatabase.persistence;
 
 import static org.junit.Assert.*;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.List;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.excilys.formation.computerdatabase.model.Company;
 import com.excilys.formation.computerdatabase.model.Computer;
-import com.excilys.formation.computerdatabase.persistence.computer.ComputerDaoImpl;
+import com.excilys.formation.computerdatabase.persistence.computer.ComputerDao;
 
 public class ComputerDaoImplTest {
 
     @Autowired
-    private ComputerDaoImpl computerDao;
+    private ComputerDao computerDao;
 
     @Test
     public void testInsert() {
         int count = computerDao.count(new Constraints.ConstraintsBuilder().build());
-        Computer computer = new Computer.ComputerBuilder("MyComputer").introduced(LocalDate.parse("1990-02-02"))
+        Computer computer = new Computer.Builder("MyComputer").introduced(LocalDate.parse("1990-02-02"))
                 .discontinued(LocalDate.parse("1991-02-02"))
-                .company(new Company.CompanyBuilder("Company").id(5L).build()).build();
+                .company(new Company.Builder("Company").id(5L).build()).build();
         Computer computer2 = computerDao.insert(computer);
         assertNotNull("insert", computer2);
         assertTrue("insert", count + 1 == computerDao.count(new Constraints.ConstraintsBuilder().build()));

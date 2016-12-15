@@ -2,25 +2,18 @@ package com.excilys.formation.computerdatabase.persistence;
 
 import static org.junit.Assert.*;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.excilys.formation.computerdatabase.model.Company;
 import com.excilys.formation.computerdatabase.persistence.company.CompanyDao;
-import com.excilys.formation.computerdatabase.persistence.company.CompanyDaoImpl;
 
 public class CompanyDaoImplTest {
 
     @Autowired
-    private CompanyDaoImpl companyDao;
+    private CompanyDao companyDao;
 
     @Test
     public void testList() {

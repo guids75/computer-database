@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.sql.DataSource;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -16,7 +14,6 @@ import com.excilys.formation.computerdatabase.pagination.Page;
 import com.excilys.formation.computerdatabase.persistence.Constraints;
 import com.excilys.formation.computerdatabase.persistence.Constraints.ConstraintsBuilder;
 import com.excilys.formation.computerdatabase.service.computer.ComputerService;
-import com.excilys.formation.computerdatabase.service.computer.ComputerServiceImpl;
 
 public final class RequestMapper {
 

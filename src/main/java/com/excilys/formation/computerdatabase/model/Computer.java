@@ -27,7 +27,7 @@ public final class Computer {
      * @param builder
      *            : the builder of Computer.
      */
-    private Computer(ComputerBuilder builder) {
+    private Computer(Builder builder) {
         this.id = builder.id;
         this.name = builder.name;
         this.introduced = builder.introduced;
@@ -148,7 +148,7 @@ public final class Computer {
      * 
      * @author GUIDS
      */
-    public static class ComputerBuilder {
+    public static class Builder {
         private Long id;
         private String name;
         private LocalDate introduced;
@@ -161,7 +161,7 @@ public final class Computer {
          * @param name
          *            : the name of the computer
          */
-        public ComputerBuilder(String name) {
+        public Builder(String name) {
             if (name.trim().length() > 1) {
                 this.name = name;
             } else {
@@ -176,7 +176,7 @@ public final class Computer {
          *            : the id to set
          * @return the ComputerBuilder with his id updated
          */
-        public ComputerBuilder id(Long id) {
+        public Builder id(Long id) {
             this.id = id;
             return this;
         }
@@ -188,7 +188,7 @@ public final class Computer {
          *            : the date to set
          * @return the ComputerBuilder with his introduced date updated
          */
-        public ComputerBuilder introduced(LocalDate introduced) {
+        public Builder introduced(LocalDate introduced) {
             this.introduced = introduced;
             return this;
         }
@@ -200,7 +200,7 @@ public final class Computer {
          *            : the date to set
          * @return the ComputerBuilder with his discontinued date updated
          */
-        public ComputerBuilder discontinued(LocalDate discontinued) {
+        public Builder discontinued(LocalDate discontinued) {
             this.discontinued = discontinued;
             return this;
         }
@@ -212,7 +212,7 @@ public final class Computer {
          *            : the company to set
          * @return the ComputerBuilder with his company updated
          */
-        public ComputerBuilder company(Company company) {
+        public Builder company(Company company) {
             this.company = company;
             return this;
         }

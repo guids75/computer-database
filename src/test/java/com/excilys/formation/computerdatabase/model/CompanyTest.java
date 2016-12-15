@@ -12,7 +12,7 @@ public class CompanyTest {
 
     @Before
     public void setUp() throws Exception {
-        company = new Company.CompanyBuilder("MyCompany").id(1L).build();
+        company = new Company.Builder("MyCompany").id(1L).build();
     }
 
     @After
@@ -21,7 +21,7 @@ public class CompanyTest {
 
     @Test
     public void testHashCode() {
-        Company otherCompany = new Company.CompanyBuilder("MyCompany").id(1L).build();
+        Company otherCompany = new Company.Builder("MyCompany").id(1L).build();
         assertTrue("Same hashcode", company.hashCode() == otherCompany.hashCode());
         otherCompany.setName("MyNewCompany");
         assertTrue("Different hashcodes", company.hashCode() != otherCompany.hashCode());
@@ -53,7 +53,7 @@ public class CompanyTest {
 
     @Test
     public void testEqualsObject() {
-        Company otherCompany = new Company.CompanyBuilder("MyCompany").id(1L).build();
+        Company otherCompany = new Company.Builder("MyCompany").id(1L).build();
         assertTrue("Equals different", company.equals(otherCompany));
         assertTrue("Equals same", company.equals(company));
         assertFalse("NotEquals null", company.equals(null));

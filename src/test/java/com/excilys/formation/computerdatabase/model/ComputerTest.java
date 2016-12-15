@@ -22,7 +22,7 @@ public class ComputerTest {
      */
     @Before
     public void setUp() throws Exception {
-        computer = new Computer.ComputerBuilder("MyComputer").id(1L).build();
+        computer = new Computer.Builder("MyComputer").id(1L).build();
     }
 
     /**
@@ -38,7 +38,7 @@ public class ComputerTest {
      */
     @Test
     public void testHashCode() {
-        Computer otherComputer = new Computer.ComputerBuilder("MyComputer").id(1L).build();
+        Computer otherComputer = new Computer.Builder("MyComputer").id(1L).build();
         assertTrue("Same hashcode", computer.hashCode() == otherComputer.hashCode());
         otherComputer.setName("MyNewComputer");
         assertTrue("Different hashcodes", computer.hashCode() != otherComputer.hashCode());
@@ -91,7 +91,7 @@ public class ComputerTest {
      */
     @Test
     public void testEqualsObject() {
-        Computer otherComputer = new Computer.ComputerBuilder("MyComputer").id(1L).build();
+        Computer otherComputer = new Computer.Builder("MyComputer").id(1L).build();
         assertTrue("Equals different", computer.equals(otherComputer));
         assertTrue("Equals same", computer.equals(computer));
         assertFalse("NotEquals null", computer.equals(null));

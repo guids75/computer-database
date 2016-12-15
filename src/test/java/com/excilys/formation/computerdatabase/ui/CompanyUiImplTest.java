@@ -5,18 +5,13 @@ package com.excilys.formation.computerdatabase.ui;
 
 import static org.junit.Assert.*;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Scanner;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.excilys.formation.computerdatabase.ui.company.CompanyUiImpl;
+import com.excilys.formation.computerdatabase.ui.company.CompanyUi;
 import com.excilys.formation.computerdatabase.dto.CompanyDto;
 
 /**
@@ -26,7 +21,7 @@ import com.excilys.formation.computerdatabase.dto.CompanyDto;
 public class CompanyUiImplTest {
 
     @Autowired
-    CompanyUiImpl companyUi;
+    CompanyUi companyUi;
 
     @Test
     public void testList() {

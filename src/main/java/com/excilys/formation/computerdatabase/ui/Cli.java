@@ -2,12 +2,9 @@ package com.excilys.formation.computerdatabase.ui;
 
 import java.util.Scanner;
 
-import javax.sql.DataSource;
-
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.ApplicationContext;
 
-import com.excilys.formation.computerdatabase.persistence.company.CompanyDaoImpl;
 import com.excilys.formation.computerdatabase.ui.company.CompanyUi;
 import com.excilys.formation.computerdatabase.ui.company.CompanyUiImpl;
 import com.excilys.formation.computerdatabase.ui.computer.ComputerUi;
