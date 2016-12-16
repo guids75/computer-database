@@ -34,7 +34,6 @@ public class ComputerUiImpl implements ComputerUi {
 
     private String intro = "";
     private String disco = "";
-    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-M-dd");
     private Long companyId;
     private int nbComputers;
 
@@ -154,9 +153,6 @@ public class ComputerUiImpl implements ComputerUi {
 
     @Override
     public void update() {
-        System.out.println("which computer id?");
-        long id = scanner.nextLong();
-        scanner.nextLine();
         System.out.println("which name?");
         String name = scanner.nextLine();
         System.out.println("which introducing date? (yyyy-M-dd)");

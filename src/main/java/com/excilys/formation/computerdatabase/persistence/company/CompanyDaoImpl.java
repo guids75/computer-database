@@ -50,6 +50,7 @@ public class CompanyDaoImpl implements CompanyDao {
         if (constraints == null || (constraints.getIdCompany() == -1L)) {
             throw new IllegalArgumentException("A company is missing in the constraints or the connection is closed");
         }
+        System.out.println(DELETE_REQUEST + " " + constraints.getIdCompany());
         jdbcTemplate.update(DELETE_REQUEST, constraints.getIdCompany());
     }
 

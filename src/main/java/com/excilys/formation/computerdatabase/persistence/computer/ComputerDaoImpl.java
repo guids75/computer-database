@@ -3,22 +3,19 @@ package com.excilys.formation.computerdatabase.persistence.computer;
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
-import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import com.excilys.formation.computerdatabase.mapper.CompanyJdbcMapper;
 import com.excilys.formation.computerdatabase.mapper.ComputerJdbcMapper;
-import com.excilys.formation.computerdatabase.mapper.ResultMapper;
 import com.excilys.formation.computerdatabase.model.Computer;
 import com.excilys.formation.computerdatabase.persistence.Constraints;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -38,7 +35,7 @@ public class ComputerDaoImpl implements ComputerDao {
     private static final String LIST_REQUEST = "SELECT computer.id as computerId, computer.name as computerName, computer.introduced, computer.discontinued, company.id as companyId, company.name as companyName"
             + " FROM computer LEFT JOIN company ON computer.company_id=company.id";
     private static final String DETAILS_REQUEST = "SELECT computer.id as computerId, computer.name as computerName, computer.introduced, computer.discontinued, company.id as companyId, company.name as companyName"
-            + " FROM computer WHERE computer.id=? LEFT JOIN company ON computer.company_id=company.id";
+            + " FROM computer LEFT JOIN company ON computer.company_id=company.id WHERE computer.id=?";
     private static final String NUMBER_REQUEST = "SELECT COUNT(computer.id) as number FROM computer";
     private static final String SEARCH_REQUEST = "SELECT computer.id as computerId, computer.name as computerName, computer.introduced, computer.discontinued, company.id as companyId, company.name as companyName"
             + " FROM computer LEFT JOIN company ON computer.company_id=company.id WHERE computer.name LIKE ? OR company.name LIKE ?";
@@ -49,7 +46,6 @@ public class ComputerDaoImpl implements ComputerDao {
 
     @Autowired
     private DataSource dataSource; // get the connection
-    private ResultSet results;
     private JdbcTemplate jdbcTemplate;
 
     public ComputerDaoImpl() {
@@ -109,14 +105,11 @@ public class ComputerDaoImpl implements ComputerDao {
         String request;
         if (constraints.getIdList().size() == 1) {
             request = DELETE_REQUEST + "=?";
+            jdbcTemplate.update(request, constraints.getIdList().get(0));
         } else {
             request = DELETE_REQUEST + " IN " + constraints.getIdList().toString().replace('[', '(').replace(']', ')');
+            jdbcTemplate.update(request);
         }
-        if (constraints.getIdList().size() == 1) {
-            System.out.println(request + " " +  constraints.getIdList().get(0));
-            jdbcTemplate.update(request, new Object[] { constraints.getIdList().get(0) });
-        }
-        jdbcTemplate.update(request);
     }
 
     @Override
@@ -146,7 +139,11 @@ public class ComputerDaoImpl implements ComputerDao {
         if (computerId < 1) {
             throw new IllegalArgumentException("The computerId is wrong to showComputerDetails : must be more than 0");
         }
-        return jdbcTemplate.queryForObject(DETAILS_REQUEST, new Object[] {computerId }, new ComputerJdbcMapper());
+        try {
+            return jdbcTemplate.queryForObject(DETAILS_REQUEST, new Object[] {computerId }, new ComputerJdbcMapper());
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     @Override
@@ -160,7 +157,7 @@ public class ComputerDaoImpl implements ComputerDao {
         } else {
             request = NUMBER_REQUEST;
         }
-        
+
         if (constraints.getSearch() != null && !constraints.getSearch().equals("")) {
             return jdbcTemplate.queryForObject(request,new Object[] { "%" + constraints.getSearch() + "%", "%" + constraints.getSearch() + "%" }, Integer.class);
         }
@@ -172,7 +169,7 @@ public class ComputerDaoImpl implements ComputerDao {
         if (constraints == null) {
             throw new IllegalArgumentException("Constraints are missing to search");
         }
-        return jdbcTemplate.query(SEARCH_REQUEST + LIMIT_OFFSET, new Object[] {"%" + constraints.getSearch() + "%", "%" + constraints.getSearch() + "%" }, new ComputerJdbcMapper());
+        return jdbcTemplate.query(SEARCH_REQUEST + LIMIT_OFFSET, new Object[] {"%" + constraints.getSearch() + "%", "%" + constraints.getSearch() + "%", constraints.getLimit(), constraints.getOffset() }, new ComputerJdbcMapper());
     }
 
 }

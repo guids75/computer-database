@@ -51,7 +51,7 @@ public class DeleteComputer extends HttpServlet {
         } catch (NotImplementedMethodException exception) {
             slf4jLogger.error("delete in computerService is not implemented yet", exception);
         }
-        request.getRequestDispatcher("/dashboard").forward(request, response);
+        request.getRequestDispatcher("/dashboardSubmit").forward(request, response);
     }
 
     @Override

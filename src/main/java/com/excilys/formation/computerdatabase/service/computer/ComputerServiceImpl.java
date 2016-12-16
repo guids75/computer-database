@@ -72,7 +72,7 @@ public class ComputerServiceImpl implements ComputerService {
 
     @Override
     public void showComputerDetails(Long computerId) {
-        computerDao.showComputerDetails(computerId);
+        System.out.println(computerDao.showComputerDetails(computerId));
     }
 
     @Override
