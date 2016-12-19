@@ -2,8 +2,7 @@ package com.excilys.formation.computerdatabase.mapper;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -15,7 +14,7 @@ import com.excilys.formation.computerdatabase.persistence.Constraints;
 import com.excilys.formation.computerdatabase.persistence.Constraints.ConstraintsBuilder;
 import com.excilys.formation.computerdatabase.service.computer.ComputerService;
 
-public final class RequestMapper {
+public final class RequestParamMapper {
 
     private ApplicationContext appContext = new ClassPathXmlApplicationContext("application-context.xml"); 
     private ComputerService computerService = (ComputerService) appContext.getBean(ComputerService.class);
@@ -30,20 +29,20 @@ public final class RequestMapper {
     }
 
     
-    public static ComputerDto convertToComputer(HttpServletRequest request) {
-        if (request.getParameter("computerName") != null) {
-            ComputerDtoBuilder computerDto = new ComputerDto.ComputerDtoBuilder(request.getParameter("computerName"));
-            if (request.getParameter("id") != null) {
-                computerDto.id(Long.parseLong(request.getParameter("id")));
+    public static ComputerDto convertToComputer(Map<String, String> parameters) {
+        if (parameters.get("computerName") != null) {
+            ComputerDtoBuilder computerDto = new ComputerDto.ComputerDtoBuilder(parameters.get("computerName"));
+            if (parameters.get("id") != null) {
+                computerDto.id(Long.parseLong(parameters.get("id")));
             }
-            if (request.getParameter("introduced") != "") {
-                computerDto.introduced(request.getParameter("introduced"));
+            if (parameters.get("introduced") != "") {
+                computerDto.introduced(parameters.get("introduced"));
             }
-            if (request.getParameter("discontinued") != "") {
-                computerDto.discontinued(request.getParameter("discontinued"));
+            if (parameters.get("discontinued") != "") {
+                computerDto.discontinued(parameters.get("discontinued"));
             }
-            if (request.getParameter("companyId") != null && !request.getParameter("companyId").equals("")) {
-                computerDto.companyId(Long.parseLong(request.getParameter("companyId")));
+            if (parameters.get("companyId") != null && !parameters.get("companyId").equals("")) {
+                computerDto.companyId(Long.parseLong(parameters.get("companyId")));
             } else {
                 computerDto.companyId(0L);
             }
@@ -52,9 +51,9 @@ public final class RequestMapper {
         return null;
     }
 
-    public static List<Long> convertToComputersId(HttpServletRequest request) {
+    public static List<Long> convertToComputersId(Map<String, String> parameters) {
         List<Long> computersId = new ArrayList<>();
-        String selection = request.getParameter("selection");
+        String selection = parameters.get("selection");
         String[] deletedComputers = selection.split(",");
         if (deletedComputers.length > 0) {
             for (int i = 0; i < deletedComputers.length; i++) {
@@ -69,24 +68,24 @@ public final class RequestMapper {
         return computersId;
     }
 
-    public Page convertToPage(HttpServletRequest request) {
+    public Page convertToPage(Map<String, String> parameters) {
         Page pages = new Page();
         // if there is an actual page, use it, otherwise use the first page
-        if (request.getParameter("actualPage") != null) {
-            pages.setActualPage(Integer.parseInt(request.getParameter("actualPage")));
+        if (parameters.get("actualPage") != null) {
+            pages.setActualPage(Integer.parseInt(parameters.get("actualPage")));
         } else {
             pages.setActualPage(1);
         }
         // if there is a nbElementsByPage defined, use it, otherwise use 10
-        if (request.getParameter("nbElementsByPage") != null) {
-            pages.setNbElementsByPage(Integer.parseInt(request.getParameter("nbElementsByPage")));
+        if (parameters.get("nbElementsByPage") != null) {
+            pages.setNbElementsByPage(Integer.parseInt(parameters.get("nbElementsByPage")));
         } else {
             pages.setNbElementsByPage(10);
         }
         // get the right number of pages according to the search
-        if (request.getParameter("search") != null) {
+        if (parameters.get("search") != null) {
             pages.setNbElements(computerService
-                    .count(new Constraints.ConstraintsBuilder().search(request.getParameter("search")).build()));
+                    .count(new Constraints.ConstraintsBuilder().search(parameters.get("search")).build()));
         } else {
             pages.setNbElements(computerService.count(new Constraints.ConstraintsBuilder().search("").build()));
         }
@@ -100,13 +99,13 @@ public final class RequestMapper {
         return pages;
     }
     
-    public static ConstraintsBuilder convertToConstraints(HttpServletRequest request) {
+    public static ConstraintsBuilder convertToConstraints(Map<String, String> parameters) {
         ConstraintsBuilder constraints = new Constraints.ConstraintsBuilder();
-        if (request.getParameter("order") != null) {
-            constraints.orderBy(request.getParameter("order").replace('_', '.'));
+        if (parameters.get("order") != null) {
+            constraints.orderBy(parameters.get("order").replace('_', '.'));
         }
-        if (request.getParameter("search") != null) {
-            constraints.search(request.getParameter("search"));
+        if (parameters.get("search") != null) {
+            constraints.search(parameters.get("search"));
         }
         return constraints;
     }

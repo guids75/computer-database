@@ -1,22 +1,26 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<!DOCTYPE html>
 <html>
 <head>
 <title>Computer Database</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap -->
-<link href="css/validator.css" rel="stylesheet" media="screen">
-<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-<link href="css/font-awesome.css" rel="stylesheet" media="screen">
-<link href="css/main.css" rel="stylesheet" media="screen">
-<link href="css/jquery-ui.css" rel="stylesheet" media="screen">
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/dashboard.js"></script>
-<script src="js/jquery.validate.min.js"></script>
-<script src="js/computerValidator.js"></script>
-<script src="js/jquery-ui.js"></script>
+<c:set var="path" value="${pageContext.request.contextPath}/resources" />
+<link href="${path}/css/validator.css" rel="stylesheet" media="screen">
+<link href="${path}/css/bootstrap.min.css" rel="stylesheet"
+	media="screen">
+<link href="${path}/css/font-awesome.css" rel="stylesheet"
+	media="screen">
+<link href="${path}/css/main.css" rel="stylesheet" media="screen">
+<link href="${path}/jquery-ui.css" rel="stylesheet" media="screen">
+<script src="${path}/js/jquery.min.js"></script>
+<script src="${path}/js/bootstrap.min.js"></script>
+<script src="${path}/js/dashboard.js"></script>
+<script src="${path}/js/jquery.validate.min.js"></script>
+<script src="${path}/js/computerValidator.js"></script>
+<script src="${path}/js/jquery-ui.js"></script>
 
 </head>
 <body>
@@ -25,17 +29,18 @@
 			<a class="navbar-brand" href="dashboard"> Application - Computer
 				Database </a>
 		</div>
-		<c:choose>
+	</header>
+
+	<c:choose>
 		<c:when test='${empty errors}'>
 			<c:set var="hide" value="visibility:hidden" />
 		</c:when>
 		<c:otherwise></c:otherwise>
-		</c:choose>
-		
-		<div>
+	</c:choose>
+
+	<div>
 		<textarea name="hideError" ${hide}>${errors}</textarea>
-		</div>
-	</header>
+	</div>
 
 	<section id="main">
 		<div class="container">
@@ -45,24 +50,28 @@
 						${computer.id}</div>
 					<h1>Edit Computer</h1>
 
-					<form action="editComputer" method="POST" class="computerValidatorForm">
+					<form action="editComputer" method="POST"
+						class="computerValidatorForm">
 						<input type="hidden" value="${computer.id}" id="id" name="id" />
 						<!-- TODO: Change this value with the computer id -->
 						<fieldset>
 							<div class="form-group">
 								<label for="computerName">Computer name</label><input
 									type="text" class="form-control" id="computerName"
-									placeholder="${computer.name}" name="computerName" value="${computer.name}">
+									placeholder="${computer.name}" name="computerName"
+									value="${computer.name}">
 							</div>
 							<div class="form-group">
 								<label for="introduced">Introduced date</label><input
 									type="date" class="form-control" id="introduced"
-									placeholder="${computer.introduced}" name="introduced" value="${computer.introduced}">
+									placeholder="${computer.introduced}" name="introduced"
+									value="${computer.introduced}">
 							</div>
 							<div class="form-group">
 								<label for="discontinued">Discontinued date</label><input
 									type="date" class="form-control" id="discontinued"
-									placeholder="${computer.discontinued}" name="discontinued" value="${computer.discontinued}">
+									placeholder="${computer.discontinued}" name="discontinued"
+									value="${computer.discontinued}">
 							</div>
 							<div class="form-group">
 								<label for="companyId">Company</label> <select
