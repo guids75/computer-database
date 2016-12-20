@@ -2,11 +2,15 @@ package com.excilys.formation.computerdatabase.controller;
 
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,7 +25,6 @@ import com.excilys.formation.computerdatabase.mapper.RequestParamMapper;
 import com.excilys.formation.computerdatabase.persistence.Constraints;
 import com.excilys.formation.computerdatabase.service.company.CompanyService;
 import com.excilys.formation.computerdatabase.service.computer.ComputerService;
-import com.excilys.formation.computerdatabase.validation.servlet.ComputerValidator;
 
 @Controller
 @RequestMapping("/addComputer")
@@ -49,24 +52,26 @@ public class AddComputerController {
     public void setComputerService(ComputerService computerService) {
         this.computerService = computerService;
     }
-    
-    
+
+
     @PostMapping
-    protected ModelAndView post(@RequestParam Map<String, String> parameters) throws Exception {
+    protected ModelAndView post(@Valid @ModelAttribute("computerDto") ComputerDto computerDto, BindingResult result, @RequestParam Map<String, String> parameters) throws Exception {
 
         ModelAndView model = new ModelAndView("redirect:dashboard");
-        ComputerDto computer = RequestParamMapper.convertToComputer(parameters);
-        if (!ComputerValidator.validate(computer).isEmpty()) {
-            get(parameters);
+        if (result.hasErrors()) {
+            model = new ModelAndView("addComputer");
+            model.addObject("listCompanies", CompanyDtoMapper.companyListToCompanyDtoList(companyService.list(new Constraints.ConstraintsBuilder()
+                    .limit(companyService.count()).offset(0).build())));
+            return model;
         } else {
             try {
-                computerService.insert(ComputerDtoMapper.computerDtoToComputer(computer));
+                computerService.insert(ComputerDtoMapper.computerDtoToComputer(computerDto));
             } catch (NotImplementedMethodException exception) {
                 slf4jLogger.error("insert in companyService is not implemented yet", exception);
             }
+            model.addObject("listCompanies", CompanyDtoMapper.companyListToCompanyDtoList(companyService.list(new Constraints.ConstraintsBuilder()
+                    .limit(companyService.count()).offset(0).build())));
         }
-        model.addObject("listCompanies", CompanyDtoMapper.companyListToCompanyDtoList(companyService.list(new Constraints.ConstraintsBuilder()
-                .limit(companyService.count()).offset(0).build())));
         return model;
     }
 
@@ -74,6 +79,7 @@ public class AddComputerController {
     protected ModelAndView get(@RequestParam Map<String, String> parameters) throws Exception {
 
         ModelAndView model = new ModelAndView("addComputer");
+        model.getModel().put("computerDto", new ComputerDto());
         model.addObject("listCompanies", CompanyDtoMapper.companyListToCompanyDtoList(companyService.list(new Constraints.ConstraintsBuilder()
                 .limit(companyService.count()).offset(0).build())));
         return model;

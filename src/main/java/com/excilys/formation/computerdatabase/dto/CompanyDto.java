@@ -1,5 +1,9 @@
 package com.excilys.formation.computerdatabase.dto;
 
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 /**
  * @author GUIDS
  *
@@ -7,6 +11,8 @@ package com.excilys.formation.computerdatabase.dto;
 public class CompanyDto {
 
     private Long id; // id of the company
+    @NotNull
+    @Size(min=2, max=30)
     private String name; // name of the company
 
     public CompanyDto() {

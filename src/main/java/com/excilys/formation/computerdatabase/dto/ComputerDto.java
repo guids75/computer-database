@@ -1,5 +1,10 @@
 package com.excilys.formation.computerdatabase.dto;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import com.excilys.formation.computerdatabase.validation.dto.ValidDate;
+
 /**
  * @author GUIDS
  *
@@ -7,13 +12,19 @@ package com.excilys.formation.computerdatabase.dto;
 public class ComputerDto {
 
     private Long id; // id of the computer, required
+    @NotNull
+    @Size(min=5, max=30)
     private String name; // name of the computer, required
+    @ValidDate
     private String introduced; // date when the computer was introduced,
                                // optional
+    @ValidDate
     private String discontinued; // date when the computer was discontinued,
     // optional
     private Long companyId; // id of the company which produces the computer,
     // required
+    @NotNull
+    @Size(min=2, max=30)
     private String companyName; // name of the company which produces the
     // computer, required
 
