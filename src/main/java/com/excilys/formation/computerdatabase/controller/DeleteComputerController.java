@@ -50,7 +50,7 @@ public class DeleteComputerController {
     @PostMapping
     protected ModelAndView post(@RequestParam Map<String, String> parameters) throws Exception {
 
-        ModelAndView model = new ModelAndView("dashboardSubmit");
+        ModelAndView model = new ModelAndView("redirect:dashboard");
         List<Long> computersId = RequestParamMapper.convertToComputersId(parameters);
         try {
             computerService.delete(new Constraints.ConstraintsBuilder().idList(computersId).build());

@@ -54,7 +54,7 @@ public class AddComputerController {
     @PostMapping
     protected ModelAndView post(@RequestParam Map<String, String> parameters) throws Exception {
 
-        ModelAndView model = new ModelAndView("dashboardSubmit");
+        ModelAndView model = new ModelAndView("redirect:dashboard");
         ComputerDto computer = RequestParamMapper.convertToComputer(parameters);
         if (!ComputerValidator.validate(computer).isEmpty()) {
             get(parameters);

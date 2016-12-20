@@ -72,7 +72,7 @@ public class EditComputerController {
     @PostMapping
     protected ModelAndView post(@RequestParam Map<String, String> parameters) throws Exception {
 
-        ModelAndView model = new ModelAndView("dashboardSubmit");
+        ModelAndView model = new ModelAndView("redirect:dashboard");
         ComputerDto computer = RequestParamMapper.convertToComputer(parameters);
         List<String> errors = ComputerValidator.validate(computer);
         if (!errors.isEmpty()) {

@@ -52,18 +52,4 @@ public class DashboardController {
         return model;
     }
     
-    
-    @PostMapping
-    protected ModelAndView post(@RequestParam Map<String, String> parameters) throws Exception {
-
-        ModelAndView model = new ModelAndView("dashboard");
-        Page pages = new RequestParamMapper().convertToPage(parameters);
-        pages.setNbElements(computerService.count(new Constraints.ConstraintsBuilder().search("").build()));
-        pages.calculateNbPages(pages.getNbElements());
-        model.addObject("pages", pages);
-        model.addObject( "listComputers", ComputerDtoMapper.computerListToComputerDtoList(computerService.list(new Constraints.ConstraintsBuilder()
-                .limit(pages.getNbElementsByPage()).offset(0).build())));
-        return model;
-    }
-    
 }
