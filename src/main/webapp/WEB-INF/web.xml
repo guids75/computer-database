@@ -30,16 +30,16 @@
 <error-page>
     <!-- Forbidden directory listing -->
     <error-code>403</error-code>
-    <location>/views/403.html</location>
+    <location>/resources/views/403.html</location>
 </error-page>
 <error-page>
     <!-- Missing resource -->
     <error-code>404</error-code>
-    <location>/views/404.html</location>
+    <location>/resources/views/404.html</location>
 </error-page>
 <error-page>
     <!-- Uncaught exception -->
     <error-code>500</error-code>
-    <location>/views/500.html</location>
+    <location>/resources/views/500.html</location>
 </error-page>
 </web-app>
