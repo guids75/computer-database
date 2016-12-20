@@ -1,31 +1,38 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %> 
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="tag" tagdir="/WEB-INF/tags"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <html>
 <head>
-<title>Computer Database</title>
+<title><spring:message code="label.title" /></title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="utf-8">
 <!-- Bootstrap -->
 <c:set var="path" value="${pageContext.request.contextPath}/resources" />
-<link href="${path}/css/bootstrap.min.css" rel="stylesheet" media="screen">
-<link href="${path}/css/font-awesome.css" rel="stylesheet" media="screen">
+<link href="${path}/css/bootstrap.min.css" rel="stylesheet"
+	media="screen">
+<link href="${path}/css/font-awesome.css" rel="stylesheet"
+	media="screen">
 <link href="${path}/css/main.css" rel="stylesheet" media="screen">
-<script src="${path}/js/jquery.min.js" ></script>
-<script src="${path}/js/bootstrap.min.js" ></script>
-<script src="${path}/js/dashboard.js" ></script>
+<script src="${path}/js/jquery.min.js"></script>
+<script src="${path}/js/bootstrap.min.js"></script>
+<script src="${path}/js/dashboard.js"></script>
 <body>
 	<header class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="dashboard"> Application - Computer
-				Database </a>
+			<a class="navbar-brand" href="dashboard"><spring:message
+					code="label.application" /> </a> <span style="float: right"> <a
+				href="?lang=en">en</a> | <a href="?lang=fr">fr</a>
+			</span>
 		</div>
 	</header>
 
 	<section id="main">
 		<div class="container">
-			<h1 id="homeTitle">${pages.nbElements}Computers found</h1>
+			<h1 id="homeTitle">${pages.nbElements}<spring:message
+					code="label.found" /></h1>
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
 					<form id="searchForm" action="#" method="GET" class="form-inline">
@@ -65,25 +72,25 @@
 									class="fa fa-trash-o fa-lg"></i>
 							</a>
 						</span></th>
-						
-						
-						
-						<th><a id="name" onclick="$.fn.orderBy('computer_name');">Computer Name<span
-									aria-hidden="true">&raquo;</span>
-							</a></th>
-						<th><a id="introduced" onclick="$.fn.orderBy('computer_introduced');">Introduced<span
-									aria-hidden="true">&raquo;</span>
-							</a>
-							</th>
+
+
+
+						<th><a id="name" onclick="$.fn.orderBy('computer_name');">Computer
+								Name<span aria-hidden="true">&raquo;</span>
+						</a></th>
+						<th><a id="introduced"
+							onclick="$.fn.orderBy('computer_introduced');">Introduced<span
+								aria-hidden="true">&raquo;</span>
+						</a></th>
 						<!-- Table header for Discontinued Date -->
-						<th><a id="discontinued" onclick="$.fn.orderBy('computer_discontinued');">Discontinued<span
-									aria-hidden="true">&raquo;</span>
-							</a>
-							</th>
+						<th><a id="discontinued"
+							onclick="$.fn.orderBy('computer_discontinued');">Discontinued<span
+								aria-hidden="true">&raquo;</span>
+						</a></th>
 						<!-- Table header for Company -->
 						<th><a id="company" onclick="$.fn.orderBy('company_name');">Company<span
-									aria-hidden="true">&raquo;</span>
-							</a></th>
+								aria-hidden="true">&raquo;</span>
+						</a></th>
 
 						<tag:pageTag />
 				</tbody>

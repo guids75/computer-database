@@ -9,14 +9,33 @@
 	http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
 	<!-- Enabling Spring beans auto-discovery -->
-	<context:component-scan base-package="com.excilys.formation.computerdatabase.controller" />
+	<context:component-scan
+		base-package="com.excilys.formation.computerdatabase.controller" />
 
-   	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<mvc:resources mapping="/resources/**" location="/resources/" />
 
 	<mvc:default-servlet-handler />
 	<!-- Enabling Spring MVC configuration through annotations -->
 	<mvc:annotation-driven />
-  
+
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="classpath:cdb" />
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+
+	<mvc:interceptors>
+		<bean id="localeChangeInterceptor"
+			class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+			<property name="paramName" value="lang" />
+		</bean>
+	</mvc:interceptors>
+
+	<bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+		<property name="defaultLocale" value="en" />
+	</bean>
+
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix">
