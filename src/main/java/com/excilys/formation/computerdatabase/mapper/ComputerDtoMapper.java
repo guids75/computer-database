@@ -37,10 +37,10 @@ public final class ComputerDtoMapper {
     public static Computer computerDtoToComputer(ComputerDto computerDto) {
         if (computerDto != null) {
             Builder computer = new Computer.Builder(computerDto.getName()).id(computerDto.getId());
-            if (computerDto.getIntroduced() != null) {
+            if (!computerDto.getIntroduced().isEmpty()) {
                 computer.introduced(LocalDate.parse(computerDto.getIntroduced(), dateTimeFormatter));
             }
-            if (computerDto.getDiscontinued() != null) {
+            if (!computerDto.getDiscontinued().isEmpty()) {
                 computer.discontinued(LocalDate.parse(computerDto.getDiscontinued(), dateTimeFormatter));
             }
             computer.company(new Company.Builder(computerDto.getCompanyName()).id(computerDto.getCompanyId()).build());

@@ -3,6 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="springForm"
 	uri="http://www.springframework.org/tags/form"%>
+	<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+	
 
 <html>
 <head>
@@ -27,14 +29,19 @@
 <body>
 	<header class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="dashboard"> Application - Computer
-				Database </a>
+			<a class="navbar-brand" href="dashboard"><spring:message
+					code="label.application" /> </a> <span style="float: right"> <a
+				href="?lang=en"><img src="${path}/images/englishFlag.png" width="45" height="25"/>en</a>
+				| <a href="?lang=fr"><img src="${path}/images/frenchFlag.png" width="45"
+					height="25"/>fr</a>
+			</span>
 		</div>
 	</header>
 
-	<div>
-		<textarea name="hideError" ${hide}>${errors}</textarea>
-	</div>
+	<c:set var="val">
+		<spring:message code="label.datePattern" />
+	</c:set>
+	<input id="datePattern" type="hidden" value="${val}" />
 
 	<section id="main">
 		<div class="container">
@@ -42,7 +49,8 @@
 				<div class="col-xs-8 col-xs-offset-2 box">
 					<div class="label label-default pull-right">id:
 						${computer.id}</div>
-					<h1>Edit Computer</h1>
+					<h1><spring:message
+					code="label.editComputer" /></h1>
 
 					<springForm:form action="editComputer" method="POST"
 						class="computerValidatorForm" modelAttribute="computerDto">
@@ -50,14 +58,16 @@
 						<!-- TODO: Change this value with the computer id -->
 						<fieldset>
 							<div class="form-group">
-								<label for="computerName">Computer name</label>
+								<label for="computerName"><spring:message
+					code="label.computerName" /></label>
 								<springForm:input type="text" class="form-control" id="name"
 									placeholder="${computer.name}" name="name"
 									value="${computer.name}" path="name" />
 								<springForm:errors path="name" cssClass="alert alert-danger" />
 							</div>
 							<div class="form-group">
-								<label for="introduced">Introduced date</label>
+								<label for="introduced"><spring:message
+					code="label.introduced" /></label>
 								<springForm:input type="date" class="form-control"
 									id="introduced" placeholder="${computer.introduced}"
 									name="introduced" value="${computer.introduced}"
@@ -66,7 +76,8 @@
 									cssClass="alert alert-danger" />
 							</div>
 							<div class="form-group">
-								<label for="discontinued">Discontinued date</label>
+								<label for="discontinued"><spring:message
+					code="label.discontinued" /></label>
 								<springForm:input type="date" class="form-control"
 									id="discontinued" placeholder="${computer.discontinued}"
 									name="discontinued" value="${computer.discontinued}"
@@ -75,7 +86,8 @@
 									cssClass="alert alert-danger" />
 							</div>
 							<div class="form-group">
-								<label for="companyId">Company</label>
+								<label for="companyId"><spring:message
+					code="label.company" /></label>
 								<springForm:select class="form-control" id="companyId"
 									name="companyId" path="companyId">
 									<c:forEach var="company" items="${listCompanies}">
@@ -94,8 +106,11 @@
 							</div>
 						</fieldset>
 						<div class="actions pull-right">
-							<input type="submit" value="Edit" class="btn btn-primary">
-							or <a href="dashboard" class="btn btn-default">Cancel</a>
+							<input type="submit" value="<spring:message
+					code="label.edit" />" class="btn btn-primary">
+							<spring:message
+					code="label.or" /> <a href="dashboard" class="btn btn-default"><spring:message
+					code="label.cancel" /></a>
 						</div>
 					</springForm:form>
 				</div>

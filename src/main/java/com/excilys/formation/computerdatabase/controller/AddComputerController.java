@@ -59,6 +59,7 @@ public class AddComputerController {
 
         ModelAndView model = new ModelAndView("redirect:dashboard");
         if (result.hasErrors()) {
+            System.out.println(result.toString());
             model = new ModelAndView("addComputer");
             model.addObject("listCompanies", CompanyDtoMapper.companyListToCompanyDtoList(companyService.list(new Constraints.ConstraintsBuilder()
                     .limit(companyService.count()).offset(0).build())));

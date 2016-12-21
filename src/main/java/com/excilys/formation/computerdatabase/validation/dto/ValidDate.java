@@ -11,7 +11,7 @@ import javax.validation.Payload;
 
 @Documented
 @Constraint(validatedBy = DateValidator.class)
-@Target( { ElementType.METHOD, ElementType.FIELD, ElementType.TYPE })
+@Target( { ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidDate {
     

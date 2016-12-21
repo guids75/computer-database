@@ -22,8 +22,6 @@ public class ComputerDto {
     // optional
     private Long companyId; // id of the company which produces the computer,
     // required
-    @NotNull
-    @Size(min=2, max=30)
     private String companyName; // name of the company which produces the
     // computer, required
 

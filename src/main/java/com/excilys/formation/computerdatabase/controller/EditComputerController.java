@@ -1,6 +1,5 @@
 package com.excilys.formation.computerdatabase.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -26,7 +25,6 @@ import com.excilys.formation.computerdatabase.mapper.RequestParamMapper;
 import com.excilys.formation.computerdatabase.persistence.Constraints;
 import com.excilys.formation.computerdatabase.service.company.CompanyService;
 import com.excilys.formation.computerdatabase.service.computer.ComputerService;
-import com.excilys.formation.computerdatabase.validation.servlet.ComputerValidator;
 
 @Controller
 @RequestMapping("/editComputer")

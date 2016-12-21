@@ -47,7 +47,11 @@ public class Page {
         if (nbElements > 0) {
             nbPages = (int) Math.ceil(((float) nbElements) / nbElementsByPage);
         } else {
+            if (nbElements == 0) {
+                nbPages = 1;
+            } else {
             throw new IllegalArgumentException("nbElements for pages is illegal : must be at least 1");
+            }
         }
     }
 
