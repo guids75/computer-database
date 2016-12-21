@@ -60,11 +60,8 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     //@Transactional
     public void delete(Constraints constraints) {
-        System.out.println(1);
             constraints.setIdList(computerDao.listByCompany(constraints));
-        System.out.println(2);
             computerDao.delete(constraints);
-        System.out.println(3);
             companyDao.delete(constraints);
     }
 

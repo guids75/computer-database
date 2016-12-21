@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -16,6 +17,7 @@ import com.excilys.formation.computerdatabase.persistence.Constraints;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -131,45 +133,50 @@ public class ComputerDaoImpl implements ComputerDao {
         if (constraints == null | (constraints.getIdCompany() == -1)) {
             throw new IllegalArgumentException("Constraints are missing to listByCompany");
         } 
-        return (List<Long>) jdbcTemplate.queryForList(LISTBYCOMPANY_REQUEST, new Object[] {constraints.getIdCompany() }, Long.class);
+        return jdbcTemplate.query(LISTBYCOMPANY_REQUEST, new Object[] {constraints.getIdCompany() }, new RowMapper<Long>() {
+            @Override
+            public Long mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return rs.getObject("computerId") == null ? null : rs.getLong("computerId");
+            }
+        });
     }
 
-    @Override
-    public Computer showComputerDetails(Long computerId) throws ConnectionException {
-        if (computerId < 1) {
-            throw new IllegalArgumentException("The computerId is wrong to showComputerDetails : must be more than 0");
+        @Override
+        public Computer showComputerDetails(Long computerId) throws ConnectionException {
+            if (computerId < 1) {
+                throw new IllegalArgumentException("The computerId is wrong to showComputerDetails : must be more than 0");
+            }
+            try {
+                return jdbcTemplate.queryForObject(DETAILS_REQUEST, new Object[] {computerId }, new ComputerJdbcMapper());
+            } catch (EmptyResultDataAccessException e) {
+                return null;
+            }
         }
-        try {
-            return jdbcTemplate.queryForObject(DETAILS_REQUEST, new Object[] {computerId }, new ComputerJdbcMapper());
-        } catch (EmptyResultDataAccessException e) {
-            return null;
+
+        @Override
+        public int count(Constraints constraints) throws ConnectionException {
+            if (constraints == null) {
+                throw new IllegalArgumentException("Constraints are missing to count");
+            }
+            String request;
+            if (constraints.getSearch() != null && !constraints.getSearch().equals("")) {
+                request = "SELECT COUNT(*) As number FROM (" + SEARCH_REQUEST + ") as derivedTable";
+            } else {
+                request = NUMBER_REQUEST;
+            }
+
+            if (constraints.getSearch() != null && !constraints.getSearch().equals("")) {
+                return jdbcTemplate.queryForObject(request,new Object[] { "%" + constraints.getSearch() + "%", "%" + constraints.getSearch() + "%" }, Integer.class);
+            }
+            return jdbcTemplate.queryForObject(NUMBER_REQUEST, Integer.class);
         }
+
+        @Override
+        public List<Computer> search(Constraints constraints) throws ConnectionException {
+            if (constraints == null) {
+                throw new IllegalArgumentException("Constraints are missing to search");
+            }
+            return jdbcTemplate.query(SEARCH_REQUEST + LIMIT_OFFSET, new Object[] {"%" + constraints.getSearch() + "%", "%" + constraints.getSearch() + "%", constraints.getLimit(), constraints.getOffset() }, new ComputerJdbcMapper());
+        }
+
     }
-
-    @Override
-    public int count(Constraints constraints) throws ConnectionException {
-        if (constraints == null) {
-            throw new IllegalArgumentException("Constraints are missing to count");
-        }
-        String request;
-        if (constraints.getSearch() != null && !constraints.getSearch().equals("")) {
-            request = "SELECT COUNT(*) As number FROM (" + SEARCH_REQUEST + ") as derivedTable";
-        } else {
-            request = NUMBER_REQUEST;
-        }
-
-        if (constraints.getSearch() != null && !constraints.getSearch().equals("")) {
-            return jdbcTemplate.queryForObject(request,new Object[] { "%" + constraints.getSearch() + "%", "%" + constraints.getSearch() + "%" }, Integer.class);
-        }
-        return jdbcTemplate.queryForObject(NUMBER_REQUEST, Integer.class);
-    }
-
-    @Override
-    public List<Computer> search(Constraints constraints) throws ConnectionException {
-        if (constraints == null) {
-            throw new IllegalArgumentException("Constraints are missing to search");
-        }
-        return jdbcTemplate.query(SEARCH_REQUEST + LIMIT_OFFSET, new Object[] {"%" + constraints.getSearch() + "%", "%" + constraints.getSearch() + "%", constraints.getLimit(), constraints.getOffset() }, new ComputerJdbcMapper());
-    }
-
-}
