@@ -13,10 +13,12 @@ import com.excilys.formation.computerdatabase.service.computer.ComputerService;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 
 /**
@@ -73,8 +75,9 @@ public class ComputerUiImpl implements ComputerUi {
 
     @Override
     public void list() {
+        Locale locale = LocaleContextHolder.getLocale();
         print(ComputerDtoMapper.computerListToComputerDtoList(computerService.list(new Constraints.ConstraintsBuilder()
-                .limit(pages.getNbElementsByPage()).offset(offset).build())));
+                .limit(pages.getNbElementsByPage()).offset(offset).build()), locale));
         System.out.println("Type b to see before, a to see after, q to quit");
         String line = scanner.nextLine();
         while (!line.equals("q")) {
@@ -84,7 +87,7 @@ public class ComputerUiImpl implements ComputerUi {
                 }
                 pages.setActualPage(pages.getActualPage() + 1);
                 print(ComputerDtoMapper.computerListToComputerDtoList(computerService.list(new Constraints.ConstraintsBuilder()
-                        .limit(pages.getNbElementsByPage()).offset(offset).build())));
+                        .limit(pages.getNbElementsByPage()).offset(offset).build()), locale));
                 line = scanner.nextLine();
             }
             if (line.equals("b")) {
@@ -93,7 +96,7 @@ public class ComputerUiImpl implements ComputerUi {
                 }
                 pages.setActualPage(pages.getActualPage() - 1);
                 print(ComputerDtoMapper.computerListToComputerDtoList(computerService.list(new Constraints.ConstraintsBuilder()
-                        .limit(pages.getNbElementsByPage()).offset(offset).build())));
+                        .limit(pages.getNbElementsByPage()).offset(offset).build()), locale));
                 line = scanner.nextLine();
             }
         }
@@ -122,6 +125,7 @@ public class ComputerUiImpl implements ComputerUi {
 
     @Override
     public void insert() {
+        Locale locale = LocaleContextHolder.getLocale();
         System.out.println("which name?");
         String name = scanner.nextLine();
         System.out.println("which introducing date? (yyyy-M-dd)");
@@ -144,7 +148,7 @@ public class ComputerUiImpl implements ComputerUi {
             computer.companyId(companyId);
         }
         try {
-            computerService.insert(ComputerDtoMapper.computerDtoToComputer(computer.build()));
+            computerService.insert(ComputerDtoMapper.computerDtoToComputer(computer.build(), locale));
         } catch (NotImplementedMethodException exception) {
             slf4jLogger.error("insert in computerService is not implemented yet", exception);
         }
@@ -153,6 +157,7 @@ public class ComputerUiImpl implements ComputerUi {
 
     @Override
     public void update() {
+        Locale locale = LocaleContextHolder.getLocale();
         System.out.println("which name?");
         String name = scanner.nextLine();
         System.out.println("which introducing date? (yyyy-M-dd)");
@@ -174,7 +179,7 @@ public class ComputerUiImpl implements ComputerUi {
         }
         computer.companyId(companyId);
         try {
-            computerService.update(ComputerDtoMapper.computerDtoToComputer(computer.build()));
+            computerService.update(ComputerDtoMapper.computerDtoToComputer(computer.build(), locale));
         } catch (NotImplementedMethodException exception) {
             slf4jLogger.error("update in computerService is not implemented yet", exception);
         }

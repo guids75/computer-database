@@ -1,9 +1,11 @@
 package com.excilys.formation.computerdatabase.controller;
 
+import java.util.Locale;
 import java.util.Map;
-
+import java.util.ResourceBundle;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +21,6 @@ import com.excilys.formation.computerdatabase.persistence.Constraints.Constraint
 import com.excilys.formation.computerdatabase.service.computer.ComputerService;
 
 @Controller
-@RequestMapping("/dashboard")
 public class DashboardController {
     
     @Autowired
@@ -34,22 +35,29 @@ public class DashboardController {
         this.computerService = computerService;
     }
 
-    @GetMapping
+    @GetMapping("dashboard")
     protected ModelAndView get(@RequestParam Map<String, String> parameters) throws Exception {
-
         ModelAndView model = new ModelAndView("dashboard");
+        Locale locale = LocaleContextHolder.getLocale();
         ConstraintsBuilder constraints = RequestParamMapper.convertToConstraints(parameters);
         Page pages = new RequestParamMapper().convertToPage(parameters);
         if (parameters.get("search") != null) {
             model.addObject("listComputers", ComputerDtoMapper.computerListToComputerDtoList(computerService.search(constraints
-                    .limit(pages.getNbElementsByPage()).offset((pages.getActualPage() - 1) * pages.getNbElementsByPage()).build())));
+                    .limit(pages.getNbElementsByPage()).offset((pages.getActualPage() - 1) * pages.getNbElementsByPage()).build()),locale));
             model.addObject("search", parameters.get("search"));
         } else {
             model.addObject("listComputers", ComputerDtoMapper.computerListToComputerDtoList(computerService.list(constraints
-                    .limit(pages.getNbElementsByPage()).offset((pages.getActualPage() - 1) * pages.getNbElementsByPage()).build())));
+                    .limit(pages.getNbElementsByPage()).offset((pages.getActualPage() - 1) * pages.getNbElementsByPage()).build()),locale));
         }
         model.addObject("pages", pages);
         return model;
+    }
+    
+    @RequestMapping("/resources/js/internationalizationStrings.js")
+    public ModelAndView strings() {
+        Locale locale = LocaleContextHolder.getLocale();
+        ResourceBundle messages = ResourceBundle.getBundle("cdb", locale);
+        return new ModelAndView("internationalizationStrings", "keys", messages.getKeys());
     }
     
 }

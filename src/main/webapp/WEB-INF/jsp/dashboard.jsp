@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="tag" tagdir="/WEB-INF/tags"%>
-<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+	pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html>
 <head>
@@ -19,54 +20,44 @@
 <script src="${path}/js/jquery.min.js"></script>
 <script src="${path}/js/bootstrap.min.js"></script>
 <script src="${path}/js/dashboard.js"></script>
+<script src="${path}/js/internationalizationStrings.js"></script>
 <body>
 
 	<header class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
 			<a class="navbar-brand" href="dashboard"><spring:message
 					code="label.application" /> </a> <span style="float: right"> <a
-				href="?lang=en"><img src="${path}/images/englishFlag.png" width="45" height="25"/>en</a>
-				| <a href="?lang=fr"><img src="${path}/images/frenchFlag.png" width="45"
-					height="25"/>fr</a>
+				href="?lang=en"><img src="${path}/images/englishFlag.png"
+					width="45" height="25" />en</a> | <a href="?lang=fr"><img
+					src="${path}/images/frenchFlag.png" width="45" height="25" />fr</a>
 			</span>
 		</div>
 	</header>
-	
-		<c:set var="val">
-		<spring:message code="label.edit" />
-	</c:set>
-	<input id="edit" type="hidden" value="${val}" />
-			<c:set var="val">
-		<spring:message code="label.view" />
-	</c:set>
-	<input id="view" type="hidden" value="${val}" />
-			<c:set var="val">
-		<spring:message code="label.confirm" />
-	</c:set>
-	<input id="confirm" type="hidden" value="${val}" />
 
 	<section id="main">
 		<div class="container">
-			<h1 id="homeTitle">${pages.nbElements} <spring:message
-					code="label.found" />
+			<h1 id="homeTitle">${pages.nbElements}
+				<spring:message code="label.found" />
 			</h1>
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
 					<form id="searchForm" action="#" method="GET" class="form-inline">
 						<input type="search" id="searchbox" name="search"
-							class="form-control" placeholder="<spring:message
+							class="form-control"
+							placeholder="<spring:message
 					code="label.searchName" />"
 							value="<c:if test='not empty ${search}'>${search}</c:if>" /><input
-							type="submit" id="searchsubmit" value="<spring:message
+							type="submit" id="searchsubmit"
+							value="<spring:message
 					code="label.filterByName" />"
 							class="btn btn-primary" />
 					</form>
 				</div>
 				<div class="pull-right">
 					<a class="btn btn-success" id="addComputer" href="addComputer"><spring:message
-					code="label.addComputer" /></a> <a class="btn btn-default" id="editComputer" href="#"
-						onclick="$.fn.toggleEditMode();"><spring:message
-					code="label.edit" /></a>
+							code="label.addComputer" /></a> <a class="btn btn-default"
+						id="editComputer" href="#" onclick="$.fn.toggleEditMode();"><spring:message
+							code="label.edit" /></a>
 				</div>
 			</div>
 		</div>
@@ -96,24 +87,17 @@
 
 
 						<th><a id="name" onclick="$.fn.orderBy('computer_name');"><spring:message
-					code="label.computerName" /><span aria-hidden="true"></span>
-						</a></th>
+									code="label.computerName" /><span aria-hidden="true"></span> </a></th>
 						<th><a id="introduced"
 							onclick="$.fn.orderBy('computer_introduced');"><spring:message
-					code="label.introduced" /><span
-								aria-hidden="true"></span>
-						</a></th>
+									code="label.introduced" /><span aria-hidden="true"></span> </a></th>
 						<!-- Table header for Discontinued Date -->
 						<th><a id="discontinued"
 							onclick="$.fn.orderBy('computer_discontinued');"><spring:message
-					code="label.discontinued" /><span
-								aria-hidden="true"></span>
-						</a></th>
+									code="label.discontinued" /><span aria-hidden="true"></span> </a></th>
 						<!-- Table header for Company -->
 						<th><a id="company" onclick="$.fn.orderBy('company_name');"><spring:message
-					code="label.company" /><span
-								aria-hidden="true"></span>
-						</a></th>
+									code="label.company" /><span aria-hidden="true"></span> </a></th>
 
 						<tag:pageTag />
 				</tbody>

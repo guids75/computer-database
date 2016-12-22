@@ -23,6 +23,7 @@
 <script src="${path}/js/dashboard.js"></script>
 <script src="${path}/js/jquery.validate.min.js"></script>
 <script src="${path}/js/computerDate.js"></script>
+<script src="${path}/js/internationalizationStrings.js"></script>
 <script src="${path}/js/jquery-ui.js"></script>
 
 </head>
@@ -38,17 +39,12 @@
 		</div>
 	</header>
 
-	<c:set var="val">
-		<spring:message code="label.datePattern" />
-	</c:set>
-	<input id="datePattern" type="hidden" value="${val}" />
-
 	<section id="main">
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-8 col-xs-offset-2 box">
 					<h1><spring:message
-					code="label.addComputer" /></h1>
+					code="label.addComputer" /> ${messages}</h1>
 					<springForm:form action="addComputer" method="POST"
 						modelAttribute="computerDto" class="computerValidatorForm">
 						<fieldset>

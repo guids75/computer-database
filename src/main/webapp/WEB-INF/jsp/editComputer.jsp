@@ -22,6 +22,7 @@
 <script src="${path}/js/dashboard.js"></script>
 <script src="${path}/js/jquery.validate.min.js"></script>
 <script src="${path}/js/computerDate.js"></script>
+<script src="${path}/js/internationalizationStrings.js"></script>
 <script src="${path}/js/jquery-ui.js"></script>
 
 
@@ -37,11 +38,6 @@
 			</span>
 		</div>
 	</header>
-
-	<c:set var="val">
-		<spring:message code="label.datePattern" />
-	</c:set>
-	<input id="datePattern" type="hidden" value="${val}" />
 
 	<section id="main">
 		<div class="container">

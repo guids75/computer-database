@@ -1,20 +1,31 @@
 package com.excilys.formation.computerdatabase.validation.dto;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
+
 import com.excilys.formation.computerdatabase.dto.ComputerDto;
 
 public class DateValidator implements ConstraintValidator<ValidDate, ComputerDto> {
-
+    
     @Override
     public void initialize(ValidDate date) {
     }
 
     @Override
     public boolean isValid(ComputerDto computer, ConstraintValidatorContext constraintValidatorContext) {
+        Locale locale = LocaleContextHolder.getLocale();
+        ResourceBundle messages = ResourceBundle.getBundle("cdb", locale);
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(messages.getString("label.dateFormatter"));
         boolean isValid = true;
         String problem = "", attribute = "";
         LocalDate introduced = null, discontinued = null;
@@ -25,7 +36,7 @@ public class DateValidator implements ConstraintValidator<ValidDate, ComputerDto
                 computerDiscontinued = computer.getDiscontinued();
         try {
             if (!computerIntroduced.isEmpty()) {
-                introduced = LocalDate.parse(computerIntroduced);   
+                introduced = LocalDate.parse(computerIntroduced, dateTimeFormatter);
             }
         } catch (Exception exception) {
             attribute="introduced";
@@ -34,7 +45,7 @@ public class DateValidator implements ConstraintValidator<ValidDate, ComputerDto
         }
         try {
             if (!computerDiscontinued.isEmpty()) {
-                discontinued = LocalDate.parse(computerDiscontinued);   
+                discontinued = LocalDate.parse(computerDiscontinued, dateTimeFormatter);   
             }
         } catch (Exception exception) {
             attribute="discontinued";

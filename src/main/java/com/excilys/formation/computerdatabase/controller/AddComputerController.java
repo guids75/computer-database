@@ -1,5 +1,6 @@
 package com.excilys.formation.computerdatabase.controller;
 
+import java.util.Locale;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -7,6 +8,7 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -56,7 +58,7 @@ public class AddComputerController {
 
     @PostMapping
     protected ModelAndView post(@Valid @ModelAttribute("computerDto") ComputerDto computerDto, BindingResult result, @RequestParam Map<String, String> parameters) throws Exception {
-
+        Locale locale = LocaleContextHolder.getLocale();
         ModelAndView model = new ModelAndView("redirect:dashboard");
         if (result.hasErrors()) {
             System.out.println(result.toString());
@@ -66,7 +68,7 @@ public class AddComputerController {
             return model;
         } else {
             try {
-                computerService.insert(ComputerDtoMapper.computerDtoToComputer(computerDto));
+                computerService.insert(ComputerDtoMapper.computerDtoToComputer(computerDto,locale));
             } catch (NotImplementedMethodException exception) {
                 slf4jLogger.error("insert in companyService is not implemented yet", exception);
             }
