@@ -74,6 +74,7 @@ public class AddComputerController {
             }
             model.addObject("listCompanies", CompanyDtoMapper.companyListToCompanyDtoList(companyService.list(new Constraints.ConstraintsBuilder()
                     .limit(companyService.count()).offset(0).build())));
+            model.addObject("addSuccess", computerDto.getName());
         }
         return model;
     }

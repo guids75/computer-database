@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="tag" tagdir="/WEB-INF/tags" %>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="tag" tagdir="/WEB-INF/tags"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <html>
 <head>
@@ -33,6 +33,23 @@
 			</span>
 		</div>
 	</header>
+	
+	<c:if test='${empty param.addSuccess && empty param.editSuccess}'>
+		<c:set var="succ" value='visibility:hidden' />
+	</c:if>
+
+	<c:set var="succMess" value="label.noSuccess" />
+	<c:if test='${!empty param.addSuccess}'>
+		<c:set var="succMess" value="label.addSuccess" />
+	</c:if>
+	<c:if test='${!empty param.editSuccess}'>
+		<c:set var="succMess" value="label.editSuccess" />
+	</c:if>
+
+	<a class="navbar-brand"> <textarea readonly style="resize: none; ${succ}"
+			name="succ">${param.addSuccess}${param.editSuccess} <spring:message
+				code="${succMess}" /> </textarea>
+	</a>
 
 	<section id="main">
 		<div class="container">

@@ -79,6 +79,7 @@ public class EditComputerController {
         } else {
             try {
                 computerService.update(ComputerDtoMapper.computerDtoToComputer(computerDto, locale));
+                model.addObject("editSuccess", computerDto.getName());
             } catch (NotImplementedMethodException exception) {
                 slf4jLogger.error("update in computerService is not implemented yet", exception);
             }
