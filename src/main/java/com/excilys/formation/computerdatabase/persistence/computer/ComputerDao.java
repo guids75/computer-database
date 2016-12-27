@@ -2,6 +2,8 @@ package com.excilys.formation.computerdatabase.persistence.computer;
 
 import java.util.List;
 
+import org.hibernate.Session;
+
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import com.excilys.formation.computerdatabase.model.Computer;
 import com.excilys.formation.computerdatabase.persistence.Constraints;
@@ -37,5 +39,5 @@ public interface ComputerDao extends Dao<Computer> {
      */
     public List<Computer> search(Constraints constraints) throws ConnectionException;
 
-    public List<Long> listByCompany(Constraints constraints);
+    public List<Long> listByCompany(Constraints constraints, Session session);
 }

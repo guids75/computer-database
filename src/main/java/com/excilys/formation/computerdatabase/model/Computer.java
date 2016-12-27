@@ -4,18 +4,39 @@ import com.excilys.formation.computerdatabase.model.Company;
 
 import java.time.LocalDate;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 /**
  * @author GUIDS
  *
  */
+@Entity
+@Table(name="computer")
 public final class Computer {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     private Long id; // id of the computer, required
+    
+    @Column(name="name")
     private String name; // name of the computer, required
+    
+    @Column(name="introduced")
     private LocalDate introduced; // date when the computer was introduced,
                                   // optional
+    @Column(name="discontinued")
     private LocalDate discontinued; // date when the computer was discontinued,
                                     // optional
+    @ManyToOne
+    @JoinColumn(name="company_id")
     private Company company; // company which produces the computer, optional
 
     public Computer() {

@@ -1,14 +1,30 @@
 package com.excilys.formation.computerdatabase.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * @author GUIDS
  *
  */
+@Entity
+@Table(name="company")
 public final class Company {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     private Long id; // the id of the company
+    
+    @Column(name="name")
     private String name; // the name of the company
 
+    public Company() {
+    }
     
     /**
      * Private constructor to use a builder.

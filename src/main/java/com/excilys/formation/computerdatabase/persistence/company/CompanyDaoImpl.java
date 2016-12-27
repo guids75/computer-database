@@ -5,11 +5,16 @@ import com.excilys.formation.computerdatabase.mapper.CompanyJdbcMapper;
 import com.excilys.formation.computerdatabase.model.Company;
 import com.excilys.formation.computerdatabase.persistence.Constraints;
 
-import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -22,19 +27,12 @@ import org.springframework.stereotype.Repository;
 public class CompanyDaoImpl implements CompanyDao {
 
     // requests
-    private static final String LIST_REQUEST = "SELECT company.id as companyId, company.name as companyName FROM company LIMIT ? OFFSET ?";
-    private static final String DELETE_REQUEST = "DELETE FROM company WHERE id=?";
-    private static final String NUMBER_REQUEST = "SELECT COUNT(company.id) as number FROM company";
-    private static final String COMPANY_REQUEST = "SELECT company.id as companyId, company.name as companyName FROM company where id=?";
-
-    private JdbcTemplate jdbcTemplate;
+    private static final String LIST_REQUEST = "FROM Company AS company";
+    private static final String DELETE_REQUEST = "DELETE FROM Company AS company WHERE company.id=:id";
+    private static final String NUMBER_REQUEST = "SELECT COUNT(company.id) AS number FROM Company AS company";
+    private static final String COMPANY_REQUEST = "FROM Company as company WHERE company.id=:id";
 
     public CompanyDaoImpl() {
-    }
-
-    @Autowired
-    public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
     @Override
@@ -42,21 +40,32 @@ public class CompanyDaoImpl implements CompanyDao {
         if (constraints == null || (constraints.getLimit() == -1 || constraints.getOffset() == -1)) {
             throw new IllegalArgumentException("A limit or an offset is missing in the constraints");
         }
-        return jdbcTemplate.query(LIST_REQUEST, new Object[] {constraints.getLimit(), constraints.getOffset() }, new CompanyJdbcMapper());
+        try (SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+                Session session = sessionFactory.openSession()) {
+            Query<Company> query = session.createQuery(LIST_REQUEST, Company.class);
+            query.setFirstResult(constraints.getOffset());
+            query.setMaxResults(constraints.getLimit());
+            return query.getResultList();
+        }
     }
 
     @Override
-    public void delete(Constraints constraints) throws ConnectionException {
+    public void delete(Constraints constraints, Session session) throws ConnectionException {
         if (constraints == null || (constraints.getIdCompany() == -1L)) {
             throw new IllegalArgumentException("A company is missing in the constraints or the connection is closed");
         }
-        System.out.println(DELETE_REQUEST + " " + constraints.getIdCompany());
-        jdbcTemplate.update(DELETE_REQUEST, constraints.getIdCompany());
+        Query query = session.createQuery(DELETE_REQUEST);
+        query.setParameter("id", constraints.getIdCompany());
+        query.executeUpdate();
     }
 
     @Override
     public int count() throws ConnectionException {
-        return jdbcTemplate.queryForObject(NUMBER_REQUEST, Integer.class);
+        try (SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+                Session session = sessionFactory.openSession()) {
+            Query<Long> query = session.createQuery(NUMBER_REQUEST, Long.class);
+            return  query.getSingleResult().intValue();
+        }
     }
 
     @Override
@@ -64,7 +73,12 @@ public class CompanyDaoImpl implements CompanyDao {
         if (id < 1) {
             throw new IllegalArgumentException("The id given for the company is wrong");
         }
-        return jdbcTemplate.queryForObject(COMPANY_REQUEST, new Object[] {id}, new CompanyJdbcMapper());
+        try (SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+                Session session = sessionFactory.openSession()) {
+            Query<Company> query = session.createQuery(COMPANY_REQUEST, Company.class);
+            query.setParameter("id", id);
+            return query.getSingleResult();
+        }
     }
 
 }

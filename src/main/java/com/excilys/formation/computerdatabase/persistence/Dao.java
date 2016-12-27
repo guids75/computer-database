@@ -2,6 +2,8 @@ package com.excilys.formation.computerdatabase.persistence;
 
 import java.util.List;
 
+import org.hibernate.Session;
+
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
 
 /**
@@ -19,7 +21,7 @@ public interface Dao<T> {
      *            : the object to create
      * @return : the T object created
      */
-    public default T insert(T object) throws ConnectionException {
+    public default Long insert(T object) throws ConnectionException {
         System.out.println("Default implementation of create");
         return null;
     }
@@ -42,7 +44,7 @@ public interface Dao<T> {
      * @param idObject
      *            : the id of the T object to delete
      */
-    public default void delete(Constraints constraints) throws ConnectionException {
+    public default void delete(Constraints constraints, Session session) throws ConnectionException {
         System.out.println("Default implementation of delete");
     }
 

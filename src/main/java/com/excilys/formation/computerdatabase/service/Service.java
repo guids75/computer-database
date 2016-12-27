@@ -2,6 +2,8 @@ package com.excilys.formation.computerdatabase.service;
 
 import java.util.List;
 
+import org.hibernate.Session;
+
 import com.excilys.formation.computerdatabase.exception.NotImplementedMethodException;
 import com.excilys.formation.computerdatabase.persistence.Constraints;
 
@@ -20,7 +22,7 @@ public interface Service<T> {
      *            : the object to create
      * @return : the T object created
      */
-    public default T insert(T object) throws NotImplementedMethodException {
+    public default Long insert(T object) throws NotImplementedMethodException {
         throw new NotImplementedMethodException("Default implementation of create");
     }
 

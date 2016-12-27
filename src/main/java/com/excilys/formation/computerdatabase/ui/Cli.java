@@ -2,13 +2,14 @@ package com.excilys.formation.computerdatabase.ui;
 
 import java.util.Scanner;
 
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Controller;
+import org.hibernate.cfg.Configuration;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.excilys.formation.computerdatabase.ui.company.CompanyUi;
-import com.excilys.formation.computerdatabase.ui.company.CompanyUiImpl;
 import com.excilys.formation.computerdatabase.ui.computer.ComputerUi;
-import com.excilys.formation.computerdatabase.ui.computer.ComputerUiImpl;
 
 /**
  * @author GUIDS
@@ -20,13 +21,15 @@ public class Cli {
     private static CompanyUi companyUi;
     private static ComputerUi computerUi;
 
-
     public static void main(String[] args) {
-        
+
         ApplicationContext appContext = new ClassPathXmlApplicationContext("application-context.xml");
-        companyUi = (CompanyUiImpl) appContext.getBean(CompanyUi.class);
-        computerUi = (ComputerUiImpl) appContext.getBean(ComputerUi.class);
-        
+        companyUi = appContext.getBean(CompanyUi.class);
+        computerUi = appContext.getBean(ComputerUi.class);
+
+        Configuration config = new Configuration();
+        config.configure("hibernate.cfg.xml");
+
         while (true) {
 
             // main menu

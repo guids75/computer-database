@@ -1,5 +1,6 @@
 package com.excilys.formation.computerdatabase.service.computer;
 
+import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import com.excilys.formation.computerdatabase.model.Computer;
 import com.excilys.formation.computerdatabase.persistence.Constraints;
 import com.excilys.formation.computerdatabase.persistence.computer.ComputerDao;
@@ -10,6 +11,10 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,19 +29,8 @@ public class ComputerServiceImpl implements ComputerService {
 
     @Autowired
     private ComputerDao computerDao; // dao for Computer to manage the computers
-    @Autowired
-    private DataSource dataSource; // get the connection
     private static final Logger logger = LoggerFactory.getLogger(ComputerServiceImpl.class);
-    
-    
-    public DataSource getDataSource() {
-        return dataSource;
-    }
 
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
-    
     public ComputerDao getComputerDao() {
         return computerDao;
     }
@@ -45,9 +39,9 @@ public class ComputerServiceImpl implements ComputerService {
         this.computerDao = computerDao;
     }
 
-    
+
     @Override
-    public Computer insert(Computer computer) {
+    public Long insert(Computer computer) {
         return computerDao.insert(computer);
     }
 
@@ -58,31 +52,36 @@ public class ComputerServiceImpl implements ComputerService {
 
     @Override
     public void delete(Constraints constraints) {
-        try (Connection connection = dataSource.getConnection()){
-            computerDao.delete(constraints);
-        } catch (SQLException exception) {
-            logger.error("Error in ComputerService in delete", exception);
+        try (SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+                Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            try {
+                computerDao.delete(constraints, session);
+            } catch (Exception exception) {
+                transaction.rollback();
+                throw new ConnectionException("Transaction problem when deleting a company",exception);
+            }
         }
     }
 
-    @Override
-    public List<Computer> list(Constraints constraints) {
-        return computerDao.list(constraints);
-    }
+        @Override
+        public List<Computer> list(Constraints constraints) {
+            return computerDao.list(constraints);
+        }
 
-    @Override
-    public void showComputerDetails(Long computerId) {
-        System.out.println(computerDao.showComputerDetails(computerId));
-    }
+        @Override
+        public void showComputerDetails(Long computerId) {
+            System.out.println(computerDao.showComputerDetails(computerId));
+        }
 
-    @Override
-    public int count(Constraints constraints) {
-        return computerDao.count(constraints);
-    }
+        @Override
+        public int count(Constraints constraints) {
+            return computerDao.count(constraints);
+        }
 
-    @Override
-    public List<Computer> search(Constraints constraints) {
-        return computerDao.search(constraints);
-    }
+        @Override
+        public List<Computer> search(Constraints constraints) {
+            return computerDao.search(constraints);
+        }
 
-}
+    }

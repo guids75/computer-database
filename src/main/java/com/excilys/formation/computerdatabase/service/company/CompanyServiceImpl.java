@@ -1,5 +1,6 @@
 package com.excilys.formation.computerdatabase.service.company;
 
+import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import com.excilys.formation.computerdatabase.model.Company;
 import com.excilys.formation.computerdatabase.persistence.Constraints;
 import com.excilys.formation.computerdatabase.persistence.company.CompanyDao;
@@ -9,6 +10,10 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,23 +23,13 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class CompanyServiceImpl implements CompanyService {
-
-    @Autowired
-    private DataSource dataSource; // get the connection
+    
     @Autowired
     private CompanyDao companyDao;
     @Autowired
     private ComputerDao computerDao;
-    
-    
-    public DataSource getDataSource() {
-        return dataSource;
-    }
 
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
-
+    
     public  CompanyDao getCompanyDao() {
         return companyDao;
     }
@@ -51,18 +46,26 @@ public class CompanyServiceImpl implements CompanyService {
         this.computerDao = computerDao;
     }
 
-    
+
     @Override
     public List<Company> list(Constraints constraints) {
         return companyDao.list(constraints);
     }
 
     @Override
-    //@Transactional
     public void delete(Constraints constraints) {
-            constraints.setIdList(computerDao.listByCompany(constraints));
-            computerDao.delete(constraints);
-            companyDao.delete(constraints);
+        try (SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+                Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            try { 
+                constraints.setIdList(computerDao.listByCompany(constraints, session));
+                computerDao.delete(constraints, session);
+                companyDao.delete(constraints, session);
+            } catch (Exception exception) {
+                transaction.rollback();
+                throw new ConnectionException("Transaction problem when deleting a company",exception);
+            }
+        }
     }
 
     @Override

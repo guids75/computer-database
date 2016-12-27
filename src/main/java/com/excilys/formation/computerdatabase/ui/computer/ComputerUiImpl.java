@@ -158,6 +158,9 @@ public class ComputerUiImpl implements ComputerUi {
     @Override
     public void update() {
         Locale locale = LocaleContextHolder.getLocale();
+        System.out.println("which computer id?");
+        Long id = scanner.nextLong();
+        scanner.nextLine();
         System.out.println("which name?");
         String name = scanner.nextLine();
         System.out.println("which introducing date? (yyyy-M-dd)");
@@ -171,6 +174,7 @@ public class ComputerUiImpl implements ComputerUi {
         scanner.nextLine();
 
         computer = new ComputerDto.ComputerDtoBuilder(name);
+        computer.id(id);
         if (intro != null) {
             computer.introduced(intro);
         }
