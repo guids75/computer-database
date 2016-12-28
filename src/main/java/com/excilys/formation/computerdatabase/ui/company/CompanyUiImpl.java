@@ -35,7 +35,7 @@ public class CompanyUiImpl implements CompanyUi {
      * of companies.
      * 
      */
-    public CompanyUiImpl(CompanyServiceImpl companyService) {
+    public CompanyUiImpl(CompanyService companyService) {
         this.companyService = companyService;
         pages = new Page(companyService.count());
     }

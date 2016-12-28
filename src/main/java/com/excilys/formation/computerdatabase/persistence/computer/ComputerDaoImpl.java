@@ -2,12 +2,17 @@ package com.excilys.formation.computerdatabase.persistence.computer;
 
 import com.excilys.formation.computerdatabase.exception.ConnectionException;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.excilys.formation.computerdatabase.model.Computer;
 import com.excilys.formation.computerdatabase.persistence.Constraints;
@@ -19,6 +24,7 @@ import java.util.List;
  *
  */
 @Repository
+@Transactional
 public class ComputerDaoImpl implements ComputerDao {
 
     // requests
@@ -30,19 +36,26 @@ public class ComputerDaoImpl implements ComputerDao {
     private static final String SEARCH_REQUEST = "SELECT computer FROM Computer AS computer LEFT JOIN computer.company AS company WHERE computer.name LIKE :search OR company.name LIKE :search";
     private static final String LISTBYCOMPANY_REQUEST = "SELECT computer.id FROM Computer AS computer LEFT JOIN computer.company AS company WHERE company.id=:id";
 
-    public ComputerDaoImpl() {
+    @Autowired
+    private SessionFactory sessionFactory;
+
+    public Session getSession() {
+        try {
+            return sessionFactory.getCurrentSession();
+        } catch (Exception exception) {
+            sessionFactory.openSession();
+            return sessionFactory.getCurrentSession();
+        }
     }
+
 
     @Override
     public Long insert(Computer computer) throws ConnectionException {
         if (computer == null) {
             throw new IllegalArgumentException("A computer is missing to insert");
         }
-
-        try (SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-                Session session = sessionFactory.openSession()) {
-            return (Long) session.save(computer);
-        }
+        Session session = getSession();
+        return (Long) session.save(computer);
     }
 
     @Override
@@ -50,29 +63,20 @@ public class ComputerDaoImpl implements ComputerDao {
         if (computer == null) {
             throw new IllegalArgumentException("A computer is missing to update");
         }
-        try (SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-                Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
-            try { 
-                Query query = session.createQuery(UPDATE_REQUEST);
-                query.setParameter("name", computer.getName());
-                query.setParameter("introduced", computer.getIntroduced());
-                query.setParameter("discontinued", computer.getDiscontinued());
-                query.setParameter("company_id", computer.getCompany().getId());
-                query.setParameter("id", computer.getId());
-                query.executeUpdate();
-                transaction.commit();
-            } catch (Exception exception) {
-                transaction.rollback();
-                throw new ConnectionException("Transaction problem when updating a computer",exception);
-            }
-            return computer;
-        }
+        Session session = getSession();
+        Query query = session.createQuery(UPDATE_REQUEST);
+        query.setParameter("name", computer.getName());
+        query.setParameter("introduced", computer.getIntroduced());
+        query.setParameter("discontinued", computer.getDiscontinued());
+        query.setParameter("company_id", computer.getCompany().getId());
+        query.setParameter("id", computer.getId());
+        query.executeUpdate();
+        return computer;
     }
 
     @Override
-    public void delete(Constraints constraints, Session session) throws ConnectionException {
-        if (constraints == null | (constraints.getIdList() == null)) {
+    public void delete(Constraints constraints) throws ConnectionException {
+        if (constraints == null | constraints.getIdList() == null) {
             throw new IllegalArgumentException("A connection is missing to delete or the constraints are null");
         }
         if (constraints.getIdList().isEmpty()) {
@@ -80,6 +84,7 @@ public class ComputerDaoImpl implements ComputerDao {
         }
         String request;
         Query query;
+        Session session = getSession();
         if (constraints.getIdList().size() == 1) {
             request = DELETE_REQUEST + "=:id";
             query = session.createQuery(request);
@@ -94,27 +99,26 @@ public class ComputerDaoImpl implements ComputerDao {
 
     @Override
     public List<Computer> list(Constraints constraints) throws ConnectionException {
-        if (constraints == null | (constraints.getLimit() == -1 || constraints.getOffset() == -1)) {
+        if (constraints == null || (constraints.getLimit() == -1 || constraints.getOffset() == -1)) {
             throw new IllegalArgumentException("Constraints are missing to list");
         }
-        try (SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-                Session session = sessionFactory.openSession()) {
-            String request = LIST_REQUEST;
-            if (constraints.getOrderBy() != null) {
-                request += " ORDER BY " + constraints.getOrderBy() + " ASC";
-            }
-            Query<Computer> query = session.createQuery(request, Computer.class);
-            query.setFirstResult(constraints.getOffset());
-            query.setMaxResults(constraints.getLimit());
-            return query.getResultList();
+        Session session = getSession();
+        String request = LIST_REQUEST;
+        if (constraints.getOrderBy() != null) {
+            request += " ORDER BY " + constraints.getOrderBy() + " ASC";
         }
+        Query<Computer> query = session.createQuery(request, Computer.class);
+        query.setFirstResult(constraints.getOffset());
+        query.setMaxResults(constraints.getLimit());
+        return query.getResultList();
     }
 
     @Override
-    public List<Long> listByCompany(Constraints constraints, Session session) throws ConnectionException {
+    public List<Long> listByCompany(Constraints constraints) throws ConnectionException {
         if (constraints == null | (constraints.getIdCompany() == -1)) {
             throw new IllegalArgumentException("Constraints are missing to listByCompany");
         }
+        Session session = getSession();
         Query<Long> query = session.createQuery(LISTBYCOMPANY_REQUEST, Long.class);
         query.setParameter("id", constraints.getIdCompany());
         return query.getResultList();
@@ -125,12 +129,10 @@ public class ComputerDaoImpl implements ComputerDao {
         if (computerId < 1) {
             throw new IllegalArgumentException("The computerId is wrong to showComputerDetails : must be more than 0");
         }
-        try (SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-                Session session = sessionFactory.openSession()) {
-            Query<Computer> query = session.createQuery(DETAILS_REQUEST, Computer.class);
-            query.setParameter("id", computerId);
-            return query.getSingleResult();
-        }
+        Session session = getSession();
+        Query<Computer> query = session.createQuery(DETAILS_REQUEST, Computer.class);
+        query.setParameter("id", computerId);
+        return query.getSingleResult();
     }
 
     @Override
@@ -139,19 +141,17 @@ public class ComputerDaoImpl implements ComputerDao {
             throw new IllegalArgumentException("Constraints are missing to count");
         }
         String request;
-        try (SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-                Session session = sessionFactory.openSession()) {
-            if (constraints.getSearch() != null && !constraints.getSearch().equals("")) {
-                request = "SELECT COUNT(computer.id) FROM Computer AS computer WHERE computer IN (" + SEARCH_REQUEST + ")";
-            } else {
-                request = NUMBER_REQUEST;
-            }
-            Query<Long> query = session.createQuery(request, Long.class);
-            if (constraints.getSearch() != null && !constraints.getSearch().equals("")) {
-                query.setParameter("search", "%" + constraints.getSearch() + "%");
-            }
-            return query.getSingleResult().intValue();
+        Session session = getSession();
+        if (constraints.getSearch() != null && !constraints.getSearch().equals("")) {
+            request = "SELECT COUNT(computer.id) FROM Computer AS computer WHERE computer IN (" + SEARCH_REQUEST + ")";
+        } else {
+            request = NUMBER_REQUEST;
         }
+        Query<Long> query = session.createQuery(request, Long.class);
+        if (constraints.getSearch() != null && !constraints.getSearch().equals("")) {
+            query.setParameter("search", "%" + constraints.getSearch() + "%");
+        }
+        return query.getSingleResult().intValue();
     }
 
     @Override
@@ -159,15 +159,12 @@ public class ComputerDaoImpl implements ComputerDao {
         if (constraints == null) {
             throw new IllegalArgumentException("Constraints are missing to search");
         }
-        try (SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-                Session session = sessionFactory.openSession()) {
-            Query<Computer> query = session.createQuery(SEARCH_REQUEST, Computer.class);
-            query.setParameter("search", "%" + constraints.getSearch() + "%");
-            query.setFirstResult(constraints.getOffset());
-            query.setMaxResults(constraints.getLimit());
-            System.out.println( " ici " + query.getQueryString());
-            return query.getResultList();
-        }
+        Session session = getSession();
+        Query<Computer> query = session.createQuery(SEARCH_REQUEST, Computer.class);
+        query.setParameter("search", "%" + constraints.getSearch() + "%");
+        query.setFirstResult(constraints.getOffset());
+        query.setMaxResults(constraints.getLimit());
+        return query.getResultList();
     }
 
 }

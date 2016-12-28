@@ -44,7 +44,7 @@ public interface Dao<T> {
      * @param idObject
      *            : the id of the T object to delete
      */
-    public default void delete(Constraints constraints, Session session) throws ConnectionException {
+    public default void delete(Constraints constraints) throws ConnectionException {
         System.out.println("Default implementation of delete");
     }
 

@@ -22,7 +22,7 @@ public class ComputerDaoImplTest {
         Computer computer = new Computer.Builder("MyComputer").introduced(LocalDate.parse("1990-02-02"))
                 .discontinued(LocalDate.parse("1991-02-02"))
                 .company(new Company.Builder("Company").id(5L).build()).build();
-        Computer computer2 = computerDao.insert(computer);
+        Long computer2 = computerDao.insert(computer);
         assertNotNull("insert", computer2);
         assertTrue("insert", count + 1 == computerDao.count(new Constraints.ConstraintsBuilder().build()));
     }

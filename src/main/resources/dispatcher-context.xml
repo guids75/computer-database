@@ -8,14 +8,13 @@
 	http://www.springframework.org/schema/mvc
 	http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-	<!-- Enabling Spring beans auto-discovery -->
+	<context:annotation-config />
 	<context:component-scan
 		base-package="com.excilys.formation.computerdatabase.controller" />
 
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 
 	<mvc:default-servlet-handler />
-	<!-- Enabling Spring MVC configuration through annotations -->
 	<mvc:annotation-driven />
 
 	<bean id="messageSource"
@@ -45,6 +44,6 @@
 			<value>.jsp</value>
 		</property>
 	</bean>
-	
+
 
 </beans>

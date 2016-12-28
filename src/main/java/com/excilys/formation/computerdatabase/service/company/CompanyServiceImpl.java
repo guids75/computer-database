@@ -1,6 +1,5 @@
 package com.excilys.formation.computerdatabase.service.company;
 
-import com.excilys.formation.computerdatabase.exception.ConnectionException;
 import com.excilys.formation.computerdatabase.model.Company;
 import com.excilys.formation.computerdatabase.persistence.Constraints;
 import com.excilys.formation.computerdatabase.persistence.company.CompanyDao;
@@ -8,28 +7,24 @@ import com.excilys.formation.computerdatabase.persistence.computer.ComputerDao;
 
 import java.util.List;
 
-import javax.sql.DataSource;
-
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author GUIDS
  *
  */
 @Service
+@Transactional
 public class CompanyServiceImpl implements CompanyService {
-    
+
     @Autowired
     private CompanyDao companyDao;
     @Autowired
     private ComputerDao computerDao;
 
-    
+
     public  CompanyDao getCompanyDao() {
         return companyDao;
     }
@@ -54,18 +49,9 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public void delete(Constraints constraints) {
-        try (SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-                Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
-            try { 
-                constraints.setIdList(computerDao.listByCompany(constraints, session));
-                computerDao.delete(constraints, session);
-                companyDao.delete(constraints, session);
-            } catch (Exception exception) {
-                transaction.rollback();
-                throw new ConnectionException("Transaction problem when deleting a company",exception);
-            }
-        }
+        constraints.setIdList(computerDao.listByCompany(constraints));
+        computerDao.delete(constraints);
+        companyDao.delete(constraints);
     }
 
     @Override
