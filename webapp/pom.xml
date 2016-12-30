@@ -1,0 +1,50 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<parent>
+		<artifactId>computer-database</artifactId>
+		<groupId>com.excilys.formation.computerdatabase</groupId>
+		<version>${computer-database.version}</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>webapp</artifactId>
+	<version>${computer-database.webapp.version}</version>
+	<packaging>war</packaging>
+	<name>webapp</name>
+	<url>http://maven.apache.org</url>
+
+
+	<dependencies>
+
+		<!-- Service module dependency -->
+		<dependency>
+			<groupId>com.excilys.formation.computerdatabase</groupId>
+			<artifactId>service</artifactId>
+			<version>${computer-database.service.version}</version>
+		</dependency>
+
+		<!-- Binding module dependency -->
+		<dependency>
+			<groupId>com.excilys.formation.computerdatabase</groupId>
+			<artifactId>binding</artifactId>
+			<version>${computer-database.binding.version}</version>
+		</dependency>
+
+		<!-- Jquery validation dependency -->
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>jquery-validation</artifactId>
+			<version>${jquery-validation.version}</version>
+		</dependency>
+
+		<!-- Validation dependencies -->
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>${javaxValidation.version}</version>
+		</dependency>
+
+	</dependencies>
+
+</project>
