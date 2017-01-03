@@ -11,38 +11,10 @@
 	http://www.springframework.org/schema/tx/spring-tx.xsd
 	http://www.springframework.org/schema/aop 
 	http://www.springframework.org/schema/aop/spring-aop.xsd">
-
-	<tx:annotation-driven />
-	<context:property-placeholder location="classpath:hikariConnection.properties" />
-
+		
 	<context:component-scan
-			base-package="com.excilys.formation.computerdatabase.persistence" />
+		base-package="com.excilys.formation.computerdatabase.persistence" />
 	<context:component-scan
-			base-package="com.excilys.formation.computerdatabase.service" />
-
-	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
-		destroy-method="close">
-		<property name="dataSourceClassName" value="${className}" />
-		<property name="dataSourceProperties">
-			<props>
-				<prop key="url">${url}</prop>
-				<prop key="user">${login}</prop>
-				<prop key="password">${password}</prop>
-			</props>
-		</property>
-	</bean>
-
-	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-		<property name="configLocation">
-			<value>classpath:hibernate.cfg.xml</value>
-		</property>
-		<property name="dataSource" ref="dataSource"></property>
-	</bean>
-
-	<bean id="transactionManager"
-		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
+		base-package="com.excilys.formation.computerdatabase.service" />
 
 </beans>

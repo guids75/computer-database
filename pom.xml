@@ -9,13 +9,14 @@
 	<url>http://maven.apache.org</url>
 
 	<properties>
-		<computer-database.version>1.5.2-SNAPSHOT</computer-database.version>
+		<computer-database.version>1.5.3-SNAPSHOT</computer-database.version>
 		<computer-database.core.version>1.0</computer-database.core.version>
 		<computer-database.persistence.version>1.0</computer-database.persistence.version>
 		<computer-database.service.version>1.0</computer-database.service.version>
 		<computer-database.binding.version>1.0</computer-database.binding.version>
 		<computer-database.console.version>1.0</computer-database.console.version>
 		<computer-database.webapp.version>1.0</computer-database.webapp.version>
+		<computer-database.security.version>1.0</computer-database.security.version>
 
 		<mysql.version>5.1.39</mysql.version>
 
@@ -43,12 +44,15 @@
 
 		<cargo.version>1.6.1</cargo.version>
 		<surefire.version>2.17</surefire.version>
-<mavenCheckstyle.version>2.17</mavenCheckstyle.version>
+		<mavenCheckstyle.version>2.17</mavenCheckstyle.version>
 
 		<spring.version>4.3.5.RELEASE</spring.version>
+		<springSecurity.version>4.2.1.RELEASE</springSecurity.version>
 		<javaxValidation.version>1.1.0.Final</javaxValidation.version>
 		<hibernateValidator.version>5.3.4.Final</hibernateValidator.version>
 		<hibernateCore.version>5.2.5.Final</hibernateCore.version>
+
+		<dbcp.version>1.2.2</dbcp.version>
 
 	</properties>
 
@@ -78,6 +82,7 @@
 		</dependency>
 
 		<!-- Spring dependency -->
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-tx</artifactId>
@@ -87,6 +92,42 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aspects</artifactId>
 			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>${dbcp.version}</version>
+		</dependency>
+
+
+		<!-- Spring Security -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${springSecurity.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>${springSecurity.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${springSecurity.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>${springSecurity.version}</version>
 		</dependency>
 
 		<!-- Hibernate dependencies -->
@@ -139,6 +180,18 @@
 
 		<!-- Servlet dependencies -->
 		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>${servlet.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>javax.servlet.jsp-api</artifactId>
+			<version>${jsp.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
 			<groupId>jstl</groupId>
 			<artifactId>jstl</artifactId>
 			<version>${jstl.version}</version>
@@ -180,38 +233,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>${mavenCheckstyle.version}</version>
-                <executions>
-                    <execution>
-                        <id>checkstyle</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                        <configuration>
-                            <failOnViolation>false</failOnViolation>
-                        </configuration>
-                    </execution>
-                </executions>
-			</plugin>
 		</plugins>
 	</build>
-
-	<reporting>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>${mavenCheckstyle.version}</version>
-				<configuration>
-					<configLocation>/config/checkstyle/checkstyle.xml</configLocation>
-					<suppressionsLocation>/config/checkstyle/suppressions.xml</suppressionsLocation>
-				</configuration>
-			</plugin>
-		</plugins>
-	</reporting>
 
 </project>

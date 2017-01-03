@@ -1,5 +1,7 @@
 package com.excilys.formation.computerdatabase.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +15,9 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="company")
-public class Company {
+public class Company implements Serializable {
+
+    private static final long serialVersionUID = -8063420827316284727L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

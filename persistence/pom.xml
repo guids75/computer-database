@@ -9,7 +9,6 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>persistence</artifactId>
-	<groupId>com.excilys.formation.computerdatabase</groupId>
 	<version>${computer-database.persistence.version}</version>
 	<packaging>jar</packaging>
 	<name>persistence</name>
@@ -38,12 +37,18 @@
 			<version>${hikari.version}</version>
 			<scope>compile</scope>
 		</dependency>
-	
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
 
 	</dependencies>
 

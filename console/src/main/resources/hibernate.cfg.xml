@@ -10,6 +10,7 @@
 
 		<mapping class="com.excilys.formation.computerdatabase.model.Computer" />
 		<mapping class="com.excilys.formation.computerdatabase.model.Company" />
+		<mapping class="com.excilys.formation.computerdatabase.model.User" />
 
 	</session-factory>
 </hibernate-configuration>

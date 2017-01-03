@@ -9,7 +9,6 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>binding</artifactId>
-	<groupId>com.excilys.formation.computerdatabase</groupId>
 	<version>${computer-database.binding.version}</version>
 	<packaging>jar</packaging>
 	<name>binding</name>

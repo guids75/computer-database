@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
  *
  */
 @Repository
-@Transactional
 public class CompanyDaoImpl implements CompanyDao {
 
     // requests
@@ -27,7 +26,6 @@ public class CompanyDaoImpl implements CompanyDao {
     private static final String NUMBER_REQUEST = "SELECT COUNT(company.id) AS number FROM Company AS company";
     private static final String COMPANY_REQUEST = "FROM Company as company WHERE company.id=:id";
 
-    @Autowired
     private SessionFactory sessionFactory;
 
 
