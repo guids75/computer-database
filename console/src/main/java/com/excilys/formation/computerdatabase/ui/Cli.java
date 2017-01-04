@@ -23,7 +23,7 @@ public class Cli {
 
     public static void main(String[] args) {
 
-        ApplicationContext appContext = new ClassPathXmlApplicationContext("application-context.xml");
+        ApplicationContext appContext = new ClassPathXmlApplicationContext("application-context-console.xml");
         companyUi = appContext.getBean(CompanyUi.class);
         computerUi = appContext.getBean(ComputerUi.class);
         userUi = appContext.getBean(UserUi.class);

@@ -19,14 +19,27 @@ import java.util.List;
  *
  */
 @Repository
+@Transactional
 public class UserDaoImpl implements UserDao {
 
     // requests
     private static final String DELETE_REQUEST = "DELETE FROM User AS user WHERE user.id";
     private static final String LIST_REQUEST = "SELECT user FROM User AS user";
-    private static final String GET_REQUEST = "SELECT user FROM User AS user WHERE user.name=:name";
+    private static final String GET_REQUEST = "SELECT user FROM User AS user WHERE user.login=:login";
 
+    @Autowired
     private SessionFactory sessionFactory;
+
+    
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
+
+
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
 
     public Session getSession() {
         try {
@@ -47,10 +60,10 @@ public class UserDaoImpl implements UserDao {
         return (Long) session.save(user);
     }
     
-    public User getByName(String name) throws ConnectionException {
+    public User getByName(String login) throws ConnectionException {
         Session session = getSession();
         Query<User> query = session.createQuery(GET_REQUEST, User.class);
-        query.setParameter("name", name);
+        query.setParameter("login", login);
         return query.getSingleResult();
     }
 

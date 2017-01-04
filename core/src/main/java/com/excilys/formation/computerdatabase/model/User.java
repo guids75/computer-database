@@ -115,13 +115,6 @@ public class User implements Serializable {
     public UserRole getUserRole() {
         return userRole;
     }
-
-    /**
-     * @return the current name of the company
-     */
-    public UserRole getUseRole() {
-        return userRole;
-    }
     
     /**
      * @return the current name of the company

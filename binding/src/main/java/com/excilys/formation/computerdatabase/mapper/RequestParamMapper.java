@@ -16,7 +16,7 @@ import com.excilys.formation.computerdatabase.service.computer.ComputerService;
 
 public final class RequestParamMapper {
 
-    private ApplicationContext appContext = new ClassPathXmlApplicationContext("application-context.xml"); 
+    private ApplicationContext appContext = new ClassPathXmlApplicationContext("application-context-binding.xml"); 
     private ComputerService computerService = (ComputerService) appContext.getBean(ComputerService.class);
 
     

@@ -24,6 +24,7 @@ import java.util.List;
  *
  */
 @Repository
+@Transactional
 public class ComputerDaoImpl implements ComputerDao {
 
     // requests
@@ -35,11 +36,19 @@ public class ComputerDaoImpl implements ComputerDao {
     private static final String SEARCH_REQUEST = "SELECT computer FROM Computer AS computer LEFT JOIN computer.company AS company WHERE computer.name LIKE :search OR company.name LIKE :search";
     private static final String LISTBYCOMPANY_REQUEST = "SELECT computer.id FROM Computer AS computer LEFT JOIN computer.company AS company WHERE company.id=:id";
 
+    @Autowired
     private SessionFactory sessionFactory;
 
-    public Session getSession() {
-        System.out.println("here");
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
 
+
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+    
+    public Session getSession() {
         try {
             return sessionFactory.getCurrentSession();
         } catch (Exception exception) {

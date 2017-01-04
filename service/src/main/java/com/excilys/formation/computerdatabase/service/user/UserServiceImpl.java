@@ -1,7 +1,6 @@
 package com.excilys.formation.computerdatabase.service.user;
 
 import com.excilys.formation.computerdatabase.constraints.Constraints;
-import com.excilys.formation.computerdatabase.model.Computer;
 import com.excilys.formation.computerdatabase.model.User;
 import com.excilys.formation.computerdatabase.model.UserRole;
 import com.excilys.formation.computerdatabase.persistence.user.UserDao;
@@ -61,8 +60,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDetails loadUserByUsername(final String username)
             throws UsernameNotFoundException {
-
-        User user = userDao.getByName(username);
+        User user = userDao.getByName(username);        
         List<GrantedAuthority> authorities =
                 buildUserAuthority(user.getUserRole());
         return buildUserForAuthentication(user, authorities);
@@ -78,8 +76,8 @@ public class UserServiceImpl implements UserService {
     }
 
     private List<GrantedAuthority> buildUserAuthority(UserRole userRole) {
-        Set<GrantedAuthority> setAuths = new HashSet<GrantedAuthority>();      
-        setAuths.add(new SimpleGrantedAuthority(userRole.getValue()));
+        Set<GrantedAuthority> setAuths = new HashSet<GrantedAuthority>();
+        setAuths.add(new SimpleGrantedAuthority(userRole.name()));
         List<GrantedAuthority> Result = new ArrayList<GrantedAuthority>(setAuths);
         return Result;
     }
