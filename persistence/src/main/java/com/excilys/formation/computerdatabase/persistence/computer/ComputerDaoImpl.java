@@ -24,7 +24,6 @@ import java.util.List;
  *
  */
 @Repository
-@Transactional
 public class ComputerDaoImpl implements ComputerDao {
 
     // requests
@@ -38,15 +37,6 @@ public class ComputerDaoImpl implements ComputerDao {
 
     @Autowired
     private SessionFactory sessionFactory;
-
-    public SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
-
-
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
     
     public Session getSession() {
         try {

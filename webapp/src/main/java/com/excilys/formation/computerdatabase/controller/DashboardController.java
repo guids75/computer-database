@@ -36,12 +36,16 @@ public class DashboardController {
         this.computerService = computerService;
     }
 
-    @GetMapping("dashboard")
+    @GetMapping("/dashboard")
     protected ModelAndView get(@RequestParam Map<String, String> parameters) throws Exception {
+        System.out.println(1);
         ModelAndView model = new ModelAndView("dashboard");
+        System.out.println(2);
         Locale locale = LocaleContextHolder.getLocale();
         ConstraintsBuilder constraints = RequestParamMapper.convertToConstraints(parameters);
+        System.out.println(3);
         Page pages = new RequestParamMapper().convertToPage(parameters);
+        System.out.println(5);
         if (parameters.get("search") != null) {
             model.addObject("listComputers", ComputerDtoMapper.computerListToComputerDtoList(computerService.search(constraints
                     .limit(pages.getNbElementsByPage()).offset((pages.getActualPage() - 1) * pages.getNbElementsByPage()).build()),locale));
@@ -50,7 +54,9 @@ public class DashboardController {
             model.addObject("listComputers", ComputerDtoMapper.computerListToComputerDtoList(computerService.list(constraints
                     .limit(pages.getNbElementsByPage()).offset((pages.getActualPage() - 1) * pages.getNbElementsByPage()).build()),locale));
         }
+        System.out.println(6);
         model.addObject("pages", pages);
+        System.out.println(4);
         return model;
     }
     

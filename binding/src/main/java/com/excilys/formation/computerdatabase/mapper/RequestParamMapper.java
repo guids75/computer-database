@@ -69,6 +69,7 @@ public final class RequestParamMapper {
     }
 
     public Page convertToPage(Map<String, String> parameters) {
+        System.out.println("problem");
         Page pages = new Page();
         // if there is an actual page, use it, otherwise use the first page
         if (parameters.get("actualPage") != null) {
