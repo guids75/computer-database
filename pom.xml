@@ -1,0 +1,294 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.excilys.formation.computerdatabase</groupId>
+    <artifactId>computer-database</artifactId>
+    <packaging>pom</packaging>
+    <version>${computer-database.version}</version>
+    <name>computer-database</name>
+    <url>http://maven.apache.org</url>
+
+    <properties>
+        <computer-database.version>1.5.4-SNAPSHOT</computer-database.version>
+        <computer-database.core.version>1.0</computer-database.core.version>
+        <computer-database.persistence.version>1.0</computer-database.persistence.version>
+        <computer-database.service.version>1.0</computer-database.service.version>
+        <computer-database.binding.version>1.0</computer-database.binding.version>
+        <computer-database.console.version>1.0</computer-database.console.version>
+        <computer-database.webapp.version>1.0</computer-database.webapp.version>
+        <computer-database.ws.version>1.0</computer-database.ws.version>
+
+        <mysql.version>5.1.39</mysql.version>
+
+        <jquery-validation.version>1.15.1</jquery-validation.version>
+
+        <hikari.version>2.5.1</hikari.version>
+
+        <glassfish.version>3.1-b23</glassfish.version>
+
+        <junit.version>4.12</junit.version>
+        <mockito.version>1.10.19</mockito.version>
+        <selenium.version>3.0.1</selenium.version>
+        <dbunit.version>2.5.3</dbunit.version>
+
+        <slf4j.version>1.7.21</slf4j.version>
+        <logback.version>1.1.7</logback.version>
+
+        <servlet.version>3.1.0</servlet.version>
+        <jsp.version>2.3.1</jsp.version>
+        <jstl.version>1.2</jstl.version>
+
+        <maven-war.version>3.0.0</maven-war.version>
+        <maven-compiler.version>3.1</maven-compiler.version>
+        <java.version>1.8</java.version>
+
+        <cargo.version>1.6.1</cargo.version>
+        <surefire.version>2.17</surefire.version>
+        <mavenCheckstyle.version>2.17</mavenCheckstyle.version>
+
+        <spring.version>4.3.5.RELEASE</spring.version>
+        <springSecurity.version>4.2.1.RELEASE</springSecurity.version>
+        <javaxValidation.version>1.1.0.Final</javaxValidation.version>
+        <hibernateValidator.version>5.3.4.Final</hibernateValidator.version>
+        <hibernateCore.version>5.2.5.Final</hibernateCore.version>
+
+        <dbcp.version>1.2.2</dbcp.version>
+        <jackson.version>2.8.5</jackson.version>
+        <jersey.version>1.8</jersey.version>
+        <jerseyCore.version>2.25</jerseyCore.version>
+
+    </properties>
+
+    <modules>
+        <module>core</module>
+        <module>persistence</module>
+        <module>binding</module>
+        <module>service</module>
+        <module>ws</module>
+        <module>console</module>
+        <module>webapp</module>
+    </modules>
+
+    <dependencies>
+
+        <!-- Jquery validation dependency -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery-validation</artifactId>
+            <version>${jquery-validation.version}</version>
+        </dependency>
+
+        <!-- Transactions dependency -->
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.ejb</artifactId>
+            <version>${glassfish.version}</version>
+        </dependency>
+
+        <!-- Spring dependency -->
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>${dbcp.version}</version>
+        </dependency>
+
+
+        <!-- Spring Security -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${springSecurity.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${springSecurity.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${springSecurity.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-taglibs</artifactId>
+            <version>${springSecurity.version}</version>
+        </dependency>
+
+        <!-- Hibernate dependencies -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hibernateValidator.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernateCore.version}</version>
+        </dependency>
+
+        <!-- Jersey dependencies -->
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>${jerseyCore.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-jaxb</artifactId>
+            <version>${jerseyCore.version}</version>
+        </dependency>
+
+        <!-- Jackson dependencies -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-xml</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-jaxb</artifactId>
+            <version>2.25</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-server</artifactId>
+            <version>1.19.3</version>
+        </dependency>
+
+        <!-- Test dependencies -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.dbunit</groupId>
+            <artifactId>dbunit</artifactId>
+            <version>${dbunit.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.springtestdbunit</groupId>
+            <artifactId>spring-test-dbunit</artifactId>
+            <version>1.2.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Logging dependencies -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+
+        <!-- Servlet dependencies -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>${servlet.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>javax.servlet.jsp-api</artifactId>
+            <version>${jsp.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>${jstl.version}</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>${maven-war.version}</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler.version}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${surefire.version}</version>
+                <configuration>
+                    <!-- Skip the normal tests, we'll run them in the integration-test phase -->
+                    <skip>true</skip>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <skip>false</skip>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

@@ -1,0 +1,44 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<parent>
+		<artifactId>computer-database</artifactId>
+		<groupId>com.excilys.formation.computerdatabase</groupId>
+		<version>${computer-database.version}</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>binding</artifactId>
+	<version>${computer-database.binding.version}</version>
+	<packaging>jar</packaging>
+	<name>binding</name>
+	<url>http://maven.apache.org</url>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>com.excilys.formation.computerdatabase</groupId>
+			<artifactId>persistence</artifactId>
+			<version>${computer-database.persistence.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.excilys.formation.computerdatabase</groupId>
+			<artifactId>service</artifactId>
+			<version>${computer-database.service.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+	</dependencies>
+	<dependency>
+		<groupId>junit</groupId>
+		<artifactId>junit</artifactId>
+		<version>${junit.version}</version>
+		<scope>test</scope>
+	</dependency>
+
+</project>

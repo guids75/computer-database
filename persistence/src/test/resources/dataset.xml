@@ -1,0 +1,13 @@
+<dataset>
+    <company name="Apple Inc"/>
+    <company name="Thinking Machine"/>
+    <company name="RCA"/>
+    <company name="Netronics"/>
+    <company name="Tandy Corporation"/>
+
+    <computer name="MacBook" introduced="null" discontinued="null" company_id="1"/>
+    <computer name="CM-2a" introduced="null" discontinued="null" company_id="2"/>
+    <computer name="CM-200" introduced="null" discontinued="null" company_id="2"/>
+    <computer name="CM-5e" introduced="null" discontinued="null" company_id="2"/>
+    <computer name="CM-5" introduced="1991-01-01" discontinued="null" company_id="2"/>
+</dataset>
