@@ -22,8 +22,6 @@ local.properties
 .recommenders
 
 # Log file
-logFile.*
-myLogFile.log
 
 # Eclipse Core
 .project
@@ -69,25 +67,6 @@ myLogFile.log
 
 ### Intellij ###
 
-# User-specific stuff:
-.idea/workspace.xml
-.idea/tasks.xml
-
-# Sensitive or high-churn files:
-.idea/dataSources/
-.idea/dataSources.ids
-.idea/dataSources.xml
-.idea/dataSources.local.xml
-.idea/sqlDataSources.xml
-.idea/dynamic.xml
-.idea/uiDesigner.xml
-
-# Gradle:
-.idea/gradle.xml
-.idea/libraries
-
-# Mongo Explorer plugin:
-.idea/mongoSettings.xml
 
 ## File-based project format:
 *.iws
