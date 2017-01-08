@@ -3,7 +3,7 @@
 dockers/
 src/main/java/com/excilys/formation/computerdatabase/spring/
 WebContent/
-
+*.iml
 
 
 ### Eclipse ###

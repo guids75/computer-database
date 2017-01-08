@@ -77,7 +77,7 @@ public class DatabaseService {
     }
 
     public List<CompanyDto> listCompanies(Constraints constraints) {
-        WebTarget target = client.target(BASE_URL).path("companies/" + constraints.getPage().getActualPage() + "/" + constraints.getPage().getNbElementsByPage());
+        WebTarget target = clientt.target(BASE_URL).path("companies/" + constraints.getPage().getActualPage() + "/" + constraints.getPage().getNbElementsByPage());
         return target.request(MediaType.APPLICATION_JSON_TYPE).get().readEntity(new GenericType<List<CompanyDto>>(){});
     }
 
